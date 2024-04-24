@@ -10,6 +10,8 @@ namespace Genelib {
         public GenomeType GenomeType { get; protected set; }
         public Genome Genome { get; protected set; }
         protected string[] initializers;
+        protected bool isMale = false;
+        protected AlleleFrequencies defaultFrequencies;
 
         public Reproduce(Entity entity)
           : base(entity)
@@ -21,18 +23,32 @@ namespace Genelib {
                 AssetLocation.Create(attributes["genomeType"].AsString(), entity.Code.Domain)
             );
             initializers = attributes["initializers"].AsArray<string>();
-            entity.World.Logger.Notification("Reproduce initialized"); //TODO: This should happen on patched game domain entities too
+            if (attributes.KeyExists("male")) {
+                isMale = attributes["male"].AsBool();
+            }
+            if (attributes.KeyExists("defaultinitializer")) {
+                defaultFrequencies = GenomeType.Initializer(attributes["default"].AsString()).Frequencies;
+            }
+            else {
+                defaultFrequencies = GenomeType.DefaultFrequencies;
+            }
         }
 
         public override void AfterInitialized(bool onFirstSpawn) {
+            if (entity.World.Side != EnumAppSide.Server) {
+                return;
+            }
+            Random random = entity.World.Rand;
+            bool heterogametic = GenomeType.SexDetermination.Heterogametic(isMale);
             if (onFirstSpawn) {
                 BlockPos blockPos = entity.ServerPos.AsBlockPos;
                 ClimateCondition climate = entity.Api.World.BlockAccessor.GetClimateAt(blockPos);
-                Random random = entity.World.Rand;
-                bool heterogametic = random.Next(2) == 0;
-                AlleleFrequencies frequencies = GenomeType.ChooseInitializer(initializers, climate, blockPos.Y, random);
+                AlleleFrequencies frequencies = GenomeType.ChooseInitializer(initializers, climate, blockPos.Y, random)
+                    ?? defaultFrequencies;
                 Genome = new Genome(frequencies, heterogametic, random);
-                entity.World.Logger.Notification(Genome.ToString());
+            }
+            else if (Genome == null) {
+                Genome = new Genome(defaultFrequencies, heterogametic, random);
             }
         }
 

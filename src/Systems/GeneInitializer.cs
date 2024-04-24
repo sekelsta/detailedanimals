@@ -16,6 +16,16 @@ namespace Genelib {
         private float maxFertility = 1;
         private float maxForestOrShrubs;
 
+        public AlleleFrequencies Frequencies {
+            get {
+                if (frequencies == null) {
+                    frequencies = new AlleleFrequencies(type, attributes);
+                    attributes = null;
+                }
+                return frequencies;
+            }
+        }
+
         public GeneInitializer(GenomeType type, JsonObject attributes) {
             this.type = type;
             this.attributes = attributes;
@@ -61,14 +71,6 @@ namespace Genelib {
                 && minFertility <= climate.Fertility
                 && maxFertility >= climate.Fertility;
 
-        }
-
-        public AlleleFrequencies Frequencies() {
-            if (frequencies == null) {
-                frequencies = new AlleleFrequencies(type, attributes);
-                attributes = null;
-            }
-            return frequencies;
         }
     }
 }

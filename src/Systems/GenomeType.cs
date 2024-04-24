@@ -27,8 +27,20 @@ namespace Genelib {
         private NameMapping xz;
         private NameMapping yw;
         private Dictionary<string, GeneInitializer> initializers = new Dictionary<string, GeneInitializer>();
-        private AlleleFrequencies defaultFrequencies;
 
+        public SexDetermination SexDetermination { get; protected set; } = SexDetermination.XY;
+        private AlleleFrequencies defaultFrequencies;
+        public AlleleFrequencies DefaultFrequencies {
+            get {
+                if (defaultFrequencies == null) {
+                    defaultFrequencies = new AlleleFrequencies(this);
+                }
+                return defaultFrequencies;
+                }
+            private set {
+                defaultFrequencies = value;
+            }
+        }
         public string Name { get; private set; }
         public int AutosomalGeneCount { get => autosomal.geneArray.Length; }
         public int XZGeneCount { get => xz.geneArray.Length; }
@@ -44,6 +56,9 @@ namespace Genelib {
             JsonObject initialization = attributes["initializers"];
             foreach (JProperty jp in ((JObject) initialization.Token).Properties()) {
                 initializers[jp.Name] = new GeneInitializer(this, new JsonObject(jp.Value));
+            }
+            if (attributes.KeyExists("sexdetermination")) {
+                SexDetermination = SexDeterminationExtensions.Parse(attributes["sexdetermination"].AsString());
             }
         }
 
@@ -178,8 +193,8 @@ namespace Genelib {
             throw new ArgumentException("Unrecognized GeneLocation", nameof(location));
         }
 
-        public AlleleFrequencies GetFrequencies(string name) {
-            return initializers[name].Frequencies();
+        public GeneInitializer Initializer(string name) {
+            return initializers[name];
         }
 
         public AlleleFrequencies ChooseInitializer(string[] initializerNames, ClimateCondition climate, int y, Random random) {
@@ -193,12 +208,9 @@ namespace Genelib {
                 }
             }
             if (valid.Count == 0) {
-                if (defaultFrequencies == null) {
-                    defaultFrequencies = new AlleleFrequencies(this);
-                }
-                return defaultFrequencies;
+                return null;
             }
-            return valid[random.Next(valid.Count)].Frequencies();
+            return valid[random.Next(valid.Count)].Frequencies;
         }
     }
 }
