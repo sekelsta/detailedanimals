@@ -1,0 +1,12 @@
+{
+  "type": "code",
+  "modid": "vintage_inheritance",
+  "name": "Vintage Inheritance",
+  "description" : "Adds animal genetics",
+  "authors": ["sekelsta"],
+  "version": "1.0.0",
+  "dependencies": { 
+	"game": "",
+	"survival": "",
+  }
+}

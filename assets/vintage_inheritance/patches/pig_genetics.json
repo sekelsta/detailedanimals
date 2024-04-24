@@ -1,0 +1,16 @@
+[
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "reproduce", genomeType: "vintage_inheritance:pig" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: { code: "reproduce", genomeType: "vintage_inheritance:pig" },
+        side: "server"
+    },
+]
