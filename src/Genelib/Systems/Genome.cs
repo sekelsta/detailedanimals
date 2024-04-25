@@ -1,19 +1,16 @@
 using System;
-
 using Genelib.Extensions;
 
 namespace Genelib {
     public class Genome {
         protected static readonly int NUM_DIVERSITY_GENES = 32;
 
-        protected GenomeType type;
-        protected byte[] autosomal = null;
-        protected byte[] anonymous = null;
-        protected byte[] primary_xz = null;
-        protected byte[] secondary_xz = null;
-        protected byte[] yw = null;
-
-        public bool IsMale { get; protected set; }
+        public GenomeType type  { get; private set; }
+        public byte[] autosomal { get; private set; }
+        public byte[] anonymous { get; private set; }
+        public byte[] primary_xz { get; private set; }
+        public byte[] secondary_xz { get; private set; }
+        public byte[] yw { get; private set; }
 
         public byte Autosomal(int gene, int n) {
             return autosomal[2 * gene + n];
@@ -70,6 +67,27 @@ namespace Genelib {
 
         public bool Heterogametic() {
             return secondary_xz == null;
+        }
+
+        public Genome(GenomeType type, byte[] autosomal, byte[] anonymous, byte[] primary_xz, byte[] secondary_xz, byte[] yw) {
+            this.type = type;
+            this.autosomal = atLeastSize(autosomal, 2 * type.AutosomalGeneCount);
+            this.anonymous = anonymous;
+            this.primary_xz = atLeastSize(primary_xz, type.XZGeneCount);
+            this.secondary_xz = atLeastSize(secondary_xz, type.XZGeneCount);
+            this.yw = atLeastSize(yw, type.YWGeneCount);
+        }
+
+        private byte[] atLeastSize(byte[] given, int size) {
+            if (given != null && given.Length >= size) {
+                return given;
+            }
+            byte[] array = new byte[size];
+            if (given == null) {
+                return array;
+            }
+            Array.Copy(given, array, given.Length);
+            return array;
         }
 
         public Genome(AlleleFrequencies frequencies, bool heterogametic, Random random) {

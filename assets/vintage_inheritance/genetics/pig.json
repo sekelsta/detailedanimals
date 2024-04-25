@@ -1,8 +1,8 @@
 {
     genes: {
         autosomal: [
-            { KIT: ["wildtype", "patches", "belted", "white", "lesswhite", "morewhite", "lethalwhite"] },
-            { extension: ["wildtype", "red", "spotted", "black"] }
+            { extension: ["wildtype", "red", "spotted", "black"] },
+            { KIT: ["wildtype", "patches", "belted", "roan", "lesswhite", "white", "morewhite", "lethalwhite"] },
         ],
     },
     initializers: {

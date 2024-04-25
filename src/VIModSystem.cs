@@ -8,26 +8,14 @@ using Vintagestory.API.Server;
 using Vintagestory.Common;
 using Vintagestory.GameContent;
 
-using Genelib.Extensions;
-
-namespace Genelib
+namespace VintageInheritance
 {
-    public class GeneticsModSystem : ModSystem
+    public class VIModSystem : ModSystem
     {
-        public static AssetCategory genetics = null;
-
-        internal static ICoreAPI API { get; private set; }
-
-        // Called during intial mod loading, called before any mod receives the call to Start()
-        public override void StartPre(ICoreAPI api) {
-            genetics = new AssetCategory(nameof(genetics), true, EnumAppSide.Server);
-        }
-
         // Called on server and client
         public override void Start(ICoreAPI api)
         {
-            API = api;
-            api.RegisterEntityBehaviorClass("reproduce", typeof(Reproduce));
+            api.RegisterEntityBehaviorClass("piggenetics", typeof(PigGeneticsInterpreter));
         }
 
         public override void StartServerSide(ICoreServerAPI api)

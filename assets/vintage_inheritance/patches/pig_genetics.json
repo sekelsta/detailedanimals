@@ -3,14 +3,35 @@
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "reproduce", genomeType: "vintage_inheritance:pig" },
+        value: { code: "reproduce" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/server/behaviors/8",
-        value: { code: "reproduce", genomeType: "vintage_inheritance:pig" },
+        value: { code: "reproduce" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: false },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: true },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig" },
         side: "server"
     },
 ]

@@ -21,7 +21,7 @@ namespace Genelib {
             public Dictionary<string, int>[] alleleMaps;
         }
 
-        private static Dictionary<AssetLocation, GenomeType> loaded = new Dictionary<AssetLocation, GenomeType>();
+        private static volatile Dictionary<AssetLocation, GenomeType> loaded = new Dictionary<AssetLocation, GenomeType>();
 
         private NameMapping autosomal;
         private NameMapping xz;
@@ -53,9 +53,11 @@ namespace Genelib {
             parse(genes, "xz", ref xz);
             parse(genes, "yw", ref yw);
 
-            JsonObject initialization = attributes["initializers"];
-            foreach (JProperty jp in ((JObject) initialization.Token).Properties()) {
-                initializers[jp.Name] = new GeneInitializer(this, new JsonObject(jp.Value));
+            if (attributes.KeyExists("initializers")) {
+                JsonObject initialization = attributes["initializers"];
+                foreach (JProperty jp in ((JObject) initialization.Token).Properties()) {
+                    initializers[jp.Name] = new GeneInitializer(this, new JsonObject(jp.Value));
+                }
             }
             if (attributes.KeyExists("sexdetermination")) {
                 SexDetermination = SexDeterminationExtensions.Parse(attributes["sexdetermination"].AsString());
@@ -85,12 +87,17 @@ namespace Genelib {
             }
         }
 
-        public static GenomeType FromLocation(AssetLocation location) {
-            if (!loaded.ContainsKey(location)) {
-                AssetLocation path = location.CopyWithPathPrefixAndAppendix("genetics/", ".json");
-                loaded[location] = new GenomeType(location.ToString(), JsonObject.FromJson(GeneticsModSystem.API.Assets.Get(path).ToText()));
+        public static GenomeType Load(IAsset asset) {
+            AssetLocation key = asset.Location.CopyWithPathPrefixAndAppendixOnce("genetics/", ".json");
+            if (!loaded.ContainsKey(key)) {
+                loaded[key] = new GenomeType(key.CopyWithPath(key.PathOmittingPrefixAndSuffix("genetics/", ".json")).ToString(), JsonObject.FromJson(asset.ToText()));
             }
-            return loaded[location];
+            return loaded[key];
+        }
+
+        public static GenomeType Get(AssetLocation location) {
+            AssetLocation key = location.CopyWithPathPrefixAndAppendixOnce("genetics/", ".json");
+            return loaded[key];
         }
 
         public int GeneID(string name) {
