@@ -8,19 +8,21 @@ using Vintagestory.API.Server;
 using Vintagestory.Common;
 using Vintagestory.GameContent;
 
+using Genelib;
+
 namespace VintageInheritance
 {
     public class VIModSystem : ModSystem
     {
-        // Called on server and client
         public override void Start(ICoreAPI api)
         {
-            api.RegisterEntityBehaviorClass("piggenetics", typeof(PigGeneticsInterpreter));
+            // Common code goes here
         }
 
         public override void StartServerSide(ICoreServerAPI api)
         {
-            // Server-side code goes here
+            Genetics.RegisterInterpreter("Pig", PigGenetics.Interpret);
+            Genetics.RegisterFinalizer("Pig", PigGenetics.Finalize);
         }
 
         public override void StartClientSide(ICoreClientAPI api)

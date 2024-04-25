@@ -17,21 +17,21 @@
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: false },
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: false, interpreter: "Pig", finalizer: "Pig" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: true },
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: true, interpreter: "Pig", finalizer: "Pig" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "vintage_inheritance:pig" },
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig", interpreter: "Pig", finalizer: "Pig" },
         side: "server"
     },
 ]
