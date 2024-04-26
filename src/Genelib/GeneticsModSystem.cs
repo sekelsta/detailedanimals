@@ -25,14 +25,13 @@ namespace Genelib
         }
 
         // Called on server and client
-        public override void Start(ICoreAPI api)
-        {
-            api.RegisterEntityBehaviorClass("genetics", typeof(Genetics));
-            api.RegisterEntityBehaviorClass("reproduce", typeof(Reproduce));
+        public override void Start(ICoreAPI api) {
+            api.RegisterEntityBehaviorClass(Genetics.Code, typeof(Genetics));
+            api.RegisterEntityBehaviorClass(Reproduce.Code, typeof(Reproduce));
+            api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));
         }
 
-        public override void AssetsLoaded(ICoreAPI api)
-        {
+        public override void AssetsLoaded(ICoreAPI api) {
             List<IAsset> assets = api.Assets.GetManyInCategory(genetics.Code, "");
             foreach (IAsset asset in assets) {
                 try {
@@ -45,13 +44,11 @@ namespace Genelib
             api.Logger.Event(assets.Count + " genome types loaded");
         }
 
-        public override void StartServerSide(ICoreServerAPI api)
-        {
+        public override void StartServerSide(ICoreServerAPI api) {
             ServerAPI = api;
         }
 
-        public override void StartClientSide(ICoreClientAPI api)
-        {
+        public override void StartClientSide(ICoreClientAPI api) {
             ClientAPI = api;
         }
     }

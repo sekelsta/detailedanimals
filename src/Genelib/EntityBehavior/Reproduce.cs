@@ -7,6 +7,8 @@ using Vintagestory.API.MathTools;
 
 namespace Genelib {
     public class Reproduce : EntityBehavior {
+        public const string Code = "reproduce";
+
         public Reproduce(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
@@ -17,6 +19,6 @@ namespace Genelib {
             infotext.AppendLine("EntityBehavior Reproduce");
         }
 
-        public override string PropertyName() => "reproduce";
+        public override string PropertyName() => Code;
     }
 }

@@ -8,6 +8,7 @@ using Vintagestory.API.MathTools;
 
 namespace Genelib {
     public class Genetics : EntityBehavior {
+        public const string Code = "genetics";
         private static Dictionary<string, Action<Genome, Entity>> interpreters = new Dictionary<string, Action<Genome, Entity>>();
         private static Dictionary<string, Action<Genome, AlleleFrequencies, Entity>> finalizers = new Dictionary<string, Action<Genome, AlleleFrequencies, Entity>>();
 
@@ -146,6 +147,6 @@ namespace Genelib {
             }
         }
 
-        public override string PropertyName() => "genetics";
+        public override string PropertyName() => Code;
     }
 }

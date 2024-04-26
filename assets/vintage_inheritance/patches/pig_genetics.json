@@ -53,6 +53,17 @@
         side: "server"
     },
     {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/9",
+        value: { 
+				code: "age",
+                monthsToGrow: 9.0,
+				adultEntityCodes: ["pig-wild-female", "pig-wild-female", "pig-wild-male"],
+			},
+        side: "server"
+    },
+    {
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
         path: "/server/behaviors/-",
