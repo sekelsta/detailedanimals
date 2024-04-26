@@ -14,7 +14,7 @@ namespace Genelib {
         private float maxGeo = 1;
         private float minFertility;
         private float maxFertility = 1;
-        private float maxForestOrShrubs;
+        private float maxForestOrShrubs = 1;
 
         public AlleleFrequencies Frequencies {
             get {
@@ -51,10 +51,17 @@ namespace Genelib {
         }
 
         public bool CanSpawnAt(ClimateCondition climate, int y) {
+            if (climateCondition == null) {
+                return true;
+            }
             bool forestOrShrubs = (climateCondition.MinForestOrShrubs <= climate.ForestDensity 
                     || climateCondition.MinForestOrShrubs <= climate.ShrubDensity)
                 && (maxForestOrShrubs >= climate.ForestDensity 
                     || maxForestOrShrubs >= climate.ShrubDensity);
+            int sealevel = GeneticsModSystem.ServerAPI.World.SeaLevel;
+            int maxheight = GeneticsModSystem.ServerAPI.WorldManager.MapSizeY;
+            float highY = (y + 3f) > sealevel ? (y + 3f - sealevel) / (maxheight - sealevel) : (y + 3f) / sealevel;
+            float lowY = (y - 3f) > sealevel ? (y - 3f - sealevel) / (maxheight - sealevel) : (y - 3f) / sealevel;
             return forestOrShrubs
                 && climateCondition.MinTemp <= climate.WorldGenTemperature
                 && climateCondition.MaxTemp >= climate.WorldGenTemperature
@@ -64,8 +71,8 @@ namespace Genelib {
                 && climateCondition.MaxForest >= climate.ForestDensity
                 && climateCondition.MinShrubs <= climate.ShrubDensity
                 && climateCondition.MaxShrubs >= climate.ShrubDensity
-                && climateCondition.MinY <= y
-                && climateCondition.MaxY >= y
+                && climateCondition.MinY <= highY
+                && climateCondition.MaxY >= lowY
                 && minGeo <= climate.GeologicActivity
                 && maxGeo >= climate.GeologicActivity
                 && minFertility <= climate.Fertility

@@ -2,6 +2,45 @@
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
+        path: "/client/texture",
+        value: { base: "vintage_inheritance:entity/pig/adult-agouti", 
+            alternates: [ { base: "vintage_inheritance:entity/pig/adult-black" }, 
+                { base: "vintage_inheritance:entity/pig/adult-red" }, 
+                { base: "vintage_inheritance:entity/pig/adult-agoutiblack" }, 
+                { base: "vintage_inheritance:entity/pig/adult-redblack" }, 
+                { base: "vintage_inheritance:entity/pig/adult-white" }, 
+                { base: "vintage_inheritance:entity/pig/adult-whiteblack" } ] },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/client/texture",
+        value: { base: "vintage_inheritance:entity/pig/adult-agouti", 
+            alternates: [ { base: "vintage_inheritance:entity/pig/adult-black" }, 
+                { base: "vintage_inheritance:entity/pig/adult-red" }, 
+                { base: "vintage_inheritance:entity/pig/adult-agoutiblack" }, 
+                { base: "vintage_inheritance:entity/pig/adult-redblack" }, 
+                { base: "vintage_inheritance:entity/pig/adult-white" }, 
+                { base: "vintage_inheritance:entity/pig/adult-whiteblack" } ] },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/client/texture",
+        value: { base: "vintage_inheritance:entity/pig/piglet-agouti", alternates: [ 
+                { base: "vintage_inheritance:entity/pig/piglet-black" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-red" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-agoutiblack" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-redblack" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-white" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-whiteblack" } ] },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
         path: "/client/behaviors/4",
         value: { code: "reproduce" },
         side: "server"

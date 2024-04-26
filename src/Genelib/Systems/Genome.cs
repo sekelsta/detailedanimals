@@ -5,7 +5,7 @@ namespace Genelib {
     public class Genome {
         protected static readonly int NUM_DIVERSITY_GENES = 32;
 
-        public GenomeType type  { get; private set; }
+        public GenomeType Type  { get; private set; }
         public byte[] autosomal { get; private set; }
         public byte[] anonymous { get; private set; }
         public byte[] primary_xz { get; private set; }
@@ -53,6 +53,24 @@ namespace Genelib {
             return Autosomal(gene, 0) == v || Autosomal(gene, 1) == v;
         }
 
+        public bool HasAutosomal(int gene, byte v1, byte v2) {
+            byte g1 = Autosomal(gene, 0);
+            byte g2 = Autosomal(gene, 1);
+            return g1 == v1 || g2 == v1 || g1 == v2 || g2 == v2;
+        }
+
+        public bool HasAutosomal(int gene, byte v1, byte v2, byte v3) {
+            byte g1 = Autosomal(gene, 0);
+            byte g2 = Autosomal(gene, 1);
+            return g1 == v1 || g2 == v1 || g1 == v2 || g2 == v2 || g1 == v3 || g2 == v3;
+        }
+
+        public bool HasAutosomal(int gene, byte v1, byte v2, byte v3, byte v4) {
+            byte g1 = Autosomal(gene, 0);
+            byte g2 = Autosomal(gene, 1);
+            return g1 == v1 || g2 == v1 || g1 == v2 || g2 == v2 || g1 == v3 || g2 == v3 || g1 == v4 || g2 == v4;
+        }
+
         public bool Homozygous(int gene, byte v) {
             return Autosomal(gene, 0) == v && Autosomal(gene, 1) == v;
         }
@@ -70,7 +88,7 @@ namespace Genelib {
         }
 
         public Genome(GenomeType type, byte[] autosomal, byte[] anonymous, byte[] primary_xz, byte[] secondary_xz, byte[] yw) {
-            this.type = type;
+            this.Type = type;
             this.autosomal = atLeastSize(autosomal, 2 * type.AutosomalGeneCount);
             this.anonymous = anonymous;
             this.primary_xz = atLeastSize(primary_xz, type.XZGeneCount);
@@ -91,7 +109,7 @@ namespace Genelib {
         }
 
         public Genome(AlleleFrequencies frequencies, bool heterogametic, Random random) {
-            type = frequencies.ForType;
+            Type = frequencies.ForType;
             autosomal = new byte[2 * frequencies.Autosomal.Length];
             for (int gene = 0; gene < frequencies.Autosomal.Length; ++gene) {
                 autosomal[2 * gene] = getRandomAllele(frequencies.Autosomal[gene], random);
@@ -239,8 +257,53 @@ namespace Genelib {
             return this;
         }
 
+        public bool HasAutosomal(string gene, string allele) {
+            int geneID = Type.GeneID(gene);
+            return HasAutosomal(geneID, Type.AlleleID(geneID, allele));
+        }
+
+        public bool HasAutosomal(string gene, string allele1, string allele2) {
+            int geneID = Type.GeneID(gene);
+            return HasAutosomal(geneID, Type.AlleleID(geneID, allele1), Type.AlleleID(geneID, allele2));
+        }
+
+        public bool HasAutosomal(string gene, string allele1, string allele2, string allele3) {
+            int geneID = Type.GeneID(gene);
+            return HasAutosomal(geneID, Type.AlleleID(geneID, allele1), Type.AlleleID(geneID, allele2), Type.AlleleID(geneID, allele3));
+        }
+
+        public bool HasAutosomal(string gene, string allele1, string allele2, string allele3, string allele4) {
+            int geneID = Type.GeneID(gene);
+            return HasAutosomal(geneID, Type.AlleleID(geneID, allele1), Type.AlleleID(geneID, allele2), Type.AlleleID(geneID, allele3), Type.AlleleID(geneID, allele4));
+        }
+
+        public bool Homozygous(string gene, string allele) {
+            int geneID = Type.GeneID(gene);
+            return Homozygous(geneID, Type.AlleleID(geneID, allele));
+        }
+
+        public void SetNotHomozygous(string gene, string avoidAllele, AlleleFrequencies frequencies, string fallbackAllele) {
+            int geneID = Type.GeneID(gene);
+            byte avoidID = Type.AlleleID(geneID, avoidAllele);
+            if (Homozygous(geneID, avoidID)) {
+                float[] f = frequencies.Autosomal[geneID];
+                for (int i = 0; i < f.Length; ++i) {
+                    if (i == avoidID) {
+                        continue;
+                    }
+                    if (f[i] > 0) {
+                        Autosomal(geneID, 0, (byte) i);
+                        break;
+                    }
+                }
+                if (Homozygous(geneID, avoidID)) {
+                    Autosomal(geneID, 0, Type.AlleleID(geneID, fallbackAllele));
+                }
+            }
+        }
+
         public override string ToString() {
-            return "Genome { type:" + type.Name + " }";
+            return "Genome { type:" + Type.Name + " }";
         }
     }
 }

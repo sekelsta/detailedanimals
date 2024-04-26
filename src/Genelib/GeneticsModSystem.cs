@@ -16,11 +16,11 @@ namespace Genelib
     {
         public static AssetCategory genetics = null;
 
-        internal static ICoreAPI API { get; private set; }
+        internal static ICoreServerAPI ServerAPI { get; private set; }
+        internal static ICoreClientAPI ClientAPI { get; private set; }
 
         // Called during intial mod loading, called before any mod receives the call to Start()
         public override void StartPre(ICoreAPI api) {
-            API = api;
             genetics = new AssetCategory(nameof(genetics), true, EnumAppSide.Server);
         }
 
@@ -39,7 +39,7 @@ namespace Genelib
                     GenomeType.Load(asset);
                 }
                 catch (Exception e) {
-                    API.Logger.Error("Error loading genome type " + asset.Location.ToString() + ". " + e.Message + "\n" + e.StackTrace);
+                    api.Logger.Error("Error loading genome type " + asset.Location.ToString() + ". " + e.Message + "\n" + e.StackTrace);
                 }
             }
             api.Logger.Event(assets.Count + " genome types loaded");
@@ -47,12 +47,12 @@ namespace Genelib
 
         public override void StartServerSide(ICoreServerAPI api)
         {
-            // Server-side code goes here
+            ServerAPI = api;
         }
 
         public override void StartClientSide(ICoreClientAPI api)
         {
-            // Client-side code goes here
+            ClientAPI = api;
         }
     }
 }

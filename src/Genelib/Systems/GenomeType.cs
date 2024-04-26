@@ -18,7 +18,7 @@ namespace Genelib {
             public Dictionary<string, int> geneMap;
             public string[] geneArray;
             public string[][] alleleArrays;
-            public Dictionary<string, int>[] alleleMaps;
+            public Dictionary<string, byte>[] alleleMaps;
         }
 
         private static volatile Dictionary<AssetLocation, GenomeType> loaded = new Dictionary<AssetLocation, GenomeType>();
@@ -73,15 +73,15 @@ namespace Genelib {
             mapping.geneMap = new Dictionary<string, int>();
             mapping.geneArray = new string[genes.Length];
             mapping.alleleArrays = new string[genes.Length][];
-            mapping.alleleMaps = new Dictionary<string, int>[genes.Length];
+            mapping.alleleMaps = new Dictionary<string, byte>[genes.Length];
             for (int gene = 0; gene < genes.Length; ++gene) {
                 JProperty jp = ((JObject) genes[gene].Token).Properties().First();
                 string geneName = jp.Name;
                 mapping.geneMap[geneName] = gene;
                 mapping.geneArray[gene] = geneName;
                 mapping.alleleArrays[gene] = new JsonObject(jp.Value).AsArray<string>();
-                mapping.alleleMaps[gene] = new Dictionary<string, int>();
-                for (int allele = 0; allele < mapping.alleleArrays[gene].Length; ++allele) {
+                mapping.alleleMaps[gene] = new Dictionary<string, byte>();
+                for (byte allele = 0; allele < mapping.alleleArrays[gene].Length; ++allele) {
                     mapping.alleleMaps[gene][mapping.alleleArrays[gene][allele]] = allele;
                 }
             }
@@ -112,7 +112,7 @@ namespace Genelib {
             return autosomal.alleleArrays[geneID][alleleID];
         }
 
-        public int AlleleID(int geneID, string alleleName) {
+        public byte AlleleID(int geneID, string alleleName) {
             return autosomal.alleleMaps[geneID][alleleName];
         }
 
@@ -128,7 +128,7 @@ namespace Genelib {
             return xz.alleleArrays[geneID][alleleID];
         }
 
-        public int XZAlleleID(int geneID, string alleleName) {
+        public byte XZAlleleID(int geneID, string alleleName) {
             return xz.alleleMaps[geneID][alleleName];
         }
 
@@ -144,7 +144,7 @@ namespace Genelib {
             return yw.alleleArrays[geneID][alleleID];
         }
 
-        public int YWAlleleID(int geneID, string alleleName) {
+        public byte YWAlleleID(int geneID, string alleleName) {
             return yw.alleleMaps[geneID][alleleName];
         }
 
@@ -206,18 +206,27 @@ namespace Genelib {
 
         public AlleleFrequencies ChooseInitializer(string[] initializerNames, ClimateCondition climate, int y, Random random) {
             List<GeneInitializer> valid = new List<GeneInitializer>();
-            if (initializerNames != null) {
+            // If no list provided, default to all being valid
+            if (initializerNames == null) {
+                foreach (KeyValuePair<string, GeneInitializer> entry in initializers) {
+                    addIfValid(valid, climate, y, entry.Value);
+                }
+            }
+            else {
                 for (int i = 0; i < initializerNames.Length; ++i) {
-                    GeneInitializer ini = initializers[initializerNames[i]];
-                    if (ini.CanSpawnAt(climate, y)) {
-                        valid.Add(ini);
-                    }
+                    addIfValid(valid, climate, y, initializers[initializerNames[i]]);
                 }
             }
             if (valid.Count == 0) {
                 return null;
             }
             return valid[random.Next(valid.Count)].Frequencies;
+        }
+
+        private void addIfValid(List<GeneInitializer> valid, ClimateCondition climate, int y, GeneInitializer ini) {
+            if (ini.CanSpawnAt(climate, y)) {
+                valid.Add(ini);
+            }
         }
     }
 }

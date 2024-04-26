@@ -9,7 +9,7 @@ using Vintagestory.API.MathTools;
 namespace Genelib {
     public class Genetics : EntityBehavior {
         private static Dictionary<string, Action<Genome, Entity>> interpreters = new Dictionary<string, Action<Genome, Entity>>();
-        private static Dictionary<string, Action<Genome, Entity>> finalizers = new Dictionary<string, Action<Genome, Entity>>();
+        private static Dictionary<string, Action<Genome, AlleleFrequencies, Entity>> finalizers = new Dictionary<string, Action<Genome, AlleleFrequencies, Entity>>();
 
         public GenomeType GenomeType { get; protected set; }
         private Genome genome;
@@ -40,7 +40,7 @@ namespace Genelib {
         // Called when a new genome is being created for an entity with no parents.
         // This action is expected to modify the genome in ways not easily handled by gene initializers,
         // such as to ensure lethal genes are not homozygous.
-        public static void RegisterFinalizer(string name, Action<Genome, Entity> finalizer) {
+        public static void RegisterFinalizer(string name, Action<Genome, AlleleFrequencies, Entity> finalizer) {
             finalizers[name] = finalizer;
         }
 
@@ -70,7 +70,6 @@ namespace Genelib {
                 byte[] secondary_xz = (geneticsTree.GetAttribute("secondary_xz") as ByteArrayAttribute)?.value;
                 byte[] yw = (geneticsTree.GetAttribute("yw") as ByteArrayAttribute)?.value;
                 Genome = new Genome(GenomeType, autosomal, anonymous, primary_xz, secondary_xz, yw);
-                GeneticsModSystem.API.Logger.Notification("Loading genome from save");
             }
         }
 
@@ -85,22 +84,23 @@ namespace Genelib {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
-            Random random = entity.World.Rand;
-            bool heterogametic = GenomeType.SexDetermination.Heterogametic(isMale);
             if (onFirstSpawn || Genome == null) {
+                Random random = entity.World.Rand;
+                bool heterogametic = GenomeType.SexDetermination.Heterogametic(isMale);
+                AlleleFrequencies frequencies = null;
                 if (onFirstSpawn) {
                     BlockPos blockPos = entity.ServerPos.AsBlockPos;
                     ClimateCondition climate = entity.Api.World.BlockAccessor.GetClimateAt(blockPos);
-                    AlleleFrequencies frequencies = GenomeType.ChooseInitializer(initializers, climate, blockPos.Y, random)
+                    frequencies = GenomeType.ChooseInitializer(initializers, climate, blockPos.Y, random)
                         ?? defaultFrequencies;
-                    Genome = new Genome(frequencies, heterogametic, random);
                 }
                 else {
-                    Genome = new Genome(defaultFrequencies, heterogametic, random);
+                    frequencies = defaultFrequencies;
                 }
+                Genome = new Genome(frequencies, heterogametic, random);
                 if (finalizerNames != null) {
                     foreach (string name in finalizerNames) {
-                        finalizers[name]?.Invoke(genome, entity);
+                        finalizers[name]?.Invoke(genome, frequencies, entity);
                     }
                 }
             }
