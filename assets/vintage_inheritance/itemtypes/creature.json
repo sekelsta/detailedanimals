@@ -1,0 +1,82 @@
+{
+    code: "game:creature",
+    class: "ItemCreature",
+    maxstacksize: 64,
+    variantgroups: [
+        { code: "type", states: [
+            "sheep-bighorn-male-lamb", "sheep-bighorn-female-lamb", 
+            "chicken-male-chick", "chicken-female-chick", 
+            "pig-wild-male-piglet", "pig-wild-female-piglet", 
+            ] }
+    ],
+    shapeByType: {
+        "*-sheep-bighorn-*-lamb": { base: "game:entity/land/sheep-bighorn-lamb" },
+        "*-chicken-*-chick": { base: "game:entity/land/chicken-baby" },
+        "*-pig-wild-*-piglet": { base: "game:entity/land/pig-wild-piglet" },
+        "*": { base: "game:entity/land/{type}" }
+    },
+    texturesByType: {
+    },
+    creativeinventory: { "general": ["*"], "items": ["*"], "creatures": ["*"] },
+    materialDensity: 600,
+    guiTransformByType: {
+        "creature-chicken-*-chick": {
+            rotate: true,
+            translation: { x: 2, y: 0, z: 0 },
+            rotation: { x: -11, y: -15, z: -171 },
+            origin: { x: 0.5, y: 0.15, z: 0.5 },
+            scale: 4.5
+        },
+        "creature-sheep-bighorn-*-lamb": {
+            rotate: true,
+            translation: { x: 1, y: -1, z: 0 },
+            rotation: { x: -11, y: -52, z: -180 },
+            origin: { x: 0.5, y: 0.4, z: 0.5 },
+            scale: 1.86
+        },
+        "creature-pig-wild-*-piglet": {
+            rotate: true,
+            translation: { x: 2, y: 2, z: 0 },
+            rotation: { x: -5, y: -36, z: -180 },
+            origin: { x: 0.5, y: 0.17, z: 0.5 },
+            scale: 3
+        },
+    },
+    
+    tpHandTransformByType: {
+        "creature-chicken-*-chick": {
+            translation: { x: -0.6, y: -0.1, z: -0.5 },
+            rotation: { x: -156, y: -19, z: -82 },
+            origin: { x: 0.5, y: 0.1, z: 0.5 },
+            scale: 0.9
+        },
+        "creature-sheep-bighorn-*-lamb": {
+            translation: { x: -0.4, y: 0, z: -0.6 },
+            rotation: { x: -160, y: -26, z: -90 },
+            origin: { x: 0.5, y: 0.1, z: 0.5 },
+            scale: 0.73
+        },
+        "creature-pig-wild-*-piglet": {
+            translation: { x: -0.4, y: -0.1, z: -0.4 },
+            rotation: { x: -136, y: -19, z: -135 },
+            origin: { x: 0.5, y: 0.1, z: 0.5 },
+            scale: 0.92
+        },
+    },
+    fpHandTransformByType: {
+        "creature-chicken-*-chick": {
+            translation: { x: 0.5, y: 0.3, z: 0 },
+            rotation: { x: -180, y: -119, z: -180 },
+            scale: 2
+        },
+        "creature-sheep-bighorn-*-lamb": {
+            translation: { x: 0.4, y: 0, z: 0 },
+            rotation: { x: -8, y: -63, z: -7 }
+        },
+        "creature-pig-wild-*-piglet": {
+            translation: { x: 0.5, y: 0.1, z: 0 },
+            rotation: { x: -180, y: -95, z: -180 },
+            scale: 1.36
+        },
+    },
+}

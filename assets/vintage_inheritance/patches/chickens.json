@@ -1,0 +1,113 @@
+[
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "replace",
+        path: "/code",
+        value: "chicken",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/variantgroups",
+        value: [{ code: "gender", states: ["baby", "male-chick", "female-chick"] }],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/spawnconditionsByType/*/worldgen/companions",
+        value: ["chicken-hen", "chicken-hen", "chicken-female-chick", "chicken-male-chick"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/spawnconditionsByType/*/runtime/companions",
+        value: ["chicken-hen", "chicken-hen", "chicken-female-chick", "chicken-male-chick"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/server/behaviors/11/aitasks/4/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/server/behaviors/11/aitasks/5/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/0/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/3/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/0/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/3/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+
+
+
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "replace",
+        path: "/server/behaviors/7",
+        value: { 
+            code: "age",
+            monthsToGrow: 2.1,
+            adultEntityCodesByType: {
+                "*-male-*": ["chicken-roosterpoult"],
+                "*-female-*": ["chicken-henpoult"],
+                "*": ["chicken-henpoult", "chicken-henpoult", "chicken-henpoult", "chicken-roosterpoult"],
+            },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: { 
+            code: "age",
+            enabledByType: { "*-henpoult": true, "*": false },
+            monthsToGrow: 2.6,
+            adultEntityCode: "chicken-hen",
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/behaviors/7",
+        value: { 
+            code: "age",
+            monthsToGrow: 2.6,
+            adultEntityCode: "chicken-rooster",
+        },
+        side: "server"
+    },
+]

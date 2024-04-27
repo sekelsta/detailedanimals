@@ -1,0 +1,234 @@
+[
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/code",
+        value: "pig-wild",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "add",
+        path: "/variantgroups",
+        value: [{ code: "gender", states: ["piglet", "male-piglet", "female-piglet"] }],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/spawnconditions/worldgen/companions",
+        value: ["pig-wild-female", "pig-wild-female", "pig-wild-female-piglet", "pig-wild-male-piglet"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/spawnconditions/runtime/companions",
+        value: ["pig-wild-female", "pig-wild-female", "pig-wild-female-piglet", "pig-wild-male-piglet"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/behaviors/8/states/4/entityCodes",
+        value: ["pig-wild-piglet", "pig-wild-female-piglet", "pig-wild-male-piglet"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/9/states/4/entityCodes",
+        value: ["pig-wild-piglet", "pig-wild-female-piglet", "pig-wild-male-piglet"],
+        side: "server"
+    },
+
+
+
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/9",
+        value: { 
+            code: "age",
+            monthsToGrow: 9.0,
+            adultEntityCodesByType: {
+                "*-male-*": ["pig-wild-male"],
+                "*-female-*": ["pig-wild-female"],
+                "*": ["pig-wild-female", "pig-wild-female", "pig-wild-male"],
+            },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/client/texture",
+        value: { base: "vintage_inheritance:entity/pig/adult-agouti", 
+            alternates: [ { base: "vintage_inheritance:entity/pig/adult-black" }, 
+                { base: "vintage_inheritance:entity/pig/adult-red" }, 
+                { base: "vintage_inheritance:entity/pig/adult-agoutiblack" }, 
+                { base: "vintage_inheritance:entity/pig/adult-redblack" }, 
+                { base: "vintage_inheritance:entity/pig/adult-white" }, 
+                { base: "vintage_inheritance:entity/pig/adult-whiteblack" } ] },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/client/texture",
+        value: { base: "vintage_inheritance:entity/pig/adult-agouti", 
+            alternates: [ { base: "vintage_inheritance:entity/pig/adult-black" }, 
+                { base: "vintage_inheritance:entity/pig/adult-red" }, 
+                { base: "vintage_inheritance:entity/pig/adult-agoutiblack" }, 
+                { base: "vintage_inheritance:entity/pig/adult-redblack" }, 
+                { base: "vintage_inheritance:entity/pig/adult-white" }, 
+                { base: "vintage_inheritance:entity/pig/adult-whiteblack" } ] },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/client/texture",
+        value: { base: "vintage_inheritance:entity/pig/piglet-agouti", alternates: [ 
+                { base: "vintage_inheritance:entity/pig/piglet-black" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-red" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-agoutiblack" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-redblack" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-white" }, 
+                { base: "vintage_inheritance:entity/pig/piglet-whiteblack" } ] },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "reproduce" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: {
+            code: "reproduce",
+            spawnEntityCodes: ["vintage_inheritance:pig-wild-female-piglet", "vintage_inheritance:pig-wild-male-piglet"],
+            growthCapEntityCodes: ["pig-wild-piglet", "pig-wild-female", "pig-wild-male", "vintage_inheritance:pig-wild-female-piglet", "vintage_inheritance:pig-wild-male-piglet"],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "detailedharvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: { 
+            code: "detailedharvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "redmeat-raw", 
+                    quantity: { avg: 1.5, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "hide-raw-small", 
+                    quantity: { avg: 1, var: 0 } 
+                }
+            ]
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/client/behaviors/5",
+        value: { code: "detailedharvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: { 
+            code: "detailedharvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "redmeat-raw", 
+                    quantity: { avg: 9, var: 1.5 } 
+                },
+                {
+                    type: "item", 
+                    code: "hide-raw-medium", 
+                    quantity: { avg: 1.5, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "fat", 
+                    quantity: { avg: 2, var: 0 } 
+                }
+            ],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "detailedharvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: { 
+            code: "detailedharvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "redmeat-raw", 
+                    quantity: { avg: 9, var: 1.5 } 
+                },
+                {
+                    type: "item", 
+                    code: "hide-raw-medium", 
+                    quantity: { avg: 1.5, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "fat", 
+                    quantity: { avg: 2, var: 0 } 
+                }
+            ],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: false, interpreter: "Pig", finalizer: "Pig" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: true, interpreter: "Pig", finalizer: "Pig" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig", interpreter: "Pig", finalizer: "Pig" },
+        side: "server"
+    },
+]

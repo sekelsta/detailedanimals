@@ -1,0 +1,12 @@
+{
+    genes: {
+        autosomal: [
+            { extension: ["duckwing", "birchen", "black", "brown", "buttercup", "wheaten"] },
+            { tyrosinase: ["wildtype", "white"] },
+        ],
+        xz: [
+            { chocolate: ["wildtype", "chocolate"] },
+        ],
+    },
+    sexdetermination: "zw",
+}

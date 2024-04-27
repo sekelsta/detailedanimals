@@ -1,0 +1,48 @@
+[
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/code",
+        value: "sheep-bighorn",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "add",
+        path: "/variantgroups",
+        value: [{ code: "gender", states: ["lamb", "male-lamb", "female-lamb"] }],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/spawnconditions/worldgen/companions",
+        value: ["sheep-bighorn-female", "sheep-bighorn-female", "sheep-bighorn-female-piglet", "sheep-bighorn-male-piglet"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/spawnconditions/runtime/companions",
+        value: ["sheep-bighorn-female", "sheep-bighorn-female", "sheep-bighorn-female-piglet", "sheep-bighorn-male-piglet"],
+        side: "server"
+    },
+
+
+
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: { 
+            code: "age",
+            monthsToGrow: 12.0,
+            adultEntityCodesByType: {
+                "*-male-*": ["sheep-bighorn-male"],
+                "*-female-*": ["sheep-bighorn-female"],
+                "*": ["sheep-bighorn-female", "sheep-bighorn-female", "sheep-bighorn-male"],
+            },
+        },
+        side: "server"
+    },
+]
