@@ -1,9 +1,13 @@
+using Newtonsoft.Json.Linq;
+
 using System;
 using System.Collections.Generic;
 
 ﻿using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
 using Vintagestory.Common;
 using Vintagestory.GameContent;
@@ -14,6 +18,7 @@ namespace Genelib
 {
     public class GeneticsModSystem : ModSystem
     {
+        public static GenelibConfig Config = null;
         public static AssetCategory genetics = null;
 
         internal static ICoreServerAPI ServerAPI { get; private set; }
@@ -29,6 +34,17 @@ namespace Genelib
             api.RegisterEntityBehaviorClass(Genetics.Code, typeof(Genetics));
             api.RegisterEntityBehaviorClass(Reproduce.Code, typeof(Reproduce));
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));
+            api.RegisterEntityBehaviorClass(DetailedHarvestable.Code, typeof(DetailedHarvestable));
+
+            try {
+                Config = api.LoadModConfig<GenelibConfig>("genelib_config.json");
+            }
+            catch (Exception e) {
+                api.Logger.Error("Failed to load config file for Genelib: " + e);
+            }
+            if (Config == null) {
+                Config = new GenelibConfig();
+            }
         }
 
         public override void AssetsLoaded(ICoreAPI api) {
@@ -42,6 +58,24 @@ namespace Genelib
                 }
             }
             api.Logger.Event(assets.Count + " genome types loaded");
+        }
+
+        public override void AssetsFinalize(ICoreAPI api) {
+            if (api.World.Side != EnumAppSide.Server) {
+                return;
+            }
+            // Need to do the same thing as ModSystemSyncHarvestableDropsToClient
+            // so detailedharvestable drops show up in the handbook client-side
+            foreach (EntityProperties entityType in api.World.EntityTypes) {
+                foreach (JsonObject jsonObject in entityType.Server.BehaviorsAsJsonObj) {
+                    if (jsonObject["code"].AsString() == DetailedHarvestable.Code) {
+                        if (entityType.Attributes == null) {
+                            entityType.Attributes = new JsonObject(JToken.Parse("{}"));
+                        }
+                        entityType.Attributes.Token["harvestableDrops"] = jsonObject["drops"].Token;
+                    }
+                }
+            }
         }
 
         public override void StartServerSide(ICoreServerAPI api) {

@@ -60,6 +60,51 @@
         side: "server"
     },
     {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "detailedharvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/client/behaviors/5/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/client/behaviors/4/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+
+
+
+    {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/client/texture",
@@ -113,100 +158,6 @@
             code: "reproduce",
             spawnEntityCodes: ["vintage_inheritance:pig-wild-female-piglet", "vintage_inheritance:pig-wild-male-piglet"],
             growthCapEntityCodes: ["pig-wild-piglet", "pig-wild-female", "pig-wild-male", "vintage_inheritance:pig-wild-female-piglet", "vintage_inheritance:pig-wild-male-piglet"],
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "detailedharvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "replace",
-        path: "/server/behaviors/6",
-        value: { 
-            code: "detailedharvestable",
-            drops: [
-                {
-                    type: "item", 
-                    code: "redmeat-raw", 
-                    quantity: { avg: 1.5, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "hide-raw-small", 
-                    quantity: { avg: 1, var: 0 } 
-                }
-            ]
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
-        path: "/client/behaviors/5",
-        value: { code: "detailedharvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
-        path: "/server/behaviors/6",
-        value: { 
-            code: "detailedharvestable",
-            drops: [
-                {
-                    type: "item", 
-                    code: "redmeat-raw", 
-                    quantity: { avg: 9, var: 1.5 } 
-                },
-                {
-                    type: "item", 
-                    code: "hide-raw-medium", 
-                    quantity: { avg: 1.5, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "fat", 
-                    quantity: { avg: 2, var: 0 } 
-                }
-            ],
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "detailedharvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/server/behaviors/6",
-        value: { 
-            code: "detailedharvestable",
-            drops: [
-                {
-                    type: "item", 
-                    code: "redmeat-raw", 
-                    quantity: { avg: 9, var: 1.5 } 
-                },
-                {
-                    type: "item", 
-                    code: "hide-raw-medium", 
-                    quantity: { avg: 1.5, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "fat", 
-                    quantity: { avg: 2, var: 0 } 
-                }
-            ],
         },
         side: "server"
     },
