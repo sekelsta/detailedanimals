@@ -10,9 +10,11 @@ using Vintagestory.API.MathTools;
 namespace Genelib {
     public class BehaviorAge : EntityBehavior {
         public const string Code = "age";
+        private const double coef = 1;
 
         private long callbackId;
         private ITreeAttribute growTree;
+        private double StartingWeight = 0.00001;
         protected float FinalWeight = 1;
 
         public AssetLocation AdultEntityCode { get; protected set; }
@@ -21,10 +23,6 @@ namespace Genelib {
         internal double TimeSpawned {
             get { return growTree.GetDouble("timeSpawned"); }
             set { growTree.SetDouble("timeSpawned", value); }
-        }
-
-        private float StartingWeight {
-            get => entity.Attributes.GetFloat("weightFraction", 1);
         }
 
         public float GrowthWeightFraction {
@@ -55,25 +53,37 @@ namespace Genelib {
                 string[] locations = typeAttributes["adultEntityCodes"].AsArray<string>(new string[0]);
                 AdultEntityCode = new AssetLocation(locations[entity.EntityId % locations.Length]);
             }
-            else {
+            else if (typeAttributes.KeyExists("adultEntityCode")) {
                 AdultEntityCode = new AssetLocation(typeAttributes["adultEntityCode"].AsString());
             }
-            EntityProperties adultType = entity.World.GetEntityType(AdultEntityCode);
-            if (adultType.Attributes.KeyExists("weightFraction")) {
-                FinalWeight = adultType.Attributes["weightFraction"].AsFloat();
+
+            if (typeAttributes.KeyExists("initialWeight")) {
+                StartingWeight = typeAttributes["initialWeight"].AsFloat();
             }
 
-            if (!entity.WatchedAttributes.HasAttribute("growthWeightFraction")) {
+            if (typeAttributes.KeyExists("finalWeight")) {
+                FinalWeight = typeAttributes["finalWeight"].AsFloat();
+            }
+            else if (AdultEntityCode != null) {
+                EntityProperties adultType = entity.World.GetEntityType(AdultEntityCode);
+                if (adultType.Attributes.KeyExists("initialWeight")) {
+                    FinalWeight = adultType.Attributes["initialWeight"].AsFloat();
+                }
+            }
+
+            if (!entity.WatchedAttributes.HasAttribute("growthWeightFraction")
+                    || Double.IsNaN(entity.WatchedAttributes.GetFloat("growthWeightFraction"))) {
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
             }
 
-            callbackId = entity.World.RegisterCallback(CheckGrowth, 3000);
+            callbackId = entity.World.RegisterCallback(CheckGrowth, 6000);
         }
 
         protected virtual double ExpectedWeight(double ageFraction) {
-            double n = -Math.Log(1 - StartingWeight / FinalWeight);
-            double x = (ageFraction - n) / (1 - n);
-            return FinalWeight * (1 - Math.Exp(-x));
+            double r = 1 - Math.Exp(-1 * coef);
+            double n = -1 / coef * Math.Log(1 - StartingWeight / FinalWeight * r);
+            double x = n + ageFraction * (1 - n);
+            return FinalWeight * (1 - Math.Exp(-x * coef)) / r;
         }
 
         protected virtual void CheckGrowth(float dt) {
@@ -85,7 +95,7 @@ namespace Genelib {
                 AttemptBecomingAdult();
             }
             else {
-                callbackId = entity.World.RegisterCallback(CheckGrowth, 6000);
+                callbackId = entity.World.RegisterCallback(CheckGrowth, 24000);
                 double age = entity.World.Calendar.TotalHours - TimeSpawned;
                 if (age >= 0.1 * HoursToGrow) {
                     // Used for drawing the critter larger over time if SizeGrowthFactor is nonzero

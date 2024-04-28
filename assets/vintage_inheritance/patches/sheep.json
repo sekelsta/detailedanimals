@@ -33,6 +33,48 @@
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "detailedharvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/client/behaviors/5/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/client/behaviors/4/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
         path: "/server/behaviors/8",
         value: { 
             code: "age",
@@ -42,7 +84,53 @@
                 "*-female-*": ["sheep-bighorn-female"],
                 "*": ["sheep-bighorn-female", "sheep-bighorn-female", "sheep-bighorn-male"],
             },
+            initialWeight: 0.1,
         },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { 
+            code: "age",
+            monthsToGrow: 12.0,
+            initialWeight: 0.6,
+            finalWeight: 0.9
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { 
+            code: "age",
+            monthsToGrow: 12.0,
+            initialWeight: 0.7,
+            finalWeight: 1.1
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 98,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 98,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 98,
         side: "server"
     },
 ]

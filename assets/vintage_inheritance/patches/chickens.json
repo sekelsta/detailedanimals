@@ -75,6 +75,48 @@
     {
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
+        path: "/client/behaviors/3",
+        value: { code: "detailedharvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/client/behaviors/5/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/5/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/client/behaviors/4/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "detailedharvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "replace",
         path: "/server/behaviors/7",
         value: { 
             code: "age",
@@ -84,6 +126,7 @@
                 "*-female-*": ["chicken-henpoult"],
                 "*": ["chicken-henpoult", "chicken-henpoult", "chicken-henpoult", "chicken-roosterpoult"],
             },
+            initialWeight: 0.0175,
         },
         side: "server"
     },
@@ -93,9 +136,17 @@
         path: "/server/behaviors/8",
         value: { 
             code: "age",
-            enabledByType: { "*-henpoult": true, "*": false },
             monthsToGrow: 2.6,
-            adultEntityCode: "chicken-hen",
+            adultEntityCodeByType: {
+                "*-henpoult": "chicken-hen",
+            },
+            initialWeightByType: {
+                "*-henpoult": 0.276,
+                "*-hen": 0.644,
+            },
+            finalWeightByType: {
+                "*-hen": 0.92,
+            },
         },
         side: "server"
     },
@@ -106,8 +157,38 @@
         value: { 
             code: "age",
             monthsToGrow: 2.6,
-            adultEntityCode: "chicken-rooster",
+            adultEntityCodeByType: {
+                "*-roosterpoult": "chicken-rooster",
+            },
+            initialWeightByType: {
+                "*-roosterpoult": 0.324,
+                "*-rooster": 0.756,
+            },
+            finalWeightByType: {
+                "*-rooster": 1.08,
+            },
         },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 2,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 2,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 2,
         side: "server"
     },
 ]

@@ -47,21 +47,6 @@
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
-        path: "/server/behaviors/9",
-        value: { 
-            code: "age",
-            monthsToGrow: 9.0,
-            adultEntityCodesByType: {
-                "*-male-*": ["pig-wild-male"],
-                "*-female-*": ["pig-wild-female"],
-                "*": ["pig-wild-female", "pig-wild-female", "pig-wild-male"],
-            },
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "replace",
         path: "/client/behaviors/4",
         value: { code: "detailedharvestable" },
         side: "server"
@@ -101,7 +86,67 @@
         value: "detailedharvestable",
         side: "server"
     },
-
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/9",
+        value: { 
+            code: "age",
+            monthsToGrow: 9.0,
+            adultEntityCodesByType: {
+                "*-male-*": ["pig-wild-male"],
+                "*-female-*": ["pig-wild-female"],
+                "*": ["pig-wild-female", "pig-wild-female", "pig-wild-male"],
+            },
+            initialWeight: 0.004
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { 
+            code: "age",
+            monthsToGrow: 51.0,
+            initialWeight: 0.355,
+            finalWeight: 0.985
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { 
+            code: "age",
+            monthsToGrow: 51.0,
+            initialWeight: 0.365,
+            finalWeight: 1.015
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 112,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 112,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 112,
+        side: "server"
+    },
 
 
     {

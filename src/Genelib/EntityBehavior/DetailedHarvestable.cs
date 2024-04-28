@@ -29,9 +29,9 @@ namespace Genelib {
 
         public override void AfterInitialized(bool onFirstSpawn) {
             if (onFirstSpawn) {
-                AnimalWeight = 0.85f
-                    + 0.1f * (float)entity.World.Rand.NextDouble()
-                    + 0.1f * (float)entity.World.Rand.NextDouble();
+                AnimalWeight = 0.88f
+                    + 0.07f * (float)entity.World.Rand.NextDouble()
+                    + 0.08f * (float)entity.World.Rand.NextDouble();
                 LastWeightUpdateTotalHours = entity.World.Calendar.TotalHours;
             }
         }
@@ -95,21 +95,22 @@ namespace Genelib {
             Debug.Assert(bodyScore >= 1);
             Debug.Assert(bodyScore <= 9);
 
-            float baseWeightKg = entity.Attributes.GetFloat("adultWeightKg", 100);
+            float baseWeightKg = entity.Properties.Attributes["adultWeightKg"].AsFloat();
+            float debugval = baseWeightKg;
             baseWeightKg *= entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
             double weightKilograms = AnimalWeight * baseWeightKg;
             double weightPounds = weightKilograms * 2.20462;
 
             string unitsSuffix = GeneticsModSystem.Config.WeightSuffix();
-            string conditionKey = "genelib:infotext-bodycondition" + bodyScore.ToString() + "-male";//TODO. See entity.Properties.Variant
+            string conditionKey = "genelib:infotext-bodycondition" + bodyScore.ToString() + "-male";//TODO. See entity.Properties.Variant or entity.Code
             string text = Lang.GetUnformatted("genelib:infotext-conditionweight" + unitsSuffix)
                 .Replace("{condition}", Lang.Get(conditionKey))
-                .Replace("{pounds}", roundNicely(weightPounds).ToString())
-                .Replace("{kilograms}", roundNicely(weightKilograms).ToString());
+                .Replace("{pounds}", roundNicely(weightPounds))
+                .Replace("{kilograms}", roundNicely(weightKilograms));
             infotext.AppendLine(text);
         }
 
-        private double roundNicely(double x) {
+        private string roundNicely(double x) {
             double l = Math.Floor(Math.Log10(Math.Abs(x))) - 2;
             double r = Math.Pow(10.0, l);
             if (x / r > 500) {
@@ -118,7 +119,8 @@ namespace Genelib {
             else if (x / r > 200) {
                 r *= 2;
             }
-            return r * Math.Round(x / r);
+            double rounded = r * Math.Round(x / r);
+            return ((float)rounded).ToString();
         }
 
         public override string PropertyName() => Code;

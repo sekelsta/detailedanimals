@@ -74,6 +74,15 @@ namespace Genelib
                         }
                         entityType.Attributes.Token["harvestableDrops"] = jsonObject["drops"].Token;
                     }
+                    // Also pre-process some aging stuff
+                    else if (jsonObject["code"].AsString() == BehaviorAge.Code) {
+                        if (entityType.Attributes == null) {
+                            entityType.Attributes = new JsonObject(JToken.Parse("{}"));
+                        }
+                        if (jsonObject.KeyExists("initialWeight")) {
+                            entityType.Attributes.Token["initialWeight"] = jsonObject["initialWeight"].Token;
+                        }
+                    }
                 }
             }
         }
