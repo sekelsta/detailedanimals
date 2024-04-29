@@ -179,7 +179,7 @@
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
         path: "/client/texture",
-        value: { base: "vintage_inheritance:entity/pig/piglet-agouti", alternates: [ 
+        value: { base: "game:entity/pig/pig-wild-piglet", alternates: [ 
                 { base: "vintage_inheritance:entity/pig/piglet-black" }, 
                 { base: "vintage_inheritance:entity/pig/piglet-red" }, 
                 { base: "vintage_inheritance:entity/pig/piglet-agoutiblack" }, 

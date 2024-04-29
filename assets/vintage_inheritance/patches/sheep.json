@@ -94,9 +94,9 @@
         path: "/server/behaviors/-",
         value: { 
             code: "age",
-            monthsToGrow: 12.0,
+            monthsToGrow: 48.0,
             initialWeight: 0.6,
-            finalWeight: 0.9
+            finalWeight: 0.86
         },
         side: "server"
     },
@@ -106,9 +106,9 @@
         path: "/server/behaviors/-",
         value: { 
             code: "age",
-            monthsToGrow: 12.0,
-            initialWeight: 0.7,
-            finalWeight: 1.1
+            monthsToGrow: 48.0,
+            initialWeight: 0.8,
+            finalWeight: 1.14
         },
         side: "server"
     },
@@ -116,21 +116,21 @@
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "add",
         path: "/attributes/adultWeightKg",
-        value: 98,
+        value: 83,
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "add",
         path: "/attributes/adultWeightKg",
-        value: 98,
+        value: 83,
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-female.json",
         op: "add",
         path: "/attributes/adultWeightKg",
-        value: 98,
+        value: 83,
         side: "server"
     },
 ]
