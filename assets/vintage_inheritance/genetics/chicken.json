@@ -9,4 +9,14 @@
         ],
     },
     sexdetermination: "zw",
+    initializers: {
+        deepforest: {
+            autosomal: {
+                extension: { default: "wildtype", black: 0.1 },
+            },
+            conditions: {
+                minForest: 0.6
+            }
+        },
+    }
 }

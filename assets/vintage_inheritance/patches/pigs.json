@@ -201,8 +201,12 @@
         path: "/server/behaviors/8",
         value: {
             code: "reproduce",
-            spawnEntityCodes: ["vintage_inheritance:pig-wild-female-piglet", "vintage_inheritance:pig-wild-male-piglet"],
-            growthCapEntityCodes: ["pig-wild-piglet", "pig-wild-female", "pig-wild-male", "vintage_inheritance:pig-wild-female-piglet", "vintage_inheritance:pig-wild-male-piglet"],
+            sireCodes: ["pig-wild-male"],
+            spawnEntityCodes: ["pig-wild-female-piglet", "pig-wild-male-piglet"],
+            growthCapEntityCodes: ["pig-wild-piglet", "pig-wild-female", "pig-wild-male", "pig-wild-female-piglet", "pig-wild-male-piglet"],
+            gestationMonths: 3.8,
+            cooldownMonths: 0.8,
+            lactationMonths: 3.6,
         },
         side: "server"
     },

@@ -133,4 +133,28 @@
         value: 83,
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "reproduce" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: {
+            code: "reproduce",
+            sireCodes: ["sheep-bighorn-male"],
+            spawnEntityCodes: ["sheep-bighorn-male-lamb", "sheep-bighorn-female-lamb"],
+            growthCapEntityCodes: ["sheep-bighorn-lamb", "sheep-bighorn-female", "sheep-bighorn-male", "sheep-bighorn-male-lamb", "sheep-bighorn-female-lamb"],
+            gestationMonths: 5.9,
+            cooldownMonths: 4.0,
+            lactationMonths: 6.0,
+        },
+        side: "server"
+    },
 ]
