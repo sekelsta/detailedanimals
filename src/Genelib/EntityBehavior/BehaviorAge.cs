@@ -18,7 +18,7 @@ namespace Genelib {
         protected float FinalWeight = 1;
 
         public AssetLocation AdultEntityCode { get; protected set; }
-        public float HoursToGrow { get; protected set; }
+        public double HoursToGrow { get; protected set; }
 
         internal double TimeSpawned {
             get { return growTree.GetDouble("timeSpawned"); }
@@ -47,6 +47,7 @@ namespace Genelib {
             else {
                 HoursToGrow = typeAttributes["hoursToGrow"].AsFloat(96);
             }
+            HoursToGrow *= GeneticsModSystem.Config.AnimalGrowthTime;
 
             growTree = entity.WatchedAttributes.GetTreeAttribute("grow");
             if (growTree == null) {

@@ -65,12 +65,7 @@ namespace Genelib {
 
             TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetTreeAttribute(PropertyName());
             if (geneticsTree != null) {
-                byte[] autosomal = (geneticsTree.GetAttribute("autosomal") as ByteArrayAttribute)?.value;
-                byte[] anonymous = (geneticsTree.GetAttribute("anonymous") as ByteArrayAttribute)?.value;
-                byte[] primary_xz = (geneticsTree.GetAttribute("primary_xz") as ByteArrayAttribute)?.value;
-                byte[] secondary_xz = (geneticsTree.GetAttribute("secondary_xz") as ByteArrayAttribute)?.value;
-                byte[] yw = (geneticsTree.GetAttribute("yw") as ByteArrayAttribute)?.value;
-                Genome = new Genome(GenomeType, autosomal, anonymous, primary_xz, secondary_xz, yw);
+                Genome = new Genome(GenomeType, geneticsTree);
             }
         }
 
@@ -99,6 +94,7 @@ namespace Genelib {
                     frequencies = defaultFrequencies;
                 }
                 Genome = new Genome(frequencies, heterogametic, random);
+                Genome.Mutate(GeneticsModSystem.MutationRate, random);
                 if (finalizerNames != null) {
                     foreach (string name in finalizerNames) {
                         finalizers[name]?.Invoke(genome, frequencies, entity);
@@ -109,36 +105,7 @@ namespace Genelib {
 
         public void GenomeModified() {
             TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetOrAddTreeAttribute(PropertyName());
-            if (genome.autosomal == null) {
-                geneticsTree.RemoveAttribute("autosomal");
-            }
-            else {
-                geneticsTree.SetAttribute("autosomal", new ByteArrayAttribute(genome.autosomal));
-            }
-            if (genome.anonymous == null) {
-                geneticsTree.RemoveAttribute("anonymous");
-            }
-            else {
-                geneticsTree.SetAttribute("anonymous", new ByteArrayAttribute(genome.anonymous));
-            }
-            if (genome.primary_xz == null) {
-                geneticsTree.RemoveAttribute("primary_xz");
-            }
-            else {
-                geneticsTree.SetAttribute("primary_xz", new ByteArrayAttribute(genome.primary_xz));
-            }
-            if (genome.secondary_xz == null) {
-                geneticsTree.RemoveAttribute("secondary_xz");
-            }
-            else {
-                geneticsTree.SetAttribute("secondary_xz", new ByteArrayAttribute(genome.secondary_xz));
-            }
-            if (genome.yw == null) {
-                geneticsTree.RemoveAttribute("yw");
-            }
-            else {
-                geneticsTree.SetAttribute("yw", new ByteArrayAttribute(genome.yw));
-            }
+            genome.AddToTree(geneticsTree);
             entity.WatchedAttributes.MarkPathDirty(PropertyName());
             if (interpreterNames != null) {
                 foreach (string name in interpreterNames) {

@@ -1,3 +1,4 @@
+using Genelib.Extensions;
 using System;
 using System.Text;
 using Vintagestory.API.Common;
@@ -48,6 +49,7 @@ namespace Genelib {
         public Reproduce(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
+            // TODO: Null safety checks for non-required attributes
             string[] sireCodeStrings = attributes["sireCodes"].AsArray<string>();
             SireCodes = new AssetLocation[sireCodeStrings.Length];
             for (int i = 0; i < sireCodeStrings.Length; ++i) {
@@ -55,11 +57,12 @@ namespace Genelib {
             }
             string[] offspringCodes = attributes["offspringCodes"].AsArray<string>();
             float gestationMonths = attributes["gestationMonths"].AsFloat();
-            cooldownMonths = attributes["breedingCooldownMonths"].AsDouble();
+            CooldownMonths = attributes["breedingCooldownMonths"].AsDouble();
             SireSearchRange = attributes["sireSearchRange"].AsFloat();
 
             multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
             if (IsPregnant && SireGenome == null && entity.HasBehavior<Genetics>()) {
+                Genome ourGenome = entity.GetBehavior<Genetics>().Genome;
                 SireGenome = null;// TODO
             }
             listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000);
@@ -98,16 +101,24 @@ namespace Genelib {
             }
             Genome ourGenome = entity.GetBehavior<Genetics>()?.Genome;
             // TOOD: Pick litter size
-            // TOOD: Create offspring genomes (or this can wait until miscarriage time?)
+            int litterSize = 3;
+            for (int i = 0; i < litterSize; ++i) {
+                bool heterogameic = entity.World.Rand.NextBool(); // TODO
+                Genome child = new Genome(ourGenome, sireGenome, heterogameic, entity.World.Rand);
+                child.Mutate(GeneticsModSystem.MutationRate, entity.World.Rand);
+                // TODO: Save this data
+            }
         }
 
         protected void ProgressPregnancy() {
-            // TODO
+            // TODO: When reaching 1/8 of the way through, miscarry offspring with developmentally lethal genes
+            // TODO: When pregnancy is complete, give birth
         }
 
         protected void GiveBirth() {
             TotalDaysLastBirth = TotalDays;
-            TotalDaysCooldownUntil = TotalDays + CooldownMonths * entity.World.Calendar.DaysPerMonth;
+            TotalDaysCooldownUntil = TotalDays 
+                + CooldownMonths * entity.World.Calendar.DaysPerMonth * GeneticsModSystem.Config.AnimalGrowthTime;
         }
 
         public static bool EntityCanMate(Entity entity) {

@@ -1,5 +1,6 @@
-using System;
 using Genelib.Extensions;
+using System;
+using Vintagestory.API.Datastructures;
 
 namespace Genelib {
     public class Genome {
@@ -85,15 +86,6 @@ namespace Genelib {
 
         public bool Heterogametic() {
             return secondary_xz == null;
-        }
-
-        public Genome(GenomeType type, byte[] autosomal, byte[] anonymous, byte[] primary_xz, byte[] secondary_xz, byte[] yw) {
-            this.Type = type;
-            this.autosomal = atLeastSize(autosomal, 2 * type.AutosomalGeneCount);
-            this.anonymous = anonymous;
-            this.primary_xz = atLeastSize(primary_xz, type.XZGeneCount);
-            this.secondary_xz = atLeastSize(secondary_xz, type.XZGeneCount);
-            this.yw = atLeastSize(yw, type.YWGeneCount);
         }
 
         private byte[] atLeastSize(byte[] given, int size) {
@@ -214,12 +206,20 @@ namespace Genelib {
             return (byte[]) parent_yw.Clone();
         }
 
-        public virtual Genome Mutate(int p, Random random, AlleleSet allowed) {
+        public virtual Genome Mutate(double p, Random random) {
             if (autosomal != null) {
-                for (int gene = 0; gene < allowed.Autosomal.Length; ++gene) {
+                for (int gene = 0; gene < Type.Autosomal.GeneCount; ++gene) {
                     for (int n = 0; n < 2; ++n) {
-                        if (random.NextSingle() < p) {
-                            Autosomal(gene, n, allowed.Autosomal[gene][random.Next(allowed.Autosomal[gene].Length)]);
+                        if (random.NextDouble() < p) {
+                            Autosomal(gene, n, (byte) random.Next(Type.Autosomal.AlleleCount(gene)));
+                        }
+                    }
+                }
+                if (Type.Autosomal.geneMap.ContainsKey("KIT")) {
+                    int gene = Type.Autosomal.GeneID("KIT");
+                    for (int n = 0; n < 2; ++n) {
+                        if (random.NextDouble() < 10 * p) {
+                            Autosomal(gene, n, (byte) random.Next(Type.Autosomal.AlleleCount(gene)));
                         }
                     }
                 }
@@ -227,30 +227,30 @@ namespace Genelib {
             if (anonymous != null) {
                 for (int gene = 0; gene < anonymous.Length; ++gene) {
                     for (int n = 0; n < 2; ++n) {
-                        if (random.NextSingle() < p) {
+                        if (random.NextDouble() < p) {
                             Anonymous(gene, n, (byte)random.Next(256));
                         }
                     }
                 }
             }
             if (primary_xz != null) {
-                for (int gene = 0; gene < allowed.XZ.Length; ++gene) {
-                    if (random.NextSingle() < p) {
-                        XZ(gene, 0, allowed.XZ[gene][random.Next(allowed.XZ[gene].Length)]);
+                for (int gene = 0; gene < Type.XZ.GeneCount; ++gene) {
+                    if (random.NextDouble() < p) {
+                        XZ(gene, 0, (byte) random.Next(Type.XZ.AlleleCount(gene)));
                     }
                 }
             }
             if (secondary_xz != null) {
-                for (int gene = 0; gene < allowed.XZ.Length; ++gene) {
-                    if (random.NextSingle() < p) {
-                        XZ(gene, 1, allowed.XZ[gene][random.Next(allowed.XZ[gene].Length)]);
+                for (int gene = 0; gene < Type.XZ.GeneCount; ++gene) {
+                    if (random.NextDouble() < p) {
+                        XZ(gene, 1, (byte) random.Next(Type.XZ.AlleleCount(gene)));
                     }
                 }
             }
             if (yw != null) {
-                for (int gene = 0; gene < allowed.YW.Length; ++gene) {
-                    if (random.NextSingle() < p) {
-                        YW(gene, allowed.YW[gene][random.Next(allowed.YW[gene].Length)]);
+                for (int gene = 0; gene < Type.YW.GeneCount; ++gene) {
+                    if (random.NextDouble() < p) {
+                        YW(gene, (byte) random.Next(Type.YW.AlleleCount(gene)));
                     }
                 }
             }
@@ -258,33 +258,33 @@ namespace Genelib {
         }
 
         public bool HasAutosomal(string gene, string allele) {
-            int geneID = Type.GeneID(gene);
-            return HasAutosomal(geneID, Type.AlleleID(geneID, allele));
+            int geneID = Type.Autosomal.GeneID(gene);
+            return HasAutosomal(geneID, Type.Autosomal.AlleleID(geneID, allele));
         }
 
         public bool HasAutosomal(string gene, string allele1, string allele2) {
-            int geneID = Type.GeneID(gene);
-            return HasAutosomal(geneID, Type.AlleleID(geneID, allele1), Type.AlleleID(geneID, allele2));
+            int geneID = Type.Autosomal.GeneID(gene);
+            return HasAutosomal(geneID, Type.Autosomal.AlleleID(geneID, allele1), Type.Autosomal.AlleleID(geneID, allele2));
         }
 
         public bool HasAutosomal(string gene, string allele1, string allele2, string allele3) {
-            int geneID = Type.GeneID(gene);
-            return HasAutosomal(geneID, Type.AlleleID(geneID, allele1), Type.AlleleID(geneID, allele2), Type.AlleleID(geneID, allele3));
+            int geneID = Type.Autosomal.GeneID(gene);
+            return HasAutosomal(geneID, Type.Autosomal.AlleleID(geneID, allele1), Type.Autosomal.AlleleID(geneID, allele2), Type.Autosomal.AlleleID(geneID, allele3));
         }
 
         public bool HasAutosomal(string gene, string allele1, string allele2, string allele3, string allele4) {
-            int geneID = Type.GeneID(gene);
-            return HasAutosomal(geneID, Type.AlleleID(geneID, allele1), Type.AlleleID(geneID, allele2), Type.AlleleID(geneID, allele3), Type.AlleleID(geneID, allele4));
+            int geneID = Type.Autosomal.GeneID(gene);
+            return HasAutosomal(geneID, Type.Autosomal.AlleleID(geneID, allele1), Type.Autosomal.AlleleID(geneID, allele2), Type.Autosomal.AlleleID(geneID, allele3), Type.Autosomal.AlleleID(geneID, allele4));
         }
 
         public bool Homozygous(string gene, string allele) {
-            int geneID = Type.GeneID(gene);
-            return Homozygous(geneID, Type.AlleleID(geneID, allele));
+            int geneID = Type.Autosomal.GeneID(gene);
+            return Homozygous(geneID, Type.Autosomal.AlleleID(geneID, allele));
         }
 
         public void SetNotHomozygous(string gene, string avoidAllele, AlleleFrequencies frequencies, string fallbackAllele) {
-            int geneID = Type.GeneID(gene);
-            byte avoidID = Type.AlleleID(geneID, avoidAllele);
+            int geneID = Type.Autosomal.GeneID(gene);
+            byte avoidID = Type.Autosomal.AlleleID(geneID, avoidAllele);
             if (Homozygous(geneID, avoidID)) {
                 float[] f = frequencies.Autosomal[geneID];
                 for (int i = 0; i < f.Length; ++i) {
@@ -297,8 +297,58 @@ namespace Genelib {
                     }
                 }
                 if (Homozygous(geneID, avoidID)) {
-                    Autosomal(geneID, 0, Type.AlleleID(geneID, fallbackAllele));
+                    Autosomal(geneID, 0, Type.Autosomal.AlleleID(geneID, fallbackAllele));
                 }
+            }
+        }
+
+        public Genome(GenomeType type, TreeAttribute geneticsTree) {
+
+            this.Type = type;
+
+            byte[] autosomal = (geneticsTree.GetAttribute("autosomal") as ByteArrayAttribute)?.value;
+            byte[] anonymous = (geneticsTree.GetAttribute("anonymous") as ByteArrayAttribute)?.value;
+            byte[] primary_xz = (geneticsTree.GetAttribute("primary_xz") as ByteArrayAttribute)?.value;
+            byte[] secondary_xz = (geneticsTree.GetAttribute("secondary_xz") as ByteArrayAttribute)?.value;
+            byte[] yw = (geneticsTree.GetAttribute("yw") as ByteArrayAttribute)?.value;
+            this.autosomal = atLeastSize(autosomal, 2 * type.Autosomal.GeneCount);
+            this.anonymous = anonymous;
+            this.primary_xz = atLeastSize(primary_xz, type.XZ.GeneCount);
+            this.secondary_xz = atLeastSize(secondary_xz, type.XZ.GeneCount);
+            this.yw = atLeastSize(yw, type.YW.GeneCount);
+        }
+
+        // Caller is responsible for marking the path as dirty if necessary
+        public void AddToTree(TreeAttribute geneticsTree) {
+            if (autosomal == null) {
+                geneticsTree.RemoveAttribute("autosomal");
+            }
+            else {
+                geneticsTree.SetAttribute("autosomal", new ByteArrayAttribute(autosomal));
+            }
+            if (anonymous == null) {
+                geneticsTree.RemoveAttribute("anonymous");
+            }
+            else {
+                geneticsTree.SetAttribute("anonymous", new ByteArrayAttribute(anonymous));
+            }
+            if (primary_xz == null) {
+                geneticsTree.RemoveAttribute("primary_xz");
+            }
+            else {
+                geneticsTree.SetAttribute("primary_xz", new ByteArrayAttribute(primary_xz));
+            }
+            if (secondary_xz == null) {
+                geneticsTree.RemoveAttribute("secondary_xz");
+            }
+            else {
+                geneticsTree.SetAttribute("secondary_xz", new ByteArrayAttribute(secondary_xz));
+            }
+            if (yw == null) {
+                geneticsTree.RemoveAttribute("yw");
+            }
+            else {
+                geneticsTree.SetAttribute("yw", new ByteArrayAttribute(yw));
             }
         }
 

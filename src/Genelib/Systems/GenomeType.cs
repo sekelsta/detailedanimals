@@ -8,24 +8,39 @@ using Vintagestory.API.Datastructures;
 
 namespace Genelib {
     public class GenomeType {
-        public enum GeneLocation {
-            Autosomal,
-            XZ,
-            YW
-        }
+        public struct NameMapping {
+            internal Dictionary<string, int> geneMap;
+            internal string[] geneArray;
+            internal string[][] alleleArrays;
+            internal Dictionary<string, byte>[] alleleMaps;
 
-        private struct NameMapping {
-            public Dictionary<string, int> geneMap;
-            public string[] geneArray;
-            public string[][] alleleArrays;
-            public Dictionary<string, byte>[] alleleMaps;
+            public int GeneCount { get => geneArray.Length; }
+            public int AlleleCount(int gene) {
+                return alleleArrays[gene].Length;
+            }
+
+            public int GeneID(string name) {
+                return geneMap[name];
+            }
+
+            public string GeneName(int id) {
+                return geneArray[id];
+            }
+
+            public string AlleleName(int geneID, int alleleID) {
+                return alleleArrays[geneID][alleleID];
+            }
+
+            public byte AlleleID(int geneID, string alleleName) {
+                return alleleMaps[geneID][alleleName];
+            }
         }
 
         private static volatile Dictionary<AssetLocation, GenomeType> loaded = new Dictionary<AssetLocation, GenomeType>();
 
-        private NameMapping autosomal;
-        private NameMapping xz;
-        private NameMapping yw;
+        public NameMapping Autosomal { get; protected set; }
+        public NameMapping XZ { get; protected set; }
+        public NameMapping YW { get; protected set; }
         private Dictionary<string, GeneInitializer> initializers = new Dictionary<string, GeneInitializer>();
 
         public SexDetermination SexDetermination { get; protected set; } = SexDetermination.XY;
@@ -42,16 +57,13 @@ namespace Genelib {
             }
         }
         public string Name { get; private set; }
-        public int AutosomalGeneCount { get => autosomal.geneArray.Length; }
-        public int XZGeneCount { get => xz.geneArray.Length; }
-        public int YWGeneCount { get => yw.geneArray.Length; }
 
         private GenomeType(string name, JsonObject attributes) {
             this.Name = name;
             JsonObject genes = attributes["genes"];
-            parse(genes, "autosomal", ref autosomal);
-            parse(genes, "xz", ref xz);
-            parse(genes, "yw", ref yw);
+            Autosomal = parse(genes, "autosomal");
+            XZ = parse(genes, "xz");
+            YW = parse(genes, "yw");
 
             if (attributes.KeyExists("initializers")) {
                 JsonObject initialization = attributes["initializers"];
@@ -64,10 +76,11 @@ namespace Genelib {
             }
         }
 
-        private void parse(JsonObject json, string key, ref NameMapping mapping) {
+        private NameMapping parse(JsonObject json, string key) {
+            NameMapping mapping = new NameMapping();
             if (!json.KeyExists(key)) {
                 mapping.geneArray = new string[0];
-                return;
+                return mapping;
             }
             JsonObject[] genes = json[key].AsArray();
             mapping.geneMap = new Dictionary<string, int>();
@@ -85,6 +98,7 @@ namespace Genelib {
                     mapping.alleleMaps[gene][mapping.alleleArrays[gene][allele]] = allele;
                 }
             }
+            return mapping;
         }
 
         public static GenomeType Load(IAsset asset) {
@@ -98,106 +112,6 @@ namespace Genelib {
         public static GenomeType Get(AssetLocation location) {
             AssetLocation key = location.CopyWithPathPrefixAndAppendixOnce("genetics/", ".json");
             return loaded[key];
-        }
-
-        public int GeneID(string name) {
-            return autosomal.geneMap[name];
-        }
-
-        public string GeneName(int id) {
-            return autosomal.geneArray[id];
-        }
-
-        public string AlleleName(int geneID, int alleleID) {
-            return autosomal.alleleArrays[geneID][alleleID];
-        }
-
-        public byte AlleleID(int geneID, string alleleName) {
-            return autosomal.alleleMaps[geneID][alleleName];
-        }
-
-        public int XZGeneID(string name) {
-            return xz.geneMap[name];
-        }
-
-        public string XZGeneName(int id) {
-            return xz.geneArray[id];
-        }
-
-        public string XZAlleleName(int geneID, int alleleID) {
-            return xz.alleleArrays[geneID][alleleID];
-        }
-
-        public byte XZAlleleID(int geneID, string alleleName) {
-            return xz.alleleMaps[geneID][alleleName];
-        }
-
-        public int YWGeneID(string name) {
-            return yw.geneMap[name];
-        }
-
-        public string YWGeneName(int id) {
-            return yw.geneArray[id];
-        }
-
-        public string YWAlleleName(int geneID, int alleleID) {
-            return yw.alleleArrays[geneID][alleleID];
-        }
-
-        public byte YWAlleleID(int geneID, string alleleName) {
-            return yw.alleleMaps[geneID][alleleName];
-        }
-
-        public int GeneID(string name, GeneLocation location) {
-            if (location == GeneLocation.Autosomal) {
-                return GeneID(name);
-            }
-            if (location == GeneLocation.XZ) {
-                return XZGeneID(name);
-            }
-            if (location == GeneLocation.YW) {
-                return YWGeneID(name);
-            }
-            throw new ArgumentException("Unrecognized GeneLocation", nameof(location));
-        }
-
-        public string GeneName(int id, GeneLocation location) {
-            if (location == GeneLocation.Autosomal) {
-                return GeneName(id);
-            }
-            if (location == GeneLocation.XZ) {
-                return XZGeneName(id);
-            }
-            if (location == GeneLocation.YW) {
-                return YWGeneName(id);
-            }
-            throw new ArgumentException("Unrecognized GeneLocation", nameof(location));
-        }
-
-        public string AlleleName(int geneID, int alleleID, GeneLocation location) {
-            if (location == GeneLocation.Autosomal) {
-                return AlleleName(geneID, alleleID);
-            }
-            if (location == GeneLocation.XZ) {
-                return XZAlleleName(geneID, alleleID);
-            }
-            if (location == GeneLocation.YW) {
-                return YWAlleleName(geneID, alleleID);
-            }
-            throw new ArgumentException("Unrecognized GeneLocation", nameof(location));
-        }
-
-        public int AlleleID(int geneID, string alleleName, GeneLocation location) {
-            if (location == GeneLocation.Autosomal) {
-                return AlleleID(geneID, alleleName);
-            }
-            if (location == GeneLocation.XZ) {
-                return XZAlleleID(geneID, alleleName);
-            }
-            if (location == GeneLocation.YW) {
-                return YWAlleleID(geneID, alleleName);
-            }
-            throw new ArgumentException("Unrecognized GeneLocation", nameof(location));
         }
 
         public GeneInitializer Initializer(string name) {

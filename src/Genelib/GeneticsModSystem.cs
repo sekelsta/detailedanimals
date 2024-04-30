@@ -21,6 +21,8 @@ namespace Genelib
         public static GenelibConfig Config = null;
         public static AssetCategory genetics = null;
 
+        public static double MutationRate = 0.00004; // TODO: Make this configurable, but don't let players raise it past 0.01 or so
+
         internal static ICoreServerAPI ServerAPI { get; private set; }
         internal static ICoreClientAPI ClientAPI { get; private set; }
 

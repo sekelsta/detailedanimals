@@ -15,28 +15,28 @@ namespace Genelib {
 
         public AlleleFrequencies(GenomeType type) {
             ForType = type;
-            Autosomal = new float[type.AutosomalGeneCount][];
-            XZ = new float[type.XZGeneCount][];
-            YW = new float[type.YWGeneCount][];
+            Autosomal = new float[type.Autosomal.GeneCount][];
+            XZ = new float[type.XZ.GeneCount][];
+            YW = new float[type.YW.GeneCount][];
             // Ok to leave array contents null
         }
 
         public AlleleFrequencies(GenomeType type, JsonObject json) : this(type) {
-            parseFrequencies(type, json, "autosomal", Autosomal, GenomeType.GeneLocation.Autosomal);
-            if (!parseFrequencies(type, json, "xz", XZ, GenomeType.GeneLocation.XZ)) {
-                parseFrequencies(type, json, "sexlinked", XZ, GenomeType.GeneLocation.XZ);
+            parseFrequencies(json, "autosomal", Autosomal, type.Autosomal);
+            if (!parseFrequencies(json, "xz", XZ, type.XZ)) {
+                parseFrequencies(json, "sexlinked", XZ, type.XZ);
             }
-            parseFrequencies(type, json, "yw", YW, GenomeType.GeneLocation.YW);
+            parseFrequencies(json, "yw", YW, type.YW);
         }
 
-        private bool parseFrequencies(GenomeType type, JsonObject json, string key, float[][] frequencies, GenomeType.GeneLocation location) {
+        private bool parseFrequencies(JsonObject json, string key, float[][] frequencies, GenomeType.NameMapping mappings) {
             if (!json.KeyExists(key)) {
                 return false;
             }
             JsonObject genesObject = json[key];
             foreach (JProperty jp in ((JObject) genesObject.Token).Properties()) {
                 string geneName = jp.Name;
-                int geneID = type.GeneID(geneName, location);
+                int geneID = mappings.GeneID(geneName);
                 string defaultAlleleName = null;
                 JObject jsonFrequencies = (JObject) jp.Value;
                 List<float> list = new List<float>();
@@ -46,13 +46,13 @@ namespace Genelib {
                         defaultAlleleName = (string) o;
                     }
                 }
-                int defaultAlleleID = defaultAlleleName == null ? 0 : type.AlleleID(geneID, defaultAlleleName, location);
+                int defaultAlleleID = defaultAlleleName == null ? 0 : mappings.AlleleID(geneID, defaultAlleleName);
                 foreach (JProperty jf in jsonFrequencies.Properties()) {
                     string alleleName = jf.Name;
                     if (alleleName == "default" && defaultAlleleName != null) {
                         continue;
                     }
-                    int alleleID = type.AlleleID(geneID, alleleName, location);
+                    int alleleID = mappings.AlleleID(geneID, alleleName);
                     list.EnsureSize(alleleID + 1);
                     list[alleleID] = new JsonObject(jf.Value).AsFloat();
                 }
