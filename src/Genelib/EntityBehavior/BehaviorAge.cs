@@ -12,7 +12,7 @@ namespace Genelib {
         public const string Code = "age";
         private const double coef = 1;
 
-        private long callbackId;
+        private long? callbackID;
         private ITreeAttribute growTree;
         private double StartingWeight = 0.00001;
         protected float FinalWeight = 1;
@@ -23,6 +23,11 @@ namespace Genelib {
         internal double TimeSpawned {
             get { return growTree.GetDouble("timeSpawned"); }
             set { growTree.SetDouble("timeSpawned", value); }
+        }
+
+        internal double GrowthPausedSince {
+            get { return growTree.GetDouble("growthPausedSince", -1); }
+            set { growTree.SetDouble("growthPausedSince", value); }
         }
 
         public float GrowthWeightFraction {
@@ -76,7 +81,9 @@ namespace Genelib {
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
             }
 
-            callbackId = entity.World.RegisterCallback(CheckGrowth, 6000);
+            if (entity.Alive) {
+                callbackID = entity.World.RegisterCallback(CheckGrowth, 6000);
+            }
         }
 
         protected virtual double ExpectedWeight(double ageFraction) {
@@ -84,6 +91,17 @@ namespace Genelib {
             double n = -1 / coef * Math.Log(1 - StartingWeight / FinalWeight * r);
             double x = n + ageFraction * (1 - n);
             return FinalWeight * (1 - Math.Exp(-x * coef)) / r;
+        }
+
+        public override void OnEntityDeath(DamageSource damageSource) {
+            GrowthPausedSince = entity.World.Calendar.TotalHours;
+            UnregisterCallback();
+        }
+
+        public override void OnEntityRevive() {
+            TimeSpawned += entity.World.Calendar.TotalHours - GrowthPausedSince;
+            GrowthPausedSince = -1;
+            callbackID = entity.World.RegisterCallback(CheckGrowth, 24000);
         }
 
         protected virtual void CheckGrowth(float dt) {
@@ -95,7 +113,6 @@ namespace Genelib {
                 AttemptBecomingAdult();
             }
             else {
-                callbackId = entity.World.RegisterCallback(CheckGrowth, 24000);
                 double age = entity.World.Calendar.TotalHours - TimeSpawned;
                 if (age >= 0.1 * HoursToGrow) {
                     // Used for drawing the critter larger over time if SizeGrowthFactor is nonzero
@@ -110,6 +127,7 @@ namespace Genelib {
                 float currentWeight = animalWeight * GrowthWeightFraction;
                 GrowthWeightFraction = (float)expected;
                 entity.WatchedAttributes.SetFloat("animalWeight", currentWeight / (float)expected);
+                callbackID = entity.World.RegisterCallback(CheckGrowth, 24000);
             }
 
             entity.World.FrameProfiler.Mark("entity-checkgrowth");
@@ -132,7 +150,7 @@ namespace Genelib {
 
             // Delay adult spawning if we're colliding
             if (entity.World.CollisionTester.IsColliding(entity.World.BlockAccessor, collisionBox, entity.ServerPos.XYZ, false)) {
-                callbackId = entity.World.RegisterCallback(CheckGrowth, 3000);
+                callbackID = entity.World.RegisterCallback(CheckGrowth, 3000);
                 return;
             }
 
@@ -180,8 +198,15 @@ namespace Genelib {
             }
         }
 
+        protected void UnregisterCallback() {
+            if (callbackID != null) {
+                entity.World.UnregisterCallback((long)callbackID);
+                callbackID = null;
+            }
+        }
+
         public override void OnEntityDespawn(EntityDespawnData despawn) {
-            entity.World.UnregisterCallback(callbackId);
+            UnregisterCallback();
         }
 
 
