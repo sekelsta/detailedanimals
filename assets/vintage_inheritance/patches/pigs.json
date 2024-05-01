@@ -202,11 +202,13 @@
         value: {
             code: "reproduce",
             sireCodes: ["pig-wild-male"],
-            spawnEntityCodes: ["pig-wild-female-piglet", "pig-wild-male-piglet"],
+            offspringCodes: ["pig-wild-female-piglet", "pig-wild-male-piglet"],
             growthCapEntityCodes: ["pig-wild-piglet", "pig-wild-female", "pig-wild-male", "pig-wild-female-piglet", "pig-wild-male-piglet"],
             gestationMonths: 3.8,
             cooldownMonths: 0.8,
             lactationMonths: 3.6,
+            estrousCycleMonths: 0.65,
+            daysInHeat: 2.0,
         },
         side: "server"
     },

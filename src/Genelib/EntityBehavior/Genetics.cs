@@ -12,11 +12,11 @@ namespace Genelib {
         private static Dictionary<string, Action<Genome, Entity>> interpreters = new Dictionary<string, Action<Genome, Entity>>();
         private static Dictionary<string, Action<Genome, AlleleFrequencies, Entity>> finalizers = new Dictionary<string, Action<Genome, AlleleFrequencies, Entity>>();
 
-        public GenomeType GenomeType { get; protected set; }
+        protected GenomeType GenomeType { get; set; }
         private Genome genome;
         public Genome Genome {
             get => genome;
-            protected set {
+            set {
                 genome = value;
                 GenomeModified();
             }

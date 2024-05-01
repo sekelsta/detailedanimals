@@ -21,4 +21,8 @@
     "infotext-conditionweight_kg_lbs": "{condition}. {kilograms} kg ({pounds} lbs)",
     "infotext-conditionweight_lbs": "{condition}. {pounds} lbs",
     "infotext-conditionweight_kg": "{condition}. {kilograms} kg",
+    "infotext-reproduce-earlypregnancy": "Early in pregnancy. May miscarry.",
+    "infotext-reproduce-latepregnancy": "Is very pregnant.",
+    "infotext-reproduce-underweight": "Cannot breed while underweight.",
+    "infotext-reproduce-underweight": "Cannot breed while obese.",
 }

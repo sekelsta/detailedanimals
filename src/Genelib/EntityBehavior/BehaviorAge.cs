@@ -101,7 +101,6 @@ namespace Genelib {
 
         public override void OnEntityRevive() {
             TimeSpawned += entity.World.Calendar.TotalHours - GrowthPausedSince;
-            GrowthPausedSince = -1;
             callbackID = entity.World.RegisterCallback(CheckGrowth, 24000);
         }
 
@@ -182,6 +181,8 @@ namespace Genelib {
             }
 
             CopyAttributeIfPresent(adult, Genetics.Code);
+            CopyAttributeIfPresent(adult, "motherId");
+            CopyAttributeIfPresent(adult, "fatherId");
 
             // PetAI compat
             CopyAttributeIfPresent(adult, "domesticationstatus");
