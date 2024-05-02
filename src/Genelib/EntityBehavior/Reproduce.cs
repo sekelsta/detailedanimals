@@ -7,9 +7,10 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace Genelib {
-    public class Reproduce : EntityBehavior {
+    public class Reproduce : EntityBehaviorMultiply {
         protected enum BreedingSeason {
             Continuous,
             InducedOvulation,
@@ -29,26 +30,6 @@ namespace Genelib {
         protected double DaysInHeat;
         protected BreedingSeason Season = BreedingSeason.Continuous;
 
-        // Data shared with vanilla multiply behavior
-        protected TreeAttribute multiplyTree;
-        public double TotalDaysCooldownUntil {
-            get => multiplyTree.GetDouble("totalDaysCooldownUntil");
-            set => multiplyTree.SetDouble("totalDaysCooldownUntil", value);
-        }
-        public bool IsPregnant {
-            get => multiplyTree.GetBool("isPregnant");
-            set => multiplyTree.SetBool("isPregnant", value);
-        }
-        public double TotalDaysLastBirth {
-            get => multiplyTree.GetDouble("totalDaysLastBirth", -9999);
-            set => multiplyTree.SetDouble("totalDaysLastBirth", value);
-        }
-        public double TotalDaysPregnancyStart {
-            get => multiplyTree.GetDouble("totalDaysPregnancyStart");
-            set => multiplyTree.SetDouble("totalDaysPregnancyStart", value);
-        }
-        // End shared vanilla multiply data
-
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
             set => multiplyTree.SetBool("earlyPregnancy", value);
@@ -65,6 +46,7 @@ namespace Genelib {
         public Reproduce(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
+            // Deliberately skip calling base.Initialize()
             if (entity.World.Side == EnumAppSide.Server) {
                 string[] sireCodeStrings = null;
                 if (attributes.KeyExists("sireCodes")) {
@@ -180,13 +162,15 @@ namespace Genelib {
                 }
             }
 
-            multiplyTree = (TreeAttribute) entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
+            multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
             if (IsPregnant && multiplyTree["litter"] == null) {
                 IsPregnant = false;
                 TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
             }
             listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000);
         }
+
+        public override bool ShouldEat { get => true; }
 
         protected void SlowTick(float dt) {
             if (IsPregnant) {
