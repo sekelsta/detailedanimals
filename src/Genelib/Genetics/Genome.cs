@@ -4,8 +4,6 @@ using Vintagestory.API.Datastructures;
 
 namespace Genelib {
     public class Genome {
-        protected static readonly int NUM_DIVERSITY_GENES = 32;
-
         public GenomeType Type  { get; private set; }
         public byte[] autosomal { get; private set; }
         public byte[] anonymous { get; private set; }
@@ -108,7 +106,7 @@ namespace Genelib {
                 autosomal[2 * gene + 1] = getRandomAllele(frequencies.Autosomal[gene], random);
             }
 
-            anonymous = new byte[2 * NUM_DIVERSITY_GENES];
+            anonymous = new byte[2 * PolygeneInterpreter.NUM_POLYGENES];
             random.NextBytes(anonymous);
 
             primary_xz = new byte[frequencies.XZ.Length];
@@ -255,6 +253,15 @@ namespace Genelib {
                 }
             }
             return this;
+        }
+
+        public bool EmbryonicLethal() {
+            foreach (GeneInterpreter interpreter in Type.Interpreters) {
+                if (interpreter.EmbryonicLethal(this)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool HasAutosomal(string gene, string allele) {

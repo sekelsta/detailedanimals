@@ -21,4 +21,8 @@
     "infotext-conditionweight_kg_lbs": "{condition}. {kilograms} kg ({pounds} lbs)",
     "infotext-conditionweight_lbs": "{condition}. {pounds} lbs",
     "infotext-conditionweight_kg": "{condition}. {kilograms} kg",
+    "infotext-reproduce-earlypregnancy": "Temprano en el embarazo. Puede abortar.",
+    "infotext-reproduce-latepregnancy": "Está muy embarazada.",
+    "infotext-reproduce-underweight": "No puede reproducirse con bajo peso.",
+    "infotext-reproduce-overweight": "No se puede reproducir mientras es obesa.",
 }

@@ -1,6 +1,7 @@
 using Genelib.Extensions;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -43,11 +44,21 @@ namespace Genelib {
             get => entity.World.Calendar.TotalHours / 24.0;
         }
 
+        protected TreeArrayAttribute Litter {
+            get => multiplyTree["litter"] as TreeArrayAttribute;
+            set => multiplyTree["litter"] = value;
+        }
+
         public Reproduce(Entity entity) : base(entity) { }
+
+        public void SetNotPregnant() {
+            IsPregnant = false;
+            multiplyTree.RemoveAttribute("litter");
+        }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             // Deliberately skip calling base.Initialize()
-            if (entity.World.Side == EnumAppSide.Server) {
+            if (entity.World.Side.IsServer()) {
                 string[] sireCodeStrings = null;
                 if (attributes.KeyExists("sireCodes")) {
                     sireCodeStrings = attributes["sireCodes"].AsArray<string>();
@@ -163,7 +174,7 @@ namespace Genelib {
             }
 
             multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
-            if (IsPregnant && multiplyTree["litter"] == null) {
+            if (IsPregnant && Litter == null) {
                 IsPregnant = false;
                 TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
             }
@@ -173,6 +184,9 @@ namespace Genelib {
         public override bool ShouldEat { get => true; }
 
         protected void SlowTick(float dt) {
+            if (!entity.World.Side.IsServer()) {
+                return;
+            }
             if (IsPregnant) {
                 ProgressPregnancy();
             }
@@ -202,8 +216,8 @@ namespace Genelib {
             IsPregnant = true;
             InEarlyPregnancy = true;
             TotalDaysPregnancyStart = TotalDays;
-            Genome sireGenome = sire.GetBehavior<Genetics>()?.Genome;
-            Genome ourGenome = entity.GetBehavior<Genetics>()?.Genome;
+            Genome sireGenome = sire.GetBehavior<EntityBehaviorGenetics>()?.Genome;
+            Genome ourGenome = entity.GetBehavior<EntityBehaviorGenetics>()?.Genome;
             // TOOD: Pick litter size
             int litterSize = 3;
             TreeArrayAttribute litterData = new TreeArrayAttribute();
@@ -214,18 +228,17 @@ namespace Genelib {
                 Genome child = new Genome(ourGenome, sireGenome, heterogameic, entity.World.Rand);
                 child.Mutate(GeneticsModSystem.MutationRate, entity.World.Rand);
                 litterData.value[i] = new TreeAttribute();
-                TreeAttribute childGeneticsTree = (TreeAttribute) litterData.value[i].GetOrAddTreeAttribute(Genetics.Code);
+                TreeAttribute childGeneticsTree = (TreeAttribute) litterData.value[i].GetOrAddTreeAttribute(EntityBehaviorGenetics.Code);
                 child.AddToTree(childGeneticsTree);
                 litterData.value[i].SetString("code", offspringCode.ToString());
                 litterData.value[i].SetLong("sireId", sire.EntityId);
             }
-            multiplyTree["litter"] = litterData;
+            Litter = litterData;
         }
 
         // If the animal dies, you lose the pregnancy even if you later revive it
         public override void OnEntityDeath(DamageSource damageSource) {
-            IsPregnant = false;
-            multiplyTree["litter"] = null;
+            SetNotPregnant();
         }
 
         // And on revival, if not pregnant, you do not progress towards becoming so
@@ -236,15 +249,26 @@ namespace Genelib {
         protected void ProgressPregnancy() {
             if (InEarlyPregnancy) {
                 if (TotalDays > TotalDaysPregnancyStart + GestationDays / 8.0) {
-                    // TODO: Miscarry offspring with developmentally lethal genes
-                    // TODO: If no offspring left, set IsPregnant to false
+                    EntityBehaviorGenetics gb = entity.GetBehavior<EntityBehaviorGenetics>();
+                    List<TreeAttribute> surviving = new List<TreeAttribute>();
+                    foreach (TreeAttribute childTree in Litter.value) {
+                        Genome childGenome = new Genome(gb.Genome.Type, childTree);
+                        if (!childGenome.EmbryonicLethal()) {
+                            surviving.Add(childTree);
+                        }
+                    }
+                    if (surviving.Count == 0) {
+                        SetNotPregnant();
+                    }
+                    else {
+                        Litter.value = surviving.ToArray();
+                    }
                     InEarlyPregnancy = false;
                 }
                 return;
             }
             if (TotalDays > TotalDaysPregnancyStart + GestationDays) {
                 GiveBirth();
-                IsPregnant = false;
             }
         }
 
@@ -253,7 +277,7 @@ namespace Genelib {
             TotalDaysLastBirth = TotalDays;
             TotalDaysCooldownUntil = TotalDays + CooldownDays;
             Random random = entity.World.Rand;
-            TreeAttribute[] litterData = (multiplyTree["litter"] as TreeArrayAttribute)?.value;
+            TreeAttribute[] litterData = Litter?.value;
             foreach (TreeAttribute childData in litterData) {
                 AssetLocation spawnCode = new AssetLocation(childData.GetString("code"));
                 EntityProperties spawnType = entity.World.GetEntityType(spawnCode);
@@ -272,14 +296,13 @@ namespace Genelib {
                 spawn.WatchedAttributes.SetInt("generation", nextGeneration);
                 spawn.WatchedAttributes.SetLong("motherId", entity.EntityId);
                 spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("sireId"));
-                if (childData.HasAttribute(Genetics.Code)) {
-                    spawn.WatchedAttributes.SetAttribute(Genetics.Code, childData.GetTreeAttribute(Genetics.Code));
+                if (childData.HasAttribute(EntityBehaviorGenetics.Code)) {
+                    spawn.WatchedAttributes.SetAttribute(EntityBehaviorGenetics.Code, childData.GetTreeAttribute(EntityBehaviorGenetics.Code));
                 }
 
                 entity.World.SpawnEntity(spawn);
             }
-            IsPregnant = false;
-            multiplyTree.RemoveAttribute("litter");
+            SetNotPregnant();
         }
 
         public static bool EntityCanMate(Entity entity) {

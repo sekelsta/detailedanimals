@@ -29,7 +29,7 @@ namespace Genelib {
             parseFrequencies(json, "yw", YW, type.YW);
         }
 
-        private bool parseFrequencies(JsonObject json, string key, float[][] frequencies, GenomeType.NameMapping mappings) {
+        private bool parseFrequencies(JsonObject json, string key, float[][] frequencies, NameMapping mappings) {
             if (!json.KeyExists(key)) {
                 return false;
             }

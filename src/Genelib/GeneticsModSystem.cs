@@ -33,10 +33,12 @@ namespace Genelib
 
         // Called on server and client
         public override void Start(ICoreAPI api) {
-            api.RegisterEntityBehaviorClass(Genetics.Code, typeof(Genetics));
+            api.RegisterEntityBehaviorClass(EntityBehaviorGenetics.Code, typeof(EntityBehaviorGenetics));
             api.RegisterEntityBehaviorClass(Reproduce.Code, typeof(Reproduce));
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));
             api.RegisterEntityBehaviorClass(DetailedHarvestable.Code, typeof(DetailedHarvestable));
+
+            GenomeType.RegisterInterpreter("Polygenes", new PolygeneInterpreter());
 
             try {
                 Config = api.LoadModConfig<GenelibConfig>("genelib_config.json");

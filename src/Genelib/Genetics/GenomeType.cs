@@ -8,40 +8,18 @@ using Vintagestory.API.Datastructures;
 
 namespace Genelib {
     public class GenomeType {
-        public struct NameMapping {
-            internal Dictionary<string, int> geneMap;
-            internal string[] geneArray;
-            internal string[][] alleleArrays;
-            internal Dictionary<string, byte>[] alleleMaps;
-
-            public int GeneCount { get => geneArray.Length; }
-            public int AlleleCount(int gene) {
-                return alleleArrays[gene].Length;
-            }
-
-            public int GeneID(string name) {
-                return geneMap[name];
-            }
-
-            public string GeneName(int id) {
-                return geneArray[id];
-            }
-
-            public string AlleleName(int geneID, int alleleID) {
-                return alleleArrays[geneID][alleleID];
-            }
-
-            public byte AlleleID(int geneID, string alleleName) {
-                return alleleMaps[geneID][alleleName];
-            }
-        }
-
         private static volatile Dictionary<AssetLocation, GenomeType> loaded = new Dictionary<AssetLocation, GenomeType>();
+        private static Dictionary<string, GeneInterpreter> interpreterMap = new Dictionary<string, GeneInterpreter>();
+
+        public static void RegisterInterpreter(string name, GeneInterpreter interpreter) {
+            interpreterMap[name] = interpreter;
+        }
 
         public NameMapping Autosomal { get; protected set; }
         public NameMapping XZ { get; protected set; }
         public NameMapping YW { get; protected set; }
         private Dictionary<string, GeneInitializer> initializers = new Dictionary<string, GeneInitializer>();
+        public GeneInterpreter[] Interpreters { get; protected set; }
 
         public SexDetermination SexDetermination { get; protected set; } = SexDetermination.XY;
         private AlleleFrequencies defaultFrequencies;
@@ -73,6 +51,11 @@ namespace Genelib {
             }
             if (attributes.KeyExists("sexdetermination")) {
                 SexDetermination = SexDeterminationExtensions.Parse(attributes["sexdetermination"].AsString());
+            }
+            string[] interpreterNames = attributes["interpreters"].AsArray<string>();
+            Interpreters = new GeneInterpreter[interpreterNames.Length];
+            for (int i = 0; i < interpreterNames.Length; ++i) {
+                Interpreters[i] = interpreterMap[interpreterNames[i]];
             }
         }
 

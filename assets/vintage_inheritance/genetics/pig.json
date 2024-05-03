@@ -5,6 +5,7 @@
             { KIT: ["wildtype", "patch", "lesswhite", "white", "morewhite", "lethalwhite", "belt", "morebelt", "roan"] },
         ],
     },
+    interpreters: [ "Polygenes", "Pig", ],
     initializers: {
         deepforest: {
             autosomal: {

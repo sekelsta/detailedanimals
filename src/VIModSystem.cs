@@ -16,13 +16,13 @@ namespace VintageInheritance
     {
         public override void Start(ICoreAPI api)
         {
-            // Common code goes here
+            GenomeType.RegisterInterpreter("Pig", new PigGenetics());
+            GenomeType.RegisterInterpreter("Junglefowl", new JunglefowlGenetics());
         }
 
         public override void StartServerSide(ICoreServerAPI api)
         {
-            Genetics.RegisterInterpreter("Pig", PigGenetics.Interpret);
-            Genetics.RegisterFinalizer("Pig", PigGenetics.Finalize);
+            // Server-side code goes here
         }
 
         public override void StartClientSide(ICoreClientAPI api)

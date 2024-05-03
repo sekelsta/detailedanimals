@@ -180,7 +180,7 @@ namespace Genelib {
                 adult.WatchedAttributes.SetInt("textureIndex", entity.WatchedAttributes.GetInt("textureIndex", 0));
             }
 
-            CopyAttributeIfPresent(adult, Genetics.Code);
+            CopyAttributeIfPresent(adult, EntityBehaviorGenetics.Code);
             CopyAttributeIfPresent(adult, "motherId");
             CopyAttributeIfPresent(adult, "fatherId");
 

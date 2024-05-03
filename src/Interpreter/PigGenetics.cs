@@ -1,14 +1,18 @@
-
-using Vintagestory.API.Common.Entities;
 using Genelib;
+using System;
+using Vintagestory.API.Common.Entities;
 
 namespace VintageInheritance {
-    static class PigGenetics {
-        public static void Finalize(Genome genome, AlleleFrequencies frequencies, Entity entity) {
+    public class PigGenetics : GeneInterpreter {
+        void GeneInterpreter.Finalize(Genome genome, AlleleFrequencies frequencies, Random random) {
             genome.SetNotHomozygous("KIT", "lethalwhite", frequencies, "wildtype");
         }
 
-        public static void Interpret(Genome genome, Entity entity) {
+        bool GeneInterpreter.EmbryonicLethal(Genome genome) {
+            return genome.Homozygous("KIT", "lethalwhite");
+        }
+
+        void GeneInterpreter.Interpret(Genome genome, Entity entity) {
             entity.WatchedAttributes.SetInt("textureIndex", getTextureIndex(genome));
         }
 

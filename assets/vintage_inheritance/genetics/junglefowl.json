@@ -8,6 +8,7 @@
             { chocolate: ["wildtype", "chocolate"] },
         ],
     },
+    interpreters: [ "Polygenes", "Junglefowl", ],
     sexdetermination: "zw",
     initializers: {
         deepforest: {

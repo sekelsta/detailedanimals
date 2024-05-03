@@ -7,10 +7,8 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 namespace Genelib {
-    public class Genetics : EntityBehavior {
+    public class EntityBehaviorGenetics : EntityBehavior {
         public const string Code = "genetics";
-        private static Dictionary<string, Action<Genome, Entity>> interpreters = new Dictionary<string, Action<Genome, Entity>>();
-        private static Dictionary<string, Action<Genome, AlleleFrequencies, Entity>> finalizers = new Dictionary<string, Action<Genome, AlleleFrequencies, Entity>>();
 
         protected GenomeType GenomeType { get; set; }
         private Genome genome;
@@ -22,27 +20,12 @@ namespace Genelib {
             }
         }
         protected string[] initializers;
-        protected string[] interpreterNames;
-        protected string[] finalizerNames;
         protected bool isMale = false;
         protected AlleleFrequencies defaultFrequencies;
 
-        public Genetics(Entity entity)
+        public EntityBehaviorGenetics(Entity entity)
           : base(entity)
         {
-        }
-
-        // Called when a genome has just been set. Expected to set entity attributes based on genome contents.
-        // The action passed in here should never modify the genome.
-        public static void RegisterInterpreter(string name, Action<Genome, Entity> interpreter) {
-            interpreters[name] = interpreter;
-        }
-
-        // Called when a new genome is being created for an entity with no parents.
-        // This action is expected to modify the genome in ways not easily handled by gene initializers,
-        // such as to ensure lethal genes are not homozygous.
-        public static void RegisterFinalizer(string name, Action<Genome, AlleleFrequencies, Entity> finalizer) {
-            finalizers[name] = finalizer;
         }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
@@ -56,12 +39,9 @@ namespace Genelib {
                 defaultFrequencies = GenomeType.DefaultFrequencies;
             }
             initializers = attributes["initializers"].AsArray<string>() ?? arrayOrNull(attributes["initializer"].AsString());
-            interpreterNames = attributes["interpreters"].AsArray<string>() ?? arrayOrNull(attributes["interpreter"].AsString());
-            finalizerNames = attributes["finalizers"].AsArray<string>() ?? arrayOrNull(attributes["finalizer"].AsString());
             if (attributes.KeyExists("male")) {
                 isMale = attributes["male"].AsBool();
             }
-
 
             TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetTreeAttribute(PropertyName());
             if (geneticsTree != null) {
@@ -95,10 +75,8 @@ namespace Genelib {
                 }
                 Genome = new Genome(frequencies, heterogametic, random);
                 Genome.Mutate(GeneticsModSystem.MutationRate, random);
-                if (finalizerNames != null) {
-                    foreach (string name in finalizerNames) {
-                        finalizers[name]?.Invoke(genome, frequencies, entity);
-                    }
+                foreach (GeneInterpreter interpreter in Genome.Type.Interpreters) {
+                    interpreter.Finalize(Genome, frequencies, random);
                 }
             }
         }
@@ -107,10 +85,8 @@ namespace Genelib {
             TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetOrAddTreeAttribute(PropertyName());
             genome.AddToTree(geneticsTree);
             entity.WatchedAttributes.MarkPathDirty(PropertyName());
-            if (interpreterNames != null) {
-                foreach (string name in interpreterNames) {
-                    interpreters[name]?.Invoke(genome, entity);
-                }
+            foreach (GeneInterpreter interpreter in Genome.Type.Interpreters) {
+                interpreter.Interpret(Genome, entity);
             }
         }
 
