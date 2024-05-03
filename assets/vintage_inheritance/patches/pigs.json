@@ -96,7 +96,7 @@
             adultEntityCodesByType: {
                 "*-male-*": ["pig-wild-male"],
                 "*-female-*": ["pig-wild-female"],
-                "*": ["pig-wild-female", "pig-wild-female", "pig-wild-male"],
+                "*": ["pig-wild-female"],
             },
             initialWeight: 0.004
         },
@@ -216,21 +216,21 @@
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: false },
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "vintage_inheritance:pig", male: true },
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "vintage_inheritance:pig", maleByType: { "*-male-*": true, "*-female-*": false } },
+        value: { code: "genetics", genomeType: "vintage_inheritance:pig" },
         side: "server"
     },
 ]

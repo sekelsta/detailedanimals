@@ -224,8 +224,8 @@ namespace Genelib {
             litterData.value = new TreeAttribute[litterSize];
             for (int i = 0; i < litterSize; ++i) {
                 AssetLocation offspringCode = OffspringCodes[entity.World.Rand.Next(OffspringCodes.Length)];
-                bool heterogameic = entity.World.Rand.NextBool(); // TODO: Pick heterogameic based on spawn code
-                Genome child = new Genome(ourGenome, sireGenome, heterogameic, entity.World.Rand);
+                bool heterogametic = ourGenome.Type.SexDetermination.Heterogametic(entity.IsMale());
+                Genome child = new Genome(ourGenome, sireGenome, heterogametic, entity.World.Rand);
                 child.Mutate(GeneticsModSystem.MutationRate, entity.World.Rand);
                 litterData.value[i] = new TreeAttribute();
                 TreeAttribute childGeneticsTree = (TreeAttribute) litterData.value[i].GetOrAddTreeAttribute(EntityBehaviorGenetics.Code);

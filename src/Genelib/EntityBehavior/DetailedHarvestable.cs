@@ -104,7 +104,7 @@ namespace Genelib {
             double weightPounds = weightKilograms * 2.20462;
 
             string unitsSuffix = GeneticsModSystem.Config.WeightSuffix();
-            string conditionKey = "genelib:infotext-bodycondition" + bodyScore.ToString() + "-male";//TODO. See entity.Properties.Variant or entity.Code
+            string conditionKey = "genelib:infotext-bodycondition" + bodyScore.ToString() + (entity.IsMale() ? "-male" : "-female");
             string text = Lang.GetUnformatted("genelib:infotext-conditionweight" + unitsSuffix)
                 .Replace("{condition}", Lang.Get(conditionKey))
                 .Replace("{pounds}", roundNicely(weightPounds))

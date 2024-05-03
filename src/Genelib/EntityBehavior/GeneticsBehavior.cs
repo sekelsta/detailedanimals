@@ -20,7 +20,6 @@ namespace Genelib {
             }
         }
         protected string[] initializers;
-        protected bool isMale = false;
         protected AlleleFrequencies defaultFrequencies;
 
         public EntityBehaviorGenetics(Entity entity)
@@ -39,9 +38,6 @@ namespace Genelib {
                 defaultFrequencies = GenomeType.DefaultFrequencies;
             }
             initializers = attributes["initializers"].AsArray<string>() ?? arrayOrNull(attributes["initializer"].AsString());
-            if (attributes.KeyExists("male")) {
-                isMale = attributes["male"].AsBool();
-            }
 
             TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetTreeAttribute(PropertyName());
             if (geneticsTree != null) {
@@ -62,7 +58,7 @@ namespace Genelib {
             }
             if (onFirstSpawn || Genome == null) {
                 Random random = entity.World.Rand;
-                bool heterogametic = GenomeType.SexDetermination.Heterogametic(isMale);
+                bool heterogametic = GenomeType.SexDetermination.Heterogametic(entity.IsMale());
                 AlleleFrequencies frequencies = null;
                 if (onFirstSpawn) {
                     BlockPos blockPos = entity.ServerPos.AsBlockPos;
