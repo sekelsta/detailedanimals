@@ -2,12 +2,14 @@ using Genelib.Extensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace Genelib {
@@ -58,43 +60,12 @@ namespace Genelib {
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             // Deliberately skip calling base.Initialize()
-            if (entity.World.Side.IsServer()) {
-                string[] sireCodeStrings = null;
-                if (attributes.KeyExists("sireCodes")) {
-                    sireCodeStrings = attributes["sireCodes"].AsArray<string>();
-                }
-                else if (attributes.KeyExists("requiresNearbyEntityCodes")) {
-                    sireCodeStrings = attributes["requiresNearbyEntityCodes"].AsArray<string>();
-                }
-                else if (attributes.KeyExists("requiresNearbyEntityCode")) {
-                    sireCodeStrings = new string[] { attributes["requiresNearbyEntityCode"].AsString() };
-                }
-                else {
-                    throw new FormatException("No sireCodes given for reproduce behavior of entity " + entity.Code);
-                }
-                SireCodes = new AssetLocation[sireCodeStrings.Length];
-                for (int i = 0; i < sireCodeStrings.Length; ++i) {
-                    SireCodes[i] = AssetLocation.Create(sireCodeStrings[i], entity.Code.Domain);
-                }
-
-                string[] offspringCodeStrings = null;
-                if (attributes.KeyExists("offspringCodes")) {
-                    offspringCodeStrings = attributes["offspringCodes"].AsArray<string>();
-                }
-                else if (attributes.KeyExists("spawnEntityCodes")) {
-                    offspringCodeStrings = attributes["spawnEntityCodes"].AsArray<string>();
-                }
-                else if (attributes.KeyExists("spawnEntityCode")) {
-                    offspringCodeStrings = new string[] { attributes["spawnEntityCode"].AsString() };
-                }
-                else {
-                    throw new FormatException("No offspringCodes given for reproduce behavior of entity " + entity.Code);
-                }
-                OffspringCodes = new AssetLocation[offspringCodeStrings.Length];
-                for (int i = 0; i < offspringCodeStrings.Length; ++i) {
-                    OffspringCodes[i] = AssetLocation.Create(offspringCodeStrings[i], entity.Code.Domain);
-                }
+            if (!entity.World.Side.IsServer()) {
+                return;
             }
+
+            SireCodes = getAssetLocationsOrThrow("sireCodes");
+            OffspringCodes = getAssetLocationsOrThrow("offspringCodes");
 
             if (attributes.KeyExists("gestationMonths")) {
                 GestationDays = attributes["gestationMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth;
@@ -181,6 +152,21 @@ namespace Genelib {
             listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000);
         }
 
+        private AssetLocation[] getAssetLocationsOrThrow(JsonObject attributes, string key) {
+            string[] strings = null;
+            if (attributes.KeyExists(key)) {
+                strings = attributes[key].AsArray<string>();
+            }
+            else {
+                throw new FormatException("No " + key + " given for reproduce behavior of entity " + entity.Code);
+            }
+            AssetLocation[] ret = new AssetLocation[strings.Length];
+            for (int i = 0; i < strings.Length; ++i) {
+                ret[i] = AssetLocation.Create(strings[i], entity.Code.Domain);
+            }
+            return ret;
+        }
+
         public override bool ShouldEat { get => true; }
 
         protected void SlowTick(float dt) {
@@ -206,7 +192,6 @@ namespace Genelib {
                 return;
             }
             // TODO: Seasonal breeding
-            // TODO: Return if too crowded
 
             Entity sire = GetSire();
             if (sire == null) {

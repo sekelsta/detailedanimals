@@ -150,7 +150,6 @@
             code: "reproduce",
             sireCodes: ["sheep-bighorn-male"],
             offspringCodes: ["sheep-bighorn-male-lamb", "sheep-bighorn-female-lamb"],
-            growthCapEntityCodes: ["sheep-bighorn-lamb", "sheep-bighorn-female", "sheep-bighorn-male", "sheep-bighorn-male-lamb", "sheep-bighorn-female-lamb"],
             gestationMonths: 5.9,
             cooldownMonths: 4.0,
             lactationMonths: 6.0,
