@@ -25,4 +25,10 @@
     "infotext-reproduce-latepregnancy": "Está muy embarazada.",
     "infotext-reproduce-underweight": "No puede reproducirse con bajo peso.",
     "infotext-reproduce-overweight": "No se puede reproducir mientras es obesa.",
+    "infotext-reproduce-longday": "Se reproduce durante la primavera",
+    "infotext-reproduce-shortday": "Se reproduce durante el otoño",
+    "infotext-reproduce-waitdays1": "Menos de un día hasta que esté lista para aparear",
+    "infotext-reproduce-waitdays2": "Dos días hasta que esté lista para aparear",
+    "infotext-reproduce-waitdays3": "Tres días hasta que esté lista para aparear",
+    "infotext-reproduce-waitdays4": "Cuatros días hasta que esté lista para aparear",
 }

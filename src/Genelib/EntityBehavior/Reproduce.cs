@@ -17,8 +17,8 @@ namespace Genelib {
         protected enum BreedingSeason {
             Continuous,
             InducedOvulation,
-            FallAndWinter,
-            SpringAndSummer
+            ShortDay,
+            LongDay
         }
         public const string Code = "reproduce";
 
@@ -60,12 +60,13 @@ namespace Genelib {
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             // Deliberately skip calling base.Initialize()
+            multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
             if (!entity.World.Side.IsServer()) {
                 return;
             }
 
-            SireCodes = getAssetLocationsOrThrow("sireCodes");
-            OffspringCodes = getAssetLocationsOrThrow("offspringCodes");
+            SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
+            OffspringCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
 
             if (attributes.KeyExists("gestationMonths")) {
                 GestationDays = attributes["gestationMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth;
@@ -127,11 +128,11 @@ namespace Genelib {
 
             if (attributes.KeyExists("breedingSeason")) {
                 string breedingSeason = attributes["breedingSeason"].AsString();
-                if (breedingSeason.Equals("longday") || breedingSeason.Equals("springsummer")) {
-                    Season = BreedingSeason.SpringAndSummer;
+                if (breedingSeason.Equals("longday")) {
+                    Season = BreedingSeason.LongDay;
                 }
-                else if (breedingSeason.Equals("shortday") || breedingSeason.Equals("fallwinter")) {
-                    Season = BreedingSeason.FallAndWinter;
+                else if (breedingSeason.Equals("shortday")) {
+                    Season = BreedingSeason.ShortDay;
                 }
                 else if (breedingSeason.Equals("inducedovulation")) {
                     Season = BreedingSeason.InducedOvulation;
@@ -144,7 +145,6 @@ namespace Genelib {
                 }
             }
 
-            multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
             if (IsPregnant && Litter == null) {
                 IsPregnant = false;
                 TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
@@ -191,7 +191,11 @@ namespace Genelib {
             if (TotalDaysCooldownUntil > TotalDays) {
                 return;
             }
-            // TODO: Seasonal breeding
+
+            if (!isBreedingSeason()) {
+                TotalDaysCooldownUntil += entity.World.Calendar.DaysPerMonth;
+                return;
+            }
 
             Entity sire = GetSire();
             if (sire == null) {
@@ -203,7 +207,7 @@ namespace Genelib {
             TotalDaysPregnancyStart = TotalDays;
             Genome sireGenome = sire.GetBehavior<EntityBehaviorGenetics>()?.Genome;
             Genome ourGenome = entity.GetBehavior<EntityBehaviorGenetics>()?.Genome;
-            // TOOD: Pick litter size
+            // TODO: Pick litter size
             int litterSize = 3;
             TreeArrayAttribute litterData = new TreeArrayAttribute();
             litterData.value = new TreeAttribute[litterSize];
@@ -219,6 +223,20 @@ namespace Genelib {
                 litterData.value[i].SetLong("sireId", sire.EntityId);
             }
             Litter = litterData;
+        }
+
+        private bool isBreedingSeason() {
+            if (Season == BreedingSeason.LongDay || Season == BreedingSeason.ShortDay) {
+                float season = entity.World.Calendar.GetSeasonRel(entity.Pos.AsBlockPos);
+                if (Season == BreedingSeason.ShortDay) {
+                    season = (season + 0.5f) % 1f;
+                }
+                float months = 12;
+                double vernal_equinox = 2.66 / months;
+                double summer_solstice = 5.66 / months;
+                return season >= vernal_equinox && season < summer_solstice;
+            }
+            return true;
         }
 
         // If the animal dies, you lose the pregnancy even if you later revive it
@@ -329,7 +347,6 @@ namespace Genelib {
         }
 
         public override void GetInfoText(StringBuilder infotext) {
-            base.GetInfoText(infotext);
             if (!entity.Alive) {
                 return;
             }
@@ -362,10 +379,26 @@ namespace Genelib {
                 return;
             }
 
-            // TODO: If it is the wrong season, say so
-            // TODO: If currently in heat, say so
-            // Otherwise, say how long until it's time
-            infotext.AppendLine("EntityBehavior Reproduce");
+            if (!isBreedingSeason()) {
+                if (Season == BreedingSeason.LongDay) {
+                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-longday"));
+                }
+                else if (Season == BreedingSeason.ShortDay) {
+                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-shortday"));
+                }
+                return;
+            }
+
+            double daysLeft = TotalDaysCooldownUntil - TotalDays;
+            if (daysLeft <= 0) {
+                infotext.AppendLine(Lang.Get("game:Ready to mate"));
+            }
+            else if (daysLeft <= 4) {
+                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-waitdays" + Math.Ceiling(daysLeft).ToString()));
+            }
+            else {
+                infotext.AppendLine(Lang.Get("game:Several days left before ready to mate"));
+            }
         }
 
         public override string PropertyName() => Code;
