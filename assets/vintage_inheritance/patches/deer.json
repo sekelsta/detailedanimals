@@ -1,0 +1,181 @@
+[
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/hitBoxSizeByType/deer-caribou-*-baby",
+        value: { "x": 0.7,"y": 0.7},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/deadhitBoxSizeByType/deer-caribou-*-baby",
+        value: { "x": 0.7,"y": 0.4},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/client/shapeByType/*-caribou-*-baby",
+        value: { "base": "vintage_inheritance:entity/deer/caribou-baby" },
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/client/behaviors/6/enabledByType",
+        value: { "*-male-adult": true, "deer-caribou-female-adult": true, "*": false },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/server/behaviors/12/enabledByType",
+        value: { "*-male-adult": true, "deer-caribou-female-adult": true, "*": false },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/server/behaviors/12/variantsByType/deer-caribou-female-adult",
+        value: ["01", "02", "03", "04", "05", "06", "07"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "remove",
+        path: "/server/behaviors/12/beginGrowMonth",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/server/behaviors/12/beginGrowMonthByType",
+        value: { "deer-caribou-male-*": 6, "*": 7 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "remove",
+        path: "/server/behaviors/12/growDurationMonths",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/server/behaviors/12/growDurationMonthsByType",
+        value: { "deer-caribou-*": 4, "*": 3, },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/server/behaviors/12/grownDurationMonths",
+        value: 4,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/server/behaviors/12/shedDurationMonths",
+        value: 0.9,
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/client/behaviors/4/enabledByType",
+        value: { "deer-caribou-*": false, "*": true },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/server/behaviors/6/enabledByType",
+        value: { "deer-caribou-*": false, "*": true },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "detailedharvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				"code": "detailedharvestable",
+				"drops": [
+					{
+						"type": "item",
+						"code": "redmeat-raw",
+						"quantityByType": {
+							"*-adult": {
+								"avg": 13,
+								"var": 3
+							},
+							"*-baby": {
+								"avg": 2,
+								"var": 1
+							}
+						}
+					},
+					{
+						"type": "item",
+						"code": "hide-raw-large",
+						"quantityByType": {
+							"deer-caribou-*-adult": {
+								"avg": 1.7,
+								"var": 0.0
+							},
+							"*": {
+								"avg": 0,
+								"var": 0
+							}
+						}
+					},
+					{
+						"type": "item",
+						"code": "hide-raw-small",
+						"quantityByType": {
+							"*-baby": {
+								"avg": 1.3,
+								"var": 0
+							},
+							"*": {
+								"avg": 0,
+								"var": 0
+							}
+						}
+					},
+					{
+						"type": "item",
+						"code": "fat",
+						"quantityByType": {
+							"deer-caribou-*-adult": {
+								"avg": 2,
+								"var": 0.3
+							},
+							"*": {
+								"avg": 0,
+								"var": 0
+							}
+						}
+					}
+				]
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/attributes/adultWeightKgByType",
+        value: { "deer-caribou-*": 140 },
+        side: "server"
+    },
+]
