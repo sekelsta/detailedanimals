@@ -165,7 +165,8 @@ namespace Genelib {
 
         protected virtual void CopyAttributesTo(Entity adult) {
             adult.WatchedAttributes.SetInt("generation", entity.WatchedAttributes.GetInt("generation", 0));
-            adult.WatchedAttributes.SetDouble("birthTotalDays", entity.World.Calendar.TotalDays); // Used for antler growth
+            double birth = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
+            adult.WatchedAttributes.SetDouble("birthTotalDays", birth); // Used for antler growth
             adult.GetBehavior<EntityBehaviorNameTag>()?.SetName(entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName);
             CopyAttributeIfPresent(adult, "hunger");
             CopyAttributeIfPresent(adult, "animalWeight");

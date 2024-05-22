@@ -10,11 +10,6 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-// TODO: Remove unused imports
-using System.Collections.Generic;
-using Vintagestory.API.Server;
-using Vintagestory.API.Util;
-
 namespace Genelib {
     public class DetailedHarvestable : EntityBehaviorHarvestable {
         public const string Code = "detailedharvestable";

@@ -31,4 +31,6 @@
     "infotext-reproduce-waitdays2": "Dos días hasta que esté lista para aparear",
     "infotext-reproduce-waitdays3": "Tres días hasta que esté lista para aparear",
     "infotext-reproduce-waitdays4": "Cuatros días hasta que esté lista para aparear",
+    "message-nothungry": "{entity} no tiene hambre",
+    "message-wrongnutrients": "{entity} no quiere esa comida ahora mismo",
 }

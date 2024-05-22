@@ -11,6 +11,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
 using Vintagestory.Common;
 using Vintagestory.GameContent;
+using Vintagestory.API.Util;
 
 using Genelib.Extensions;
 
@@ -21,7 +22,7 @@ namespace Genelib
         public static GenelibConfig Config = null;
         public static AssetCategory genetics = null;
 
-        public static double MutationRate = 0.00004; // TODO: Make this configurable, but don't let players raise it past 0.01 or so
+        public static double MutationRate = 0.00004;
 
         internal static ICoreServerAPI ServerAPI { get; private set; }
         internal static ICoreClientAPI ClientAPI { get; private set; }
@@ -37,6 +38,9 @@ namespace Genelib
             api.RegisterEntityBehaviorClass(Reproduce.Code, typeof(Reproduce));
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));
             api.RegisterEntityBehaviorClass(DetailedHarvestable.Code, typeof(DetailedHarvestable));
+            api.RegisterEntityBehaviorClass(AnimalHunger.Code, typeof(AnimalHunger));
+
+            api.RegisterCollectibleBehaviorClass("tryfeedinganimal", typeof(TryFeedingAnimal));
 
             GenomeType.RegisterInterpreter("Polygenes", new PolygeneInterpreter());
 
@@ -87,6 +91,19 @@ namespace Genelib
                             entityType.Attributes.Token["initialWeight"] = jsonObject["initialWeight"].Token;
                         }
                     }
+                }
+            }
+            // If it has nutritional value, you can try feeding it to an animal
+            foreach (CollectibleObject item in api.World.Collectibles) {
+                if (item.Code == null) {
+                    continue;
+                }
+                if (item.NutritionProps != null || item.Attributes?["foodTags"].Exists == true) {
+                    if (item.GetBehavior(typeof(TryFeedingAnimal)) != null) {
+                        continue;
+                    }
+                    item.CollectibleBehaviors = item.CollectibleBehaviors.InsertAt<CollectibleBehavior>(new TryFeedingAnimal(item), 0);
+                    api.Logger.Notification("sekelstadebug " + item.Code);
                 }
             }
         }

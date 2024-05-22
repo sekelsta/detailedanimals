@@ -31,4 +31,6 @@
     "infotext-reproduce-waitdays2": "Two days until ready to mate",
     "infotext-reproduce-waitdays3": "Three days until ready to mate",
     "infotext-reproduce-waitdays4": "Four days until ready to mate",
+    "message-nothungry": "{entity} isn't hungry",
+    "message-wrongnutrients": "{entity} doesn't want that food right now",
 }

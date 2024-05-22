@@ -1,0 +1,65 @@
+[
+    {
+        "file": "game:itemtypes/food/bambooshoot.json",
+        "op": "addmerge",
+        "path": "/behaviors",
+        "value": [
+            { "name": "tryfeedinganimal" }
+        ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/egg.json",
+        "op": "addmerge",
+        "path": "/behaviors",
+        "value": [
+            { "name": "tryfeedinganimal" }
+        ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/cattailroot.json",
+        "op": "add",
+        "path": "/behaviors",
+        "value": [
+            { "name": "tryfeedinganimal" }
+        ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/cattailtops.json",
+        "op": "add",
+        "path": "/behaviors",
+        "value": [
+            { "name": "tryfeedinganimal" }
+        ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/papyrusroot.json",
+        "op": "add",
+        "path": "/behaviors",
+        "value": [
+            { "name": "tryfeedinganimal" }
+        ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/treeseed.json",
+        "op": "add",
+        "path": "/behaviors",
+        "value": [
+            { "name": "tryfeedinganimal" }
+        ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/tuleroot.json",
+        "op": "add",
+        "path": "/behaviors",
+        "value": [
+            { "name": "tryfeedinganimal" }
+        ],
+        side: "server",
+    },
+]
