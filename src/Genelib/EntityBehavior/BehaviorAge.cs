@@ -72,7 +72,7 @@ namespace Genelib {
             }
             else if (AdultEntityCode != null) {
                 EntityProperties adultType = entity.World.GetEntityType(AdultEntityCode);
-                if (adultType.Attributes.KeyExists("initialWeight")) {
+                if (adultType.Attributes?.KeyExists("initialWeight") == true) {
                     FinalWeight = adultType.Attributes["initialWeight"].AsFloat();
                 }
             }

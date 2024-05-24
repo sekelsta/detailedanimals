@@ -6,7 +6,7 @@ namespace Genelib {
         public static bool IsMale(this Entity entity) {
             if (!entity.Properties.Attributes.KeyExists("male")) {
                 JObject jo = (JObject) entity.Properties.Attributes.Token;
-                jo.Add("male", entity.Code.Path.Contains("-male"));
+                jo.Add("male", !entity.Code.Path.Contains("-female"));
             }
             return entity.Properties.Attributes["male"].AsBool();
         }

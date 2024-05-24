@@ -24,8 +24,7 @@ public static class Program
 
 public class BuildContext : FrostingContext
 {
-    public const string ProjectNameCamel = "VintageInheritance";
-    public const string ProjectNameSnake = "vintage_inheritance";
+    public const string ProjectName = "TruthBeauty";
     public string BuildConfiguration { get; set; }
     public string Version { get; }
     public string Name { get; }
@@ -73,14 +72,14 @@ public sealed class BuildTask : FrostingTask<BuildContext>
 {
     public override void Run(BuildContext context)
     {
-        context.DotNetClean($"../../src/{BuildContext.ProjectNameCamel}.csproj",
+        context.DotNetClean($"../../src/{BuildContext.ProjectName}.csproj",
             new DotNetCleanSettings
             {
                 Configuration = context.BuildConfiguration
             });
 
 
-        context.DotNetPublish($"../../src/{BuildContext.ProjectNameCamel}.csproj",
+        context.DotNetPublish($"../../src/{BuildContext.ProjectName}.csproj",
             new DotNetPublishSettings
             {
                 Configuration = context.BuildConfiguration

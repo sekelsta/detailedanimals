@@ -10,10 +10,12 @@ using Vintagestory.GameContent;
 
 using Genelib;
 
-namespace VintageInheritance
+namespace TruthBeauty
 {
-    public class VIModSystem : ModSystem
+    public class TBModSystem : ModSystem
     {
+        public static readonly string modid = "truthbeauty";
+
         public override void Start(ICoreAPI api)
         {
             GenomeType.RegisterInterpreter("Pig", new PigGenetics());

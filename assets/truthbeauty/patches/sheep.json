@@ -2,29 +2,22 @@
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "replace",
-        path: "/code",
-        value: "sheep-bighorn",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/variantgroups",
-        value: [{ code: "gender", states: ["lamb", "male-lamb", "female-lamb"] }],
+        path: "/client/shape/base",
+        value: "game:entity/land/sheep-bighorn-lamb",
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "replace",
         path: "/server/spawnconditions/worldgen/companions",
-        value: ["sheep-bighorn-female", "sheep-bighorn-female", "sheep-bighorn-female-piglet", "sheep-bighorn-male-piglet"],
+        value: ["sheep-bighorn-female", "sheep-bighorn-female", "truthbeauty:sheep-bighorn-female-lamb", "truthbeauty:sheep-bighorn-male-lamb"],
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "replace",
         path: "/server/spawnconditions/runtime/companions",
-        value: ["sheep-bighorn-female", "sheep-bighorn-female", "sheep-bighorn-female-piglet", "sheep-bighorn-male-piglet"],
+        value: ["sheep-bighorn-female", "sheep-bighorn-female", "truthbeauty:sheep-bighorn-female-lamb", "truthbeauty:sheep-bighorn-male-lamb"],
         side: "server"
     },
 
@@ -80,9 +73,9 @@
             code: "age",
             monthsToGrow: 12.0,
             adultEntityCodesByType: {
-                "*-male-*": ["sheep-bighorn-male"],
-                "*-female-*": ["sheep-bighorn-female"],
-                "*": ["sheep-bighorn-female"],
+                "*-male-*": ["game:sheep-bighorn-male"],
+                "*-female-*": ["game:sheep-bighorn-female"],
+                "*": ["game:sheep-bighorn-female"],
             },
             initialWeight: 0.1,
         },
@@ -149,7 +142,7 @@
         value: {
             code: "reproduce",
             sireCodes: ["sheep-bighorn-male"],
-            offspringCodes: ["sheep-bighorn-male-lamb", "sheep-bighorn-female-lamb"],
+            offspringCodes: ["truthbeauty:sheep-bighorn-male-lamb", "truthbeauty:sheep-bighorn-female-lamb"],
             gestationMonths: 5.9,
             cooldownMonths: 4.0,
             lactationMonths: 6.0,

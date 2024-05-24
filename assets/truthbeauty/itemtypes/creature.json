@@ -1,5 +1,5 @@
 {
-    code: "game:creature",
+    code: "creature",
     class: "ItemCreature",
     maxstacksize: 64,
     variantgroups: [
@@ -7,12 +7,14 @@
             "sheep-bighorn-male-lamb", "sheep-bighorn-female-lamb", 
             "chicken-male-chick", "chicken-female-chick", 
             "pig-wild-male-piglet", "pig-wild-female-piglet", 
+            "deer-caribou-male-young", "deer-caribou-female-young"
             ] }
     ],
     shapeByType: {
         "*-sheep-bighorn-*-lamb": { base: "game:entity/land/sheep-bighorn-lamb" },
         "*-chicken-*-chick": { base: "game:entity/land/chicken-baby" },
         "*-pig-wild-*-piglet": { base: "game:entity/land/pig-wild-piglet" },
+        "*-deer-caribou-*-young": { base: "game:entity/land/hooved/deer/caribou/baby" },
         "*": { base: "game:entity/land/{type}" }
     },
     texturesByType: {
@@ -41,6 +43,13 @@
             origin: { x: 0.5, y: 0.17, z: 0.5 },
             scale: 3
         },
+		"creature-deer-*": {
+			rotate: true,
+			translation: { x: 3, y: 0, z: 0 },
+			rotation: { x: -11, y: -52, z: -180 },
+			origin: { x: 0.5, y: 0.8, z: 0.5 },
+			scale: 0.97
+		},
     },
     
     tpHandTransformByType: {
@@ -62,6 +71,11 @@
             origin: { x: 0.5, y: 0.1, z: 0.5 },
             scale: 0.92
         },
+		"creature-deer-*": {
+			translation: { x: -0.9, y: -0.9, z: -0.7 },
+			rotation: { x: -180, y: 0, z: -156 },
+			scale: 0.45
+		},
     },
     fpHandTransformByType: {
         "creature-chicken-*-chick": {
@@ -79,4 +93,11 @@
             scale: 1.36
         },
     },
+	
+	groundTransformByType: {
+		"creature-deer-*": {
+			translation: { x: 0.2, y: 0, z: 0 },
+			rotation: { x: -8, y: -63, z: -7 }
+		},
+	}
 }

@@ -701,8 +701,8 @@
 					"children": [
 						{
 							"name": "L front Upper Arm",
-							"from": [ 0.3, -2.7, 0.1 ],
-							"to": [ 1.4991, 0.6, 0.9 ],
+							"from": [ 0.3, -2.7, -0.1 ],
+							"to": [ 1.4991, 0.6, 0.7 ],
 							"unwrapMode": 3,
 							"uv": [ 14.0, 35.5 ],
 							"rotationOrigin": [ 1.0, 0.3, 0.5 ],
@@ -2632,8 +2632,7 @@
 						"R front pastern": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 22.0 },
 						"R origin hoof": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 19.0 }
 					}
-				},
-
+				}
 			]
 		},
 
