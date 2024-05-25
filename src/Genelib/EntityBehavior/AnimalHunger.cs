@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 using Vintagestory.API.Client;
@@ -8,6 +9,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace Genelib {
@@ -15,7 +17,8 @@ namespace Genelib {
         public const string Code = "animalhunger";
 
         public float weanedAge = 0;
-        protected ITreeAttribute hungerTree;
+        public float baseRate;
+        protected internal ITreeAttribute hungerTree;
         public Nutrient Fiber;
         public Nutrient Sugar;
         public Nutrient Starch;
@@ -23,6 +26,10 @@ namespace Genelib {
         public Nutrient Protein;
         public Nutrient Water;
         public Nutrient Minerals;
+        public List<Nutrient> Nutrients;
+
+        protected long listenerID;
+        protected int accumulator;
 
         public float Saturation {
             get => hungerTree.GetFloat("saturation");
@@ -40,11 +47,16 @@ namespace Genelib {
             }
         }
 
+        public float AnimalWeight {
+            get => entity.WatchedAttributes.GetFloat("animalWeight", 1f);
+        }
+
         public AnimalHunger(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
             hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
             MaxSaturation = typeAttributes["maxsaturation"].AsFloat(15);
+            baseRate = MaxSaturation / 240;
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAge = typeAttributes["monthsUntilWeaned"].AsFloat() / entity.World.Calendar.DaysPerMonth;
             }
@@ -56,7 +68,15 @@ namespace Genelib {
             Protein = new Nutrient("protein", typeAttributes, this);
             Water = new Nutrient("water", typeAttributes, this);
             Minerals = new Nutrient("minerals", typeAttributes, this);
+            Nutrients = new List<Nutrient> { Fiber, Sugar, Starch, Fat, Protein, Water, Minerals };
+            listenerID = entity.World.RegisterGameTickListener(SlowTick, 12000);
             ApplyNutritionEffects();
+        }
+
+        public override void OnEntityDespawn(EntityDespawnData despawn)
+        {
+            base.OnEntityDespawn(despawn);
+            entity.World.UnregisterGameTickListener(listenerID);
         }
 
         public virtual void ApplyNutritionEffects() {
@@ -80,7 +100,7 @@ namespace Genelib {
         }
 
         public bool CanEat() {
-            return Saturation < MaxSaturation && entity.WatchedAttributes.GetFloat("animalWeight", 1f) < 1.8f;
+            return Saturation < MaxSaturation && AnimalWeight < 1.8f;
         }
 
         public bool WantsFood(ItemStack itemstack) {
@@ -89,8 +109,7 @@ namespace Genelib {
         }
 
         public bool WantsEmergencyFood(ItemStack itemstack) {
-            // TODO
-            return false;
+            return AnimalWeight < 0.7 || (AnimalWeight < 0.85 && Saturation < 0.4 * MaxSaturation);
         }
 
         // Returns true if it can be consumed by hand-feeding
@@ -147,61 +166,9 @@ namespace Genelib {
                 itemstack.Item.GetType().GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(itemstack.Item, new object[] {1, slot, entity });
             }
 
-
-            
-
             // TODO: Eat the food
 
-/*
-        protected virtual void tryEatStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
-        {
-            FoodNutritionProperties nutriProps = GetNutritionProperties(byEntity.World, slot.Itemstack, byEntity);
-
-            if (byEntity.World is IServerWorldAccessor && nutriProps != null)
-            {
-                TransitionState state = UpdateAndGetTransitionState(api.World, slot, EnumTransitionType.Perish);
-                float spoilState = state != null ? state.TransitionLevel : 0;
-
-                float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, slot.Itemstack, byEntity);
-                float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, slot.Itemstack, byEntity);
-
-                byEntity.ReceiveSaturation(nutriProps.Satiety * satLossMul, nutriProps.FoodCategory);
-
-                IPlayer player = null;
-                if (byEntity is EntityPlayer) player = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
-
-                slot.TakeOut(1);
-
-                if (nutriProps.EatenStack != null)
-                {
-                    if (slot.Empty)
-                    {
-                        slot.Itemstack = nutriProps.EatenStack.ResolvedItemstack.Clone();
-                    }
-                    else
-                    {
-                        if (player == null || !player.InventoryManager.TryGiveItemstack(nutriProps.EatenStack.ResolvedItemstack.Clone(), true))
-                        {
-                            byEntity.World.SpawnItemEntity(nutriProps.EatenStack.ResolvedItemstack.Clone(), byEntity.SidedPos.XYZ);
-                        }
-                    }
-                }
-
-                float healthChange = nutriProps.Health * healthLossMul;
-
-                float intox = byEntity.WatchedAttributes.GetFloat("intoxication");
-                byEntity.WatchedAttributes.SetFloat("intoxication", Math.Min(1.1f, intox + nutriProps.Intoxication));
-
-                if (healthChange != 0)
-                {
-                    byEntity.ReceiveDamage(new DamageSource() { Source = EnumDamageSource.Internal, Type = healthChange > 0 ? EnumDamageType.Heal : EnumDamageType.Poison }, Math.Abs(healthChange));
-                }
-
-                slot.MarkDirty();
-                player.InventoryManager.BroadcastHotbarSlot();
-            }
-        }
-*/
+            ApplyNutritionEffects();
         }
 
         public override WorldInteraction[] GetInteractionHelp(IClientWorldAccessor world, EntitySelection es, IClientPlayer player, ref EnumHandling handled) {
@@ -210,52 +177,59 @@ namespace Genelib {
             return null;
         }
 
+        private void SlowTick(float dt)
+        {
+            // Same temperature-hunger logic as EntityBehaviorHunger uses
+            bool harshWinters = entity.World.Config.GetString("harshWinters").ToBool(true);
+
+            float temperature = entity.World.BlockAccessor.GetClimateAt(entity.Pos.AsBlockPos, EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, entity.World.Calendar.TotalDays).Temperature;
+            if (temperature >= 2 || !harshWinters)
+            {
+                entity.Stats.Remove("hungerrate", "resistcold");
+            }
+            else
+            {
+                // 0..1
+                float diff = GameMath.Clamp(2 - temperature, 0, 10);
+
+                Room room = entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(entity.Pos.AsBlockPos);
+
+                entity.Stats.Set("hungerrate", "resistcold", room.ExitCount == 0 ? 0 : diff / 40f, true);
+            }
+        }
+
+        public override void OnGameTick(float deltaTime) {
+            // Don't put in SlowTick, because that still gets called when game is paused
+            // And don't reference game calendar, because entities in unloaded chunks have no way to eat and so should 
+            // not get hungry.
+
+            ++accumulator;
+            if (accumulator > 12 * 30) {
+                accumulator = 0;
+                float intoxication = entity.WatchedAttributes.GetFloat("intoxication");
+                if (intoxication > 0)
+                {
+                    entity.WatchedAttributes.SetFloat("intoxication", Math.Max(0, intoxication - 0.005f));
+                }
+
+                float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul;
+                ConsumeSaturation(baseRate * entity.Stats.GetBlended("hungerrate") * timespeed);
+            }
+        }
+
+        public void ConsumeSaturation(float amount) {
+            Saturation = Math.Max(0, Saturation - amount);
+            foreach (Nutrient nutrient in Nutrients) {
+                nutrient.Consume(amount);
+            }
+            ApplyNutritionEffects();
+        }
+
         private void messagePlayer(String langKey, Entity byEntity) {
             String message = Lang.GetUnformatted(langKey).Replace("{entity}", entity.GetName());
             ((byEntity as EntityPlayer)?.Player as IServerPlayer)?.SendMessage(GlobalConstants.GeneralChatGroup, message, EnumChatType.Notification);
         }
 
         public override string PropertyName() => Code;
-
-        public class Nutrient {
-            public readonly string name;
-            public readonly float min;
-            public readonly float max;
-            private readonly AnimalHunger outer;
-
-            public Nutrient(string name, JsonObject typeAttributes, AnimalHunger outer) {
-                this.name = name;
-                if (typeAttributes.KeyExists(name + "Min")) {
-                    min = typeAttributes[name + "Min"].AsFloat();
-                }
-                else {
-                    min = 0;
-                }
-                if (typeAttributes.KeyExists(name + "Max")) {
-                    max = typeAttributes[name + "Max"].AsFloat();
-                }
-                else {
-                    max = 0;
-                }
-                this.outer = outer;
-            }
-
-            public float Level {
-                get => outer.hungerTree.GetFloat(name + "Level");
-                set {
-                    outer.hungerTree.SetFloat(name + "Level", value);
-                    outer.entity.WatchedAttributes.MarkPathDirty("hunger");
-                }
-            }
-
-            public float Fill {
-                get {
-                    if (min == max) {
-                        return Level / outer.MaxSaturation < min ? -1 : float.MaxValue;
-                    }
-                    return (Level / outer.MaxSaturation - min) / (max - min);
-                }
-            }
-        }
     }
 }
