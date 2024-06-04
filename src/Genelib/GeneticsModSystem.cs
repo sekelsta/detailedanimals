@@ -21,6 +21,7 @@ namespace Genelib
     {
         public static GenelibConfig Config = null;
         public static AssetCategory genetics = null;
+        public const string NamePrefix = "genelib.";
 
         public static double MutationRate = 0.00004;
 
@@ -40,7 +41,7 @@ namespace Genelib
             api.RegisterEntityBehaviorClass(DetailedHarvestable.Code, typeof(DetailedHarvestable));
             api.RegisterEntityBehaviorClass(AnimalHunger.Code, typeof(AnimalHunger));
 
-            api.RegisterCollectibleBehaviorClass("tryfeedinganimal", typeof(TryFeedingAnimal));
+            api.RegisterCollectibleBehaviorClass(TryFeedingAnimal.Code, typeof(TryFeedingAnimal));
 
             GenomeType.RegisterInterpreter("Polygenes", new PolygeneInterpreter());
 

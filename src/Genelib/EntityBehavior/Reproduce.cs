@@ -20,7 +20,7 @@ namespace Genelib {
             ShortDay,
             LongDay
         }
-        public const string Code = "reproduce";
+        public const string Code = GeneticsModSystem.NamePrefix + "reproduce";
 
         protected AssetLocation[] SireCodes;
         protected AssetLocation[] OffspringCodes;

@@ -8,7 +8,7 @@ using Vintagestory.API.MathTools;
 
 namespace Genelib {
     public class EntityBehaviorGenetics : EntityBehavior {
-        public const string Code = "genetics";
+        public const string Code = GeneticsModSystem.NamePrefix + "genetics";
 
         protected GenomeType GenomeType { get; set; }
         private Genome genome;

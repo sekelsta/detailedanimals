@@ -3,6 +3,8 @@ using Vintagestory.API.Common;
 
 namespace Genelib {
     class TryFeedingAnimal : CollectibleBehavior {
+        public const string Code = GeneticsModSystem.NamePrefix + "tryfeedinganimal";
+
         public TryFeedingAnimal(CollectibleObject collObj) : base(collObj) { }
 
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling) {

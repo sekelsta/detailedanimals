@@ -12,7 +12,7 @@ using Vintagestory.GameContent;
 
 namespace Genelib {
     public class DetailedHarvestable : EntityBehaviorHarvestable {
-        public const string Code = "detailedharvestable";
+        public const string Code = GeneticsModSystem.NamePrefix + "harvestable";
         public static readonly float MinReproductionWeight = 0.85f;
         public static readonly float MaxReproductionWeight = 1.5f;
 

@@ -27,42 +27,42 @@
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "detailedharvestable" },
+        value: { code: "genelib.harvestable" },
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-female.json",
         op: "replace",
         path: "/client/behaviors/5/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-female.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "replace",
         path: "/client/behaviors/4/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
@@ -70,7 +70,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 12.0,
             adultEntityCodesByType: {
                 "*-male-*": ["game:sheep-bighorn-male"],
@@ -86,7 +86,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 48.0,
             initialWeight: 0.6,
             finalWeight: 0.86
@@ -98,7 +98,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 48.0,
             initialWeight: 0.8,
             finalWeight: 1.14
@@ -132,7 +132,7 @@
         file: "game:entities/land/sheep-bighorn-female.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "reproduce" },
+        value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
@@ -140,7 +140,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-            code: "reproduce",
+            code: "genelib.reproduce",
             sireCodes: ["sheep-bighorn-male"],
             offspringCodes: ["truthbeauty:sheep-bighorn-male-lamb", "truthbeauty:sheep-bighorn-female-lamb"],
             gestationMonths: 5.9,

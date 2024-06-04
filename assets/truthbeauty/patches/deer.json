@@ -242,7 +242,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "age",
+				code: "genelib.age",
                 enabledByType: { "deer-caribou-*": true, "*": false },
                 monthsToGrowByType: {
                     "*-baby": 6.0,
@@ -286,7 +286,7 @@
         file: "game:entities/land/hooved/deer.json",
         op: "addmerge",
         path: "/client/behaviors/-",
-        value: { code: "detailedharvestable" },
+        value: { code: "genelib.harvestable" },
         side: "server"
     },
     {
@@ -294,7 +294,7 @@
         op: "addmerge",
         path: "/server/behaviors/-",
         value: {
-				"code": "detailedharvestable",
+				"code": "genelib.harvestable",
 				"drops": [
 					{
 						"type": "item",

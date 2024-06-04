@@ -14,7 +14,7 @@ using Vintagestory.GameContent;
 
 namespace Genelib {
     public class AnimalHunger : EntityBehavior {
-        public const string Code = "animalhunger";
+        public const string Code = GeneticsModSystem.NamePrefix + "animalhunger";
 
         public float weanedAge = 0;
         public float baseHungerRate;

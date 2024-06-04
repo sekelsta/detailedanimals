@@ -9,7 +9,7 @@ using Vintagestory.API.MathTools;
 
 namespace Genelib {
     public class BehaviorAge : EntityBehavior {
-        public const string Code = "age";
+        public const string Code = GeneticsModSystem.NamePrefix + "age";
         private const double coef = 1;
 
         private long? callbackID;

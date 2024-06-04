@@ -41,42 +41,42 @@
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "detailedharvestable" },
+        value: { code: "genelib.harvestable" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/client/behaviors/5/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
         path: "/client/behaviors/4/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
@@ -84,7 +84,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 9.0,
             adultEntityCodesByType: {
                 "*-male-*": ["game:pig-wild-male"],
@@ -100,7 +100,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 51.0,
             initialWeight: 0.355,
             finalWeight: 0.985
@@ -112,7 +112,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 51.0,
             initialWeight: 0.365,
             finalWeight: 1.015
@@ -185,7 +185,7 @@
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "reproduce" },
+        value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
@@ -193,7 +193,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-            code: "reproduce",
+            code: "genelib.reproduce",
             sireCodes: ["pig-wild-male"],
             offspringCodes: ["truthbeauty:pig-wild-female-piglet", "truthbeauty:pig-wild-male-piglet"],
             gestationMonths: 3.8,

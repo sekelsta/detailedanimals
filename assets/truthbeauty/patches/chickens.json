@@ -83,42 +83,42 @@
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/client/behaviors/3",
-        value: { code: "detailedharvestable" },
+        value: { code: "genelib.harvestable" },
         side: "server"
     },
     {
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/client/behaviors/5/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/server/behaviors/5/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/client/behaviors/4/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "detailedharvestable",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
@@ -126,7 +126,7 @@
         op: "replace",
         path: "/server/behaviors/7",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 2.1,
             adultEntityCodesByType: {
                 "*-male-*": ["game:chicken-roosterpoult"],
@@ -142,7 +142,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 2.6,
             adultEntityCodeByType: {
                 "*-henpoult": "chicken-hen",
@@ -162,7 +162,7 @@
         op: "replace",
         path: "/server/behaviors/7",
         value: { 
-            code: "age",
+            code: "genelib.age",
             monthsToGrow: 2.6,
             adultEntityCodeByType: {
                 "*-roosterpoult": "chicken-rooster",
