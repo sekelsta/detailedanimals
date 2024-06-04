@@ -33,53 +33,13 @@ namespace Genelib {
             }
         }
 
-        private void shiftWeight(float delta) {
-            if (entity.WatchedAttributes.GetTreeAttribute("hunger") == null) {
-                entity.WatchedAttributes["hunger"] = new TreeAttribute();
-            }
-            ITreeAttribute hungerTree = entity.WatchedAttributes.GetTreeAttribute("hunger");
-            hungerTree.SetFloat("saturation", hungerTree.GetFloat("saturation", 0f) - delta);
-            entity.WatchedAttributes.MarkPathDirty("hunger");
-            float conversion = 0.2f; // TODO: Set a reasonable value
-            // Inefficiency
-            conversion *= delta > 0 ? 0.99f : 1.01f;
-            AnimalWeight = (float)Math.Clamp(AnimalWeight + delta * conversion, 0.5f, 2f);
-        }
-
         public override void OnGameTick(float deltaTime) {
             // Don't call base method. Don't reset AnimalWeight to 1.
-
-            double updateTime = LastWeightUpdateTotalHours;
-            double updateFrequencyHours = 2;
-            while (updateTime + updateFrequencyHours < entity.World.Calendar.TotalHours) {
-                updateTime += updateFrequencyHours;
-                ITreeAttribute hungerTree = entity.WatchedAttributes.GetTreeAttribute("hunger");
-                float saturation = hungerTree == null ? 0f : hungerTree.GetFloat("saturation");
-                float maxSaturation = 16f;
-                if (hungerTree != null) {
-                    maxSaturation = hungerTree.GetFloat("maxsaturation", maxSaturation);
-                }
-                float fullness = saturation / maxSaturation;
-                float s = 0.05f * maxSaturation;
-                if (fullness < 0.1f) {
-                    shiftWeight(-1 * s);
-                }
-                else if (fullness > 0.9f) {
-                    shiftWeight(s);
-                }
-                else if (AnimalWeight < 1 && fullness > 0.2f) {
-                    shiftWeight(s);
-                }
-                else if (AnimalWeight > 1 && fullness < 0.8f) {
-                    shiftWeight(-1 * s);
-                }
-            }
-            LastWeightUpdateTotalHours = updateTime;
         }
 
         public override void GetInfoText(StringBuilder infotext) {
             base.GetInfoText(infotext);
-            double[] conditionBoundaries = new double[] {-0.3, -0.15, -0.072, -0.036, 0.036, 0.072, 0.15, 0.3};
+            double[] conditionBoundaries = new double[] {-0.35, -0.18, -0.08, -0.036, 0.036, 0.08, 0.18, 0.35};
             int bodyScore = 1;
             foreach (double b in conditionBoundaries) {
                 if (AnimalWeight > 1 + b) {

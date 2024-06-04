@@ -17,7 +17,7 @@ namespace Genelib {
         public const string Code = "animalhunger";
 
         public float weanedAge = 0;
-        public float baseRate;
+        public float baseHungerRate;
         protected internal ITreeAttribute hungerTree;
         public Nutrient Fiber;
         public Nutrient Sugar;
@@ -30,6 +30,7 @@ namespace Genelib {
 
         protected long listenerID;
         protected int accumulator;
+        protected Vec3d prevPos;
 
         public float Saturation {
             get => hungerTree.GetFloat("saturation");
@@ -49,6 +50,9 @@ namespace Genelib {
 
         public float AnimalWeight {
             get => entity.WatchedAttributes.GetFloat("animalWeight", 1f);
+            set {
+                entity.WatchedAttributes.SetFloat("animalWeight", value);
+            }
         }
 
         public AnimalHunger(Entity entity) : base(entity) { }
@@ -56,10 +60,12 @@ namespace Genelib {
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
             hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
             MaxSaturation = typeAttributes["maxsaturation"].AsFloat(15);
-            baseRate = MaxSaturation / 240;
+            // Takes one day to empty the hunger bar from max
+            baseHungerRate = MaxSaturation / 240;
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAge = typeAttributes["monthsUntilWeaned"].AsFloat() / entity.World.Calendar.DaysPerMonth;
             }
+            prevPos = entity.ServerPos.XYZ;
 
             Fiber = new Nutrient("fiber", typeAttributes, this);
             Sugar = new Nutrient("sugar", typeAttributes, this);
@@ -109,7 +115,7 @@ namespace Genelib {
         }
 
         public bool WantsEmergencyFood(ItemStack itemstack) {
-            return AnimalWeight < 0.7 || (AnimalWeight < 0.85 && Saturation < 0.4 * MaxSaturation);
+            return AnimalWeight < 0.7 || (AnimalWeight < 0.85 && Saturation < -0.4 * MaxSaturation);
         }
 
         // Returns true if it can be consumed by hand-feeding
@@ -204,7 +210,8 @@ namespace Genelib {
             // not get hungry.
 
             ++accumulator;
-            if (accumulator > 12 * 30) {
+            int TPS = 30;
+            if (accumulator > 12 * TPS) {
                 accumulator = 0;
                 float intoxication = entity.WatchedAttributes.GetFloat("intoxication");
                 if (intoxication > 0)
@@ -212,17 +219,42 @@ namespace Genelib {
                     entity.WatchedAttributes.SetFloat("intoxication", Math.Max(0, intoxication - 0.005f));
                 }
 
+                Vec3d currentPos = entity.ServerPos.XYZ;
+                double distance = currentPos.DistanceTo(prevPos);
+                distance = Math.Max(0, distance + currentPos.Y - prevPos.Y); // Climbing/falling adjustment
+                // Riding a boat or train shouldn't make the animal hungrier
+                if (entity.WatchedAttributes["mountedOn"] != null) {
+                    distance = 0;
+                }
+                prevPos = currentPos;
+                float work = 1 + (float)distance;
                 float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul;
-                ConsumeSaturation(baseRate * entity.Stats.GetBlended("hungerrate") * timespeed);
+                ConsumeSaturation(baseHungerRate * work * entity.Stats.GetBlended("hungerrate") * timespeed);
+
+                // Become fatter or thinner
+                float fullness = Saturation / MaxSaturation;
+                float gain = fullness * fullness * fullness;
+                float recovery = 1 - AnimalWeight;
+                float weightShiftRate = 0.025f;
+                ShiftWeight(weightShiftRate * (gain + recovery) / 2);
             }
         }
 
         public void ConsumeSaturation(float amount) {
-            Saturation = Math.Max(0, Saturation - amount);
+            Saturation = Math.Clamp(Saturation - amount, -MaxSaturation, MaxSaturation);
             foreach (Nutrient nutrient in Nutrients) {
                 nutrient.Consume(amount);
             }
             ApplyNutritionEffects();
+        }
+
+        public void ShiftWeight(float deltaWeight) {
+            float inefficiency = deltaWeight > 0 ? 0.95f : 1.05f;
+            AnimalWeight = (float)Math.Clamp(AnimalWeight + deltaWeight * inefficiency, 0.5f, 2f);
+            float dryFractionOfOwnWeightEatenPerDay = 0.01f;
+            float wetFractionOfOwnWeightEatenPerDay = 4 * dryFractionOfOwnWeightEatenPerDay;
+            float deltaSat = -deltaWeight / wetFractionOfOwnWeightEatenPerDay * MaxSaturation;
+            ConsumeSaturation(deltaSat);
         }
 
         private void messagePlayer(String langKey, Entity byEntity) {

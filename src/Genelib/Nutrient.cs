@@ -28,12 +28,8 @@ namespace Genelib {
             }
         }
 
-        public float Fill {
-            get => Level / Max;
-        }
-
         public void Consume(float amount) {
-            Level = Math.Max(0, Level - Usage * amount);
+            Level = Math.Clamp(Level - Usage * amount, -Max, Max);
         }
     }
 }
