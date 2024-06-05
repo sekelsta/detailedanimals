@@ -1,0 +1,10 @@
+{
+    tag: "milk",
+    water: 0.9,
+    protein: 0.28,
+    fat: 0.29,
+    fiber: 0.0,
+    minerals: 0.03,
+    sugar: 0.4,
+    starch: 0.0,
+}

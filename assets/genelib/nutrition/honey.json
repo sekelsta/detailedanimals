@@ -1,0 +1,10 @@
+{
+    tag: "honey",
+    fiber: 0.01,
+    sugar: 0.9,
+    starch: 0.01,
+    fat: 0.02,
+    protein: 0.04,
+    water: 0.5,
+    minerals: 0.02,
+}

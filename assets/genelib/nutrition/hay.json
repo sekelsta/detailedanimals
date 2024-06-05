@@ -1,0 +1,10 @@
+{
+    tag: "hay",
+    fiber: 0.8,
+    sugar: 0.04,
+    starch: 0.04,
+    fat: 0.01,
+    protein: 0.1,
+    water: 0.1,
+    minerals: 0.01,
+}

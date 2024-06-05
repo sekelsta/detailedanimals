@@ -1,0 +1,11 @@
+{
+    tag: "nibbleCrop",
+    fiber: 0.6,
+    sugar: 0.08,
+    starch: 0.1,
+    fat: 0.02,
+    protein: 0.15,
+    water: 0.85,
+    minerals: 0.02,
+    priority: -1
+}

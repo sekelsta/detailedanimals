@@ -1,0 +1,10 @@
+{
+    tag: "pickledvegetable",
+    fiber: 0.15,
+    sugar: 0.15,
+    starch: 0.4,
+    fat: 0.01,
+    protein: 0.06,
+    water: 0.75,
+    minerals: 0.2,
+}

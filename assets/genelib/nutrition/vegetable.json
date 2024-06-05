@@ -1,0 +1,10 @@
+{
+    tag: "vegetable",
+    fiber: 0.25,
+    sugar: 0.25,
+    starch: 0.42,
+    fat: 0.01,
+    protein: 0.06,
+    water: 0.85,
+    minerals: 0.01,
+}

@@ -1,0 +1,10 @@
+{
+    tag: "fruit",
+    fiber: 0.26,
+    sugar: 0.6,
+    starch: 0.1,
+    fat: 0.01,
+    protein: 0.03,
+    water: 0.85,
+    minerals: 0.01,
+}

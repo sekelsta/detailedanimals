@@ -1,0 +1,10 @@
+{
+    tag: "jam",
+    fiber: 0.05,
+    sugar: 0.8,
+    starch: 0.1,
+    fat: 0.01,
+    protein: 0.03,
+    water: 0.2,
+    minerals: 0.02,
+}

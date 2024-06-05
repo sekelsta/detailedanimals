@@ -16,6 +16,10 @@ namespace Genelib {
     public class AnimalHunger : EntityBehavior {
         public const string Code = GeneticsModSystem.NamePrefix + "animalhunger";
 
+        // Uses string instead of AssetLocation because here mod collisions are better than misses
+        public static readonly Dictionary<string, Dictionary<string, float>> nutritionData 
+            = new Dictionary<string, Dictionary<string, float>>();
+
         public float weanedAge = 0;
         public float baseHungerRate;
         protected internal ITreeAttribute hungerTree;
@@ -53,6 +57,18 @@ namespace Genelib {
             set {
                 entity.WatchedAttributes.SetFloat("animalWeight", value);
             }
+        }
+
+        public static void LoadNutrition(IAsset asset) {
+            JsonObject attributes = JsonObject.FromJson(asset.ToText());
+            string key = attributes["tag"].AsString();
+            Dictionary<string, float> data = new Dictionary<string, float>();
+            string[] nutrients = new string[] { "fiber", "sugar", "starch", "fat", "protein", "water", "minerals" };
+            foreach (string name in nutrients) {
+                data[name] = attributes[name].AsFloat();
+            }
+            // TODO: Priority and requirements
+            nutritionData[key] = data;
         }
 
         public AnimalHunger(Entity entity) : base(entity) { }
@@ -105,25 +121,21 @@ namespace Genelib {
             return entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>().Matches(itemstack);
         }
 
+        // Returns true if the animal wants some sort of food right now
         public bool CanEat() {
             return Saturation < MaxSaturation && AnimalWeight < 1.8f;
         }
 
+        // Returns true if this is the sort of food the animal wants right now
         public bool WantsFood(ItemStack itemstack) {
             // TODO
             return true;
+            //return itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity) != null;
         }
 
         public bool WantsEmergencyFood(ItemStack itemstack) {
+            // TODO: Exclude items inedible even in emergencies, like dry grass for a cat
             return AnimalWeight < 0.7 || (AnimalWeight < 0.85 && Saturation < -0.4 * MaxSaturation);
-        }
-
-        // Returns true if it can be consumed by hand-feeding
-        // Returns false for water and minerals, as well as for poisonous items and non-edible items
-        public bool Edible(ItemStack itemstack) {
-            // TODO: Make use of CreatureDiet
-            // TODO: Return true if we can consume this or part of this and it's not poisonous
-            return itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity) != null;
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode, ref EnumHandling handled) {

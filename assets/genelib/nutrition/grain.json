@@ -1,0 +1,10 @@
+{
+    tag: "grain",
+    protein: 0.11,
+    fiber: 0.17,
+    sugar: 0.01,
+    starch: 0.67,
+    fat: 0.02,
+    minerals: 0.02,
+    water: 0.1,
+}

@@ -21,6 +21,7 @@ namespace Genelib
     {
         public static GenelibConfig Config = null;
         public static AssetCategory genetics = null;
+        public static AssetCategory nutrition = null;
         public const string NamePrefix = "genelib.";
 
         public static double MutationRate = 0.00004;
@@ -31,6 +32,7 @@ namespace Genelib
         // Called during intial mod loading, called before any mod receives the call to Start()
         public override void StartPre(ICoreAPI api) {
             genetics = new AssetCategory(nameof(genetics), true, EnumAppSide.Server);
+            nutrition = new AssetCategory(nameof(nutrition), true, EnumAppSide.Server);
         }
 
         // Called on server and client
@@ -57,16 +59,21 @@ namespace Genelib
         }
 
         public override void AssetsLoaded(ICoreAPI api) {
-            List<IAsset> assets = api.Assets.GetManyInCategory(genetics.Code, "");
+            LoadAssetType(api, genetics.Code, (asset) => GenomeType.Load(asset), "genome types");
+            LoadAssetType(api, nutrition.Code, (asset) => AnimalHunger.LoadNutrition(asset), "nutrition datasets");
+        }
+
+        public void LoadAssetType(ICoreAPI api, string category, Action<IAsset> onLoaded, string typeName) {
+            List<IAsset> assets = api.Assets.GetManyInCategory(category, "");
             foreach (IAsset asset in assets) {
                 try {
-                    GenomeType.Load(asset);
+                    onLoaded(asset);
                 }
                 catch (Exception e) {
-                    api.Logger.Error("Error loading genome type " + asset.Location.ToString() + ". " + e.Message + "\n" + e.StackTrace);
+                    api.Logger.Error("Error loading asset " + asset.Location.ToString() + ". " + e.Message + "\n" + e.StackTrace);
                 }
             }
-            api.Logger.Event(assets.Count + " genome types loaded");
+            api.Logger.Event(assets.Count + " " + typeName + " loaded");
         }
 
         public override void AssetsFinalize(ICoreAPI api) {
@@ -104,7 +111,6 @@ namespace Genelib
                         continue;
                     }
                     item.CollectibleBehaviors = item.CollectibleBehaviors.InsertAt<CollectibleBehavior>(new TryFeedingAnimal(item), 0);
-                    api.Logger.Notification("sekelstadebug " + item.Code);
                 }
             }
         }

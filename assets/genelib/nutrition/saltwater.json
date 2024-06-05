@@ -1,0 +1,10 @@
+{
+    tag: "saltwater",
+    fiber: 0.0,
+    sugar: 0.0,
+    starch: 0.0,
+    fat: 0.0,
+    protein: 0.0,
+    water: 1.0,
+    minerals: 0.08,
+}

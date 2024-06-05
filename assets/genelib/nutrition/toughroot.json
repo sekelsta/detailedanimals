@@ -1,0 +1,10 @@
+{
+    tag: "toughroot",
+    fiber: 0.88,
+    sugar: 0.01,
+    starch: 0.04,
+    fat: 0.0,
+    protein: 0.04,
+    water: 0.1,
+    minerals: 0.01,
+}

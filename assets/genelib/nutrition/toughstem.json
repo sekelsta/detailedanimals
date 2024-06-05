@@ -1,0 +1,10 @@
+{
+    tag: "toughstem",
+    fiber: 0.92,
+    sugar: 0.0,
+    starch: 0.02,
+    fat: 0.0,
+    protein: 0.05,
+    water: 0.1,
+    minerals: 0.01,
+}

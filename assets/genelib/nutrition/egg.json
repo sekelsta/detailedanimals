@@ -1,0 +1,10 @@
+{
+    tag: "egg",
+    water: 0.75,
+    protein: 0.5,
+    fat: 0.4,
+    fiber: 0.0,
+    minerals: 0.02,
+    sugar: 0.01,
+    starch: 0.0,
+}

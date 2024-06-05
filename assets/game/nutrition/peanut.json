@@ -1,0 +1,10 @@
+{
+    tag: "peanut",
+    fiber: 0.09,
+    sugar: 0.08,
+    starch: 0.06,
+    fat: 0.48,
+    protein: 0.3,
+    water: 0.05,
+    minerals: 0.03,
+}

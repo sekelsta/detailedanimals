@@ -84,12 +84,11 @@ namespace Genelib {
             return mapping;
         }
 
-        public static GenomeType Load(IAsset asset) {
+        public static void Load(IAsset asset) {
             AssetLocation key = asset.Location.CopyWithPathPrefixAndAppendixOnce("genetics/", ".json");
             if (!loaded.ContainsKey(key)) {
                 loaded[key] = new GenomeType(key.CopyWithPath(key.PathOmittingPrefixAndSuffix("genetics/", ".json")).ToString(), JsonObject.FromJson(asset.ToText()));
             }
-            return loaded[key];
         }
 
         public static GenomeType Get(AssetLocation location) {

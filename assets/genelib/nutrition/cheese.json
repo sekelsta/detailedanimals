@@ -1,0 +1,10 @@
+{
+    tag: "cheese",
+    water: 0.4,
+    protein: 0.42,
+    fat: 0.55,
+    fiber: 0.0,
+    minerals: 0.1,
+    sugar: 0.01,
+    starch: 0.0,
+}

@@ -1,0 +1,10 @@
+{
+    tag: "fat",
+    water: 0.75,
+    protein: 0.17,
+    fat: 0.8,
+    fiber: 0.02,
+    minerals: 0.01,
+    sugar: 0.0,
+    starch: 0.0,
+}

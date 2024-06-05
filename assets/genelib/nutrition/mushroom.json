@@ -1,0 +1,10 @@
+{
+    tag: "mushroom",
+    fiber: 0.3,
+    sugar: 0.1,
+    starch: 0.2,
+    fat: 0.03,
+    protein: 0.3,
+    water: 0.85,
+    minerals: 0.04,
+}
