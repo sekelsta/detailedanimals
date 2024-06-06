@@ -138,6 +138,7 @@ namespace Genelib {
             if (code == null) {
                 return;
             }
+            GeneticsModSystem.ServerAPI.Logger.Notification("Attempting growth to code" + code);
 
             EntityProperties adultType = entity.World.GetEntityType(code);
 
@@ -158,9 +159,10 @@ namespace Genelib {
             adult.ServerPos.SetFrom(entity.ServerPos);
             adult.Pos.SetFrom(adult.ServerPos);
 
+            entity.World.SpawnEntity(adult);
+            // Apparently entity behaviors are only set up after spawning, so we spawn first then copy
             CopyAttributesTo(adult);
             entity.Die(EnumDespawnReason.Expire, null);
-            entity.World.SpawnEntity(adult);
         }
 
         protected virtual void CopyAttributesTo(Entity adult) {
@@ -177,7 +179,6 @@ namespace Genelib {
                 && entity.Properties.Client.FirstTexture.Alternates.Length == adult.Properties.Client.FirstTexture.Alternates.Length;
 
             if (keepTexture) {
-                //Attempt to not change the texture during growing up
                 adult.WatchedAttributes.SetInt("textureIndex", entity.WatchedAttributes.GetInt("textureIndex", 0));
             }
 
