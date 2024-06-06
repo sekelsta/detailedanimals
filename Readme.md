@@ -46,10 +46,10 @@ One interpreter is built-in, the Polygenes interpreter. This provides basic effe
 
 To get genetics to work right, you will have to add a few specific EntityBehaviors to your entity. By code, they are:
 
-"genetics": For having genes, what a shocker. Specify "genomeType" here.
+"genelib.genetics": For having genes, what a shocker. Specify "genomeType" here.
 
-"age" replacing "grow": Makes baby animals keep their genes when they grow up
+"genelib.age" replacing "grow": Makes baby animals keep their genes when they grow up
 
-"reproduce" replacing "multiply": Allows the entity to create offspring who inherit genes from both parents
+"genelib.reproduce" replacing "multiply": Allows the entity to create offspring who inherit genes from both parents
 
 Aside from EntityBehaviors, if you have any sex-linked genes you should also add male:true/false to the entity's attributes to specify, for example, that roosters are male and hens are female. For convenience, if you leave this out it will take a guess based on the entity code + variant groups - if the whole thing contains the string "-female" it will be treated as female, otherwise as male.
