@@ -14,11 +14,7 @@ using Vintagestory.GameContent;
 
 namespace Genelib {
     public class AnimalHunger : EntityBehavior {
-        public const string Code = GeneticsModSystem.NamePrefix + "animalhunger";
-
-        // Uses string instead of AssetLocation because here mod collisions are better than misses
-        public static readonly Dictionary<string, Dictionary<string, float>> nutritionData 
-            = new Dictionary<string, Dictionary<string, float>>();
+        public const string Code = GeneticsModSystem.NamePrefix + "hunger";
 
         public float weanedAge = 0;
         public float baseHungerRate;
@@ -57,18 +53,6 @@ namespace Genelib {
             set {
                 entity.WatchedAttributes.SetFloat("animalWeight", value);
             }
-        }
-
-        public static void LoadNutrition(IAsset asset) {
-            JsonObject attributes = JsonObject.FromJson(asset.ToText());
-            string key = attributes["tag"].AsString();
-            Dictionary<string, float> data = new Dictionary<string, float>();
-            string[] nutrients = new string[] { "fiber", "sugar", "starch", "fat", "protein", "water", "minerals" };
-            foreach (string name in nutrients) {
-                data[name] = attributes[name].AsFloat();
-            }
-            // TODO: Priority and requirements
-            nutritionData[key] = data;
         }
 
         public AnimalHunger(Entity entity) : base(entity) { }
@@ -173,15 +157,30 @@ namespace Genelib {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
-            ItemStack itemstack = slot.Itemstack;
+            entity.PlayEntitySound("eat", (fedBy as EntityPlayer)?.Player);
 
+            ItemStack itemstack = slot.Itemstack;
+            string[] foodTags = itemstack.Item.Attributes?["foodTags"].AsArray<string>();
+            NutritionData data = null;
+            foreach (string tag in foodTags) {
+                NutritionData tagData = NutritionData.Get(tag);
+                if (data == null || (tagData != null && tagData.Priority > data.Priority)) {
+                    data = tagData;
+                }
+            }
+            FoodNutritionProperties nutrition = itemstack.Item.GetNutritionProperties(entity.World, itemstack, entity);
+            GeneticsModSystem.ServerAPI.Logger.Notification("sekelstadebug " + itemstack.Item.Code + " " + data?.Code + " " + nutrition);
             // TODO: Figure out what nutrition to gain
             // TODO: Use reflection to check if PetAI:EntityBehaviorTameable exists and call its onInteract
             // Make sure itemstack doesn't get modified twice
-            FoodNutritionProperties nutrition = itemstack.Item.GetNutritionProperties(entity.World, itemstack, entity);
             if (nutrition != null) {
-                entity.PlayEntitySound("eat", (fedBy as EntityPlayer)?.Player);
-                itemstack.Item.GetType().GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(itemstack.Item, new object[] {1, slot, entity });
+                try {
+                    itemstack.Item.GetType().GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(itemstack.Item, new object[] {1, slot, entity });
+                }
+                catch (Exception e) {
+                    GeneticsModSystem.ServerAPI.Logger.Error(e);
+                    GeneticsModSystem.ServerAPI.Logger.Error(e.InnerException);
+                }
             }
 
             // TODO: Eat the food

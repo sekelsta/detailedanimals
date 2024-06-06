@@ -229,42 +229,42 @@
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "animalhunger" },
+        value: { code: "genelib.hunger" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "animalhunger" },
+        value: { code: "genelib.hunger" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "animalhunger" },
+        value: { code: "genelib.hunger" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "animalhunger" },
+        value: { code: "genelib.hunger" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "animalhunger" },
+        value: { code: "genelib.hunger" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "animalhunger" },
+        value: { code: "genelib.hunger" },
         side: "server"
     },
 ]

@@ -60,7 +60,7 @@ namespace Genelib
 
         public override void AssetsLoaded(ICoreAPI api) {
             LoadAssetType(api, genetics.Code, (asset) => GenomeType.Load(asset), "genome types");
-            LoadAssetType(api, nutrition.Code, (asset) => AnimalHunger.LoadNutrition(asset), "nutrition datasets");
+            LoadAssetType(api, nutrition.Code, (asset) => NutritionData.Load(asset), "nutrition datasets");
         }
 
         public void LoadAssetType(ICoreAPI api, string category, Action<IAsset> onLoaded, string typeName) {

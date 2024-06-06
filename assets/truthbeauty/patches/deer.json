@@ -390,9 +390,24 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/skipFoodTags/-",
+        value: [ "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "animalhunger",
+				code: "genelib.hunger",
+                enabledByType: { "*-caribou-*": true, "*": false },
                 maxSaturation: 18,
                 monthsUntilWeaned: 6,
                 fiber: 0.8,
