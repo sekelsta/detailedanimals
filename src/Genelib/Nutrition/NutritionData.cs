@@ -14,6 +14,7 @@ namespace Genelib {
         public float Priority = 0;
         public string[] Requirements;
         public readonly string Code;
+        public EnumFoodCategory FoodCategory = EnumFoodCategory.Unknown;
 
         public NutritionData(JsonObject attributes) {
             Code = attributes["tag"].AsString();
@@ -26,6 +27,22 @@ namespace Genelib {
             }
             if (attributes.KeyExists("requirements")) {
                 Requirements = attributes["requirements"].AsArray<string>();
+            }
+
+            if (Values["sugar"] > 0.5) {
+                FoodCategory = EnumFoodCategory.Fruit;
+            }
+            else if (Values["protein"] > 0.32) {
+                FoodCategory = EnumFoodCategory.Protein;
+            }
+            else if (Values["starch"] > 0.32) {
+                FoodCategory = EnumFoodCategory.Grain;
+            }
+            else if (Values["fiber"] > 0.14) {
+                FoodCategory = EnumFoodCategory.Vegetable;
+            }
+            else if (Values["fat"] > 0.15) {
+                FoodCategory = EnumFoodCategory.Dairy;
             }
         }
 

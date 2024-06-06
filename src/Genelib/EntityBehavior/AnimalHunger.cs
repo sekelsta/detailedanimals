@@ -55,6 +55,14 @@ namespace Genelib {
             }
         }
 
+        public double LastUpdateHours {
+            get => hungerTree.GetDouble("lastupdateHours");
+            set {
+                hungerTree.SetDouble("lastupdateHours", value);
+                entity.WatchedAttributes.MarkPathDirty("hunger");
+            }
+        }
+
         public AnimalHunger(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
@@ -157,10 +165,13 @@ namespace Genelib {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
-            entity.PlayEntitySound("eat", (fedBy as EntityPlayer)?.Player);
+            // Game code does it like this, assuming because we can't trust that fedBy.Player will be synchronized
+            IPlayer player = fedBy.World.PlayerByUid((fedBy as EntityPlayer)?.PlayerUID);
+            entity.PlayEntitySound("eat", player);
 
+            EntityAgent agent = entity as EntityAgent;
             ItemStack itemstack = slot.Itemstack;
-            string[] foodTags = itemstack.Item.Attributes?["foodTags"].AsArray<string>();
+            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>();
             NutritionData data = null;
             foreach (string tag in foodTags) {
                 NutritionData tagData = NutritionData.Get(tag);
@@ -168,22 +179,67 @@ namespace Genelib {
                     data = tagData;
                 }
             }
-            FoodNutritionProperties nutrition = itemstack.Item.GetNutritionProperties(entity.World, itemstack, entity);
-            GeneticsModSystem.ServerAPI.Logger.Notification("sekelstadebug " + itemstack.Item.Code + " " + data?.Code + " " + nutrition);
-            // TODO: Figure out what nutrition to gain
-            // TODO: Use reflection to check if PetAI:EntityBehaviorTameable exists and call its onInteract
-            // Make sure itemstack doesn't get modified twice
-            if (nutrition != null) {
-                try {
-                    itemstack.Item.GetType().GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(itemstack.Item, new object[] {1, slot, entity });
-                }
-                catch (Exception e) {
-                    GeneticsModSystem.ServerAPI.Logger.Error(e);
-                    GeneticsModSystem.ServerAPI.Logger.Error(e.InnerException);
+
+            // Based on Collectible.tryEatStop
+            FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
+            TransitionState state = itemstack.Collectible.UpdateAndGetTransitionState(entity.World, slot, EnumTransitionType.Perish);
+            float spoilState = state != null ? state.TransitionLevel : 0;
+            float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, slot.Itemstack, agent);
+            if (nutriProps != null) {
+                float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, slot.Itemstack, agent);
+                float intox = entity.WatchedAttributes.GetFloat("intoxication");
+                entity.WatchedAttributes.SetFloat("intoxication", Math.Min(1.1f, intox + nutriProps.Intoxication));
+                float healthChange = nutriProps.Health * healthLossMul;
+                if (healthChange != 0) {
+                    entity.ReceiveDamage(new DamageSource() {
+                            Source = EnumDamageSource.Internal, 
+                            Type = healthChange > 0 ? EnumDamageType.Heal : EnumDamageType.Poison 
+                        }, Math.Abs(healthChange));
                 }
             }
 
-            // TODO: Eat the food
+            if (data == null && nutriProps != null) {
+                data = nutriProps.FoodCategory switch {
+                    EnumFoodCategory.Fruit => NutritionData.Get("fruit"),
+                    EnumFoodCategory.Grain => NutritionData.Get("grain"),
+                    EnumFoodCategory.Protein => NutritionData.Get("meat"),
+                    EnumFoodCategory.Dairy => NutritionData.Get("cheese"),
+                    EnumFoodCategory.Vegetable => NutritionData.Get("vegetable"),
+                    _ => null,
+                };
+            }
+
+            float satiety = nutriProps?.Satiety ?? 100; // TODO
+            satiety *= satLossMul;
+            float currentSaturation = Saturation;
+            agent?.ReceiveSaturation(satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);
+            float maxsat = MaxSaturation;
+            satiety = satiety / 100;  // Approximate conversion between numbers used for player hunger and by troughs
+            Saturation = Math.Clamp(currentSaturation + satiety, -maxsat, maxsat);
+            float gain = satiety / maxsat;
+            foreach (Nutrient nutrient in Nutrients) {
+                nutrient.Gain(gain * (data?.Values[nutrient.Name] ?? 0));
+            }
+
+            // Make sure itemstack doesn't get modified twice
+            bool alreadyUsed = false;
+            // TODO: Use reflection to check if PetAI:EntityBehaviorTameable exists and call its onInteract
+            // If so, set alreadyUsed to true if the stack has changed
+            if (!alreadyUsed) {
+                slot.TakeOut(1);
+                if (nutriProps?.EatenStack != null) {
+                    if (slot.Empty) {
+                        slot.Itemstack = nutriProps.EatenStack.ResolvedItemstack.Clone();
+                    }
+                    else {
+                        if (player == null || !player.InventoryManager.TryGiveItemstack(nutriProps.EatenStack.ResolvedItemstack.Clone(), true)) {
+                            entity.World.SpawnItemEntity(nutriProps.EatenStack.ResolvedItemstack.Clone(), fedBy.SidedPos.XYZ);
+                        }
+                    }
+                }
+                slot.MarkDirty();
+                player.InventoryManager.BroadcastHotbarSlot();
+            }
 
             ApplyNutritionEffects();
         }
@@ -224,14 +280,19 @@ namespace Genelib {
             int TPS = 30;
             if (accumulator > 12 * TPS) {
                 accumulator = 0;
+                double currentHours = entity.World.Calendar.TotalHours;
+                float updateRateHours = 0.1f;
+                double lastUpdateHours = LastUpdateHours;
+                double updates = (currentHours - lastUpdateHours) / updateRateHours;
+
                 float intoxication = entity.WatchedAttributes.GetFloat("intoxication");
                 if (intoxication > 0)
                 {
-                    entity.WatchedAttributes.SetFloat("intoxication", Math.Max(0, intoxication - 0.005f));
+                    entity.WatchedAttributes.SetFloat("intoxication", Math.Max(0, intoxication - 0.005f * (float)updates));
                 }
 
                 Vec3d currentPos = entity.ServerPos.XYZ;
-                double distance = currentPos.DistanceTo(prevPos);
+                double distance = currentPos.DistanceTo(prevPos) / updates;
                 distance = Math.Max(0, distance + currentPos.Y - prevPos.Y); // Climbing/falling adjustment
                 // Riding a boat or train shouldn't make the animal hungrier
                 if (entity.WatchedAttributes["mountedOn"] != null) {
@@ -240,23 +301,27 @@ namespace Genelib {
                 prevPos = currentPos;
                 float work = 1 + (float)distance;
                 float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul;
-                ConsumeSaturation(baseHungerRate * work * entity.Stats.GetBlended("hungerrate") * timespeed);
+                float saturationConsumed = baseHungerRate * work * entity.Stats.GetBlended("hungerrate") * timespeed;
+                ConsumeSaturation(saturationConsumed);
 
-                // Become fatter or thinner
-                float fullness = Saturation / MaxSaturation;
-                float gain = fullness * fullness * fullness;
-                float recovery = 1 - AnimalWeight;
-                float weightShiftRate = 0.025f;
-                ShiftWeight(weightShiftRate * (gain + recovery) / 2);
+                // When player sleeps or chunk is unloaded, regain weight but don't starve
+                while ((currentHours - lastUpdateHours > 2 * updateRateHours) && (Saturation / MaxSaturation > -0.8f)) {
+                    UpdateCondition(updateRateHours);
+                    ConsumeSaturation(saturationConsumed);
+                    lastUpdateHours += updateRateHours;
+                }
+                UpdateCondition(updateRateHours);
+                LastUpdateHours = currentHours;
             }
         }
 
-        public void ConsumeSaturation(float amount) {
-            Saturation = Math.Clamp(Saturation - amount, -MaxSaturation, MaxSaturation);
-            foreach (Nutrient nutrient in Nutrients) {
-                nutrient.Consume(amount);
-            }
-            ApplyNutritionEffects();
+        public void UpdateCondition(float hours) {
+            // Become fatter or thinner
+            float fullness = Saturation / MaxSaturation;
+            float gain = fullness * fullness * fullness;
+            float recovery = 1 - AnimalWeight;
+            float weightShiftRate = 0.5f * hours / 24 / 10;
+            ShiftWeight(weightShiftRate * (gain + recovery) / 2);
         }
 
         public void ShiftWeight(float deltaWeight) {
@@ -266,6 +331,18 @@ namespace Genelib {
             float wetFractionOfOwnWeightEatenPerDay = 4 * dryFractionOfOwnWeightEatenPerDay;
             float deltaSat = -deltaWeight / wetFractionOfOwnWeightEatenPerDay * MaxSaturation;
             ConsumeSaturation(deltaSat);
+            Fat.Consume(deltaSat / 4);
+            if (deltaWeight > 0) {
+                Protein.Consume(deltaSat / 4);
+            }
+        }
+
+        public void ConsumeSaturation(float amount) {
+            Saturation = Math.Clamp(Saturation - amount, -MaxSaturation, MaxSaturation);
+            foreach (Nutrient nutrient in Nutrients) {
+                nutrient.Consume(amount);
+            }
+            ApplyNutritionEffects();
         }
 
         private void messagePlayer(String langKey, Entity byEntity) {
