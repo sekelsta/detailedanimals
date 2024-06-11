@@ -174,7 +174,7 @@ namespace Genelib {
         }
 
         public bool WantsEmergencyFood() {
-            return (AnimalWeight < 0.7 && Saturation < 0.4 * MaxSaturation) || (AnimalWeight < 0.85 && Saturation < -0.4 * MaxSaturation);
+            return (AnimalWeight < 0.7 && Saturation < 0) || (AnimalWeight < 0.85 && Saturation < -0.6 * MaxSaturation);
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode, ref EnumHandling handled) {
