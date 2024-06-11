@@ -12,7 +12,7 @@ namespace Genelib {
 
         public readonly Dictionary<string, float> Values = new Dictionary<string, float>();
         public float Priority = 0;
-        public string[] Requirements;
+        public string[] Specialties;
         public readonly string Code;
         public EnumFoodCategory FoodCategory = EnumFoodCategory.Unknown;
 
@@ -25,8 +25,8 @@ namespace Genelib {
             if (attributes.KeyExists("priority")) {
                 Priority = attributes["priority"].AsFloat();
             }
-            if (attributes.KeyExists("requirements")) {
-                Requirements = attributes["requirements"].AsArray<string>();
+            if (attributes.KeyExists("specialties")) {
+                Specialties = attributes["specialties"].AsArray<string>();
             }
 
             if (Values["sugar"] > 0.5) {

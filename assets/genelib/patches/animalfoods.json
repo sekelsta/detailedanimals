@@ -49,17 +49,34 @@
         side: "server",
     },
     {
+        "op": "remove",
+        "path": "/attributes/foodTags",
+        "file": "game:itemtypes/food/fruit.json",
+        "side": "Server"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/foodTagsByType",
+        "value": {
+            "*-cranberry": [ "{fruit}", "sour" ],
+            "*currant": [ "{fruit}", "sour" ],
+            "*": [ "{fruit}" ]
+        },
+        "file": "game:itemtypes/food/fruit.json",
+        "side": "Server"
+    },
+    {
         "file": "game:itemtypes/food/pickledlegume.json",
         "op": "addmerge",
         "path": "/attributes/foodTags",
-        "value": [ "pickledvegetable" ],
+        "value": [ "pickledvegetable", "sour" ],
         side: "server",
     },
     {
         "file": "game:itemtypes/food/pickledvegetable.json",
         "op": "addmerge",
         "path": "/attributes/foodTags",
-        "value": [ "pickledvegetable" ],
+        "value": [ "pickledvegetable", "sour" ],
         side: "server",
     },
     {
@@ -86,8 +103,12 @@
     {
         "file": "game:itemtypes/liquid/rawjuice.json",
         "op": "addmerge",
-        "path": "/attributes/foodTags",
-        "value": [ "fruitjuice" ],
+        "path": "/attributes/foodTagsByType",
+        "value": {
+            "*-cranberry": [ "fruitjuice", "sour" ],
+            "*currant": [ "fruitjuice", "sour" ],
+            "*": [ "fruitjuice" ],
+        },
         side: "server",
     },
     {

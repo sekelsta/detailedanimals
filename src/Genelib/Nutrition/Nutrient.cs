@@ -5,17 +5,17 @@ namespace Genelib {
     public class Nutrient {
         public readonly string Name;
         public readonly float Usage;
-        public readonly float Max;
+        public readonly float MaxSafe;
         private readonly AnimalHunger outer;
 
         public Nutrient(string name, JsonObject typeAttributes, AnimalHunger outer) {
             this.Name = name;
             this.Usage = typeAttributes[Name].AsFloat();
             if (typeAttributes.KeyExists(Name + "Max")) {
-                this.Max = typeAttributes[Name + "Max"].AsFloat();
+                this.MaxSafe = typeAttributes[Name + "Max"].AsFloat();
             }
             else {
-                this.Max = 2 * Usage;
+                this.MaxSafe = 2 * Usage;
             }
             this.outer = outer;
         }
@@ -28,12 +28,19 @@ namespace Genelib {
             }
         }
 
+        public float Value {
+            get {
+                float fill = Level / MaxSafe;
+                return Math.Max(0, 1 - fill * fill);
+            }
+        }
+
         public void Gain(float amount) {
-            Level = Math.Clamp(Level + amount, -Max, Max);
+            Level = Math.Clamp(Level + amount, -2 * MaxSafe, 2 * MaxSafe);
         }
 
         public void Consume(float amount) {
-            Level = Math.Clamp(Level - Usage * amount, -Max, Max);
+            Level = Math.Clamp(Level - Usage * amount, -2 * MaxSafe, 2 * MaxSafe);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 using Vintagestory.API.Client;
@@ -27,6 +28,10 @@ namespace Genelib {
         public Nutrient Water;
         public Nutrient Minerals;
         public List<Nutrient> Nutrients;
+        public string[] AvoidFoodTags = null;
+        public string[] Specialties = null;
+        public bool DigestsFiber = false;
+        public float MetabolicEfficiency;
 
         protected long listenerID;
         protected int accumulator;
@@ -73,6 +78,15 @@ namespace Genelib {
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAge = typeAttributes["monthsUntilWeaned"].AsFloat() / entity.World.Calendar.DaysPerMonth;
             }
+            if (typeAttributes.KeyExists("avoidFoodTags")) {
+                AvoidFoodTags = typeAttributes["avoidFoodTags"].AsArray<string>();
+            }
+            if (typeAttributes.KeyExists("specialties")) {
+                Specialties = typeAttributes["specialties"].AsArray<string>();
+            }
+            if (typeAttributes.KeyExists("digestsFiber")) {
+                DigestsFiber = typeAttributes["digestsFiber"].AsBool();
+            }
             prevPos = entity.ServerPos.XYZ;
 
             Fiber = new Nutrient("fiber", typeAttributes, this);
@@ -94,23 +108,47 @@ namespace Genelib {
         }
 
         public virtual void ApplyNutritionEffects() {
-            // TODO: give bonuses
-            // fiber: metabolic efficiency, max health++
-            // sugar: speed, jump height, energy
-            // starch: speed, stamina, metabolic efficiency
-            // fat: growth rate, strength, milk production, defense
-            // protein: strength, attack power, speed, growth rate, meat drops
-            // water: stamina, max health, growth rate, milk production
-            // minerals: growth rate, milk production, stamina
+            float fiber = Fiber.Value;
+            float sugar = Sugar.Value;
+            float starch = Starch.Value;
+            float fat = Fat.Value;
+            float protein = Protein.Value;
+            float water = Water.Value;
+            float minerals = Minerals.Value;
+
+            float metabolic_efficiency = 0.1f * starch + 0.2f * water;
+            if (DigestsFiber) {
+                metabolic_efficiency += 0.1f * fiber;
+            }
+            float health = 0.1f * fiber + 0.1f * minerals;
+            float strength = 0.1f * protein + 0.05f * fat;
+            float speed = 0.1f * sugar;
+            float stamina = 0.05f * starch + 0.1f * minerals + 0.15f * water;
+            float milkegg = 0.18f * fat + 0.06f * protein + 0.06f * minerals;
+            float wool = 0.1f * protein + 0.05f * fiber;
+            float growth = 0.08f * fat + 0.12f * protein;
+            float attack_power = 0.1f * protein;
+            float meat_drops = 0.1f * protein;
+            float fat_drops = 0.1f * fat;
+
+            MetabolicEfficiency = metabolic_efficiency;
+
+            EntityBehaviorHealth healthBehavior = entity.GetBehavior<EntityBehaviorHealth>();
+            healthBehavior.MaxHealthModifiers["nutrientHealthMod"] = health;
+            healthBehavior.MarkDirty();
+
+            // TODO: give other bonuses
+
+            // Consider adding later:
+            // Fiber: disease resistance
+            // Sugar: jump height, energy
+            // Fat: defense, fertility
+            // Minerals: fertility
         }
 
         public double Weaned() {
             double age = entity.World.Calendar.TotalDays - entity.WatchedAttributes.GetFloat("birthTotalDays", -99999);
             return age / weanedAge;
-        }
-
-        public bool MatchesDiet(ItemStack itemstack) {
-            return entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>().Matches(itemstack);
         }
 
         // Returns true if the animal wants some sort of food right now
@@ -119,15 +157,24 @@ namespace Genelib {
         }
 
         // Returns true if this is the sort of food the animal wants right now
-        public bool WantsFood(ItemStack itemstack) {
-            // TODO
+        public bool WantsFood(NutritionData data, float satiety) {
+            if (data == null) {
+                return true;
+            }
+            foreach (Nutrient nutrient in Nutrients) {
+                if (nutrient.Name.Equals("sugar")) {
+                    continue;
+                }
+                float newLevel = nutrient.Level + satiety * data.Values[nutrient.Name];
+                if (newLevel > nutrient.MaxSafe) {
+                    return false;
+                }
+            }
             return true;
-            //return itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity) != null;
         }
 
-        public bool WantsEmergencyFood(ItemStack itemstack) {
-            // TODO: Exclude items inedible even in emergencies, like dry grass for a cat
-            return AnimalWeight < 0.7 || (AnimalWeight < 0.85 && Saturation < -0.4 * MaxSaturation);
+        public bool WantsEmergencyFood() {
+            return (AnimalWeight < 0.7 && Saturation < 0.4 * MaxSaturation) || (AnimalWeight < 0.85 && Saturation < -0.4 * MaxSaturation);
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode, ref EnumHandling handled) {
@@ -136,32 +183,86 @@ namespace Genelib {
                 return;
             }
 
+            // Respect "skipFoodTags" and "specialties" even if animal is starving
             ItemStack itemstack = slot.Itemstack;
-            if (!MatchesDiet(itemstack)) {
-                if (WantsEmergencyFood(itemstack)) {
-                    Eat(slot, byEntity);
+            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>();
+            CreatureDiet diet = entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>();
+            if (diet.SkipFoodTags != null && foodTags != null) {
+                foreach (string skipTag in diet.SkipFoodTags) {
+                    if (foodTags.Contains(skipTag)) {
+                        handled = EnumHandling.PassThrough;
+                        return;
+                    }
+                }
+            }
+
+            NutritionData data = null;
+            foreach (string tag in foodTags) {
+                NutritionData tagData = NutritionData.Get(tag);
+                if (data == null || (tagData != null && tagData.Priority > data.Priority)) {
+                    data = tagData;
+                }
+            }
+            FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
+            if (data == null && nutriProps != null) {
+                data = nutriProps.FoodCategory switch {
+                    EnumFoodCategory.Fruit => NutritionData.Get("fruit"),
+                    EnumFoodCategory.Grain => NutritionData.Get("grain"),
+                    EnumFoodCategory.Protein => NutritionData.Get("meat"),
+                    EnumFoodCategory.Dairy => NutritionData.Get("cheese"),
+                    EnumFoodCategory.Vegetable => NutritionData.Get("vegetable"),
+                    _ => null,
+                };
+            }
+
+            if (data.Specialties != null) {
+                if (Specialties == null) {
+                        handled = EnumHandling.PassThrough;
+                        return;
+                }
+                foreach (string specialty in data.Specialties) {
+                    if (!Specialties.Contains(specialty)) {
+                        handled = EnumHandling.PassThrough;
+                        return;
+                    }
+                }
+            }
+
+            if (!diet.Matches(itemstack)) {
+                if (WantsEmergencyFood()) {
+                    Eat(slot, byEntity, data, nutriProps);
                     handled = EnumHandling.PreventSubsequent;
                     return;
                 }
                 handled = EnumHandling.PassThrough;
                 return;
             }
+            foreach (string avoid in AvoidFoodTags) {
+                if (foodTags.Contains(avoid)) {
+                    handled = EnumHandling.PassThrough;
+                    return;
+                }
+            }
             if (!CanEat()) {
                 messagePlayer("genelib:message-nothungry", byEntity);
                 handled = EnumHandling.PassThrough;
                 return;
             }
-            if (!WantsFood(itemstack)) {
+            if (!WantsFood(data, GetBaseSatiety(nutriProps))) {
                 messagePlayer("genelib:message-wrongnutrients", byEntity);
                 handled = EnumHandling.PassThrough;
                 return;
             }
-            Eat(slot, byEntity);
+            Eat(slot, byEntity, data, nutriProps);
             handled = EnumHandling.PreventSubsequent;
             return;
         }
 
-        public virtual void Eat(ItemSlot slot, Entity fedBy) {
+        public float GetBaseSatiety(FoodNutritionProperties nutriProps) {
+            return nutriProps?.Satiety ?? 100; // TODO
+        }
+
+        public virtual void Eat(ItemSlot slot, Entity fedBy, NutritionData data, FoodNutritionProperties nutriProps) {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
@@ -171,17 +272,9 @@ namespace Genelib {
 
             EntityAgent agent = entity as EntityAgent;
             ItemStack itemstack = slot.Itemstack;
-            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>();
-            NutritionData data = null;
-            foreach (string tag in foodTags) {
-                NutritionData tagData = NutritionData.Get(tag);
-                if (data == null || (tagData != null && tagData.Priority > data.Priority)) {
-                    data = tagData;
-                }
-            }
+
 
             // Based on Collectible.tryEatStop
-            FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
             TransitionState state = itemstack.Collectible.UpdateAndGetTransitionState(entity.World, slot, EnumTransitionType.Perish);
             float spoilState = state != null ? state.TransitionLevel : 0;
             float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, slot.Itemstack, agent);
@@ -198,19 +291,12 @@ namespace Genelib {
                 }
             }
 
-            if (data == null && nutriProps != null) {
-                data = nutriProps.FoodCategory switch {
-                    EnumFoodCategory.Fruit => NutritionData.Get("fruit"),
-                    EnumFoodCategory.Grain => NutritionData.Get("grain"),
-                    EnumFoodCategory.Protein => NutritionData.Get("meat"),
-                    EnumFoodCategory.Dairy => NutritionData.Get("cheese"),
-                    EnumFoodCategory.Vegetable => NutritionData.Get("vegetable"),
-                    _ => null,
-                };
-            }
 
-            float satiety = nutriProps?.Satiety ?? 100; // TODO
+            float satiety = GetBaseSatiety(nutriProps);
             satiety *= satLossMul;
+            if (!DigestsFiber && data != null) {
+                satiety *= 1 - data.Values["fiber"];
+            }
             float currentSaturation = Saturation;
             agent?.ReceiveSaturation(satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);
             float maxsat = MaxSaturation;
@@ -302,6 +388,7 @@ namespace Genelib {
                 float work = 1 + (float)distance;
                 float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul;
                 float saturationConsumed = baseHungerRate * work * entity.Stats.GetBlended("hungerrate") * timespeed;
+                saturationConsumed *= 1 / (1 + MetabolicEfficiency);
                 ConsumeSaturation(saturationConsumed);
 
                 // When player sleeps or chunk is unloaded, regain weight but don't starve

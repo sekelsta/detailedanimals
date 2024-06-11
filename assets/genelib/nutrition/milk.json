@@ -7,4 +7,5 @@
     minerals: 0.03,
     sugar: 0.4,
     starch: 0.0,
+    specialties: [ "lactose" ],
 }
