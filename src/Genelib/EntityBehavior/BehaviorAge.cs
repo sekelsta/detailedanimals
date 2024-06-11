@@ -138,7 +138,6 @@ namespace Genelib {
             if (code == null) {
                 return;
             }
-            GeneticsModSystem.ServerAPI.Logger.Notification("Attempting growth to code" + code);
 
             EntityProperties adultType = entity.World.GetEntityType(code);
 
@@ -159,9 +158,10 @@ namespace Genelib {
             adult.ServerPos.SetFrom(entity.ServerPos);
             adult.Pos.SetFrom(adult.ServerPos);
 
+            CopyAttributesTo(adult);
             entity.World.SpawnEntity(adult);
             // Apparently entity behaviors are only set up after spawning, so we spawn first then copy
-            CopyAttributesTo(adult);
+            CopyAttributesAfterSpawning(adult);
             entity.Die(EnumDespawnReason.Expire, null);
         }
 
@@ -169,7 +169,6 @@ namespace Genelib {
             adult.WatchedAttributes.SetInt("generation", entity.WatchedAttributes.GetInt("generation", 0));
             double birth = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
             adult.WatchedAttributes.SetDouble("birthTotalDays", birth); // Used for antler growth
-            adult.GetBehavior<EntityBehaviorNameTag>()?.SetName(entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName);
             CopyAttributeIfPresent(adult, "hunger");
             CopyAttributeIfPresent(adult, "animalWeight");
 
@@ -182,12 +181,17 @@ namespace Genelib {
                 adult.WatchedAttributes.SetInt("textureIndex", entity.WatchedAttributes.GetInt("textureIndex", 0));
             }
 
-            CopyAttributeIfPresent(adult, EntityBehaviorGenetics.Code);
+            CopyAttributeIfPresent(adult, "genetics");
             CopyAttributeIfPresent(adult, "motherId");
             CopyAttributeIfPresent(adult, "fatherId");
 
             // PetAI compat
             CopyAttributeIfPresent(adult, "domesticationstatus");
+        }
+
+        protected virtual void CopyAttributesAfterSpawning(Entity adult) {
+            adult.GetBehavior<EntityBehaviorNameTag>()?.SetName(entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName);
+            // PetAI compat
             /* TODO: Add this back if it can be done without creating a hard dependency on PetAI
             if (entity is EntityPet childPet && adult is EntityPet adultPet) {
                 for (int i = 0; i < childPet.GearInventory.Count; i++) {

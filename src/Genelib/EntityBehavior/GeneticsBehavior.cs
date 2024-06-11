@@ -39,7 +39,7 @@ namespace Genelib {
             }
             initializers = attributes["initializers"].AsArray<string>() ?? arrayOrNull(attributes["initializer"].AsString());
 
-            TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetTreeAttribute(PropertyName());
+            TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetTreeAttribute("genetics");
             if (geneticsTree != null) {
                 Genome = new Genome(GenomeType, geneticsTree);
             }
@@ -78,9 +78,9 @@ namespace Genelib {
         }
 
         public void GenomeModified() {
-            TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetOrAddTreeAttribute(PropertyName());
+            TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetOrAddTreeAttribute("genetics");
             genome.AddToTree(geneticsTree);
-            entity.WatchedAttributes.MarkPathDirty(PropertyName());
+            entity.WatchedAttributes.MarkPathDirty("genetics");
             foreach (GeneInterpreter interpreter in Genome.Type.Interpreters) {
                 interpreter.Interpret(Genome, entity);
             }
