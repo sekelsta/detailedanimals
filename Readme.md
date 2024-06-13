@@ -14,6 +14,11 @@ The basic idea:
 * Genelib provides a few simple gene-based effects
 * You will need to write code for more complicated effects like coat color genetics
 
+### Genetics features
+Supports Mendelian genetics, sex-linked genes for both mammals (XY) and birds (ZW), and haplodiploidy such as in bees. Genetic linkage is planned but not in yet. Each gene can have up to 256 alleles.
+
+Not planned: Lateral gene transfer, chromosome rearrangement, polyploidy.
+
 ### GenomeType
 The GenomeType is where you provide data in json format. You need one GenomeType per hybridizable group - so for example horses and donkeys should share the same GenomeType so that they can hybridize. This is usually going to end up meaning one GenomeType per genus, rather than species or family. Animals will not be able to hybridize unless they have the same GenomeType.
 
