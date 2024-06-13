@@ -89,7 +89,7 @@
             adultEntityCodesByType: {
                 "*-male-*": ["game:pig-wild-male"],
                 "*-female-*": ["game:pig-wild-female"],
-                "*": ["game:pig-wild-female"],
+                "*": ["game:pig-wild-female", "game:pig-wild-male" ],
             },
             initialWeight: 0.004
         },
@@ -228,13 +228,6 @@
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "add",
         path: "/server/behaviors/-",
         value: { code: "genelib.hunger" },
         side: "server"
@@ -242,21 +235,7 @@
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "add",
-        path: "/client/behaviors/-",
         value: { code: "genelib.hunger" },
         side: "server"
     },

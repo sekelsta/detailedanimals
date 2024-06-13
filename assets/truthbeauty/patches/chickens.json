@@ -131,7 +131,7 @@
             adultEntityCodesByType: {
                 "*-male-*": ["game:chicken-roosterpoult"],
                 "*-female-*": ["game:chicken-henpoult"],
-                "*": ["game:chicken-henpoult"],
+                "*": ["game:chicken-henpoult", "game:chicken-roosterpoult"],
             },
             initialWeight: 0.0175,
         },

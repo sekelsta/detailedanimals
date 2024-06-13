@@ -75,7 +75,7 @@
             adultEntityCodesByType: {
                 "*-male-*": ["game:sheep-bighorn-male"],
                 "*-female-*": ["game:sheep-bighorn-female"],
-                "*": ["game:sheep-bighorn-female"],
+                "*": ["game:sheep-bighorn-female", "game:sheep-bighorn-male"],
             },
             initialWeight: 0.1,
         },
