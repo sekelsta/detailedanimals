@@ -213,12 +213,14 @@ namespace Genelib {
             litterData.value = new TreeAttribute[litterSize];
             for (int i = 0; i < litterSize; ++i) {
                 AssetLocation offspringCode = OffspringCodes[entity.World.Rand.Next(OffspringCodes.Length)];
-                bool heterogametic = ourGenome.Type.SexDetermination.Heterogametic(entity.IsMale());
-                Genome child = new Genome(ourGenome, sireGenome, heterogametic, entity.World.Rand);
-                child.Mutate(GeneticsModSystem.MutationRate, entity.World.Rand);
                 litterData.value[i] = new TreeAttribute();
-                TreeAttribute childGeneticsTree = (TreeAttribute) litterData.value[i].GetOrAddTreeAttribute(EntityBehaviorGenetics.Code);
-                child.AddToTree(childGeneticsTree);
+                if (ourGenome != null && sireGenome != null) {
+                    bool heterogametic = ourGenome.Type.SexDetermination.Heterogametic(entity.IsMale());
+                    Genome child = new Genome(ourGenome, sireGenome, heterogametic, entity.World.Rand);
+                    child.Mutate(GeneticsModSystem.MutationRate, entity.World.Rand);
+                    TreeAttribute childGeneticsTree = (TreeAttribute) litterData.value[i].GetOrAddTreeAttribute("genetics");
+                    child.AddToTree(childGeneticsTree);
+                }
                 litterData.value[i].SetString("code", offspringCode.ToString());
                 litterData.value[i].SetLong("sireId", sire.EntityId);
             }
@@ -299,8 +301,8 @@ namespace Genelib {
                 spawn.WatchedAttributes.SetInt("generation", nextGeneration);
                 spawn.WatchedAttributes.SetLong("motherId", entity.EntityId);
                 spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("sireId"));
-                if (childData.HasAttribute(EntityBehaviorGenetics.Code)) {
-                    spawn.WatchedAttributes.SetAttribute(EntityBehaviorGenetics.Code, childData.GetTreeAttribute(EntityBehaviorGenetics.Code));
+                if (childData.HasAttribute("genetics")) {
+                    spawn.WatchedAttributes.SetAttribute("genetics", childData.GetTreeAttribute("genetics"));
                 }
 
                 entity.World.SpawnEntity(spawn);

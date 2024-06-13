@@ -208,21 +208,21 @@
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "truthbeauty:pig" },
+        value: { code: "genelib.genetics", genomeType: "truthbeauty:pig" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "truthbeauty:pig" },
+        value: { code: "genelib.genetics", genomeType: "truthbeauty:pig" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genetics", genomeType: "truthbeauty:pig" },
+        value: { code: "genelib.genetics", genomeType: "truthbeauty:pig" },
         side: "server"
     },
     {

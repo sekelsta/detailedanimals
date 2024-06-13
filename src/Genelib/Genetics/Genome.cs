@@ -129,6 +129,7 @@ namespace Genelib {
         }
 
         public Genome(Genome mother, Genome father, bool heterogametic, Random random) {
+            this.Type = mother.Type;
             Inherit(mother, father, heterogametic, random);
         }
 

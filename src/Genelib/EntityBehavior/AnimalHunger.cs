@@ -28,8 +28,8 @@ namespace Genelib {
         public Nutrient Water;
         public Nutrient Minerals;
         public List<Nutrient> Nutrients;
-        public string[] AvoidFoodTags = null;
-        public string[] Specialties = null;
+        public string[] AvoidFoodTags = new string[0];
+        public string[] Specialties = new string[0];
         public bool DigestsFiber = false;
         public float MetabolicEfficiency;
 
@@ -134,8 +134,13 @@ namespace Genelib {
             MetabolicEfficiency = metabolic_efficiency;
 
             EntityBehaviorHealth healthBehavior = entity.GetBehavior<EntityBehaviorHealth>();
-            healthBehavior.MaxHealthModifiers["nutrientHealthMod"] = health;
-            healthBehavior.MarkDirty();
+            if (healthBehavior == null) {
+                GeneticsModSystem.ServerAPI.Logger.Warning(Code + " expected non-null health behavior for entity " + entity.Code);
+            }
+            else {
+                healthBehavior.MaxHealthModifiers["nutrientHealthMod"] = health;
+                healthBehavior.MarkDirty();
+            }
 
             // TODO: give other bonuses
 
@@ -185,9 +190,9 @@ namespace Genelib {
 
             // Respect "skipFoodTags" and "specialties" even if animal is starving
             ItemStack itemstack = slot.Itemstack;
-            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>();
+            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>() ?? new string[0];
             CreatureDiet diet = entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>();
-            if (diet.SkipFoodTags != null && foodTags != null) {
+            if (diet.SkipFoodTags != null) {
                 foreach (string skipTag in diet.SkipFoodTags) {
                     if (foodTags.Contains(skipTag)) {
                         handled = EnumHandling.PassThrough;
@@ -215,7 +220,7 @@ namespace Genelib {
                 };
             }
 
-            if (data.Specialties != null) {
+            if (data?.Specialties != null) {
                 if (Specialties == null) {
                         handled = EnumHandling.PassThrough;
                         return;

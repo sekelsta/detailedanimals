@@ -12,7 +12,7 @@ namespace Genelib {
 
         public readonly Dictionary<string, float> Values = new Dictionary<string, float>();
         public float Priority = 0;
-        public string[] Specialties;
+        public string[] Specialties = new string[0];
         public readonly string Code;
         public EnumFoodCategory FoodCategory = EnumFoodCategory.Unknown;
 

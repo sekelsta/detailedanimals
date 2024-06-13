@@ -2,7 +2,7 @@ using System;
 using Vintagestory.API.Datastructures;
 
 namespace Genelib {
-    public class Nutrient {
+    public struct Nutrient {
         public readonly string Name;
         public readonly float Usage;
         public readonly float MaxSafe;
