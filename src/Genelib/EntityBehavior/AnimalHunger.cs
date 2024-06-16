@@ -30,7 +30,7 @@ namespace Genelib {
         public List<Nutrient> Nutrients;
         public string[] AvoidFoodTags = new string[0];
         public string[] Specialties = new string[0];
-        public bool DigestsFiber = false;
+        public float FiberDigestion = 0;
         public float MetabolicEfficiency;
 
         protected long listenerID;
@@ -84,8 +84,8 @@ namespace Genelib {
             if (typeAttributes.KeyExists("specialties")) {
                 Specialties = typeAttributes["specialties"].AsArray<string>();
             }
-            if (typeAttributes.KeyExists("digestsFiber")) {
-                DigestsFiber = typeAttributes["digestsFiber"].AsBool();
+            if (typeAttributes.KeyExists("fiberDigestion")) {
+                FiberDigestion = typeAttributes["fiberDigestion"].AsFloat();
             }
             prevPos = entity.ServerPos.XYZ;
 
@@ -116,10 +116,7 @@ namespace Genelib {
             float water = Water.Value;
             float minerals = Minerals.Value;
 
-            float metabolic_efficiency = 0.1f * starch + 0.2f * water;
-            if (DigestsFiber) {
-                metabolic_efficiency += 0.1f * fiber;
-            }
+            float metabolic_efficiency = 0.1f * starch + 0.2f * water + 0.1f * fiber * FiberDigestion;
             float health = 0.1f * fiber + 0.1f * minerals;
             float strength = 0.1f * protein + 0.05f * fat;
             float speed = 0.1f * sugar;
@@ -299,8 +296,8 @@ namespace Genelib {
 
             float satiety = GetBaseSatiety(nutriProps);
             satiety *= satLossMul;
-            if (!DigestsFiber && data != null) {
-                satiety *= 1 - data.Values["fiber"];
+            if (data != null) {
+                satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);
             }
             float currentSaturation = Saturation;
             agent?.ReceiveSaturation(satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);

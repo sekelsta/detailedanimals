@@ -18,11 +18,17 @@ namespace Genelib {
                 this.MaxSafe = 2 * Usage;
             }
             this.outer = outer;
+            if (MaxSafe <= 0) {
+                throw new ArgumentException("Max nutrient '" + name + "' must be greater than 0");
+            }
         }
 
         public float Level {
             get => outer.hungerTree.GetFloat(Name + "Level");
             set {
+                if (float.IsNaN(value)) {
+                    throw new ArgumentException("Cannot set nutrient value to NaN");
+                }
                 outer.hungerTree.SetFloat(Name + "Level", value);
                 outer.entity.WatchedAttributes.MarkPathDirty("hunger");
             }
