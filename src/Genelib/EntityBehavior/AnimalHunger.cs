@@ -18,7 +18,6 @@ namespace Genelib {
         public const string Code = GeneticsModSystem.NamePrefix + "hunger";
 
         public float weanedAge = 0;
-        public float baseHungerRate;
         protected internal ITreeAttribute hungerTree;
         public Nutrient Fiber;
         public Nutrient Sugar;
@@ -59,6 +58,10 @@ namespace Genelib {
             }
         }
 
+        public float AdjustedMaxSaturation {
+            get => MaxSaturation * Math.Max(0.1f, entity.WatchedAttributes.GetFloat("growthWeightFraction", 1));
+        }
+
         public float AnimalWeight {
             get => entity.WatchedAttributes.GetFloat("animalWeight", 1f);
             set {
@@ -83,8 +86,6 @@ namespace Genelib {
             accumulator = entity.World.Rand.Next(updateSeconds * TPS);
             hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
             MaxSaturation = typeAttributes["maxsaturation"].AsFloat(15);
-            // Takes two days to empty the hunger bar from max
-            baseHungerRate = MaxSaturation / 240 / 2;
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAge = typeAttributes["monthsUntilWeaned"].AsFloat() / entity.World.Calendar.DaysPerMonth;
             }
@@ -165,7 +166,7 @@ namespace Genelib {
 
         // Returns true if the animal wants some sort of food right now
         public bool CanEat() {
-            return Saturation < MaxSaturation && AnimalWeight < 1.8f;
+            return Saturation < AdjustedMaxSaturation && AnimalWeight < 1.8f;
         }
 
         // Returns true if this is the sort of food the animal wants right now
@@ -186,7 +187,7 @@ namespace Genelib {
         }
 
         public bool WantsEmergencyFood() {
-            return (AnimalWeight < 0.7 && Saturation < 0) || (AnimalWeight < 0.85 && Saturation < -0.6 * MaxSaturation);
+            return (AnimalWeight < 0.7 && Saturation < 0) || (AnimalWeight < 0.85 && Saturation < -0.6 * AdjustedMaxSaturation);
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode, ref EnumHandling handled) {
@@ -311,7 +312,7 @@ namespace Genelib {
             }
             float currentSaturation = Saturation;
             agent?.ReceiveSaturation(satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);
-            float maxsat = MaxSaturation;
+            float maxsat = AdjustedMaxSaturation;
             satiety = satiety / 100;  // Approximate conversion between numbers used for player hunger and by troughs
             Saturation = Math.Clamp(currentSaturation + satiety, -maxsat, maxsat);
             float gain = satiety / maxsat;
@@ -382,6 +383,9 @@ namespace Genelib {
                     entity.WatchedAttributes.SetFloat("intoxication", Math.Max(0, intoxication - 0.005f * (float)updates));
                 }
 
+                // Takes two days to empty the hunger bar from max
+                float baseHungerRate = AdjustedMaxSaturation / 240 / 2;
+
                 Vec3d currentPos = entity.ServerPos.XYZ;
                 double distance = currentPos.DistanceTo(prevPos) / updates;
                 distance = Math.Max(0, distance + currentPos.Y - prevPos.Y); // Climbing/falling adjustment
@@ -397,7 +401,7 @@ namespace Genelib {
                 ConsumeSaturation(saturationConsumed);
 
                 // When player sleeps or chunk is unloaded, regain weight but don't starve
-                while ((currentHours - lastUpdateHours > 2 * updateRateHours) && (Saturation / MaxSaturation > -0.8f)) {
+                while ((currentHours - lastUpdateHours > 2 * updateRateHours) && (Saturation / AdjustedMaxSaturation > -0.8f)) {
                     UpdateCondition(updateRateHours);
                     ConsumeSaturation(saturationConsumed);
                     lastUpdateHours += updateRateHours;
@@ -409,7 +413,7 @@ namespace Genelib {
 
         public void UpdateCondition(float hours) {
             // Become fatter or thinner
-            float fullness = Saturation / MaxSaturation;
+            float fullness = Saturation / AdjustedMaxSaturation;
             float gain = fullness * fullness * fullness;
             float recovery = 1 - AnimalWeight;
             float weightShiftRate = 0.5f * hours / 24 / 10;
@@ -421,7 +425,7 @@ namespace Genelib {
             AnimalWeight = (float)Math.Clamp(AnimalWeight + deltaWeight * inefficiency, 0.5f, 2f);
             float dryFractionOfOwnWeightEatenPerDay = 0.01f;
             float wetFractionOfOwnWeightEatenPerDay = 4 * dryFractionOfOwnWeightEatenPerDay;
-            float deltaSat = -deltaWeight / wetFractionOfOwnWeightEatenPerDay * MaxSaturation;
+            float deltaSat = -deltaWeight / wetFractionOfOwnWeightEatenPerDay * AdjustedMaxSaturation;
             ConsumeSaturation(deltaSat);
             Fat.Consume(deltaSat / 4);
             if (deltaWeight > 0) {
@@ -430,7 +434,7 @@ namespace Genelib {
         }
 
         public void ConsumeSaturation(float amount) {
-            Saturation = Math.Clamp(Saturation - amount, -MaxSaturation, MaxSaturation);
+            Saturation = Math.Clamp(Saturation - amount, -AdjustedMaxSaturation, AdjustedMaxSaturation);
             foreach (Nutrient nutrient in Nutrients) {
                 nutrient.Consume(amount);
             }
