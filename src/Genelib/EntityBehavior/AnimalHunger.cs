@@ -37,6 +37,9 @@ namespace Genelib {
         protected int accumulator;
         protected Vec3d prevPos;
 
+        private const int TPS = 30;
+        private const int updateSeconds = 12;
+
         public float Saturation {
             get => hungerTree.GetFloat("saturation");
             set {
@@ -77,6 +80,7 @@ namespace Genelib {
         public AnimalHunger(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
+            accumulator = entity.World.Rand.Next(updateSeconds * TPS);
             hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
             MaxSaturation = typeAttributes["maxsaturation"].AsFloat(15);
             // Takes two days to empty the hunger bar from max
@@ -365,8 +369,7 @@ namespace Genelib {
             // not get hungry.
 
             ++accumulator;
-            int TPS = 30;
-            if (accumulator > 12 * TPS) {
+            if (accumulator > updateSeconds * TPS) {
                 accumulator = 0;
                 double currentHours = entity.World.Calendar.TotalHours;
                 float updateRateHours = 0.1f;
