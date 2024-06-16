@@ -79,8 +79,8 @@ namespace Genelib {
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
             hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
             MaxSaturation = typeAttributes["maxsaturation"].AsFloat(15);
-            // Takes one day to empty the hunger bar from max
-            baseHungerRate = MaxSaturation / 240;
+            // Takes two days to empty the hunger bar from max
+            baseHungerRate = MaxSaturation / 240 / 2;
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAge = typeAttributes["monthsUntilWeaned"].AsFloat() / entity.World.Calendar.DaysPerMonth;
             }
