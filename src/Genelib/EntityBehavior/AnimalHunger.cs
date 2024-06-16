@@ -338,12 +338,6 @@ namespace Genelib {
             ApplyNutritionEffects();
         }
 
-        public override WorldInteraction[] GetInteractionHelp(IClientWorldAccessor world, EntitySelection es, IClientPlayer player, ref EnumHandling handled) {
-            // TODO
-            handled = EnumHandling.PassThrough;
-            return null;
-        }
-
         private void SlowTick(float dt)
         {
             // Same temperature-hunger logic as EntityBehaviorHunger uses
