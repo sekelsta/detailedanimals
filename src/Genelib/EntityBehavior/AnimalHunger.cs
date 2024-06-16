@@ -40,6 +40,9 @@ namespace Genelib {
         public float Saturation {
             get => hungerTree.GetFloat("saturation");
             set {
+                if (float.IsNaN(value)) {
+                    throw new ArgumentException("Cannot set saturation value to NaN");
+                }
                 hungerTree.SetFloat("saturation", value);
                 entity.WatchedAttributes.MarkPathDirty("hunger");
             }
@@ -56,6 +59,9 @@ namespace Genelib {
         public float AnimalWeight {
             get => entity.WatchedAttributes.GetFloat("animalWeight", 1f);
             set {
+                if (float.IsNaN(value)) {
+                    throw new ArgumentException("Cannot set animalWeight to NaN");
+                }
                 entity.WatchedAttributes.SetFloat("animalWeight", value);
             }
         }
