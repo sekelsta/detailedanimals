@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -83,8 +84,12 @@ namespace Genelib {
         public AnimalHunger(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
-            accumulator = entity.World.Rand.Next(updateSeconds * TPS);
             hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
+            if (entity.Api.Side == EnumAppSide.Client) {
+                return;
+            }
+
+            accumulator = entity.World.Rand.Next(updateSeconds * TPS);
             MaxSaturation = typeAttributes["maxsaturation"].AsFloat(15);
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAge = typeAttributes["monthsUntilWeaned"].AsFloat() / entity.World.Calendar.DaysPerMonth;
@@ -108,7 +113,7 @@ namespace Genelib {
             Water = new Nutrient("water", typeAttributes, this);
             Minerals = new Nutrient("minerals", typeAttributes, this);
             Nutrients = new List<Nutrient> { Fiber, Sugar, Starch, Fat, Protein, Water, Minerals };
-            listenerID = entity.World.RegisterGameTickListener(SlowTick, 12000);
+            listenerID = entity.World.RegisterGameTickListener(SlowServerTick, 12000);
             ApplyNutritionEffects();
         }
 
@@ -191,6 +196,9 @@ namespace Genelib {
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode, ref EnumHandling handled) {
+            if (entity.Api.Side == EnumAppSide.Client) {
+                return;
+            }
             if (slot.Empty) {
                 handled = EnumHandling.PassThrough;
                 return;
@@ -272,7 +280,7 @@ namespace Genelib {
         }
 
         public float GetBaseSatiety(FoodNutritionProperties nutriProps) {
-            return nutriProps?.Satiety ?? 100; // TODO
+            return nutriProps?.Satiety ?? 100; // TODO: Read from attributes/satiety
         }
 
         public virtual void Eat(ItemSlot slot, Entity fedBy, NutritionData data, FoodNutritionProperties nutriProps) {
@@ -343,7 +351,7 @@ namespace Genelib {
             ApplyNutritionEffects();
         }
 
-        private void SlowTick(float dt)
+        private void SlowServerTick(float dt)
         {
             // Same temperature-hunger logic as EntityBehaviorHunger uses
             bool harshWinters = entity.World.Config.GetString("harshWinters").ToBool(true);
@@ -365,10 +373,13 @@ namespace Genelib {
         }
 
         public override void OnGameTick(float deltaTime) {
-            // Don't put in SlowTick, because that still gets called when game is paused
+            // Don't put in SlowServerTick, because that still gets called when game is paused
             // And don't reference game calendar, because entities in unloaded chunks have no way to eat and so should 
             // not get hungry.
 
+            if (entity.Api.Side == EnumAppSide.Client) {
+                return;
+            }
             ++accumulator;
             if (accumulator > updateSeconds * TPS) {
                 accumulator = 0;
@@ -444,6 +455,25 @@ namespace Genelib {
         private void messagePlayer(String langKey, Entity byEntity) {
             String message = Lang.GetUnformatted(langKey).Replace("{entity}", entity.GetName());
             ((byEntity as EntityPlayer)?.Player as IServerPlayer)?.SendMessage(GlobalConstants.GeneralChatGroup, message, EnumChatType.Notification);
+        }
+
+        public override void GetInfoText(StringBuilder infotext) {
+            base.GetInfoText(infotext);
+            double[] hungerBoundaries = new double[] {0.6, 0.3, -0.3, -0.6 };
+            int hungerScore = 0;
+            float fullness = Saturation / AdjustedMaxSaturation;
+            foreach (double b in hungerBoundaries) {
+                if (fullness < b) {
+                    hungerScore += 1;
+                }
+                else {
+                    break;
+                }
+            }
+
+            string suffix = entity.IsMale() ? "-male" : "-female";
+            string text = VSExtensions.GetLangOptionallySuffixed("genelib:infotext-hunger" + hungerScore.ToString(), suffix);
+            infotext.AppendLine(text);
         }
 
         public override string PropertyName() => Code;

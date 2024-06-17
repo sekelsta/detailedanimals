@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 
 namespace Genelib {
     public static class VSExtensions {
@@ -9,6 +10,13 @@ namespace Genelib {
                 jo.Add("male", !entity.Code.Path.Contains("-female"));
             }
             return entity.Properties.Attributes["male"].AsBool();
+        }
+
+        public static string GetLangOptionallySuffixed(string key, string suffix) {
+            if (Lang.HasTranslation(key)) {
+                return Lang.Get(key);
+            }
+            return Lang.Get(key + suffix);
         }
     }
 }

@@ -53,15 +53,15 @@ namespace Genelib {
             Debug.Assert(bodyScore <= 9);
 
             float baseWeightKg = entity.Properties.Attributes["adultWeightKg"].AsFloat();
-            float debugval = baseWeightKg;
             baseWeightKg *= entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
             double weightKilograms = AnimalWeight * baseWeightKg;
             double weightPounds = weightKilograms * 2.20462;
 
             string unitsSuffix = GeneticsModSystem.Config.WeightSuffix();
-            string conditionKey = "genelib:infotext-bodycondition" + bodyScore.ToString() + (entity.IsMale() ? "-male" : "-female");
+            string conditionKey = "genelib:infotext-bodycondition" + bodyScore.ToString();
+            string genderSuffix = entity.IsMale() ? "-male" : "-female";
             string text = Lang.GetUnformatted("genelib:infotext-conditionweight" + unitsSuffix)
-                .Replace("{condition}", Lang.Get(conditionKey))
+                .Replace("{condition}", VSExtensions.GetLangOptionallySuffixed(conditionKey, genderSuffix))
                 .Replace("{pounds}", roundNicely(weightPounds))
                 .Replace("{kilograms}", roundNicely(weightKilograms));
             infotext.AppendLine(text);

@@ -428,4 +428,11 @@
 			},
         side: "server"
     },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
 ]
