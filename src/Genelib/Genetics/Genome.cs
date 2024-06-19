@@ -148,24 +148,24 @@ namespace Genelib {
                 // Mammal
                 primary_xz = inherit_xz(mother.primary_xz, mother.secondary_xz, random);
                 if (isHeterogametic) {
-                    yw = inherit_yw(father.yw, random);
+                    yw = (byte[]) father.yw.Clone();
                 }
                 else {
-                    secondary_xz = inherit_xz(father.primary_xz, father.secondary_xz, random);
+                    secondary_xz = (byte[]) father.primary_xz.Clone();
                 }
             }
             else {
                 // Bird
                 primary_xz = inherit_xz(father.primary_xz, father.secondary_xz, random);
                 if (isHeterogametic) {
-                    yw = inherit_yw(mother.yw, random);
+                    yw = (byte[]) mother.yw.Clone();
                 }
                 else {
-                    secondary_xz = inherit_xz(mother.primary_xz, mother.secondary_xz, random);
+                    secondary_xz = (byte[]) mother.primary_xz.Clone();
                 }
             }
-            inherit_autosomal(mother.autosomal, father.autosomal, random);
-            inherit_autosomal(mother.anonymous, father.anonymous, random);
+            autosomal = inherit_autosomal(mother.autosomal, father.autosomal, random);
+            anonymous = inherit_autosomal(mother.anonymous, father.anonymous, random);
             return this;
         }
 
@@ -196,13 +196,6 @@ namespace Genelib {
                 result[i] = random.NextBool() ? maternal[i] : paternal[i];
             }
             return result;
-        }
-
-        protected virtual byte[] inherit_yw(byte[] parent_yw, Random random) {
-            if (parent_yw == null) {
-                return null;
-            }
-            return (byte[]) parent_yw.Clone();
         }
 
         public virtual Genome Mutate(double p, Random random) {
@@ -320,7 +313,7 @@ namespace Genelib {
             byte[] secondary_xz = (geneticsTree.GetAttribute("secondary_xz") as ByteArrayAttribute)?.value;
             byte[] yw = (geneticsTree.GetAttribute("yw") as ByteArrayAttribute)?.value;
             this.autosomal = atLeastSize(autosomal, 2 * type.Autosomal.GeneCount);
-            this.anonymous = anonymous;
+            this.anonymous = atLeastSize(anonymous, 2 * type.AnonymousGeneCount);
             this.primary_xz = atLeastSize(primary_xz, type.XZ.GeneCount);
             this.secondary_xz = atLeastSize(secondary_xz, type.XZ.GeneCount);
             this.yw = atLeastSize(yw, type.YW.GeneCount);
@@ -361,7 +354,19 @@ namespace Genelib {
         }
 
         public override string ToString() {
-            return "Genome { type:" + Type.Name + " }";
+            return "Genome << type:" + Type.Name 
+                + ",\n    autosomal=" + ArrayToString(autosomal) 
+                + ",\n    primary_xz=" + ArrayToString(primary_xz) 
+                + ",\n    secondary_xz=" + ArrayToString(secondary_xz) 
+                + ",\n    yw=" + ArrayToString(yw) 
+                + ",\n    anonymous=" + ArrayToString(anonymous) + " >>";
+        }
+
+        private string ArrayToString<T>(T[] array) {
+            if (array == null) {
+                return "null";
+            }
+            return "[" + string.Join(",", array) + "]";
         }
     }
 }

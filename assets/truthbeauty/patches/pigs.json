@@ -91,7 +91,7 @@
                 "*-female-*": ["game:pig-wild-female"],
                 "*": ["game:pig-wild-female", "game:pig-wild-male" ],
             },
-            initialWeight: 0.004
+            initialWeight: 0.005
         },
         side: "server"
     },
@@ -108,7 +108,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/land/pig-wild-male.json",
         op: "add",
         path: "/server/behaviors/-",
         value: { 
@@ -198,7 +198,7 @@
             offspringCodes: ["truthbeauty:pig-wild-female-piglet", "truthbeauty:pig-wild-male-piglet"],
             gestationMonths: 3.8,
             cooldownMonths: 0.8,
-            lactationMonths: 3.6,
+            lactationMonths: 3.9,
             estrousCycleMonths: 0.65,
             daysInHeat: 2.0,
         },
@@ -232,7 +232,7 @@
         value: {
                 code: "genelib.hunger",
                 maxSaturation: 22,
-                monthsUntilWeaned: 6,
+                monthsUntilWeaned: 3.9,
                 fiber: 0.25,
                 fiberMax: 0.5,
                 sugar: 0.1,
@@ -257,7 +257,7 @@
         value: {
                 code: "genelib.hunger",
                 maxSaturation: 22,
-                monthsUntilWeaned: 6,
+                monthsUntilWeaned: 3.9,
                 fiber: 0.25,
                 fiberMax: 0.5,
                 sugar: 0.1,
@@ -282,7 +282,7 @@
         value: {
                 code: "genelib.hunger",
                 maxSaturation: 22,
-                monthsUntilWeaned: 6,
+                monthsUntilWeaned: 3.9,
                 fiber: 0.25,
                 fiberMax: 0.5,
                 sugar: 0.1,

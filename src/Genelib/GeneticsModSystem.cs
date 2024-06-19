@@ -77,7 +77,7 @@ namespace Genelib
         }
 
         public override void AssetsFinalize(ICoreAPI api) {
-            if (api.World.Side != EnumAppSide.Server) {
+            if (api.Side != EnumAppSide.Server) {
                 return;
             }
             // Need to do the same thing as ModSystemSyncHarvestableDropsToClient

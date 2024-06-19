@@ -20,6 +20,7 @@ namespace Genelib {
         public NameMapping YW { get; protected set; }
         private Dictionary<string, GeneInitializer> initializers = new Dictionary<string, GeneInitializer>();
         public GeneInterpreter[] Interpreters { get; protected set; }
+        public int AnonymousGeneCount { get => interpreterMap.ContainsKey("Polygenes") ? PolygeneInterpreter.NUM_POLYGENES : 0; }
 
         public SexDetermination SexDetermination { get; protected set; } = SexDetermination.XY;
         private AlleleFrequencies defaultFrequencies;

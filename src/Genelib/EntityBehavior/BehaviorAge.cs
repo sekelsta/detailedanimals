@@ -10,7 +10,6 @@ using Vintagestory.API.MathTools;
 namespace Genelib {
     public class BehaviorAge : EntityBehavior {
         public const string Code = GeneticsModSystem.NamePrefix + "age";
-        private const double coef = 1;
 
         private long? callbackID;
         private ITreeAttribute growTree;
@@ -88,6 +87,7 @@ namespace Genelib {
         }
 
         protected virtual double ExpectedWeight(double ageFraction) {
+            double coef = 1;
             double r = 1 - Math.Exp(-1 * coef);
             double n = -1 / coef * Math.Log(1 - StartingWeight / FinalWeight * r);
             double x = n + ageFraction * (1 - n);
@@ -123,10 +123,13 @@ namespace Genelib {
                     }
                 }
                 double expected = Math.Max(ExpectedWeight(age / HoursToGrow), GrowthWeightFraction);
-                float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
-                float currentWeight = animalWeight * GrowthWeightFraction;
+                float prevAnimalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
+                float currentWeight = prevAnimalWeight * GrowthWeightFraction;
                 GrowthWeightFraction = (float)expected;
-                entity.WatchedAttributes.SetFloat("animalWeight", currentWeight / (float)expected);
+                float newAnimalWeight = currentWeight / (float)expected;
+                newAnimalWeight = (newAnimalWeight + (entity.World.Calendar.DaysPerMonth - 1) * prevAnimalWeight) / entity.World.Calendar.DaysPerMonth;
+                entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
+                entity.GetBehavior<AnimalHunger>()?.UpdateCondition(0.2f);
                 callbackID = entity.World.RegisterCallback(CheckGrowth, 24000);
             }
 

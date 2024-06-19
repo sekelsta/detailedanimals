@@ -457,7 +457,7 @@ namespace Genelib {
             AnimalWeight = (float)Math.Clamp(AnimalWeight + deltaWeight * inefficiency, 0.5f, 2f);
             float dryFractionOfOwnWeightEatenPerDay = 0.01f;
             float wetFractionOfOwnWeightEatenPerDay = 4 * dryFractionOfOwnWeightEatenPerDay;
-            float deltaSat = -deltaWeight / wetFractionOfOwnWeightEatenPerDay * AdjustedMaxSaturation;
+            float deltaSat = deltaWeight / wetFractionOfOwnWeightEatenPerDay * AdjustedMaxSaturation;
             ConsumeSaturation(deltaSat);
             Fat.Consume(deltaSat / 4);
             if (deltaWeight > 0) {
