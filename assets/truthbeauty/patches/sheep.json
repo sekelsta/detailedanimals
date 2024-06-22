@@ -108,6 +108,27 @@
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "add",
         path: "/attributes/adultWeightKg",
         value: 83,
         side: "server"

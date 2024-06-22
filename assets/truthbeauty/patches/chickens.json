@@ -180,6 +180,27 @@
     {
         file: "game:entities/land/chicken-baby.json",
         op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
         path: "/attributes/adultWeightKg",
         value: 2,
         side: "server"

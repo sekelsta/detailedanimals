@@ -39,6 +39,12 @@ namespace Genelib {
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
             base.Initialize(properties, typeAttributes);
 
+            if (entity.World.Side == EnumAppSide.Client) {
+                entity.WatchedAttributes.RegisterModifiedListener("renderScale", ClientUpdateScale);
+                ClientUpdateScale();
+                return;
+            }
+
             if (typeAttributes.KeyExists("monthsToGrow")) {
                 HoursToGrow = typeAttributes["monthsToGrow"].AsFloat() 
                     * entity.World.Calendar.DaysPerMonth * entity.World.Calendar.HoursPerDay;
@@ -81,9 +87,13 @@ namespace Genelib {
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
             }
 
-            if (entity.Alive) {
-                callbackID = entity.World.RegisterCallback(CheckGrowth, 6000);
-            }
+            CheckGrowth(0);
+        }
+
+        public void ClientUpdateScale() {
+            var baseSize = entity.World.GetEntityType(entity.Code).Client.Size;
+            float renderScale = entity.WatchedAttributes.GetFloat("renderScale");
+            entity.Properties.Client.Size = baseSize * renderScale;
         }
 
         protected virtual double ExpectedWeight(double ageFraction) {
@@ -129,6 +139,7 @@ namespace Genelib {
                 float newAnimalWeight = currentWeight / (float)expected;
                 newAnimalWeight = (newAnimalWeight + (entity.World.Calendar.DaysPerMonth - 1) * prevAnimalWeight) / entity.World.Calendar.DaysPerMonth;
                 entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
+                entity.WatchedAttributes.SetFloat("renderScale", (float)Math.Pow(expected, 1/3f));
                 entity.GetBehavior<AnimalHunger>()?.UpdateCondition(0.2f);
                 callbackID = entity.World.RegisterCallback(CheckGrowth, 24000);
             }

@@ -122,6 +122,27 @@
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "add",
         path: "/attributes/adultWeightKg",
         value: 112,
         side: "server"
@@ -138,6 +159,13 @@
         op: "add",
         path: "/attributes/adultWeightKg",
         value: 112,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/client/size",
+        value: 2.4,
         side: "server"
     },
 
