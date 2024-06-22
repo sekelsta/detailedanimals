@@ -218,10 +218,8 @@ namespace Genelib {
             }
             if (anonymous != null) {
                 for (int gene = 0; gene < anonymous.Length; ++gene) {
-                    for (int n = 0; n < 2; ++n) {
-                        if (random.NextDouble() < p) {
-                            Anonymous(gene, n, (byte)random.Next(256));
-                        }
+                    if (random.NextDouble() < p) {
+                        anonymous[gene] = (byte)random.Next(256);
                     }
                 }
             }
