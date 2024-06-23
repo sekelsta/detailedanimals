@@ -185,6 +185,10 @@ namespace Genelib {
             if (!EntityCanMate(this.entity)) {
                 return;
             }
+            if (IsPregnant) {
+                return;
+            }
+
             if (TotalDaysCooldownUntil < TotalDays + DaysInHeat) {
                 TotalDaysCooldownUntil += EstrousCycleDays;
             }
@@ -362,6 +366,7 @@ namespace Genelib {
                 else {
                     infotext.AppendLine(Lang.Get("Is pregnant"));
                 }
+                return;
             }
             if (entity.WatchedAttributes.GetBool("neutered", false)) {
                 return;
