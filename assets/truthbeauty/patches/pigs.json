@@ -229,6 +229,8 @@
             lactationMonths: 3.9,
             estrousCycleMonths: 0.65,
             daysInHeat: 2.0,
+            litterAddChance: 0.45,
+            litterAddAttempts: 8,
         },
         side: "server"
     },

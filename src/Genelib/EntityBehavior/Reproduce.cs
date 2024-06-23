@@ -32,6 +32,8 @@ namespace Genelib {
         protected double EstrousCycleDays;
         protected double DaysInHeat;
         protected BreedingSeason Season = BreedingSeason.Continuous;
+        protected double litterAddChance = 0;
+        protected int litterAddAttempts = 0;
 
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
@@ -145,6 +147,13 @@ namespace Genelib {
                 }
             }
 
+            if (attributes.KeyExists("litterAddChance")) {
+                litterAddChance = attributes["litterAddChance"].AsDouble();
+            }
+            if (attributes.KeyExists("litterAddAttempts")) {
+                litterAddAttempts = attributes["litterAddAttempts"].AsInt();
+            }
+
             if (IsPregnant && Litter == null) {
                 IsPregnant = false;
                 TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
@@ -211,8 +220,14 @@ namespace Genelib {
             TotalDaysPregnancyStart = TotalDays;
             Genome sireGenome = sire.GetBehavior<EntityBehaviorGenetics>()?.Genome;
             Genome ourGenome = entity.GetBehavior<EntityBehaviorGenetics>()?.Genome;
-            // TODO: Pick litter size
-            int litterSize = 3;
+
+            int litterSize = 1;
+            for (int i = 0; i < litterAddAttempts; ++i) {
+                if (entity.World.Rand.NextDouble() < litterAddChance) {
+                    litterSize += 1;
+                }
+            }
+
             TreeArrayAttribute litterData = new TreeArrayAttribute();
             litterData.value = new TreeAttribute[litterSize];
             for (int i = 0; i < litterSize; ++i) {

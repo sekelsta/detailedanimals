@@ -169,7 +169,9 @@
             lactationMonths: 6.0,
             estrousCycleMonths: 0.93,
             daysInHeat: 2.0,
-            breedingSeason: "shortday"
+            breedingSeason: "shortday",
+            litterAddChance: 0.01,
+            litterAddAttempts: 2,
         },
         side: "server"
     },
