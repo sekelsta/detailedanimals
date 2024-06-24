@@ -165,7 +165,7 @@
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
         path: "/client/size",
-        value: 2.4,
+        value: 2.2,
         side: "server"
     },
 
