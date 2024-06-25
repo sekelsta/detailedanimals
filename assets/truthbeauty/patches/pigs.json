@@ -367,7 +367,7 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 22,
+                maxSaturation: 6,
                 monthsUntilWeaned: 3.9,
                 fiber: 0.25,
                 fiberMax: 0.5,

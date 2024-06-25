@@ -32,6 +32,7 @@ namespace Genelib {
         public string[] Specialties = new string[0];
         public float FiberDigestion = 0;
         public float MetabolicEfficiency;
+        public float DaysUntilHungry = 4;
 
         protected long listenerID;
         protected int accumulator;
@@ -104,7 +105,13 @@ namespace Genelib {
             }
 
             accumulator = entity.World.Rand.Next(updateSeconds * TPS);
-            MaxSaturation = typeAttributes["maxsaturation"].AsFloat(15);
+            if (typeAttributes.KeyExists("maxsaturation")) {
+                MaxSaturation = typeAttributes["maxsaturation"].AsFloat();
+            }
+            else {
+                float adultWeightKg = entity.Properties?.Attributes?["adultWeightKg"]?.AsFloat(160) ?? 160;
+                MaxSaturation = adultWeightKg / 20;
+            }
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAge = typeAttributes["monthsUntilWeaned"].AsFloat() / entity.World.Calendar.DaysPerMonth;
             }
@@ -415,8 +422,8 @@ namespace Genelib {
                     entity.WatchedAttributes.SetFloat("intoxication", Math.Max(0, intoxication - 0.005f * (float)updates));
                 }
 
-                // Takes two days to empty the hunger bar from max
-                float baseHungerRate = AdjustedMaxSaturation / (48 * 60 / updateSeconds) / 2;
+                float updatesPerDay = 48 * 60 / updateSeconds;
+                float baseHungerRate = AdjustedMaxSaturation * 2 / updatesPerDay / DaysUntilHungry;
 
                 Vec3d currentPos = entity.ServerPos.XYZ;
                 double distance = currentPos.DistanceTo(prevPos) / updates;
@@ -455,9 +462,8 @@ namespace Genelib {
         public void ShiftWeight(float deltaWeight) {
             float inefficiency = deltaWeight > 0 ? 0.95f : 1.05f;
             AnimalWeight = (float)Math.Clamp(AnimalWeight + deltaWeight * inefficiency, 0.5f, 2f);
-            float dryFractionOfOwnWeightEatenPerDay = 0.01f;
-            float wetFractionOfOwnWeightEatenPerDay = 4 * dryFractionOfOwnWeightEatenPerDay;
-            float deltaSat = deltaWeight / wetFractionOfOwnWeightEatenPerDay * AdjustedMaxSaturation;
+            float fractionOfOwnWeightEatenPerDay = 0.04f;
+            float deltaSat = deltaWeight / fractionOfOwnWeightEatenPerDay * AdjustedMaxSaturation * 2 / DaysUntilHungry;
             ConsumeSaturation(deltaSat);
             Fat.Consume(deltaSat / 4);
             if (deltaWeight > 0) {
