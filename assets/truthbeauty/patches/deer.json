@@ -306,6 +306,7 @@
 					{
 						"type": "item",
 						"code": "redmeat-raw",
+                        category: "meat",
 						"quantityByType": {
 							"*-adult": {
 								"avg": 13,
@@ -324,6 +325,7 @@
 					{
 						"type": "item",
 						"code": "hide-raw-large",
+                        category: "pelt",
 						"quantityByType": {
 							"deer-caribou-*-adult": {
 								"avg": 1.7,
@@ -338,6 +340,7 @@
 					{
 						"type": "item",
 						"code": "hide-raw-medium",
+                        category: "pelt",
 						"quantityByType": {
 							"deer-caribou-*-young": {
 								"avg": 1.3,
@@ -352,6 +355,7 @@
 					{
 						"type": "item",
 						"code": "hide-raw-small",
+                        category: "pelt",
 						"quantityByType": {
 							"*-baby": {
 								"avg": 1.3,
@@ -366,6 +370,7 @@
 					{
 						"type": "item",
 						"code": "fat",
+                        category: "fat",
 						"quantityByType": {
 							"deer-caribou-*-adult": {
 								"avg": 2,

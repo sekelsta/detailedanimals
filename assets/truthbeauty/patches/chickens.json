@@ -108,6 +108,20 @@
         side: "server"
     },
     {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/server/behaviors/5/drops/0/category",
+        value: "meat",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/server/behaviors/5/drops/1/category",
+        value: "pelt",
+        side: "server"
+    },
+    {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/client/behaviors/4/code",
@@ -119,6 +133,20 @@
         op: "replace",
         path: "/server/behaviors/6/code",
         value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/0/category",
+        value: "meat",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/1/category",
+        value: "pelt",
         side: "server"
     },
     {

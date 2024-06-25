@@ -37,6 +37,8 @@ namespace Genelib
 
         // Called on server and client
         public override void Start(ICoreAPI api) {
+            HarmonyPatches.Patch();
+
             api.RegisterEntityBehaviorClass(EntityBehaviorGenetics.Code, typeof(EntityBehaviorGenetics));
             api.RegisterEntityBehaviorClass(Reproduce.Code, typeof(Reproduce));
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));

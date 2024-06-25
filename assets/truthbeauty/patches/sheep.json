@@ -38,6 +38,20 @@
         side: "server"
     },
     {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/0/category",
+        value: "meat",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/1/category",
+        value: "pelt",
+        side: "server"
+    },
+    {
         file: "game:entities/land/sheep-bighorn-female.json",
         op: "replace",
         path: "/client/behaviors/5/code",
@@ -52,6 +66,27 @@
         side: "server"
     },
     {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/0/category",
+        value: "meat",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/1/category",
+        value: "pelt",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/2/category",
+        value: "fat",
+        side: "server"
+    },
+    {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "replace",
         path: "/client/behaviors/4/code",
@@ -63,6 +98,27 @@
         op: "replace",
         path: "/server/behaviors/6/code",
         value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/0/category",
+        value: "meat",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/1/category",
+        value: "pelt",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/2/category",
+        value: "fat",
         side: "server"
     },
     {
