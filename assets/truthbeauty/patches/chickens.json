@@ -89,8 +89,18 @@
     {
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
+        path: "/server/behaviors/6",
+        value: { code: "genelib.harvestable", drops: [
+				{
+					type: "item", 
+					code: "poultry-raw", 
+                    category: "meat",
+					quantity: {
+						"*":{ avg: 1.75, var: 0.25 } 
+					}
+				},
+			],
+		},
         side: "server"
     },
     {
@@ -103,22 +113,22 @@
     {
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
-        path: "/server/behaviors/5/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-hen.json",
-        op: "add",
-        path: "/server/behaviors/5/drops/0/category",
-        value: "meat",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-hen.json",
-        op: "add",
-        path: "/server/behaviors/5/drops/1/category",
-        value: "pelt",
+        path: "/server/behaviors/5",
+        value: { code: "genelib.harvestable", drops: [
+				{
+					type: "item", 
+					code: "poultry-raw", 
+                    category: "meat",
+					quantity: { avg: 1.75, var: 0.25 }
+				},
+				{
+					type: "item", 
+					code: "feather", 
+                    category: "pelt",
+					quantity: { avg: 12, var: 4 } 
+				}
+			],
+		},
         side: "server"
     },
     {
@@ -131,24 +141,25 @@
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
+        path: "/server/behaviors/6",
+        value: { code: "genelib.harvestable", drops: [
+				{
+					type: "item", 
+					code: "poultry-raw", 
+                    category: "meat",
+					quantity: { avg: 1.75, var: 0.25 }
+				},
+				{
+					type: "item", 
+					code: "feather", 
+                    category: "pelt",
+					quantity: { avg: 12, var: 4 } 
+				}
+			],
+		},
         side: "server"
     },
-    {
-        file: "game:entities/land/chicken-rooster.json",
-        op: "add",
-        path: "/server/behaviors/6/drops/0/category",
-        value: "meat",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-rooster.json",
-        op: "add",
-        path: "/server/behaviors/6/drops/1/category",
-        value: "pelt",
-        side: "server"
-    },
+
     {
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
@@ -247,4 +258,43 @@
         value: 2,
         side: "server"
     },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/client/size",
+        value: 3.0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "replace",
+        path: "/client/sizeGrowthFactor",
+        value: 0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "remove",
+        path: "/client/sizeByType",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "remove",
+        path: "/client/sizeGrowthFactorByType",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "remove",
+        path: "/client/sizeByType",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "remove",
+        path: "/client/sizeGrowthFactorByType",
+        side: "server"
+    },
+
 ]

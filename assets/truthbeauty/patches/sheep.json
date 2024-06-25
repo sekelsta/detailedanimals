@@ -7,6 +7,13 @@
         side: "server"
     },
     {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/client/texture/base",
+        value: "game:entity/sheep/sheep-bighorn-lamb",
+        side: "server"
+    },
+    {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "replace",
         path: "/server/spawnconditions/worldgen/companions",
@@ -34,21 +41,21 @@
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "replace",
         path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/server/behaviors/6/drops/0/category",
-        value: "meat",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/server/behaviors/6/drops/1/category",
-        value: "pelt",
+        value: { code: "genelib.harvestable", drops: [
+				{
+					type: "item", 
+					code: "redmeat-raw", 
+                    category: "meat",
+					quantity: { avg: 12, var: 2 } 
+				},
+				{
+					type: "item", 
+					code: "hide-raw-small", 
+                    category: "pelt",
+					quantity: { avg: 4, var: 1 } 
+				}
+			],
+		},
         side: "server"
     },
     {
@@ -201,6 +208,13 @@
         op: "add",
         path: "/attributes/adultWeightKg",
         value: 83,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/client/size",
+        value: 1.8,
         side: "server"
     },
 

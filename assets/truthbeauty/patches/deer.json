@@ -161,6 +161,37 @@
         "side": "Server"
     },
 
+
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "addmerge",
+        path: "/client/textureByType/*-caribou-*-young",
+        value: { "base": "game:entity/hooved/deer/caribou-baby" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "addmerge",
+        path: "/client/textureByType/*-caribou-*-baby",
+        value: { "base": "truthbeauty:entity/pig/adult-agouti" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "move",
+        frompath: "/client/textureByType/*",
+        path: "/client/textureByType/temporary",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "move",
+        frompath: "/client/textureByType/temporary",
+        path: "/client/textureByType/*",
+        side: "server"
+    },
+
+
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
@@ -307,20 +338,7 @@
 						"type": "item",
 						"code": "redmeat-raw",
                         category: "meat",
-						"quantityByType": {
-							"*-adult": {
-								"avg": 13,
-								"var": 3
-							},
-							"*-young": {
-								"avg": 10,
-								"var": 3
-							},
-							"*-baby": {
-								"avg": 2,
-								"var": 1
-							}
-						}
+						quantity: { avg: 13, var: 3 },
 					},
 					{
 						"type": "item",
@@ -343,8 +361,8 @@
                         category: "pelt",
 						"quantityByType": {
 							"deer-caribou-*-young": {
-								"avg": 1.3,
-								"var": 1.0
+								"avg": 2.1,
+								"var": 0.0
 							},
 							"*": {
 								"avg": 0,
@@ -358,7 +376,7 @@
                         category: "pelt",
 						"quantityByType": {
 							"*-baby": {
-								"avg": 1.3,
+								"avg": 4,
 								"var": 0
 							},
 							"*": {
@@ -371,20 +389,7 @@
 						"type": "item",
 						"code": "fat",
                         category: "fat",
-						"quantityByType": {
-							"deer-caribou-*-adult": {
-								"avg": 2,
-								"var": 0.3
-							},
-							"deer-caribou-*-young": {
-								"avg": 1,
-								"var": 0.3
-							},
-							"*": {
-								"avg": 0,
-								"var": 0
-							}
-						}
+						"quantity": { avg: 2, var: 0.3},
 					}
 				]
 			},
@@ -395,6 +400,19 @@
         op: "add",
         path: "/attributes/adultWeightKgByType",
         value: { "deer-caribou-*": 140 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/client/sizeByType",
+        value: {
+			"*deer-caribou-*-adult": 1,
+			"*-male-adult": 1.05,
+			"*-female-adult": 0.95,
+			"deer-caribou-*-young": 1.3,
+			"deer-caribou-*-baby": 1.7,
+		},
         side: "server"
     },
 
