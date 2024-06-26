@@ -38,7 +38,7 @@
         "file": "game:itemtypes/food/bambooshoot.json",
         "op": "addmerge",
         "path": "/attributes/foodTags",
-        "value": [ "vegetable" ],
+        "value": [ "foliage" ],
         side: "server",
     },
     {
@@ -133,17 +133,24 @@
         side: "server",
     },
     {
-        "file": "game:itemtypes/resource/cattailroot.json",
+        "file": "game:itemtypes/resource/catttailroot.json",
         "op": "addmerge",
         "path": "/attributes/foodTags",
         "value": [ "vegetable" ],
         side: "server",
     },
     {
-        "file": "game:itemtypes/resource/cattailtops.json",
+        "file": "game:itemtypes/resource/catttailtops.json",
+        "op": "addmerge",
+        "path": "/attributes",
+        "value": {},
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/catttailtops.json",
         "op": "addmerge",
         "path": "/attributes/foodTags",
-        "value": [ "vegetable" ],
+        "value": [ "foliage" ],
         side: "server",
     },
     {
@@ -151,6 +158,13 @@
         "op": "add",
         "path": "/attributes/foodTags/-",
         "value": "hay",
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/drygrass.json",
+        "op": "add",
+        "path": "/attributes/satiety",
+        "value": 25,
         side: "server",
     },
     {

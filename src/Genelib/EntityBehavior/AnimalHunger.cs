@@ -297,7 +297,7 @@ namespace Genelib {
                     return;
                 }
             }
-            if (!WantsFood(data, GetBaseSatiety(nutriProps))) {
+            if (!WantsFood(data, GetBaseSatiety(nutriProps, itemstack))) {
                 messagePlayer("genelib:message-wrongnutrients", byEntity);
                 handled = EnumHandling.PassThrough;
                 return;
@@ -307,8 +307,8 @@ namespace Genelib {
             return;
         }
 
-        public float GetBaseSatiety(FoodNutritionProperties nutriProps) {
-            float satiety = nutriProps?.Satiety ?? 100; // TODO: Read from attributes/satiety
+        public float GetBaseSatiety(FoodNutritionProperties nutriProps, ItemStack itemstack) {
+            float satiety = nutriProps?.Satiety ?? itemstack.Collectible.Attributes?["satiety"].AsFloat(100) ?? 100;
             return satiety / 100;  // Approximate conversion between numbers used for player hunger and by troughs
         }
 
@@ -342,7 +342,7 @@ namespace Genelib {
             }
 
 
-            float satiety = GetBaseSatiety(nutriProps);
+            float satiety = GetBaseSatiety(nutriProps, itemstack);
             satiety *= satLossMul;
             if (data != null) {
                 satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);

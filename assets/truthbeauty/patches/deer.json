@@ -427,6 +427,13 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "addeach",
         path: "/attributes/creatureDiet/skipFoodTags/-",
         value: [ "onion", "cassava" ],
         side: "server"
@@ -437,7 +444,6 @@
         path: "/server/behaviors/-",
         value: {
 				code: "genelib.hunger",
-                maxSaturation: 7,
                 monthsUntilWeaned: 6,
                 fiber: 0.8,
                 maxFiber: 1.1,
