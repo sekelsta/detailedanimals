@@ -297,4 +297,83 @@
         side: "server"
     },
 
+
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+                code: "genelib.hunger",
+                maxSaturation: 0.5,
+                fiber: 0.1,
+                sugar: 0.05,
+                fat: 0.05,
+                starch: 0.6,
+                protein: 0.18,
+                water: 1.0,
+                minerals: 0.02,
+                mineralsMax: 0.1,
+                fiberDigestion: 0.1,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+                code: "genelib.hunger",
+                maxSaturation: 0.5,
+                fiber: 0.1,
+                sugar: 0.05,
+                fat: 0.05,
+                starch: 0.6,
+                protein: 0.18,
+                water: 1.0,
+                minerals: 0.02,
+                mineralsMax: 0.1,
+                fiberDigestion: 0.1,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+                code: "genelib.hunger",
+                maxSaturation: 0.5,
+                fiber: 0.1,
+                sugar: 0.05,
+                fat: 0.05,
+                starch: 0.6,
+                protein: 0.18,
+                water: 1.0,
+                minerals: 0.02,
+                mineralsMax: 0.1,
+                fiberDigestion: 0.1,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: {  code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: {  code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
 ]

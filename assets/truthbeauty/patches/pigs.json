@@ -317,7 +317,7 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 22,
+                maxSaturation: 6,
                 monthsUntilWeaned: 3.9,
                 fiber: 0.25,
                 fiberMax: 0.5,
@@ -332,7 +332,7 @@
                 water: 1.0,
                 minerals: 0.02,
                 mineralsMax: 0.1,
-                fiberDigestion: 0.0,
+                fiberDigestion: 0.3,
         },
         side: "server"
     },
@@ -342,7 +342,7 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 22,
+                maxSaturation: 6,
                 monthsUntilWeaned: 3.9,
                 fiber: 0.25,
                 fiberMax: 0.5,
@@ -357,7 +357,7 @@
                 water: 1.0,
                 minerals: 0.02,
                 mineralsMax: 0.1,
-                fiberDigestion: 0.0,
+                fiberDigestion: 0.3,
         },
         side: "server"
     },
@@ -382,7 +382,7 @@
                 water: 1.0,
                 minerals: 0.02,
                 mineralsMax: 0.1,
-                fiberDigestion: 0.0,
+                fiberDigestion: 0.3,
         },
         side: "server"
     },

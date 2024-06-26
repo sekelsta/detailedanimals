@@ -186,8 +186,11 @@ namespace Genelib {
         }
 
         public double Weaned() {
+            if (weanedAge <= 0) {
+                return 1;
+            }
             double age = entity.World.Calendar.TotalDays - entity.WatchedAttributes.GetFloat("birthTotalDays", -99999);
-            return age / weanedAge;
+            return Math.Min(1, age / weanedAge);
         }
 
         // Returns true if this is the sort of food the animal wants right now
