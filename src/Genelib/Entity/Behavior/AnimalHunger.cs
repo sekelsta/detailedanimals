@@ -253,24 +253,8 @@ namespace Genelib {
                 }
             }
 
-            NutritionData data = null;
-            foreach (string tag in foodTags) {
-                NutritionData tagData = NutritionData.Get(tag);
-                if (data == null || (tagData != null && tagData.Priority > data.Priority)) {
-                    data = tagData;
-                }
-            }
             FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
-            if (data == null && nutriProps != null) {
-                data = nutriProps.FoodCategory switch {
-                    EnumFoodCategory.Fruit => NutritionData.Get("fruit"),
-                    EnumFoodCategory.Grain => NutritionData.Get("grain"),
-                    EnumFoodCategory.Protein => NutritionData.Get("meat"),
-                    EnumFoodCategory.Dairy => NutritionData.Get("cheese"),
-                    EnumFoodCategory.Vegetable => NutritionData.Get("vegetable"),
-                    _ => null,
-                };
-            }
+            NutritionData data = GetNutritionData(itemstack, nutriProps, foodTags);
 
             if (data?.Specialties != null) {
                 if (Specialties == null) {
@@ -310,17 +294,49 @@ namespace Genelib {
             return;
         }
 
+        public NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps, string[] foodTags) {
+            NutritionData data = null;
+            foreach (string tag in foodTags) {
+                NutritionData tagData = NutritionData.Get(tag);
+                if (data == null || (tagData != null && tagData.Priority > data.Priority)) {
+                    data = tagData;
+                }
+            }
+            if (data == null && nutriProps != null) {
+                data = nutriProps.FoodCategory switch {
+                    EnumFoodCategory.Fruit => NutritionData.Get("fruit"),
+                    EnumFoodCategory.Grain => NutritionData.Get("grain"),
+                    EnumFoodCategory.Protein => NutritionData.Get("meat"),
+                    EnumFoodCategory.Dairy => NutritionData.Get("cheese"),
+                    EnumFoodCategory.Vegetable => NutritionData.Get("vegetable"),
+                    _ => null,
+                };
+            }
+            return data;
+        }
+
         public float GetBaseSatiety(FoodNutritionProperties nutriProps, ItemStack itemstack) {
-            float satiety = nutriProps?.Satiety ?? itemstack.Collectible.Attributes?["satiety"].AsFloat(100) ?? 100;
+            float satiety = nutriProps?.Satiety ?? itemstack.Collectible.Attributes?["satiety"].AsFloat(50) ?? 50;
             return satiety / 100;  // Approximate conversion between numbers used for player hunger and by troughs
         }
 
-        public virtual void Eat(ItemSlot slot, Entity fedBy, NutritionData data, FoodNutritionProperties nutriProps) {
+        public void Eat(ItemStack itemstack) {
+            Eat(new DummySlot(itemstack));
+        }
+
+        public void Eat(ItemSlot slot) {
+            ItemStack itemstack = slot.Itemstack;
+            FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
+            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>() ?? new string[0];
+            Eat(slot, null, GetNutritionData(itemstack, nutriProps, foodTags), nutriProps);
+        }
+
+        public void Eat(ItemSlot slot, Entity fedBy, NutritionData data, FoodNutritionProperties nutriProps) {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
             // Game code does it like this, assuming because we can't trust that fedBy.Player will be synchronized
-            IPlayer player = fedBy.World.PlayerByUid((fedBy as EntityPlayer)?.PlayerUID);
+            IPlayer player = fedBy?.World.PlayerByUid((fedBy as EntityPlayer)?.PlayerUID);
             entity.PlayEntitySound("eat", player);
 
             EntityAgent agent = entity as EntityAgent;
@@ -376,7 +392,7 @@ namespace Genelib {
                     }
                 }
                 slot.MarkDirty();
-                player.InventoryManager.BroadcastHotbarSlot();
+                player?.InventoryManager.BroadcastHotbarSlot();
             }
 
             ApplyNutritionEffects();
