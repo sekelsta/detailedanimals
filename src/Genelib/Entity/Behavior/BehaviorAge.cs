@@ -137,7 +137,10 @@ namespace Genelib {
                 float currentWeight = prevAnimalWeight * GrowthWeightFraction;
                 GrowthWeightFraction = (float)expected;
                 float newAnimalWeight = currentWeight / (float)expected;
-                newAnimalWeight = (newAnimalWeight + (entity.World.Calendar.DaysPerMonth - 1) * prevAnimalWeight) / entity.World.Calendar.DaysPerMonth;
+                float daysPerMonth = entity.World.Calendar.DaysPerMonth;
+                if (daysPerMonth < 30) {
+                    newAnimalWeight = (newAnimalWeight * daysPerMonth + prevAnimalWeight * (30 - daysPerMonth)) / 30;
+                }
                 entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
                 entity.WatchedAttributes.SetFloat("renderScale", (float)Math.Pow(expected, 1/3f));
                 entity.GetBehavior<AnimalHunger>()?.UpdateCondition(0.2f);
