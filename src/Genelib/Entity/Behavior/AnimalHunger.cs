@@ -18,7 +18,7 @@ namespace Genelib {
     public class AnimalHunger : EntityBehavior {
         public const string Code = GeneticsModSystem.NamePrefix + "hunger";
 
-        public float weanedAge = 0;
+        public float weanedAgeDays = 0;
         protected internal ITreeAttribute hungerTree;
         public Nutrient Fiber;
         public Nutrient Sugar;
@@ -113,7 +113,7 @@ namespace Genelib {
                 MaxSaturation = adultWeightKg / 20;
             }
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
-                weanedAge = typeAttributes["monthsUntilWeaned"].AsFloat() / entity.World.Calendar.DaysPerMonth;
+                weanedAgeDays = typeAttributes["monthsUntilWeaned"].AsFloat() * entity.World.Calendar.DaysPerMonth;
             }
             if (typeAttributes.KeyExists("avoidFoodTags")) {
                 AvoidFoodTags = typeAttributes["avoidFoodTags"].AsArray<string>();
@@ -185,12 +185,8 @@ namespace Genelib {
             // Minerals: fertility
         }
 
-        public double Weaned() {
-            if (weanedAge <= 0) {
-                return 1;
-            }
-            double age = entity.World.Calendar.TotalDays - entity.WatchedAttributes.GetFloat("birthTotalDays", -99999);
-            return Math.Min(1, age / weanedAge);
+        private double getAgeDays() {
+            return entity.World.Calendar.TotalDays - entity.WatchedAttributes.GetFloat("birthTotalDays", -99999);
         }
 
         // Returns true if this is the sort of food the animal wants right now
@@ -262,6 +258,9 @@ namespace Genelib {
                         return;
                 }
                 foreach (string specialty in data.Specialties) {
+                    if (specialty == "lactose" && getAgeDays() < 1.5 * weanedAgeDays) {
+                        continue;
+                    }
                     if (!Specialties.Contains(specialty)) {
                         handled = EnumHandling.PassThrough;
                         return;
