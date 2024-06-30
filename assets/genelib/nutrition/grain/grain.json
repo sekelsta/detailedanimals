@@ -7,4 +7,5 @@
     fat: 0.02,
     minerals: 0.02,
     water: 0.1,
+    priority: -1,
 }

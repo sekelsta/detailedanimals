@@ -63,12 +63,13 @@
         side: "server",
     },
     {
+        "file": "game:itemtypes/food/fruit.json",
         "op": "remove",
         "path": "/attributes/foodTags",
-        "file": "game:itemtypes/food/fruit.json",
         "side": "Server"
     },
     {
+        "file": "game:itemtypes/food/fruit.json",
         "op": "add",
         "path": "/attributes/foodTagsByType",
         "value": {
@@ -76,8 +77,28 @@
             "*currant": [ "{fruit}", "sour" ],
             "*": [ "{fruit}" ]
         },
-        "file": "game:itemtypes/food/fruit.json",
         "side": "Server"
+    },
+    {
+        "file": "game:itemtypes/food/grain.json",
+        "op": "addmerge",
+        "path": "/attributes/satiety",
+        "value": 120,
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/grain.json",
+        "op": "addmerge",
+        "path": "/attributesByType/*-flax/foodTags",
+        "value": ["flax"],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/grain.json",
+        "op": "addmerge",
+        "path": "/attributesByType/*-rice/foodTags",
+        "value": ["rice"],
+        side: "server",
     },
     {
         "file": "game:itemtypes/food/pickledlegume.json",

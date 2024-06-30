@@ -316,7 +316,13 @@ namespace Genelib {
         }
 
         public float GetBaseSatiety(FoodNutritionProperties nutriProps, ItemStack itemstack) {
-            float satiety = nutriProps?.Satiety ?? itemstack.Collectible.Attributes?["satiety"].AsFloat(50) ?? 50;
+            float satiety = 50;
+            if (itemstack.Collectible.Attributes?.KeyExists("satiety") == true) {
+                satiety = itemstack.Collectible.Attributes["satiety"].AsFloat();
+            }
+            else if (nutriProps != null) {
+                satiety = nutriProps.Satiety;
+            }
             return satiety / 100;  // Approximate conversion between numbers used for player hunger and by troughs
         }
 

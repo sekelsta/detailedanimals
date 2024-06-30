@@ -1,0 +1,11 @@
+{
+    tag: "sunflower",
+    protein: 0.23,
+    fiber: 0.1,
+    sugar: 0.03,
+    starch: 0.06,
+    fat: 0.5,
+    minerals: 0.02,
+    water: 0.1,
+    priority: 1
+}

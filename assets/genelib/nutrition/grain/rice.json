@@ -1,0 +1,11 @@
+{
+    tag: "rice",
+    protein: 0.08,
+    fiber: 0.07,
+    sugar: 0.01,
+    starch: 0.8,
+    fat: 0.04,
+    minerals: 0.02,
+    water: 0.1,
+    priority: 1
+}

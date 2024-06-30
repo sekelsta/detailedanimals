@@ -1,0 +1,11 @@
+{
+    tag: "amaranth",
+    protein: 0.15,
+    fiber: 0.1,
+    sugar: 0.0,
+    starch: 0.55,
+    fat: 0.06,
+    minerals: 0.02,
+    water: 0.1,
+    priority: 1
+}

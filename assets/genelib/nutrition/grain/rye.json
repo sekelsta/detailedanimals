@@ -1,0 +1,11 @@
+{
+    tag: "rye",
+    protein: 0.15,
+    fiber: 0.15,
+    sugar: 0.01,
+    starch: 0.54,
+    fat: 0.02,
+    minerals: 0.0,
+    water: 0.1,
+    priority: 1
+}
