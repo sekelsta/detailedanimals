@@ -7,5 +7,4 @@
     protein: 0.1,
     water: 0.1,
     minerals: 0.01,
-    specialties: [ "toughplant" ],
 }
