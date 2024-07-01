@@ -32,6 +32,7 @@ namespace TruthBeauty
 
         private void patchEntity(ICoreAPI api, string path, string newCode, string variants) {
             IAsset asset = api.Assets.Get(path);
+            string domain = new AssetLocation(path).Domain;
             JToken token;
             try {
                 token = JToken.Parse(asset.ToText());
@@ -45,6 +46,14 @@ namespace TruthBeauty
             try {
                 token["code"] = newCode;
                 token["variantgroups"] = JToken.Parse(variants);
+                JObject jsounds = token.Value<JObject>("sounds");
+                if (jsounds != null) {
+                    foreach (JProperty sound in jsounds.Properties()) {
+                        string loc = sound.Value.Value<string>();
+                        AssetLocation soundAsset = AssetLocation.Create(domain, loc);
+                        sound.Value = soundAsset.ToString();
+                    }
+                }
             }
             catch (Exception e) {
                 api.Logger.Error("Error modifying json file " + path);
