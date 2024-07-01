@@ -194,6 +194,7 @@ namespace Genelib {
             if (Fullness < FAMISHED) {
                 return true;
             }
+            satiety = Math.Min(satiety, AdjustedMaxSaturation - Saturation);
             satiety /= AdjustedMaxSaturation;
             if (data == null) {
                 return true;
@@ -371,11 +372,11 @@ namespace Genelib {
             if (data != null) {
                 satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);
             }
-            float currentSaturation = Saturation;
+            float prevSaturation = Saturation;
             agent?.ReceiveSaturation(satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);
             float maxsat = AdjustedMaxSaturation;
-            Saturation = Math.Clamp(currentSaturation + satiety, -maxsat, maxsat);
-            float gain = satiety / maxsat;
+            Saturation = Math.Clamp(prevSaturation + satiety, -maxsat, maxsat);
+            float gain = (Saturation - prevSaturation) / maxsat;
             foreach (Nutrient nutrient in Nutrients) {
                 nutrient.Gain(gain * (data?.Values[nutrient.Name] ?? 0));
             }
