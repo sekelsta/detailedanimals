@@ -479,15 +479,16 @@ namespace Genelib {
             float fullness = Fullness;
             float gain = fullness * fullness * fullness;
             float recovery = 1 - AnimalWeight;
-            float weightShiftRate = 0.5f * hours / 24 / 10;
+            float weightShiftRate = 0.5f * hours / 24 / 12.5f;
             ShiftWeight(weightShiftRate * (gain + recovery) / 2);
         }
 
         public void ShiftWeight(float deltaWeight) {
-            float inefficiency = deltaWeight > 0 ? 0.95f : 1.05f;
-            AnimalWeight = (float)Math.Clamp(AnimalWeight + deltaWeight * inefficiency, 0.5f, 2f);
+            float inefficiency = deltaWeight > 0 ? 1.05f : 0.95f;
+            AnimalWeight = (float)Math.Clamp(AnimalWeight + deltaWeight, 0.5f, 2f);
             float fractionOfOwnWeightEatenPerDay = 0.04f;
-            float deltaSat = deltaWeight / fractionOfOwnWeightEatenPerDay * AdjustedMaxSaturation * 2 / DaysUntilHungry;
+            float totalSaturation = AdjustedMaxSaturation * 2;
+            float deltaSat = deltaWeight * inefficiency / fractionOfOwnWeightEatenPerDay * totalSaturation / DaysUntilHungry;
             ConsumeSaturation(deltaSat);
             Fat.Consume(deltaSat / 4);
             if (deltaWeight > 0) {

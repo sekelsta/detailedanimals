@@ -10,11 +10,13 @@ using Vintagestory.API.MathTools;
 namespace Genelib {
     public class BehaviorAge : EntityBehavior {
         public const string Code = GeneticsModSystem.NamePrefix + "age";
+        private const float secondsPerUpdate = 24;
 
         private long? callbackID;
         private ITreeAttribute growTree;
         private double StartingWeight = 0.00001;
         protected float FinalWeight = 1;
+        protected double maxGrowth;
 
         public AssetLocation AdultEntityCode { get; protected set; }
         public double HoursToGrow { get; protected set; }
@@ -82,6 +84,12 @@ namespace Genelib {
                 }
             }
 
+            float maxDailyGrowth = typeAttributes["maxDailyGrowth"].AsFloat(1.1f);
+            IGameCalendar calendar = entity.Api.World.Calendar;
+            float updatesPerDay = calendar.HoursPerDay * calendar.SpeedOfTime / calendar.CalendarSpeedMul / secondsPerUpdate;
+            updatesPerDay *= calendar.DaysPerMonth / 30;
+            maxGrowth = Math.Exp(Math.Log(maxDailyGrowth) / updatesPerDay);
+
             if (!entity.WatchedAttributes.HasAttribute("growthWeightFraction")
                     || Double.IsNaN(entity.WatchedAttributes.GetFloat("growthWeightFraction"))) {
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
@@ -111,7 +119,7 @@ namespace Genelib {
 
         public override void OnEntityRevive() {
             TimeSpawned += entity.World.Calendar.TotalHours - GrowthPausedSince;
-            callbackID = entity.World.RegisterCallback(CheckGrowth, 24000);
+            callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000));
         }
 
         protected virtual void CheckGrowth(float dt) {
@@ -133,6 +141,7 @@ namespace Genelib {
                     }
                 }
                 double expected = Math.Max(ExpectedWeight(age / HoursToGrow), GrowthWeightFraction);
+                expected = Math.Min(expected, maxGrowth * GrowthWeightFraction);
                 float prevAnimalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
                 float currentWeight = prevAnimalWeight * GrowthWeightFraction;
                 GrowthWeightFraction = (float)expected;
@@ -144,7 +153,7 @@ namespace Genelib {
                 entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
                 entity.WatchedAttributes.SetFloat("renderScale", (float)Math.Pow(expected, 1/3f));
                 entity.GetBehavior<AnimalHunger>()?.UpdateCondition(0.2f);
-                callbackID = entity.World.RegisterCallback(CheckGrowth, 24000);
+                callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000));
             }
 
             entity.World.FrameProfiler.Mark("entity-checkgrowth");
