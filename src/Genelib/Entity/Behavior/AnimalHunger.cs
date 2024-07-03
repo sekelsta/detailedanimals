@@ -165,6 +165,9 @@ namespace Genelib {
             float meat_drops = 0.1f * protein;
             float fat_drops = 0.1f * fat;
 
+            if (float.IsNaN(metabolic_efficiency)) {
+                throw new ArgumentException("Cannot set metabolic efficiency to NaN");
+            }
             MetabolicEfficiency = metabolic_efficiency;
 
             EntityBehaviorHealth healthBehavior = entity.GetBehavior<EntityBehaviorHealth>();
@@ -461,7 +464,8 @@ namespace Genelib {
                 prevPos = currentPos;
                 float work = 1 + (float)distance / updateSeconds / 10;
                 float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul / 30;
-                float saturationConsumed = baseHungerRate * work * entity.Stats.GetBlended("hungerrate") * timespeed;
+                float hungerrate = entity.Stats.GetBlended("hungerrate");
+                float saturationConsumed = baseHungerRate * work * hungerrate * timespeed;
                 saturationConsumed *= 1 / (1 + MetabolicEfficiency);
                 ConsumeSaturation(saturationConsumed);
                 // When player sleeps or chunk is unloaded, regain weight but don't starve
