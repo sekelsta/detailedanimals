@@ -192,7 +192,8 @@ namespace Genelib {
             return entity.World.Calendar.TotalDays - entity.WatchedAttributes.GetFloat("birthTotalDays", -99999);
         }
 
-        // Returns true if this is the sort of food the animal wants right now
+        // Returns null if this is the sort of food the animal wants right now, otherwise returns a string depending on
+        // the reason the food is not wanted
         public string AvoidReason(NutritionData data, float satiety) {
             if (Fullness < FAMISHED) {
                 return null;
