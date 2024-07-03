@@ -1,0 +1,37 @@
+[
+    {
+        file: "game:blocktypes/plant/crop/parsnip.json",
+        path: "/attributes/foodTags/-",
+        op: "add",
+        value: "parsnipCrop",
+        side: "server"
+    },
+    {
+        file: "game:blocktypes/plant/crop/rice.json",
+        path: "/attributes/foodTagsByType/*-1/-",
+        op: "add",
+        value: "riceCrop",
+        side: "server"
+    },
+    {
+        file: "game:blocktypes/plant/crop/rice.json",
+        path: "/attributes/foodTagsByType/*-2/-",
+        op: "add",
+        value: "riceCrop",
+        side: "server"
+    },
+    {
+        file: "game:blocktypes/plant/crop/rice.json",
+        path: "/attributes/foodTagsByType/*-2/-",
+        op: "add",
+        value: "riceCrop",
+        side: "server"
+    },
+    {
+        file: "game:blocktypes/plant/crop/rice.json",
+        path: "/attributes/foodTagsByType/*",
+        op: "addmerge",
+        value: ["riceCrop"],
+        side: "server"
+    },
+]

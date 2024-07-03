@@ -433,9 +433,9 @@
     },
     {
         file: "game:entities/land/hooved/deer.json",
-        op: "addeach",
-        path: "/attributes/creatureDiet/skipFoodTags/-",
-        value: [ "onion", "cassava" ],
+        op: "replace",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
