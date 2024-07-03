@@ -38,5 +38,11 @@
     "infotext-reproduce-waitdays2": "Dos días hasta que esté lista para aparear",
     "infotext-reproduce-waitdays3": "Tres días hasta que esté lista para aparear",
     "infotext-reproduce-waitdays4": "Cuatros días hasta que esté lista para aparear",
-    "message-wrongnutrients": "{entity} no quiere esa comida ahora mismo",
+    "message-wrongnutrient-fiber": "{entity} no quiere tanta fibra ahora mismo",
+    "message-wrongnutrient-starch": "{entity} no quiere tanta almidón ahora mismo",
+    "message-wrongnutrient-fat": "{entity} no quiere tanta grasa ahora mismo",
+    "message-wrongnutrient-protein": "{entity} no quiere tanta proteína ahora mismo",
+    "message-wrongnutrient-minerals": "{entity} no quiere tanta sal ahora mismo",
+    "message-wrongnutrient-water": "{entity} no quiere tanta agua ahora mismo",
+    "message-wrongnutrient-sugar": "{entity} no quiere tanta azúcar ahora mismo",
 }

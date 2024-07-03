@@ -30,5 +30,11 @@
     "infotext-reproduce-waitdays2": "Two days until ready to mate",
     "infotext-reproduce-waitdays3": "Three days until ready to mate",
     "infotext-reproduce-waitdays4": "Four days until ready to mate",
-    "message-wrongnutrients": "{entity} doesn't want that food right now",
+    "message-wrongnutrient-fiber": "{entity} doesn't want that much fiber right now",
+    "message-wrongnutrient-starch": "{entity} doesn't want that much starch right now",
+    "message-wrongnutrient-fat": "{entity} doesn't want that much fat right now",
+    "message-wrongnutrient-protein": "{entity} doesn't want that much protein right now",
+    "message-wrongnutrient-minerals": "{entity} doesn't want that much salt right now",
+    "message-wrongnutrient-water": "{entity} doesn't want that much water right now",
+    "message-wrongnutrient-sugar": "{entity} doesn't want that much sugar right now",
 }

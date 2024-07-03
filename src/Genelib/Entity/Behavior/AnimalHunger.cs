@@ -190,14 +190,14 @@ namespace Genelib {
         }
 
         // Returns true if this is the sort of food the animal wants right now
-        public bool WantsFood(NutritionData data, float satiety) {
+        public string AvoidReason(NutritionData data, float satiety) {
             if (Fullness < FAMISHED) {
-                return true;
+                return null;
             }
             satiety = Math.Min(satiety, AdjustedMaxSaturation - Saturation);
             satiety /= AdjustedMaxSaturation;
             if (data == null) {
-                return true;
+                return null;
             }
             foreach (Nutrient nutrient in Nutrients) {
                 if (nutrient.Name.Equals("sugar")) {
@@ -205,10 +205,10 @@ namespace Genelib {
                 }
                 float newLevel = nutrient.Level + satiety * data.Values[nutrient.Name];
                 if (newLevel > nutrient.MaxSafe) {
-                    return false;
+                    return nutrient.Name;
                 }
             }
-            return true;
+            return null;
         }
 
         public bool WantsEmergencyFood() {
@@ -284,8 +284,9 @@ namespace Genelib {
                     return;
                 }
             }
-            if (!WantsFood(data, GetBaseSatiety(nutriProps, itemstack))) {
-                messagePlayer("genelib:message-wrongnutrients", byEntity);
+            string avoidReason = AvoidReason(data, GetBaseSatiety(nutriProps, itemstack));
+            if (avoidReason != null) {
+                messagePlayer("genelib:message-wrongnutrient-" + avoidReason, byEntity);
                 handled = EnumHandling.PassThrough;
                 return;
             }
