@@ -320,7 +320,7 @@ namespace Genelib {
             return data;
         }
 
-        public float GetBaseSatiety(FoodNutritionProperties nutriProps, ItemStack itemstack) {
+        public static float GetBaseSatiety(FoodNutritionProperties nutriProps, ItemStack itemstack) {
             float satiety = 50;
             if (itemstack.Collectible.Attributes?.KeyExists("satiety") == true) {
                 satiety = itemstack.Collectible.Attributes["satiety"].AsFloat();
