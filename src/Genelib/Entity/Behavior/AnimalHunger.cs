@@ -144,6 +144,11 @@ namespace Genelib {
             entity.World.UnregisterGameTickListener(listenerID);
         }
 
+        public bool EatsGrassOrRoots() {
+            // TODO
+            return true;
+        }
+
         public virtual void ApplyNutritionEffects() {
             float fiber = Fiber.Value;
             float sugar = Sugar.Value;
@@ -213,6 +218,11 @@ namespace Genelib {
                 }
             }
             return null;
+        }
+
+        public bool WantsFood(ItemStack itemstack) {
+            FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
+            return AvoidReason(GetNutritionData(itemstack, nutriProps), GetBaseSatiety(itemstack, nutriProps)) == null;
         }
 
         public bool WantsEmergencyFood() {
@@ -288,7 +298,7 @@ namespace Genelib {
                     return;
                 }
             }
-            string avoidReason = AvoidReason(data, GetBaseSatiety(nutriProps, itemstack));
+            string avoidReason = AvoidReason(data, GetBaseSatiety(itemstack, nutriProps));
             if (avoidReason != null) {
                 messagePlayer("genelib:message-wrongnutrient-" + avoidReason, byEntity);
                 handled = EnumHandling.PassThrough;
@@ -297,6 +307,11 @@ namespace Genelib {
             Eat(slot, byEntity, data, nutriProps);
             handled = EnumHandling.PreventSubsequent;
             return;
+        }
+
+        public NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps) {
+            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>() ?? new string[0];
+            return GetNutritionData(itemstack, nutriProps, foodTags);
         }
 
         public NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps, string[] foodTags) {
@@ -320,7 +335,7 @@ namespace Genelib {
             return data;
         }
 
-        public static float GetBaseSatiety(FoodNutritionProperties nutriProps, ItemStack itemstack) {
+        public static float GetBaseSatiety(ItemStack itemstack, FoodNutritionProperties nutriProps) {
             float satiety = 50;
             if (itemstack.Collectible.Attributes?.KeyExists("satiety") == true) {
                 satiety = itemstack.Collectible.Attributes["satiety"].AsFloat();
@@ -372,19 +387,12 @@ namespace Genelib {
             }
 
 
-            float satiety = GetBaseSatiety(nutriProps, itemstack);
+            float satiety = GetBaseSatiety(itemstack, nutriProps);
             satiety *= satLossMul;
             if (data != null) {
                 satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);
             }
-            float prevSaturation = Saturation;
-            agent?.ReceiveSaturation(satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);
-            float maxsat = AdjustedMaxSaturation;
-            Saturation = Math.Clamp(prevSaturation + satiety, -maxsat, maxsat);
-            float gain = (Saturation - prevSaturation) / maxsat;
-            foreach (Nutrient nutrient in Nutrients) {
-                nutrient.Gain(gain * (data?.Values[nutrient.Name] ?? 0));
-            }
+            Eat(data, satiety);
 
             // Make sure itemstack doesn't get modified twice
             bool alreadyUsed = false;
@@ -404,6 +412,18 @@ namespace Genelib {
                 }
                 slot.MarkDirty();
                 player?.InventoryManager.BroadcastHotbarSlot();
+            }
+        }
+
+        public void Eat(NutritionData data, float satiety) {
+            float prevSaturation = Saturation;
+            EntityAgent agent = entity as EntityAgent;
+            agent?.ReceiveSaturation(satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);
+            float maxsat = AdjustedMaxSaturation;
+            Saturation = Math.Clamp(prevSaturation + satiety, -maxsat, maxsat);
+            float gain = (Saturation - prevSaturation) / maxsat;
+            foreach (Nutrient nutrient in Nutrients) {
+                nutrient.Gain(gain * (data?.Values[nutrient.Name] ?? 0));
             }
 
             ApplyNutritionEffects();
