@@ -22,18 +22,20 @@ namespace Genelib {
             return dict;
         }
 
-        protected BlockPos pos;
+        protected BlockPos tallgrassPos;
+        protected BlockPos soilPos;
 
         public GrassFoodSource(BlockPos pos) {
-            this.pos = pos;
+            this.soilPos = pos;
+            this.tallgrassPos = soilPos.UpCopy();
         }
 
-        public Vec3d Position => pos.ToVec3d();
+        public Vec3d Position => tallgrassPos.ToVec3d();
 
         public bool IsSuitableFor(Entity entity, CreatureDiet diet) {
             // Ignore whether entity diet allows grass - that's the entity's problem
 
-            Block block = entity.World.BlockAccessor.GetBlock(pos);
+            Block block = entity.World.BlockAccessor.GetBlock(soilPos);
             string grassVariant = block.Variant["grass"]; // Used by forest floor
             if (grassVariant != null && grassVariant != "0") {
                 return true;
@@ -62,15 +64,14 @@ namespace Genelib {
         }
 
         public Tuple<NutritionData, float> DigRoots(Entity entity) {
-            Block block = entity.World.BlockAccessor.GetBlock(pos);
+            Block block = entity.World.BlockAccessor.GetBlock(soilPos);
             if (KeepTallgrass(block)) {
                 return null;
             }
 
-            BlockPos abovePos = pos.UpCopy();
-            Block above = entity.World.BlockAccessor.GetBlock(abovePos);
+            Block above = entity.World.BlockAccessor.GetBlock(tallgrassPos);
             if (above.FirstCodePart() == "tallgrass") {
-                entity.World.BlockAccessor.SetBlock(0, abovePos);
+                entity.World.BlockAccessor.SetBlock(0, tallgrassPos);
             }
 
             Block dirt = null;
@@ -84,7 +85,7 @@ namespace Genelib {
                 entity.Api.Logger.Error("GrassFoodSource unable to get non-grassy version of block " + block.Code);
             }
             else {
-                entity.World.BlockAccessor.SetBlock(dirt.Id, pos);
+                entity.World.BlockAccessor.SetBlock(dirt.Id, soilPos);
             }
 
             NutritionData nutrition = NutritionData.Get("vegetable");
@@ -133,8 +134,7 @@ namespace Genelib {
         }
 
         protected int Shorten(Entity entity, int stages) {
-            BlockPos abovePos = pos.UpCopy();
-            Block above = entity.World.BlockAccessor.GetBlock(abovePos);
+            Block above = entity.World.BlockAccessor.GetBlock(tallgrassPos);
             if (above.FirstCodePart() != "tallgrass") {
                 return 0;
             }
@@ -148,12 +148,12 @@ namespace Genelib {
                 entity.Api.Logger.Error("GrassFoodSource unable to get shorter version of tallgrass " + above.Code);
                 return 0;
             }
-            entity.World.BlockAccessor.SetBlock(newBlock.Id, abovePos);
+            entity.World.BlockAccessor.SetBlock(newBlock.Id, tallgrassPos);
             return prevHeight - newHeight;
         }
 
         protected int Sparsen(Entity entity, int stages) {
-            Block block = entity.World.BlockAccessor.GetBlock(pos);
+            Block block = entity.World.BlockAccessor.GetBlock(soilPos);
             Dictionary<string, int> dict = grassDict;
             string[] array = grassArray;
             string prevName = block.Variant["grassCoverage"];
@@ -174,12 +174,12 @@ namespace Genelib {
                 entity.Api.Logger.Error("GrassFoodSource unable to get shorter version " + newName + " of tallgrass " + block.Code);
                 return 0;
             }
-            entity.World.BlockAccessor.SetBlock(newBlock.Id, pos);
+            entity.World.BlockAccessor.SetBlock(newBlock.Id, soilPos);
             return prevDensity - newDensity;
         }
 
         private string tallgrassVariant(IBlockAccessor blockAccessor) {
-            Block above = blockAccessor.GetBlock(pos.UpCopy());
+            Block above = blockAccessor.GetBlock(tallgrassPos);
             if (above.FirstCodePart() == "tallgrass") {
                 return above.Variant["tallgrass"];
             }
