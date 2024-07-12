@@ -149,6 +149,11 @@ namespace Genelib {
             return true;
         }
 
+        public string GetGrazeMethod(Random random) {
+            // TODO
+            return "nibblegraze";
+        }
+
         public virtual void ApplyNutritionEffects() {
             float fiber = Fiber.Value;
             float sugar = Sugar.Value;

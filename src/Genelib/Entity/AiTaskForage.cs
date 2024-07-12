@@ -14,9 +14,13 @@ namespace Genelib {
         protected AnimalHunger hungerBehavior;
         protected double lastSearchHours;
         protected float searchRate = 0.25f;
-        protected IAnimalFoodSource target = null;
         protected float looseItemSearchDistance = 10;
         protected POIRegistry pointsOfInterest;
+
+        protected IAnimalFoodSource Target {
+            get => (IAnimalFoodSource) typeof(AiTaskSeekFoodAndEat).GetField("targetPoi", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
+            set => typeof(AiTaskSeekFoodAndEat).GetField("targetPoi", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(this, value);
+        }
 
         public AiTaskForage(EntityAgent entity) : base(entity) { 
             pointsOfInterest = entity.Api.ModLoader.GetModSystem<POIRegistry>();
@@ -35,35 +39,46 @@ namespace Genelib {
             if (!IsSearchTime()) {
                 return false;
             }
-            target = null;
-            lastSearchHours = entity.World.Calendar.TotalHours - entity.World.Rand.NextSingle() * searchRate;
+            Target = null;
 
-            float hungerLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
-            if (hungerLevel > 0) {
+            float foodLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
+            // TODO: Better test for whether entity is hungry
+            if (foodLevel < 0) {
                 // Eat loose items
                 entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
                     entity.ServerPos.XYZ, looseItemSearchDistance, searchItems, EnumEntitySearchType.Inanimate);
-                if (target != null) {
+                if (Target != null) {
                     return true;
                 }
             }
 
             float thirstLevel = hungerBehavior.Water.Level;
-            if (thirstLevel > hungerLevel && thirstLevel > 0) {
+            if (thirstLevel < foodLevel && thirstLevel < 0) {
                 SeekWater();
-                if (target != null) {
+                if (Target != null) {
                     return true;
                 }
             }
-            if (hungerLevel > 0 && target == null) {
+            if (foodLevel < 0) {
                 SeekFood();
             }
-            return target != null;
+            if (Target == null) {
+                lastSearchHours = entity.World.Calendar.TotalHours;
+            }
+            return Target != null;
+        }
+
+        public override void FinishExecute(bool cancelled) {
+            // Base method resets cooldown if quantityEaten is 0
+            base.FinishExecute(cancelled);
+            if (!cancelled) {
+                cooldownUntilTotalHours = entity.Api.World.Calendar.TotalHours + mincooldownHours + entity.World.Rand.NextDouble() * (maxcooldownHours - mincooldownHours);
+            }
         }
 
         private bool searchItems(Entity entity) {
             if (entity is EntityItem entityitem && hungerBehavior.WantsFood(entityitem.Itemstack)) {
-                target = new LooseItemFoodSource(entityitem);
+                Target = new LooseItemFoodSource(entityitem);
                 return false;
             }
             return true;
@@ -81,24 +96,14 @@ namespace Genelib {
         }
 
         protected void SeekFood() {
-            target = pointsOfInterest.GetNearestPoi(entity.ServerPos.XYZ, 48, IsValidFoodPOI) as IAnimalFoodSource;
-            if (target != null) {
+            Target = pointsOfInterest.GetNearestPoi(entity.ServerPos.XYZ, 48, IsValidFoodPOI) as IAnimalFoodSource;
+            if (Target != null) {
                 return;
             }
             if (hungerBehavior.EatsGrassOrRoots()) {
-                BlockPos blockPos = entity.ServerPos.XYZ.AsBlockPos;
-                Random random = entity.World.Rand;
-                blockPos.X += random.Next(4) - random.Next(4);
-                blockPos.Y += random.Next(6) - random.Next(2);
-                blockPos.Z += random.Next(4) - random.Next(4);
-                int i = 0;
-                while (i < 8 && entity.World.BlockAccessor.GetBlock(blockPos).Id == 0) {
-                    ++i;
-                    --blockPos.Y;
-                }
-                GrassFoodSource grass = new GrassFoodSource(blockPos);
+                var grass = GrassFoodSource.SearchNear(entity);
                 if (grass.IsSuitableFor(entity, Diet)) {
-                    target = grass;
+                    Target = grass;
                     return;
                 }
             }

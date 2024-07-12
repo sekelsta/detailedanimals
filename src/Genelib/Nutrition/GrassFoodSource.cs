@@ -22,12 +22,39 @@ namespace Genelib {
             return dict;
         }
 
+        public static Dictionary<string, System.Func<GrassFoodSource, Entity, Tuple<NutritionData, float>>> GrazeMethods 
+            = new Dictionary<string, System.Func<GrassFoodSource, Entity, Tuple<NutritionData, float>>> {
+                {"graze", (grass, entity) => grass.Graze(entity)},
+                {"nibblegraze", (grass, entity) => grass.GrazeSelectively(entity)},
+                {"root", (grass, entity) => grass.DigRoots(entity)},
+        };
+
         protected BlockPos tallgrassPos;
         protected BlockPos soilPos;
 
         public GrassFoodSource(BlockPos pos) {
             this.soilPos = pos;
             this.tallgrassPos = soilPos.UpCopy();
+        }
+
+        public static GrassFoodSource SearchNear(Entity entity) {
+            BlockPos blockPos = entity.ServerPos.XYZ.AsBlockPos;
+            BlockPos columnSearchPos = blockPos.Copy();
+            for (int i = 8; i >= -8; --i) {
+                columnSearchPos.Y = blockPos.Y + i;
+                Block block = entity.World.BlockAccessor.GetBlock(columnSearchPos);
+                if (block.Id == 0) {
+                    // Air
+                    continue;
+                }
+                if (block.FirstCodePart() == "tallgrass") {
+                    return new GrassFoodSource(columnSearchPos.Down());
+                }
+                if (block.Variant["grass"] != null || block.Variant["grasscoverage"] != null) {
+                    return new GrassFoodSource(columnSearchPos);
+                }
+            }
+            return new GrassFoodSource(blockPos);
         }
 
         public Vec3d Position => tallgrassPos.ToVec3d();
@@ -55,8 +82,8 @@ namespace Genelib {
 
         public float ConsumeOnePortion(Entity entity) {
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
-            // TODO: Properly decide which to call
-            Tuple<NutritionData, float> result = DigRoots(entity);
+            string grazeMethod = hunger.GetGrazeMethod(entity.World.Rand);
+            Tuple<NutritionData, float> result = GrazeMethods[grazeMethod](this, entity);
             if (result != null) {
                 hunger.Eat(result.Item1, result.Item2);
             }
@@ -156,7 +183,7 @@ namespace Genelib {
             Block block = entity.World.BlockAccessor.GetBlock(soilPos);
             Dictionary<string, int> dict = grassDict;
             string[] array = grassArray;
-            string prevName = block.Variant["grassCoverage"];
+            string prevName = block.Variant["grasscoverage"];
             if (prevName == null) {
                 prevName = block.Variant["grass"];
                 dict = forestDict;
@@ -171,7 +198,7 @@ namespace Genelib {
             string newName = array[newDensity];
             Block newBlock = entity.World.GetBlock(block.CodeWithParts(newName));
             if (newBlock == null) {
-                entity.Api.Logger.Error("GrassFoodSource unable to get shorter version " + newName + " of tallgrass " + block.Code);
+                entity.Api.Logger.Error("GrassFoodSource unable to get sparser version " + newName + " of grassy dirt " + block.Code);
                 return 0;
             }
             entity.World.BlockAccessor.SetBlock(newBlock.Id, soilPos);
