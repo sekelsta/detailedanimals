@@ -33,6 +33,7 @@ namespace Genelib {
         public float FiberDigestion = 0;
         public float MetabolicEfficiency;
         public float DaysUntilHungry = 4;
+        public GrazeMethod[] GrazeMethods;
 
         protected long listenerID;
         protected int accumulator;
@@ -124,6 +125,9 @@ namespace Genelib {
             if (typeAttributes.KeyExists("fiberDigestion")) {
                 FiberDigestion = typeAttributes["fiberDigestion"].AsFloat();
             }
+            if (typeAttributes.KeyExists("grazeMethods")) {
+                GrazeMethods = typeAttributes["grazeMethods"].AsArray<GrazeMethod>();
+            }
             prevPos = entity.ServerPos.XYZ;
 
             Fiber = new Nutrient("fiber", typeAttributes, this);
@@ -145,13 +149,11 @@ namespace Genelib {
         }
 
         public bool EatsGrassOrRoots() {
-            // TODO
-            return true;
+            return GrazeMethods != null && GrazeMethods.Length > 0;
         }
 
-        public string GetGrazeMethod(Random random) {
-            // TODO
-            return "nibblegraze";
+        public GrazeMethod GetGrazeMethod(Random random) {
+            return GrazeMethods[random.Next(GrazeMethods.Length)];
         }
 
         public virtual void ApplyNutritionEffects() {

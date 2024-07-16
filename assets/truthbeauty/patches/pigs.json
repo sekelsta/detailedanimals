@@ -49,20 +49,20 @@
         op: "replace",
         path: "/server/behaviors/6",
         value: { code: "genelib.harvestable", drops: [
-			    {
-				    type: "item", 
-				    code: "redmeat-raw", 
+                {
+                    type: "item", 
+                    code: "redmeat-raw", 
                     category: "meat",
-				    quantity: { avg: 9, var: 1.5 } 
-			    },
-			    {
-				    type: "item", 
-				    code: "hide-raw-small", 
+                    quantity: { avg: 9, var: 1.5 } 
+                },
+                {
+                    type: "item", 
+                    code: "hide-raw-small", 
                     category: "pelt",
-				    quantity: { avg: 4, var: 1 } 
-			    }
-			]
-		},
+                    quantity: { avg: 4, var: 1 } 
+                }
+            ]
+        },
         side: "server"
     },
     {
@@ -333,6 +333,7 @@
                 minerals: 0.02,
                 mineralsMax: 0.1,
                 fiberDigestion: 0.3,
+                grazeMethods: ["root"],
         },
         side: "server"
     },
@@ -358,6 +359,7 @@
                 minerals: 0.02,
                 mineralsMax: 0.1,
                 fiberDigestion: 0.3,
+                grazeMethods: ["root"],
         },
         side: "server"
     },
@@ -383,6 +385,7 @@
                 minerals: 0.02,
                 mineralsMax: 0.1,
                 fiberDigestion: 0.3,
+                grazeMethods: ["nibblegraze"],
         },
         side: "server"
     },
@@ -468,6 +471,81 @@
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
         value: ["grass", "vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6",
+        value: {
+                code: "genelib.forage",
+                movespeed: 0.004,
+                priority: 1.38,
+                animationSpeed: 2,
+                animation: "Walk",
+                eatAnimation: "Eat",
+                eatSound: "creature/animal-eat2",
+                digAnimation: "Dig",
+                digAnimationSpeed: 1.5,
+                eatTime: 2,
+                mincooldownHours: 0.05,
+                maxcooldownHours: 1,
+            },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/5",
+        value: {
+                code: "genelib.forage",
+                movespeed: 0.004,
+                priority: 1.38,
+                animationSpeed: 2,
+                animation: "Walk",
+                eatAnimation: "Eat",
+                eatSound: "creature/animal-eat2",
+                digAnimation: "Dig",
+                digAnimationSpeed: 1.5,
+                eatTime: 2,
+                mincooldownHours: 0.05,
+                maxcooldownHours: 1,
+            },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/1/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/1/mincooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/1/maxcooldownHours",
+        value: 1,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/7/enabled",
+        value: false,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/6/enabled",
+        value: false,
         side: "server"
     },
 ]

@@ -461,6 +461,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
+                grazeMethods: ["nibblegraze"],
 			},
         side: "server"
     },

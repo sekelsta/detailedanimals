@@ -270,6 +270,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
+                grazeMethods: ["graze", "nibblegraze"],
         },
         side: "server"
     },
@@ -296,6 +297,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
+                grazeMethods: ["graze", "nibblegraze"],
         },
         side: "server"
     },
@@ -322,6 +324,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
+                grazeMethods: ["graze", "nibblegraze"],
         },
         side: "server"
     },
@@ -344,6 +347,132 @@
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6/mincooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6/maxcooldownHours",
+        value: 1,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6/priority",
+        value: 1.38,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6/eatAnimationSpeed",
+        value: 1.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/5/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/5/mincooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/5/maxcooldownHours",
+        value: 1,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/5/priority",
+        value: 1.38,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/5/eatAnimationSpeed",
+        value: 1.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/4/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/4/mincooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/4/maxcooldownHours",
+        value: 1,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/4/priority",
+        value: 1.38,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/4/eatAnimationSpeed",
+        value: 1.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/7/enabled",
+        value: false,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/6/enabled",
+        value: false,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/5/enabled",
+        value: false,
         side: "server"
     },
 ]

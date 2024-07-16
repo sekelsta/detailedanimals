@@ -314,6 +314,7 @@
                 minerals: 0.02,
                 mineralsMax: 0.1,
                 fiberDigestion: 0.1,
+                grazeMethods: ["nibblegraze"],
         },
         side: "server"
     },
@@ -333,6 +334,7 @@
                 minerals: 0.02,
                 mineralsMax: 0.1,
                 fiberDigestion: 0.1,
+                grazeMethods: ["nibblegraze"],
         },
         side: "server"
     },
@@ -352,6 +354,7 @@
                 minerals: 0.02,
                 mineralsMax: 0.1,
                 fiberDigestion: 0.1,
+                grazeMethods: ["nibblegraze"],
         },
         side: "server"
     },
@@ -374,6 +377,90 @@
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/11/aitasks/3/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/11/aitasks/3/mincooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/11/aitasks/3/maxcooldownHours",
+        value: 1,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6/mincooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/6/maxcooldownHours",
+        value: 1,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/3/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/3/mincooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/3/maxcooldownHours",
+        value: 1,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/server/behaviors/11/aitasks/6/enabled",
+        value: false,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/9/enabled",
+        value: false,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/4/enabled",
+        value: false,
         side: "server"
     },
 ]

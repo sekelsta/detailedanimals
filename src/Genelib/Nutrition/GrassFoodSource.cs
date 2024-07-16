@@ -22,11 +22,11 @@ namespace Genelib {
             return dict;
         }
 
-        public static Dictionary<string, System.Func<GrassFoodSource, Entity, Tuple<NutritionData, float>>> GrazeMethods 
-            = new Dictionary<string, System.Func<GrassFoodSource, Entity, Tuple<NutritionData, float>>> {
-                {"graze", (grass, entity) => grass.Graze(entity)},
-                {"nibblegraze", (grass, entity) => grass.GrazeSelectively(entity)},
-                {"root", (grass, entity) => grass.DigRoots(entity)},
+        public static Dictionary<GrazeMethod, System.Func<GrassFoodSource, Entity, Tuple<NutritionData, float>>> GrazeMethods 
+            = new Dictionary<GrazeMethod, System.Func<GrassFoodSource, Entity, Tuple<NutritionData, float>>> {
+                { GrazeMethod.Graze, (grass, entity) => grass.Graze(entity) },
+                { GrazeMethod.NibbleGraze, (grass, entity) => grass.GrazeSelectively(entity) },
+                { GrazeMethod.Root, (grass, entity) => grass.DigRoots(entity) },
         };
 
         protected BlockPos tallgrassPos;
@@ -61,8 +61,10 @@ namespace Genelib {
         public Vec3d Position => tallgrassPos.ToVec3d();
 
         public bool IsSuitableFor(Entity entity, CreatureDiet diet) {
-            // Ignore whether entity diet allows grass - that's the entity's problem
+            return IsSuitableFor(entity, GrazeMethod.NibbleGraze);
+        }
 
+        public bool IsSuitableFor(Entity entity, GrazeMethod method) {
             Block block = entity.World.BlockAccessor.GetBlock(soilPos);
             string grassVariant = block.Variant["grass"]; // Used by forest floor
             if (grassVariant != null && grassVariant != "0") {
@@ -74,7 +76,7 @@ namespace Genelib {
             }
 
             string tallgrass = tallgrassVariant(entity.World.BlockAccessor);
-            if (tallgrass == "none" || (tallgrass == "eaten" && KeepTallgrass(block))) {
+            if (tallgrass == "none" || ((tallgrass == "eaten" || method == GrazeMethod.Root) && KeepTallgrass(block))) {
                 return false;
             }
 
@@ -83,8 +85,13 @@ namespace Genelib {
 
         public float ConsumeOnePortion(Entity entity) {
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
-            string grazeMethod = hunger.GetGrazeMethod(entity.World.Rand);
-            Tuple<NutritionData, float> result = GrazeMethods[grazeMethod](this, entity);
+            GrazeMethod grazeMethod = hunger.GetGrazeMethod(entity.World.Rand);
+            return ConsumeOnePortion(entity, grazeMethod);
+        }
+
+        public float ConsumeOnePortion(Entity entity, GrazeMethod method) {
+            AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
+            Tuple<NutritionData, float> result = GrazeMethods[method](this, entity);
             if (result != null) {
                 hunger.Eat(result.Item1, result.Item2);
             }
@@ -170,6 +177,10 @@ namespace Genelib {
 
             int prevHeight = tallgrassDict[prevName];
             int newHeight = Math.Max(0, prevHeight - stages);
+            Block block = entity.World.BlockAccessor.GetBlock(soilPos);
+            if (KeepTallgrass(block)) {
+                newHeight = Math.Min(prevHeight, Math.Max(1, newHeight));
+            }
             string newName = tallgrassArray[newHeight];
             Block newBlock = entity.World.GetBlock(above.CodeWithParts(newName));
             if (newBlock == null) {

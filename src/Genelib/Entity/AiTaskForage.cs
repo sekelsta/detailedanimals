@@ -16,10 +16,18 @@ namespace Genelib {
         protected float searchRate = 0.25f;
         protected float looseItemSearchDistance = 10;
         protected POIRegistry pointsOfInterest;
+        protected AnimationMetaData digAnimation;
+        protected AnimationMetaData eatAnimation;
+        protected GrazeMethod grazeMethod;
 
         protected IAnimalFoodSource Target {
             get => (IAnimalFoodSource) typeof(AiTaskSeekFoodAndEat).GetField("targetPoi", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
             set => typeof(AiTaskSeekFoodAndEat).GetField("targetPoi", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(this, value);
+        }
+
+        protected AnimationMetaData CurrentEatAnimation {
+            get => (AnimationMetaData) typeof(AiTaskSeekFoodAndEat).GetField("eatAnimMeta", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
+            set => typeof(AiTaskSeekFoodAndEat).GetField("eatAnimMeta", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(this, value);
         }
 
         public AiTaskForage(EntityAgent entity) : base(entity) { 
@@ -29,6 +37,15 @@ namespace Genelib {
         public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
             base.LoadConfig(taskConfig, aiConfig);
             lastSearchHours = entity.World.Calendar.TotalHours - searchRate * entity.World.Rand.NextSingle();
+            if (taskConfig["digAnimation"].Exists) {
+                string animation = taskConfig["digAnimation"].AsString()?.ToLowerInvariant();
+                digAnimation = new AnimationMetaData() {
+                    Code = animation,
+                    Animation = animation,
+                    AnimationSpeed = taskConfig["digAnimationSpeed"].AsFloat(1f)
+                }.Init();
+            }
+            eatAnimation = CurrentEatAnimation;
         }
 
         public override void AfterInitialize() {
@@ -40,6 +57,7 @@ namespace Genelib {
                 return false;
             }
             Target = null;
+            CurrentEatAnimation = eatAnimation;
 
             float foodLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
             // TODO: Better test for whether entity is hungry
@@ -101,9 +119,13 @@ namespace Genelib {
                 return;
             }
             if (hungerBehavior.EatsGrassOrRoots()) {
+                grazeMethod = hungerBehavior.GetGrazeMethod(entity.World.Rand);
                 var grass = GrassFoodSource.SearchNear(entity);
-                if (grass.IsSuitableFor(entity, Diet)) {
+                if (grass.IsSuitableFor(entity, grazeMethod) && !RecentlyFailedSeek(grass)) {
                     Target = grass;
+                    if (grazeMethod == GrazeMethod.Root) {
+                        CurrentEatAnimation = digAnimation;
+                    }
                     return;
                 }
             }
