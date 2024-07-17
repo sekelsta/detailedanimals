@@ -7,6 +7,7 @@
             "sheep-bighorn-male-lamb", "sheep-bighorn-female-lamb", 
             "chicken-male-chick", "chicken-female-chick", 
             "pig-wild-male-piglet", "pig-wild-female-piglet", 
+            "wolf-male-pup", "wolf-female-pup",
             "deer-caribou-male-young", "deer-caribou-female-young"
             ] }
     ],
@@ -14,6 +15,7 @@
         "*-sheep-bighorn-*-lamb": { base: "game:entity/land/sheep-bighorn-lamb" },
         "*-chicken-*-chick": { base: "game:entity/land/chicken-baby" },
         "*-pig-wild-*-piglet": { base: "game:entity/land/pig-wild-piglet" },
+        "*-wolf-*-pup": { base: "game:entity/land/wolf-pup" },
         "*-deer-caribou-*-young": { base: "game:entity/land/hooved/deer/caribou/baby" },
         "*": { base: "game:entity/land/{type}" }
     },
@@ -43,6 +45,13 @@
             origin: { x: 0.5, y: 0.17, z: 0.5 },
             scale: 3
         },
+		"creature-wolf-*-pup": {
+			rotate: true,
+			translation: { x: 3, y: 0, z: 0 },
+			rotation: { x: -12, y: -48, z: -180 },
+			origin: { x: 0.5, y: 0.3, z: 0.5 },
+			scale: 2.18
+		},
 		"creature-deer-*": {
 			rotate: true,
 			translation: { x: 3, y: 0, z: 0 },
@@ -71,6 +80,12 @@
             origin: { x: 0.5, y: 0.1, z: 0.5 },
             scale: 0.92
         },
+		"creature-wolf-*-pup": {
+			translation: { x: -0.4, y: 0, z: -0.5 },
+			rotation: { x: -160, y: -26, z: -90 },
+			origin: { x: 0.5, y: 0.1, z: 0.5 },
+			scale: 0.92
+		},
 		"creature-deer-*": {
 			translation: { x: -0.9, y: -0.9, z: -0.7 },
 			rotation: { x: -180, y: 0, z: -156 },
@@ -92,6 +107,11 @@
             rotation: { x: -180, y: -95, z: -180 },
             scale: 1.36
         },
+		"creature-wolf-*-pup": {
+			translation: { x: 0.4, y: 0.1, z: 0 },
+			rotation: { x: -180, y: -78, z: -180 },
+			scale: 1.21
+		},
     },
 	
 	groundTransformByType: {

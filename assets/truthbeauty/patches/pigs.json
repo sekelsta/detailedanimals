@@ -1,12 +1,5 @@
 [
     {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "replace",
-        path: "/client/shape/base",
-        value: "game:entity/land/pig-wild-piglet",
-        side: "server"
-    },
-    {
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
         path: "/server/spawnconditions/worldgen/companions",

@@ -1,0 +1,47 @@
+[
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "add",
+        path: "/server/behaviors/9/adultEntityCodesByType",
+        value: {
+            "*-male-*": ["game:wolf-male"], 
+            "*-female-*": ["game:wolf-female"],
+            "*": ["game:wolf-male", "game:wolf-female"]
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "replace",
+        path: "/server/spawnconditions/runtime/companions",
+        value: [ "game:wolf-female", "truthbeauty:wolf-female-pup", "truthbeauty:wolf-male-pup"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "copy",
+        path: "/server/spawnconditions/worldgen/companions",
+        frompath: "/server/spawnconditions/runtime/companions",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "remove",
+        path: "/server/behaviors/8/spawnEntityCode",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/server/behaviors/8/spawnEntityCodes",
+        value: [ "truthbeauty:wolf-female-pup", "truthbeauty:wolf-male-pup"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/server/behaviors/8/growthCapEntityCodes",
+        value: [ "game:wolf-male", "game:wolf-female", "game:wolf-pup", "truthbeauty:wolf-female-pup", "truthbeauty:wolf-male-pup"],
+        side: "server"
+    },
+]

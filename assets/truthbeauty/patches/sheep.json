@@ -1,19 +1,5 @@
 [
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "replace",
-        path: "/client/shape/base",
-        value: "game:entity/land/sheep-bighorn-lamb",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "replace",
-        path: "/client/texture/base",
-        value: "game:entity/sheep/sheep-bighorn-lamb",
-        side: "server"
-    },
-    {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "replace",
         path: "/server/spawnconditions/worldgen/companions",

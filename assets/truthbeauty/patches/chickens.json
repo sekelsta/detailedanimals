@@ -1,12 +1,5 @@
 [
     {
-        file: "game:entities/land/chicken-baby.json",
-        op: "replace",
-        path: "/client/shape/base",
-        value: "game:entity/land/chicken-baby",
-        side: "server"
-    },
-    {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/server/spawnconditionsByType/*/worldgen/companions",

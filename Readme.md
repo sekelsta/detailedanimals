@@ -5,6 +5,8 @@ This repository contains two projects:
 ## Truth and Beauty
 This is heavily in progress. Will update this doc once things settle down.
 
+Note: Wolf pups tamed with Wolf Taming mod will lose their genders due to the transformation into wolftaming:dog-wolf-pup
+
 ## Genelib
 **This is highly incomplete and I don't recommend using it yet!!**
 
