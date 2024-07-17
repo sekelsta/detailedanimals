@@ -379,7 +379,7 @@
     },
     {
         file: "game:entities/land/sheep-bighorn-female.json",
-        op: "replace",
+        op: "add",
         path: "/server/behaviors/10/aitasks/6/eatAnimationSpeed",
         value: 1.5,
         side: "server"
@@ -414,7 +414,7 @@
     },
     {
         file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
+        op: "add",
         path: "/server/behaviors/9/aitasks/5/eatAnimationSpeed",
         value: 1.5,
         side: "server"
@@ -449,7 +449,7 @@
     },
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "replace",
+        op: "add",
         path: "/server/behaviors/10/aitasks/4/eatAnimationSpeed",
         value: 1.5,
         side: "server"
