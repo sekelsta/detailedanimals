@@ -15,6 +15,7 @@ namespace Genelib {
         protected double lastSearchHours;
         protected float searchRate = 0.25f;
         protected float looseItemSearchDistance = 10;
+        protected float motherSearchDistance = 12;
         protected POIRegistry pointsOfInterest;
         protected AnimationMetaData digAnimation;
         protected AnimationMetaData eatAnimation;
@@ -117,6 +118,14 @@ namespace Genelib {
             return true;
         }
 
+        private bool searchMother(Entity entity) {
+            if (entity.EntityId == this.entity.WatchedAttributes.GetLong("motherId")) {
+                Target = new NursingMilkSource(entity);
+                return false;
+            }
+            return true;
+        }
+
         protected bool IsSearchTime() {
             return lastSearchHours + searchRate <= entity.World.Calendar.TotalHours
                 && cooldownUntilMs <= entity.World.ElapsedMilliseconds
@@ -125,7 +134,9 @@ namespace Genelib {
         }
 
         protected void SeekMilk() {
-            // TODO
+            entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
+                entity.ServerPos.XYZ, motherSearchDistance, searchMother, EnumEntitySearchType.Creatures);
+            // TODO: If mother can't be found, attempt to adopt a new one or find a bowl or bucket of milk
         }
 
         protected void SeekFood() {
