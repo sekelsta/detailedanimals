@@ -60,8 +60,7 @@ namespace Genelib {
             CurrentEatAnimation = eatAnimation;
 
             float foodLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
-            // TODO: Better test for whether entity is hungry
-            if (foodLevel < 0) {
+            if (foodLevel < AnimalHunger.HUNGRY) {
                 // Eat loose items
                 entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
                     entity.ServerPos.XYZ, looseItemSearchDistance, searchItems, EnumEntitySearchType.Inanimate);
@@ -77,7 +76,7 @@ namespace Genelib {
                     return true;
                 }
             }
-            if (foodLevel < 0) {
+            if (foodLevel < AnimalHunger.HUNGRY) {
                 SeekFood();
             }
             if (Target == null) {

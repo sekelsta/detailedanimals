@@ -43,13 +43,13 @@ namespace Genelib {
         private const int updateSeconds = 12;
 
         // Maximum values of each condition
-        private const float STARVING = -0.9f;
-        private const float FAMISHED = -0.6f;
-        private const float VERY_HUNGRY = -0.3f;
-        private const float HUNGRY = 0.1f;
-        private const float PECKISH = 0.4f;
-        private const float NOT_HUNGRY = 0.6f;
-        private const float FULL = 0.8f;
+        public const float STARVING = -0.9f;
+        public const float FAMISHED = -0.6f;
+        public const float VERY_HUNGRY = -0.3f;
+        public const float HUNGRY = 0.1f;
+        public const float PECKISH = 0.4f;
+        public const float NOT_HUNGRY = 0.6f;
+        public const float FULL = 0.8f;
         // No max for STUFFED
 
         public float Saturation {
