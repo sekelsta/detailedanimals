@@ -152,7 +152,7 @@ namespace Genelib {
                 }
                 entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
                 entity.WatchedAttributes.SetFloat("renderScale", (float)Math.Pow(expected, 1/3f));
-                entity.GetBehavior<AnimalHunger>()?.UpdateCondition(0.2f);
+                entity.GetBehavior<AnimalHunger>()?.ShiftWeight(prevAnimalWeight - newAnimalWeight);
                 callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000));
             }
 
