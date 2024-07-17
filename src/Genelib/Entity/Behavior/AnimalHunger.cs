@@ -252,7 +252,7 @@ namespace Genelib {
                         return false;
                 }
                 foreach (string specialty in data.Specialties) {
-                    if (specialty == "lactose" && getAgeDays() < 1.5 * weanedAgeDays) {
+                    if (specialty == "lactose" && CanDigestMilk()) {
                         continue;
                     }
                     if (!Specialties.Contains(specialty)) {
@@ -292,6 +292,18 @@ namespace Genelib {
             return fullness < STARVING
                 || (AnimalWeight < 0.7 && fullness < HUNGRY) 
                 || (AnimalWeight < 0.85 && fullness < VERY_HUNGRY);
+        }
+
+        public bool CanDigestMilk() {
+            return getAgeDays() < 1.5 * weanedAgeDays;
+        }
+
+        public bool StartedWeaning() {
+            return getAgeDays() > 0.25 * weanedAgeDays;
+        }
+
+        public bool WantsMilk() {
+            return getAgeDays() > (0.25 + entity.World.Rand.NextSingle()) * weanedAgeDays;
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode, ref EnumHandling handled) {

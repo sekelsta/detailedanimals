@@ -61,11 +61,19 @@ namespace Genelib {
 
             float foodLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
             if (foodLevel < AnimalHunger.HUNGRY) {
-                // Eat loose items
-                entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
-                    entity.ServerPos.XYZ, looseItemSearchDistance, searchItems, EnumEntitySearchType.Inanimate);
-                if (Target != null) {
-                    return true;
+                if (hungerBehavior.WantsMilk()) {
+                    SeekMilk();
+                    if (Target != null) {
+                        return true;
+                    }
+                }
+                if (hungerBehavior.StartedWeaning()) {
+                    // Eat loose items
+                    entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
+                        entity.ServerPos.XYZ, looseItemSearchDistance, searchItems, EnumEntitySearchType.Inanimate);
+                    if (Target != null) {
+                        return true;
+                    }
                 }
             }
 
@@ -77,7 +85,15 @@ namespace Genelib {
                 }
             }
             if (foodLevel < AnimalHunger.HUNGRY) {
-                SeekFood();
+                if (hungerBehavior.StartedWeaning()) {
+                    SeekFood();
+                    if (Target != null) {
+                        return true;
+                    }
+                }
+                if (hungerBehavior.CanDigestMilk()) {
+                    SeekMilk();
+                }
             }
             if (Target == null) {
                 lastSearchHours = entity.World.Calendar.TotalHours;
