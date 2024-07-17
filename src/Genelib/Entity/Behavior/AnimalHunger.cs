@@ -227,9 +227,64 @@ namespace Genelib {
             return null;
         }
 
+        public bool CanEat(ItemStack itemstack, FoodNutritionProperties nutriProps, NutritionData data) {
+            if (AnimalWeight > 1.8f) {
+                return false;
+            }
+            float fullness = Fullness;
+            if (fullness > FULL) {
+                return false;
+            }
+
+            // Respect "skipFoodTags" and "specialties" even if animal is starving
+            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>() ?? new string[0];
+            CreatureDiet diet = entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>();
+            if (diet.SkipFoodTags != null) {
+                foreach (string skipTag in diet.SkipFoodTags) {
+                    if (foodTags.Contains(skipTag)) {
+                        return false;
+                    }
+                }
+            }
+
+            if (data?.Specialties != null) {
+                if (Specialties == null) {
+                        return false;
+                }
+                foreach (string specialty in data.Specialties) {
+                    if (specialty == "lactose" && getAgeDays() < 1.5 * weanedAgeDays) {
+                        continue;
+                    }
+                    if (!Specialties.Contains(specialty)) {
+                        return false;
+                    }
+                }
+            }
+
+            if (!diet.Matches(itemstack)) {
+                return WantsEmergencyFood();
+            }
+            foreach (string avoid in AvoidFoodTags) {
+                if (foodTags.Contains(avoid)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool CanEat(ItemStack itemstack) {
+            FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
+            NutritionData data = GetNutritionData(itemstack, nutriProps);
+            return CanEat(itemstack, nutriProps, data);
+        }
+
         public bool WantsFood(ItemStack itemstack) {
             FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
-            return AvoidReason(GetNutritionData(itemstack, nutriProps), GetBaseSatiety(itemstack, nutriProps)) == null;
+            NutritionData data = GetNutritionData(itemstack, nutriProps);
+            if (!CanEat(itemstack, nutriProps, data)) {
+                return false;
+            }
+            return AvoidReason(data, GetBaseSatiety(itemstack, nutriProps)) == null;
         }
 
         public bool WantsEmergencyFood() {
@@ -247,63 +302,12 @@ namespace Genelib {
                 handled = EnumHandling.PassThrough;
                 return;
             }
-
-            if (AnimalWeight > 1.8f) {
-                handled = EnumHandling.PassThrough;
-                return;
-            }
-            float fullness = Fullness;
-            if (fullness > FULL) {
-                handled = EnumHandling.PassThrough;
-                return;
-            }
-
-            // Respect "skipFoodTags" and "specialties" even if animal is starving
             ItemStack itemstack = slot.Itemstack;
-            string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>() ?? new string[0];
-            CreatureDiet diet = entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>();
-            if (diet.SkipFoodTags != null) {
-                foreach (string skipTag in diet.SkipFoodTags) {
-                    if (foodTags.Contains(skipTag)) {
-                        handled = EnumHandling.PassThrough;
-                        return;
-                    }
-                }
-            }
-
             FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
-            NutritionData data = GetNutritionData(itemstack, nutriProps, foodTags);
-
-            if (data?.Specialties != null) {
-                if (Specialties == null) {
-                        handled = EnumHandling.PassThrough;
-                        return;
-                }
-                foreach (string specialty in data.Specialties) {
-                    if (specialty == "lactose" && getAgeDays() < 1.5 * weanedAgeDays) {
-                        continue;
-                    }
-                    if (!Specialties.Contains(specialty)) {
-                        handled = EnumHandling.PassThrough;
-                        return;
-                    }
-                }
-            }
-
-            if (!diet.Matches(itemstack)) {
-                if (WantsEmergencyFood()) {
-                    Eat(slot, byEntity, data, nutriProps);
-                    handled = EnumHandling.PreventSubsequent;
-                    return;
-                }
+            NutritionData data = GetNutritionData(itemstack, nutriProps);
+            if (!CanEat(itemstack, nutriProps, data)) {
                 handled = EnumHandling.PassThrough;
                 return;
-            }
-            foreach (string avoid in AvoidFoodTags) {
-                if (foodTags.Contains(avoid)) {
-                    handled = EnumHandling.PassThrough;
-                    return;
-                }
             }
             string avoidReason = AvoidReason(data, GetBaseSatiety(itemstack, nutriProps));
             if (avoidReason != null) {

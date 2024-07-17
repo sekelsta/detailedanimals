@@ -14,8 +14,16 @@ namespace Genelib {
                 prefix: new HarmonyMethod(typeof(DetailedHarvestable).GetMethod("generateDrops_Prefix", BindingFlags.Static | BindingFlags.Public)) 
             );
             harmony.Patch(
+                typeof(LooseItemFoodSource).GetMethod("IsSuitableFor", BindingFlags.Instance | BindingFlags.Public),
+                prefix: new HarmonyMethod(typeof(AnimalFoodSourcePatches).GetMethod("LooseItem_IsSuitableFor_Prefix", BindingFlags.Static | BindingFlags.Public)) 
+            );
+            harmony.Patch(
                 typeof(LooseItemFoodSource).GetMethod("ConsumeOnePortion", BindingFlags.Instance | BindingFlags.Public),
                 prefix: new HarmonyMethod(typeof(AnimalFoodSourcePatches).GetMethod("LooseItem_ConsumeOnePortion_Prefix", BindingFlags.Static | BindingFlags.Public)) 
+            );
+            harmony.Patch(
+                typeof(BlockEntityTrough).GetMethod("IsSuitableFor", BindingFlags.Instance | BindingFlags.Public),
+                prefix: new HarmonyMethod(typeof(AnimalFoodSourcePatches).GetMethod("Trough_IsSuitableFor_Prefix", BindingFlags.Static | BindingFlags.Public)) 
             );
             harmony.Patch(
                 typeof(BlockEntityTrough).GetMethod("ConsumeOnePortion", BindingFlags.Instance | BindingFlags.Public),

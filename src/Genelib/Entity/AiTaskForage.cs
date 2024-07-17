@@ -147,7 +147,6 @@ namespace Genelib {
             if (!foodSource.IsSuitableFor(entity, Diet)) {
                 return false;
             }
-            // TODO: More thorough checking that the entity can eat the food
             if (RecentlyFailedSeek(poi)) {
                 return false;
             }
