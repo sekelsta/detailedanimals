@@ -97,69 +97,6 @@
         frompath: "/server/behaviors/3/currenthealthByType/*-young",
         side: "server"
     },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/runtime/insideBlockCodes/0",
-        "value": "game:air",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/runtime/insideBlockCodes/1",
-        "value": "game:soil-*",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/runtime/insideBlockCodes/2",
-        "value": "game:gravel-*",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/runtime/insideBlockCodes/3",
-        "value": "game:tallgrass-*",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/runtime/insideBlockCodes/4",
-        "value": "game:snowlayer-1",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/runtime/insideBlockCodes/5",
-        "value": "game:sand-*",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/worldgen/insideBlockCodes/0",
-        "value": "game:air",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/worldgen/insideBlockCodes/1",
-        "value": "game:tallgrass-*",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
-    {
-        "op": "replace",
-        "path": "/server/spawnconditions/worldgen/insideBlockCodes/2",
-        "value": "game:snowlayer-1",
-        "file": "game:entities/land/hooved/deer.json",
-        "side": "Server"
-    },
 
 
     {

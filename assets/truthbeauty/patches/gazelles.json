@@ -1,0 +1,18 @@
+[
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "remove",
+        path: "/client/shape",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/client/shapeByType",
+        value: {
+            "*-calf": { base: "game:entity/land/gazelle-calf" },
+            "*": { base: "game:entity/land/gazelle-{type}" },
+        },
+        side: "server"
+    },
+]

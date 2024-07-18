@@ -1,0 +1,22 @@
+[
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/client/shapeByType",
+        value: {
+            "*-pup-*": { base: "game:entity/land/fox-pup" },
+            "*": { base: "game:entity/land/fox-{gender}" },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/client/textureByType",
+        value: {
+            "*-pup-*": { base: "game:entity/fox/{type}-pup" },
+            "*": { base: "game:entity/fox/{type}-{gender}" },
+        },
+        side: "server"
+    },
+]
