@@ -15,4 +15,65 @@
         },
         side: "server"
     },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "replace",
+        path: "/server/spawnconditions/worldgen/companions",
+        value: ["game:gazelle-female", "truthbeauty:gazelle-male-calf", "truthbeauty:gazelle-female-calf"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "copy",
+        path: "/server/spawnconditions/runtime/companions",
+        frompath: "/server/spawnconditions/worldgen/companions",
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 23.75,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            adultEntityCodesByType: {
+                "*-female-calf": [ "game:gazelle-female" ],
+                "*-male-calf": [ "game:gazelle-male" ],
+                "*-calf": [ "game:gazelle-male", "game:gazelle-female" ]
+            },
+            monthsToGrow: 6.0,
+            initialWeightByType: {
+                "*-calf": 0.1,
+                "*-female": 0.69,
+                "*-male": 0.71,
+            },
+            finalWeightByType: {
+                "*-male": 1.05,
+                "*-female": 0.95,
+            }
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/client/sizeByType",
+        value: { "*-calf": 1.5, "*": 1 },
+        side: "server"
+    },
 ]

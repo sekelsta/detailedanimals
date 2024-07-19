@@ -1,0 +1,114 @@
+[
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "replace",
+        path: "/server/spawnconditions/worldgen/companions",
+        value: ["game:hyena-female", "truthbeauty:hyena-male-pup", "truthbeauty:hyena-female-pup"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "copy",
+        path: "/server/spawnconditions/runtime/companions",
+        frompath: "/server/spawnconditions/worldgen/companions",
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 60,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 60,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 60,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 12.0,
+            initialWeight: 0.71,
+            finalWeight: 1.03,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 12.0,
+            initialWeight: 0.69,
+            finalWeight: 0.97,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: {
+            code: "genelib.age",
+            adultEntityCodesByType: {
+                "*-female-*": [ "game:hyena-female" ],
+                "*-male-*": [ "game:hyena-male" ],
+                "*": [ "game:hyena-male", "game:hyena-female" ]
+            },
+            monthsToGrow: 6.0,
+            initialWeight: 0.025,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "replace",
+        path: "/client/sizeGrowthFactor",
+        value: 0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "replace",
+        path: "/client/size",
+        value: 2.5,
+        side: "server"
+    },
+]

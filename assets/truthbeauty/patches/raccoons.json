@@ -1,0 +1,107 @@
+[
+    {
+        file: "game:entities/land/raccoon-male.json",
+        op: "replace",
+        path: "/server/spawnconditions/worldgen/companions",
+        value: ["game:raccoon-female", "truthbeauty:raccoon-male-pup", "truthbeauty:raccoon-female-pup"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-male.json",
+        op: "copy",
+        path: "/server/spawnconditions/runtime/companions",
+        frompath: "/server/spawnconditions/worldgen/companions",
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/raccoon-female.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 8.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-male.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 8.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-pup.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 8.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 6.0,
+            initialWeight: 0.69,
+            finalWeight: 0.95,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 6.0,
+            initialWeight: 0.71,
+            finalWeight: 1.05,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-pup.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: {
+            code: "genelib.age",
+            adultEntityCodesByType: {
+                "*-female-*": [ "game:raccoon-female" ],
+                "*-male-*": [ "game:raccoon-male" ],
+                "*": [ "game:raccoon-male", "game:raccoon-female" ]
+            },
+            monthsToGrow: 6.0,
+            initialWeight: 0.08,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-pup.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-pup.json",
+        op: "replace",
+        path: "/client/size",
+        value: 1.5,
+        side: "server"
+    },
+]

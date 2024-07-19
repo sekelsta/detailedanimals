@@ -16,6 +16,7 @@ namespace Genelib {
         private ITreeAttribute growTree;
         private double StartingWeight = 0.00001;
         protected float FinalWeight = 1;
+        protected float MaxGrowthScale = 0.9f;
         protected double maxGrowth;
 
         public AssetLocation AdultEntityCode { get; protected set; }
@@ -68,6 +69,9 @@ namespace Genelib {
             }
             else if (typeAttributes.KeyExists("adultEntityCode")) {
                 AdultEntityCode = new AssetLocation(typeAttributes["adultEntityCode"].AsString());
+            }
+            else {
+                MaxGrowthScale = float.MaxValue;
             }
 
             if (typeAttributes.KeyExists("initialWeight")) {
@@ -154,7 +158,7 @@ namespace Genelib {
                     newAnimalWeight = (newAnimalWeight * daysPerMonth + prevAnimalWeight * (30 - daysPerMonth)) / 30;
                 }
                 entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
-                entity.WatchedAttributes.SetFloat("renderScale", (float)Math.Pow(expected, 1/3f));
+                entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(expected, 1/3f)));
                 entity.GetBehavior<AnimalHunger>()?.ShiftWeight(prevAnimalWeight - newAnimalWeight);
                 callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000));
             }

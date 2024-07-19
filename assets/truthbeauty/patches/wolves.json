@@ -1,16 +1,5 @@
 [
     {
-        file: "game:entities/land/wolf-pup.json",
-        op: "add",
-        path: "/server/behaviors/9/adultEntityCodesByType",
-        value: {
-            "*-male-*": ["game:wolf-male"], 
-            "*-female-*": ["game:wolf-female"],
-            "*": ["game:wolf-male", "game:wolf-female"]
-        },
-        side: "server"
-    },
-    {
         file: "game:entities/land/wolf-male.json",
         op: "replace",
         path: "/server/spawnconditions/runtime/companions",
@@ -42,6 +31,103 @@
         op: "replace",
         path: "/server/behaviors/8/growthCapEntityCodes",
         value: [ "game:wolf-male", "game:wolf-female", "game:wolf-pup", "truthbeauty:wolf-female-pup", "truthbeauty:wolf-male-pup"],
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 38.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 38.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 38.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 6.0,
+            initialWeight: 0.67,
+            finalWeight: 0.9
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 6.0,
+            initialWeight: 0.73,
+            finalWeight: 1.1
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "replace",
+        path: "/server/behaviors/9",
+        value: {
+            code: "genelib.age",
+            adultEntityCodesByType: {
+                "*-female-*": [ "game:wolf-female" ],
+                "*-male-*": [ "game:wolf-male" ],
+                "*": [ "game:wolf-male", "game:wolf-female" ]
+            },
+            monthsToGrow: 6.0,
+            initialWeight: 0.01,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "replace",
+        path: "/client/sizeGrowthFactor",
+        value: 0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "replace",
+        path: "/client/size",
+        value: 2.2,
         side: "server"
     },
 ]

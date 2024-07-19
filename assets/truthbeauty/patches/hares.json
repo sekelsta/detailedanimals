@@ -1,0 +1,142 @@
+[
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/server/spawnconditionsByType/*-arctic/worldgen/companions",
+        value: ["game:hare-female-arctic", "truthbeauty:hare-male-baby", "truthbeauty:hare-female-baby"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "copy",
+        path: "/server/spawnconditionsByType/*-arctic/runtime/companions",
+        frompath: "/server/spawnconditionsByType/*-arctic/worldgen/companions",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/server/spawnconditionsByType/*-desert/worldgen/companions",
+        value: ["game:hare-female-desert", "truthbeauty:hare-male-baby", "truthbeauty:hare-female-baby"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "copy",
+        path: "/server/spawnconditionsByType/*-desert/runtime/companions",
+        frompath: "/server/spawnconditionsByType/*-desert/worldgen/companions",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/server/spawnconditionsByType/*/worldgen/companions",
+        value: ["game:hare-female-{type}", "truthbeauty:hare-male-baby", "truthbeauty:hare-female-baby"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "copy",
+        path: "/server/spawnconditionsByType/*/runtime/companions",
+        frompath: "/server/spawnconditionsByType/*/worldgen/companions",
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 4,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 4,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 4,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 6.0,
+            initialWeight: 0.69,
+            finalWeight: 0.95,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 6.0,
+            initialWeight: 0.71,
+            finalWeight: 1.05,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: {
+            code: "genelib.age",
+            adultEntityCodesByType: {
+                "*-female-*": [ "game:hare-female-ashgrey", "game:hare-female-darkbrown", "game:hare-female-gold", "game:hare-female-lightbrown", "game:hare-female-lightgrey", "game:hare-female-silver", "game:hare-female-smokegrey" ],
+                "*-male-*": [ "game:hare-male-ashgrey", "game:hare-male-darkbrown", "game:hare-male-gold", "game:hare-male-lightbrown", "game:hare-male-lightgrey", "game:hare-male-silver", "game:hare-male-smokegrey" ],
+                "*": [ "game:hare-male-ashgrey", "game:hare-female-ashgrey", "game:hare-male-darkbrown", "game:hare-female-darkbrown", "game:hare-male-gold", "game:hare-female-gold", "game:hare-male-lightbrown", "game:hare-female-lightbrown", "game:hare-male-lightgrey", "game:hare-female-lightgrey", "game:hare-male-silver", "game:hare-female-silver", "game:hare-male-smokegrey", "game:hare-female-smokegrey" ]
+            },
+            monthsToGrow: 6.0,
+            initialWeight: 0.03,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-babyy.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "replace",
+        path: "/client/sizeGrowthFactor",
+        value: 0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "add",
+        path: "/client/size",
+        value: 2,
+        side: "server"
+    },
+]

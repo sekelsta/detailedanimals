@@ -19,4 +19,84 @@
         },
         side: "server"
     },
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/server/spawnconditionsByType/fox-male-red/worldgen/companions",
+        value: ["game:fox-female-red", "truthbeauty:fox-male-pup-red", "truthbeauty:fox-female-pup-red"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "copy",
+        path: "/server/spawnconditionsByType/fox-male-red/runtime/companions",
+        frompath: "/server/spawnconditionsByType/fox-male-red/worldgen/companions",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/server/spawnconditionsByType/fox-male-arctic/worldgen/companions",
+        value: ["game:fox-female-arctic", "truthbeauty:fox-male-pup-arctic", "truthbeauty:fox-female-pup-arctic"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "copy",
+        path: "/server/spawnconditionsByType/fox-male-arctic/runtime/companions",
+        frompath: "/server/spawnconditionsByType/fox-male-arctic/worldgen/companions",
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/attributes/adultWeightKgByType",
+        value: { "*-red": 7.4, "*-arctic": 3.2 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/server/behaviors/9",
+        value: {
+            code: "genelib.age",
+            adultEntityCodesByType: {
+                "fox-female-pup-*": [ "game:fox-female-{type}" ],
+                "fox-male-pup-*": [ "game:fox-male-{type}" ],
+                "fox-pup-*": [ "game:fox-male-{type}", "game:fox-female-{type}" ]
+            },
+            monthsToGrow: 6.0,
+            initialWeightByType: {
+                "*-pup-*": 0.08,
+                "*-male-*": 0.73,
+                "*-female-*": 0.67,
+            },
+            finalWeightByType: {
+                "*-male-red": 1.1,
+                "*-female-red": 0.9,
+                "*-male-arctic": 1.1,
+                "*-female-arctic": 0.9,
+            }
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/client/sizeByType",
+        value: {
+            "*-pup-*": 1.6,
+            "*": 1
+        },
+        side: "server"
+    },
 ]
