@@ -1,0 +1,75 @@
+[
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/12/beginGrowMonth",
+        value: 4.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/12/growDurationMonths",
+        value: 5.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/12/grownDurationMonths",
+        value: 2.4,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/12/shedDurationMonths",
+        value: 1,
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 442.5,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            adultEntityCodesByType: {
+                "*-baby": [ "game:moose-{gender}-adult" ],
+            },
+            monthsToGrow: 6.0,
+            initialWeightByType: {
+                "*-baby": 0.06,
+                "*-female-adult": 0.65,
+                "*-male-adult": 0.75,
+            },
+            finalWeightByType: {
+                "*-male-adult": 1.22,
+                "*-female-adult": 0.78,
+            }
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "add",
+        path: "/client/sizeByType",
+        value: { "*-baby": 1.8, "*": 1 },
+        side: "server"
+    },
+]
