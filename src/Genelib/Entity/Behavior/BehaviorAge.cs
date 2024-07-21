@@ -16,7 +16,7 @@ namespace Genelib {
         private ITreeAttribute growTree;
         private double StartingWeight = 0.00001;
         protected float FinalWeight = 1;
-        protected float MaxGrowthScale = 0.9f;
+        protected float MaxGrowthScale;
         protected double maxGrowth;
 
         public AssetLocation AdultEntityCode { get; protected set; }
@@ -70,9 +70,6 @@ namespace Genelib {
             else if (typeAttributes.KeyExists("adultEntityCode")) {
                 AdultEntityCode = new AssetLocation(typeAttributes["adultEntityCode"].AsString());
             }
-            else {
-                MaxGrowthScale = float.MaxValue;
-            }
 
             if (typeAttributes.KeyExists("initialWeight")) {
                 StartingWeight = typeAttributes["initialWeight"].AsFloat();
@@ -89,6 +86,20 @@ namespace Genelib {
                 if (adultType.Attributes?.KeyExists("initialWeight") == true) {
                     FinalWeight = adultType.Attributes["initialWeight"].AsFloat();
                 }
+            }
+
+            if (AdultEntityCode != null) {
+                float maxVisibleGrowth = 0.9f;
+                if (typeAttributes.KeyExists("maxVisibleGrowth")) {
+                    maxVisibleGrowth = typeAttributes["maxVisibleGrowth"].AsFloat();
+                }
+
+                float initialScale = (float)Math.Pow(StartingWeight, 1/3f);
+                float finalScale = (float)Math.Pow(FinalWeight, 1/3f);
+                MaxGrowthScale = initialScale + maxVisibleGrowth * (finalScale - initialScale);
+            }
+            else {
+                MaxGrowthScale = float.MaxValue;
             }
 
             float maxDailyGrowth = typeAttributes["maxDailyGrowth"].AsFloat(1.1f);
