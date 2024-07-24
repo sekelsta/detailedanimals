@@ -106,6 +106,9 @@ namespace Genelib {
             }
 
             accumulator = entity.World.Rand.Next(updateSeconds * TPS);
+            if (typeAttributes.KeyExists("daysUntilHungry")) {
+                DaysUntilHungry = typeAttributes["daysUntilHungry"].AsFloat();
+            }
             if (typeAttributes.KeyExists("maxsaturation")) {
                 MaxSaturation = typeAttributes["maxsaturation"].AsFloat();
             }
