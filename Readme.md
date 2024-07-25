@@ -6,6 +6,7 @@ This repository contains two projects:
 This is heavily in progress. Will update this doc once things settle down.
 
 Allows gazelle calves to grow into adults, which does not happen in vanilla for some reason
+Adjusts gazelle calf hitbox size to be smaller than the adult size
 Female caribou can grow antlers, as they do in real life
 
 Note: Wolf pups tamed with Wolf Taming mod will lose their genders due to the transformation into wolftaming:dog-wolf-pup
