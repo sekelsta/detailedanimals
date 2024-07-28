@@ -13,7 +13,6 @@
             "hyena-male-pup", "hyena-female-pup",
             "gazelle-male-calf", "gazelle-female-calf",
             "hare-male-baby", "hare-female-baby",
-            "deer-caribou-male-young", "deer-caribou-female-young"
             ] }
     ],
     shapeByType: {
@@ -26,7 +25,6 @@
         "*-hyena-*": { base: "game:entity/land/hyena-pup" },
         "*-gazelle-*": { base: "game:entity/land/gazelle-calf" },
 		"*-hare-*-baby": { "base": "game:entity/land/hare-baby" },
-        "*-deer-caribou-*-young": { base: "game:entity/land/hooved/deer/caribou/baby" },
         "*": { base: "game:entity/land/{type}" }
     },
     texturesByType: {

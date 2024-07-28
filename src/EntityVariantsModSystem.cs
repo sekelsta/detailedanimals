@@ -19,14 +19,6 @@ namespace TruthBeauty
             patchEntity(api, "game:entities/land/chicken-baby.json", "chicken", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""");
             patchEntity(api, "game:entities/land/pig-wild-piglet.json", "pig-wild", """[{ "code": "variants", "states": ["male-piglet", "female-piglet"] }]""");
             patchEntity(api, "game:entities/land/sheep-bighorn-lamb.json", "sheep-bighorn", """[{ "code": "variants", "states": ["male-lamb", "female-lamb"] }]""");
-            patchEntity(api, "game:entities/land/hooved/deer.json", "deer", """
-                [
-                    { "code": "type", "states": ["caribou"] },
-                    { "code": "gender", "states": ["male", "female"] },
-                    { "code": "age", "states": ["young"] }
-                ]
-            """
-            );
             patchEntity(api, "game:entities/land/wolf-pup.json", "wolf", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""");
             patchEntity(api, "game:entities/land/fox.json", "fox", """
                 [

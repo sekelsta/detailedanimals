@@ -8,51 +8,9 @@
     },
     {
         file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/hitBoxSizeByType/deer-caribou-*-young",
-        value: { "x": 0.9,"y": 0.9},
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "move",
-        frompath: "/hitBoxSizeByType/*",
-        path: "/hitBoxSizeByType/temporary",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "move",
-        frompath: "/hitBoxSizeByType/temporary",
-        path: "/hitBoxSizeByType/*",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
         op: "replace",
         path: "/deadhitBoxSizeByType/deer-caribou-*-baby",
         value: { "x": 0.7,"y": 0.4},
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/deadhitBoxSizeByType/deer-caribou-*-young",
-        value: { "x": 0.9,"y": 0.4},
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "move",
-        frompath: "/deadhitBoxSizeByType/*",
-        path: "/deadhitBoxSizeByType/temporary",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "move",
-        frompath: "/deadhitBoxSizeByType/temporary",
-        path: "/deadhitBoxSizeByType/*",
         side: "server"
     },
     {
@@ -62,50 +20,8 @@
         value: { "base": "truthbeauty:entity/deer/caribou-baby" },
         side: "server"
     },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/client/shapeByType/*-caribou-*-young",
-        value: { "base": "game:entity/land/hooved/deer/caribou/baby" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "move",
-        frompath: "/client/shapeByType/*",
-        path: "/client/shapeByType/temporary",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "move",
-        frompath: "/client/shapeByType/temporary",
-        path: "/client/shapeByType/*",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "add",
-        path: "/server/behaviors/3/currenthealthByType/*-young",
-        value: 12,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "copy",
-        path: "/server/behaviors/3/maxhealthByType/*-young",
-        frompath: "/server/behaviors/3/currenthealthByType/*-young",
-        side: "server"
-    },
 
 
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/client/textureByType/*-caribou-*-young",
-        value: { "base": "game:entity/hooved/deer/caribou-baby" },
-        side: "server"
-    },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "addmerge",
@@ -135,9 +51,7 @@
         path: "/server/behaviors/12/enabledByType",
         value: {
             "*-male-adult": true,
-            "*-male-young": true,
             "deer-caribou-female-adult": true,
-            "deer-caribou-female-young": true,
             "*": false
         },
         side: "server"
@@ -154,13 +68,6 @@
         op: "add",
         path: "/server/behaviors/12/variantsByType/deer-caribou-female-adult",
         value: ["01", "02", "03", "04", "05", "06", "07"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "add",
-        path: "/server/behaviors/12/variantsByType/deer-caribou-*-young",
-        value: ["01", "02", "03", "04", "05", "06"],
         side: "server"
     },
     {
@@ -213,14 +120,11 @@
                 monthsToGrowByType: {
                     "*-caribou-baby": 6.0,
                     "*-baby": 12.0,
-                    "*-young": 12.0,
                 },
                 initialWeightByType: {
                     "*-elk-*-baby": 0.05,
                     "*-whitetailed-*-baby": 0.1,
                     "*-baby": 0.08,
-                    "*-male-young": 0.51,
-                    "*-female-young": 0.49,
                     "*-caribou-male-adult": 0.94,
                     "*-caribou-female-adult": 0.77,
                     "*-male-adult": 0.77,
@@ -245,12 +149,8 @@
                     "*-female-adult": 0.95,
                 },
 				adultEntityCodesByType: {
-					"*-caribou-male-baby": ["truthbeauty:deer-{type}-male-young"],
-					"*-caribou-female-baby": ["truthbeauty:deer-{type}-female-young"],
 					"*-male-baby": ["game:deer-{type}-male-adult"],
 					"*-female-baby": ["game:deer-{type}-female-adult"],
-					"*-male-young": ["game:deer-{type}-male-adult"],
-					"*-female-young": ["game:deer-{type}-female-adult"]
 				},
 			},
         side: "server"
@@ -314,21 +214,6 @@
 					},
 					{
 						"type": "item",
-						"code": "hide-raw-medium",
-                        category: "pelt",
-						"quantityByType": {
-							"deer-caribou-*-young": {
-								"avg": 2.1,
-								"var": 0.0
-							},
-							"*": {
-								"avg": 0,
-								"var": 0
-							}
-						}
-					},
-					{
-						"type": "item",
 						"code": "hide-raw-small",
                         category: "pelt",
 						"quantityByType": {
@@ -378,7 +263,6 @@
         path: "/client/sizeByType",
         value: {
 			"*-adult": 1,
-			"deer-caribou-*-young": 1.3,
 			"deer-caribou-*-baby": 1.7,
 			"deer-chital-*-baby": 1.5,
 			"deer-elk-*-baby": 2,
