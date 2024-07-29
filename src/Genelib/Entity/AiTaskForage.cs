@@ -20,6 +20,7 @@ namespace Genelib {
         protected AnimationMetaData digAnimation;
         protected AnimationMetaData eatAnimation;
         protected GrazeMethod grazeMethod;
+        protected string[] nurseFromEntities;
 
         protected IAnimalFoodSource Target {
             get => (IAnimalFoodSource) typeof(AiTaskSeekFoodAndEat).GetField("targetPoi", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
@@ -47,6 +48,9 @@ namespace Genelib {
                 }.Init();
             }
             eatAnimation = CurrentEatAnimation;
+            if (taskConfig["nurseFromEntities"].Exists) {
+                nurseFromEntities = taskConfig["nurseFromEntities"].AsArray<string>();
+            }
         }
 
         public override void AfterInitialize() {
@@ -119,9 +123,21 @@ namespace Genelib {
         }
 
         private bool searchMother(Entity entity) {
-            if (entity.EntityId == this.entity.WatchedAttributes.GetLong("motherId")) {
+            if (entity.EntityId == this.entity.WatchedAttributes.GetLong("motherId")
+                    || entity.EntityId == this.entity.WatchedAttributes.GetLong("fosterId")) {
                 Target = new NursingMilkSource(entity);
                 return false;
+            }
+            return true;
+        }
+
+        private bool searchFoster(Entity entity) {
+            foreach (string nurseFrom in nurseFromEntities) {
+                if (entity.WildCardMatch(AssetLocation.Create(nurseFrom, this.entity.Code.Domain))) {
+                    Target = new NursingMilkSource(entity);
+                    this.entity.WatchedAttributes.SetLong("fosterId", entity.EntityId);
+                    return false;
+                }
             }
             return true;
         }
@@ -136,7 +152,10 @@ namespace Genelib {
         protected void SeekMilk() {
             entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
                 entity.ServerPos.XYZ, motherSearchDistance, searchMother, EnumEntitySearchType.Creatures);
-            // TODO: If mother can't be found, attempt to adopt a new one or find a bowl or bucket of milk
+            if (Target == null && !hungerBehavior.StartedWeaning() && nurseFromEntities != null) {
+                entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
+                    entity.ServerPos.XYZ, motherSearchDistance, searchFoster, EnumEntitySearchType.Creatures);
+            }
         }
 
         protected void SeekFood() {
