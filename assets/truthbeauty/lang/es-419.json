@@ -1,4 +1,18 @@
 {
+    "block-woodenfencecreepgate-aged-n-closed-left-*": "Puerta de valla de arrastre de madera (Viejo)",
+    "block-woodenfencecreepgate-birch-n-closed-left-*": "Puerta de valla de arrastre de madera (Abedul)",
+    "block-woodenfencecreepgate-oak-n-closed-left-*": "Puerta de valla de arrastre de madera (Roble)",
+    "block-woodenfencecreepgate-maple-n-closed-left-*": "Puerta de valla de arrastre de madera (Arce)",
+    "block-woodenfencecreepgate-pine-n-closed-left-*": "Puerta de valla de arrastre de madera (Pino)",
+    "block-woodenfencecreepgate-acacia-n-closed-left-*": "Puerta de valla de arrastre de madera (Acacia)",
+    "block-woodenfencecreepgate-kapok-n-closed-left-*": "Puerta de valla de arrastre de madera (Ceibo)",
+    "block-woodenfencecreepgate-baldcypress-n-closed-left-*": "Puerta de valla de arrastre de madera (Ciprés de los pantanos)",
+    "block-woodenfencecreepgate-larch-n-closed-left-*": "Puerta de valla de arrastre de madera (Lárice)",
+    "block-woodenfencecreepgate-redwood-n-closed-left-*": "Puerta de valla de arrastre de madera (Secuoya roja)",
+    "block-woodenfencecreepgate-ebony-n-closed-left-*": "Puerta de valla de arrastre de madera (Ébano)",
+    "block-woodenfencecreepgate-walnut-n-closed-left-*": "Puerta de valla de arrastre de madera (Nogal)",
+    "block-woodenfencecreepgate-purpleheart-n-closed-left-*": "Puerta de valla de arrastre de madera (Palo morado)",
+
     "item-creature-pig-wild-male-piglet": "Jabato",
     "item-creature-pig-wild-female-piglet": "Jabata",
     "item-dead-creature-pig-wild-male-piglet": "Jabato muerto",

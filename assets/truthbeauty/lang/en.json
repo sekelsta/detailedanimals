@@ -1,4 +1,18 @@
 {
+    "block-woodenfencecreepgate-aged-n-closed-left-*": "Wooden creep gate (Aged)",
+    "block-woodenfencecreepgate-birch-n-closed-left-*": "Wooden creep gate (Birch)",
+    "block-woodenfencecreepgate-oak-n-closed-left-*": "Wooden creep gate (Oak)",
+    "block-woodenfencecreepgate-maple-n-closed-left-*": "Wooden creep gate (Maple)",
+    "block-woodenfencecreepgate-pine-n-closed-left-*": "Wooden creep gate (Pine)",
+    "block-woodenfencecreepgate-acacia-n-closed-left-*": "Wooden creep gate (Acacia)",
+    "block-woodenfencecreepgate-kapok-n-closed-left-*": "Wooden creep gate (Kapok)",
+    "block-woodenfencecreepgate-baldcypress-n-closed-left-*": "Wooden creep gate (Bald cypress)",
+    "block-woodenfencecreepgate-larch-n-closed-left-*": "Wooden creep gate (Larch)",
+    "block-woodenfencecreepgate-redwood-n-closed-left-*": "Wooden creep gate (Redwood)",
+    "block-woodenfencecreepgate-ebony-n-closed-left-*": "Wooden creep gate (Ebony)",
+    "block-woodenfencecreepgate-walnut-n-closed-left-*": "Wooden creep gate (Walnut)",
+    "block-woodenfencecreepgate-purpleheart-n-closed-left-*": "Wooden creep gate (Purpleheart)",
+
     "item-creature-pig-wild-male-piglet": "Piglet (male)",
     "item-creature-pig-wild-female-piglet": "Piglet (female)",
     "item-dead-creature-pig-wild-male-piglet": "Dead piglet (male)",
