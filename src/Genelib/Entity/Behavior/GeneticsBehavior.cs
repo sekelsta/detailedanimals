@@ -56,7 +56,7 @@ namespace Genelib {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
-            if (onFirstSpawn || Genome == null) {
+            if (Genome == null) {
                 Random random = entity.World.Rand;
                 bool heterogametic = GenomeType.SexDetermination.Heterogametic(entity.IsMale());
                 AlleleFrequencies frequencies = null;
