@@ -57,12 +57,6 @@ namespace Genelib {
             }
             HoursToGrow *= GeneticsModSystem.Config.AnimalGrowthTime;
 
-            growTree = entity.WatchedAttributes.GetTreeAttribute("grow");
-            if (growTree == null) {
-                entity.WatchedAttributes.SetAttribute("grow", growTree = new TreeAttribute());
-                TimeSpawned = entity.World.Calendar.TotalHours;
-            }
-
             if (typeAttributes.KeyExists("adultEntityCodes")) {
                 string[] locations = typeAttributes["adultEntityCodes"].AsArray<string>(new string[0]);
                 AdultEntityCode = new AssetLocation(locations[entity.EntityId % locations.Length]);
@@ -108,12 +102,27 @@ namespace Genelib {
             updatesPerDay *= calendar.DaysPerMonth / 30;
             maxGrowth = Math.Exp(Math.Log(maxDailyGrowth) / updatesPerDay);
 
+            growTree = entity.WatchedAttributes.GetTreeAttribute("grow");
+            if (growTree == null) {
+                entity.WatchedAttributes.SetAttribute("grow", growTree = new TreeAttribute());
+                double spawnAge = 0;
+                string origin = entity.Attributes.GetString("origin");
+                if (origin == "worldgen" || origin == "playerplaced") {
+                    spawnAge = entity.World.Rand.NextSingle() * HoursToGrow * (AdultEntityCode == null ? 4 : 1);
+                }
+                TimeSpawned = entity.World.Calendar.TotalHours - spawnAge;
+                double birthDate = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
+                double totalDays = entity.World.Calendar.TotalDays - spawnAge / entity.World.Calendar.HoursPerDay;
+                if (birthDate > totalDays) {
+                    entity.WatchedAttributes.SetDouble("birthTotalDays", totalDays);
+                }
+            }
             if (!entity.WatchedAttributes.HasAttribute("growthWeightFraction")
                     || Double.IsNaN(entity.WatchedAttributes.GetFloat("growthWeightFraction"))) {
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
             }
 
-            CheckGrowth(0);
+            callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000));
         }
 
         public void ClientUpdateScale() {
@@ -202,9 +211,11 @@ namespace Genelib {
             adult.Pos.SetFrom(adult.ServerPos);
 
             CopyAttributesTo(adult);
+            adult.Attributes.SetString("origin", "growth");
             entity.World.SpawnEntity(adult);
             // Apparently entity behaviors are only set up after spawning, so we spawn first then copy
             CopyAttributesAfterSpawning(adult);
+            adult.WatchedAttributes.GetTreeAttribute("grow").SetDouble("timeSpawned", adult.World.Calendar.TotalHours);
             entity.Die(EnumDespawnReason.Expire, null);
         }
 

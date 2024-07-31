@@ -14,8 +14,17 @@ using Vintagestory.GameContent;
 namespace Genelib {
     public class DetailedHarvestable : EntityBehaviorHarvestable {
         public const string Code = GeneticsModSystem.NamePrefix + "harvestable";
-        public static readonly float MinReproductionWeight = 0.85f;
-        public static readonly float MaxReproductionWeight = 1.5f;
+
+        // Maximum values of each condition
+        public const double SKIN_AND_BONES = 1 - 0.35;
+        public const double MALNOURISHED = 1 - 0.18;
+        public const double UNDERWEIGHT = 1 - 0.08;
+        public const double LEAN = 1 - 0.036;
+        public const double MODERATE = 1.036;
+        public const double THICK = 1.08;
+        public const double CHUBBY = 1.18;
+        public const double FAT = 1.35;
+        // No maximum for obese
 
         protected CreatureDropItemStack[] creatureDrops;
 
@@ -118,10 +127,11 @@ namespace Genelib {
 
         public override void GetInfoText(StringBuilder infotext) {
             base.GetInfoText(infotext);
-            double[] conditionBoundaries = new double[] {-0.35, -0.18, -0.08, -0.036, 0.036, 0.08, 0.18, 0.35};
+
+            double[] conditionBoundaries = new double[] {SKIN_AND_BONES, MALNOURISHED, UNDERWEIGHT, LEAN, MODERATE, THICK, CHUBBY, FAT};
             int bodyScore = 1;
             foreach (double b in conditionBoundaries) {
-                if (AnimalWeight > 1 + b) {
+                if (AnimalWeight > b) {
                     bodyScore += 1;
                 }
                 else {

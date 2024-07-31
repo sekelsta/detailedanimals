@@ -37,7 +37,10 @@ namespace Genelib {
 
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
-            set => multiplyTree.SetBool("earlyPregnancy", value);
+            set {
+                multiplyTree.SetBool("earlyPregnancy", value);
+                entity.WatchedAttributes.MarkPathDirty("multiply");
+            }
         }
         public double GrowthPausedSince {
             get => entity.WatchedAttributes.GetTreeAttribute("grow")?.GetDouble("growthPausedSince", -1) ?? entity.World.Calendar.TotalHours;
@@ -58,6 +61,7 @@ namespace Genelib {
         public void SetNotPregnant() {
             IsPregnant = false;
             multiplyTree.RemoveAttribute("litter");
+            entity.WatchedAttributes.MarkPathDirty("multiply");
         }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
@@ -323,6 +327,7 @@ namespace Genelib {
                 if (childData.HasAttribute("genetics")) {
                     spawn.WatchedAttributes.SetAttribute("genetics", childData.GetTreeAttribute("genetics"));
                 }
+                spawn.WatchedAttributes.SetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
 
                 entity.World.SpawnEntity(spawn);
             }
@@ -342,8 +347,7 @@ namespace Genelib {
                 }
             }
             float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
-            if (animalWeight < DetailedHarvestable.MinReproductionWeight
-                    || animalWeight > DetailedHarvestable.MaxReproductionWeight) {
+            if (animalWeight <= DetailedHarvestable.MALNOURISHED || animalWeight > DetailedHarvestable.FAT) {
                 return false;
             }
             return true;
@@ -392,11 +396,11 @@ namespace Genelib {
                 }
             }
             float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
-            if (animalWeight < DetailedHarvestable.MinReproductionWeight) {
+            if (animalWeight <= DetailedHarvestable.MALNOURISHED) {
                 infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight"));
                 return;
             }
-            else if (animalWeight > DetailedHarvestable.MaxReproductionWeight) {
+            else if (animalWeight > DetailedHarvestable.FAT) {
                 infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-overweight"));
                 return;
             }
