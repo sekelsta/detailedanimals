@@ -8,6 +8,9 @@
 	"textureSizes": {
 	},
 	"textures": {
+		"horizontal": "game:block/wood/fencegate/acacia/horizontal",
+		"vertical": "game:block/wood/fencegate/acacia/vertical",
+		"snowcover": "game:block/liquid/snow/normal1"
 	},
 	"elements": [
 		{
