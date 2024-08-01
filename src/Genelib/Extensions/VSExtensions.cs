@@ -1,9 +1,8 @@
 using Newtonsoft.Json.Linq;
-using System;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 
-namespace Genelib {
+namespace Genelib.Extensions {
     public static class VSExtensions {
         public static bool IsMale(this Entity entity) {
             if (!entity.Properties.Attributes.KeyExists("male")) {
