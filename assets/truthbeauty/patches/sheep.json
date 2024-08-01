@@ -137,8 +137,7 @@
         value: { 
             code: "genelib.age",
             monthsToGrow: 48.0,
-            initialWeight: 0.6,
-            finalWeight: 0.86
+            initialWeight: 0.7,
         },
         side: "server"
     },
@@ -149,8 +148,7 @@
         value: { 
             code: "genelib.age",
             monthsToGrow: 48.0,
-            initialWeight: 0.8,
-            finalWeight: 1.14
+            initialWeight: 0.7,
         },
         side: "server"
     },
@@ -177,23 +175,23 @@
     },
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 83,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 83, weightDimorphism: 0.14 },
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-male.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 83,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 83, weightDimorphism: 0.14 },
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-female.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 83,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 83, weightDimorphism: 0.14 },
         side: "server"
     },
     {

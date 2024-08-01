@@ -36,23 +36,23 @@
 
     {
         file: "game:entities/land/wolf-female.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 38.5,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 38.5, weightDimorphism: 0.1 },
         side: "server"
     },
     {
         file: "game:entities/land/wolf-male.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 38.5,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 38.5, weightDimorphism: 0.1 },
         side: "server"
     },
     {
         file: "game:entities/land/wolf-pup.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 38.5,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 38.5, weightDimorphism: 0.1 },
         side: "server"
     },
     {
@@ -62,8 +62,7 @@
         value: {
             code: "genelib.age",
             monthsToGrow: 6.0,
-            initialWeight: 0.67,
-            finalWeight: 0.9
+            initialWeight: 0.7,
         },
         side: "server"
     },
@@ -74,8 +73,7 @@
         value: {
             code: "genelib.age",
             monthsToGrow: 6.0,
-            initialWeight: 0.73,
-            finalWeight: 1.1
+            initialWeight: 0.7,
         },
         side: "server"
     },

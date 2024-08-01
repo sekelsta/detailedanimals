@@ -151,8 +151,8 @@
         value: { 
             code: "genelib.age",
             monthsToGrow: 51.0,
-            initialWeight: 0.355,
-            finalWeight: 0.985
+            initialWeight: 0.36,
+            finalWeight: 1.0
         },
         side: "server"
     },
@@ -163,8 +163,8 @@
         value: { 
             code: "genelib.age",
             monthsToGrow: 51.0,
-            initialWeight: 0.365,
-            finalWeight: 1.015
+            initialWeight: 0.36,
+            finalWeight: 1.0
         },
         side: "server"
     },
@@ -191,23 +191,23 @@
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 112,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 112, weightDimorphism: 0.015 },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 112,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 112, weightDimorphism: 0.015 },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 112,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 112, weightDimorphism: 0.015 },
         side: "server"
     },
     {

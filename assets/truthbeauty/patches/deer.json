@@ -118,8 +118,8 @@
         value: {
 				code: "genelib.age",
                 monthsToGrowByType: {
-                    "*-caribou-baby": 6.0,
                     "*-baby": 12.0,
+                    "*-adult": 18.0,
                 },
                 initialWeightByType: {
                     "*-elk-*-baby": 0.05,
@@ -131,22 +131,8 @@
                     "*-female-adult": 0.73,
                 },
                 finalWeightByType: {
-                    "*-caribou-male-adult": 1.12,
-                    "*-caribou-female-adult": 0.88,
-                    "*-chital-male-adult": 1.23,
-                    "*-chital-female-adult": 0.77,
-                    "*-elk-male-adult": 1.19,
-                    "*-elk-female-adult": 0.81,
-                    "*-fallow-male-adult": 1.33,
-                    "*-fallow-female-adult": 0.67,
-                    "*-guemal-male-adult": 1.1,
-                    "*-guemal-female-adult": 0.9,
-                    "*-taruca-male-adult": 1.09,
-                    "*-taruca-female-adult": 0.91,
-                    "*-whitetail-male-adult": 1.2,
-                    "*-whitetail-female-adult": 0.8,
-                    "*-male-adult": 1.05,
-                    "*-female-adult": 0.95,
+                    "*-baby": 0.7,
+                    "*-adult": 1.0,
                 },
 				adultEntityCodesByType: {
 					"*-male-baby": ["game:deer-{type}-male-adult"],
@@ -254,6 +240,26 @@
             "deer-taruca-*": 55,
             "deer-water-*": 20,
             "deer-whitetail-*": 56.5,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/attributes/weightDimorphismByType",
+        value: {
+            "deer-caribou-*": 0.12,
+            "deer-chital-*": 0.23,
+            "deer-elk-*": 0.19,
+            "deer-fallow-*": 0.33,
+            "deer-guemal-*": 0.1,
+            "deer-marsh-*": 0.05,
+            "deer-pampas-*": 0.06,
+            "deer-pudu-*": 0.05,
+            "deer-redbrocket-*": 0.06,
+            "deer-taruca-*": 0.09,
+            "deer-water-*": 0.05,
+            "deer-whitetail-*": 0.02,
         },
         side: "server"
     },

@@ -39,6 +39,13 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "add",
+        path: "/attributes/weightDimorphism",
+        value: 0.22,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "add",
         path: "/server/behaviors/-",
         value: {
             code: "genelib.age",
@@ -48,13 +55,8 @@
             monthsToGrow: 6.0,
             initialWeightByType: {
                 "*-baby": 0.06,
-                "*-female-adult": 0.65,
-                "*-male-adult": 0.75,
+                "*-adult": 0.7,
             },
-            finalWeightByType: {
-                "*-male-adult": 1.22,
-                "*-female-adult": 0.78,
-            }
         },
         side: "server"
     },

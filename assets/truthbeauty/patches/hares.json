@@ -45,23 +45,23 @@
 
     {
         file: "game:entities/land/hare-female.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 4,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 4, weightDimorphism: 0.05 },
         side: "server"
     },
     {
         file: "game:entities/land/hare-male.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 4,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 4, weightDimorphism: 0.05 },
         side: "server"
     },
     {
         file: "game:entities/land/hare-baby.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 4,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 4, weightDimorphism: 0.05 },
         side: "server"
     },
     {
@@ -71,8 +71,8 @@
         value: {
             code: "genelib.age",
             monthsToGrow: 6.0,
-            initialWeight: 0.69,
-            finalWeight: 0.95,
+            initialWeight: 0.7,
+            finalWeight: 1.0,
         },
         side: "server"
     },
@@ -83,8 +83,8 @@
         value: {
             code: "genelib.age",
             monthsToGrow: 6.0,
-            initialWeight: 0.71,
-            finalWeight: 1.05,
+            initialWeight: 0.7,
+            finalWeight: 1.0,
         },
         side: "server"
     },

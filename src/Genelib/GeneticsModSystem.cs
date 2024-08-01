@@ -104,6 +104,12 @@ namespace Genelib
                         }
                     }
                 }
+                // Also sanity check weight dimorphism
+                float weightDimorphism = entityType.Attributes?["weightDimorphism"].AsFloat(0) ?? 0;
+                if (weightDimorphism >= 1 || weightDimorphism <= -1) {
+                    api.Logger.Warning("Attribute weightDimorphism for entity type " + entityType.Code 
+                        + " is outside the range (-1, 1). This may result in entities with negative weight.");
+                }
             }
             // If it has nutritional value, you can try feeding it to an animal
             foreach (CollectibleObject item in api.World.Collectibles) {

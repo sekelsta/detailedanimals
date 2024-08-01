@@ -180,11 +180,11 @@
                 "*-henpoult": "chicken-hen",
             },
             initialWeightByType: {
-                "*-henpoult": 0.276,
-                "*-hen": 0.644,
+                "*-henpoult": 0.3,
+                "*-hen": 0.7,
             },
             finalWeightByType: {
-                "*-hen": 0.92,
+                "*-hen": 1.0,
             },
         },
         side: "server"
@@ -200,11 +200,11 @@
                 "*-roosterpoult": "chicken-rooster",
             },
             initialWeightByType: {
-                "*-roosterpoult": 0.324,
-                "*-rooster": 0.756,
+                "*-roosterpoult": 0.3,
+                "*-rooster": 0.7,
             },
             finalWeightByType: {
-                "*-rooster": 1.08,
+                "*-rooster": 1.0,
             },
         },
         side: "server"
@@ -232,23 +232,23 @@
     },
     {
         file: "game:entities/land/chicken-baby.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 2,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 2, weightDimorphism: 0.08 },
         side: "server"
     },
     {
         file: "game:entities/land/chicken-hen.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 2,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 2, weightDimorphism: 0.08 },
         side: "server"
     },
     {
         file: "game:entities/land/chicken-rooster.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 2,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 2, weightDimorphism: 0.08 },
         side: "server"
     },
     {

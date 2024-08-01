@@ -17,23 +17,26 @@
 
     {
         file: "game:entities/land/hyena-female.json",
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
         op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 60,
         side: "server"
     },
     {
         file: "game:entities/land/hyena-male.json",
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
         op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 60,
         side: "server"
     },
     {
         file: "game:entities/land/hyena-pup.json",
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
         op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 60,
         side: "server"
     },
     {
@@ -43,8 +46,8 @@
         value: {
             code: "genelib.age",
             monthsToGrow: 12.0,
-            initialWeight: 0.71,
-            finalWeight: 1.03,
+            initialWeight: 0.7,
+            finalWeight: 1.0,
         },
         side: "server"
     },
@@ -55,8 +58,8 @@
         value: {
             code: "genelib.age",
             monthsToGrow: 12.0,
-            initialWeight: 0.69,
-            finalWeight: 0.97,
+            initialWeight: 0.7,
+            finalWeight: 1.0,
         },
         side: "server"
     },

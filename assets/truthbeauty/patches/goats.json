@@ -36,4 +36,44 @@
         },
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "add",
+        path: "/attributes/adultWeightKgByType",
+        value: {
+            "*-ibexalp-*": 58.25,
+            "*-takingold-*": 215,
+            "*-markhor-*": 65,
+            "*-mountain-*": 148.75,
+            "*-muskox-*": 285,
+            "*-ibexnub-*": 50,
+            "*-turdag-*": 65,
+            "*-angora-*": 60,
+            "*-nubian-*": 60,
+            "*-sirohi-*": 60,
+            "*-valais-*": 60,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "add",
+        path: "/attributes/weightDimorphismByType",
+        value: {
+            "*-ibexalp-*": 0.58,
+            "*-takingold-*": 0.12,
+            "*-markhor-*": 0.08,
+            "*-mountain-*": 0.06,
+            "*-muskox-*": 0.08,
+            "*-ibexnub-*": 0.2,
+            "*-turdag-*": 0.05,
+            "*-angora-*": 0.12,
+            "*-nubian-*": 0.12,
+            "*-sirohi-*": 0.12,
+            "*-valais-*": 0.12,
+        },
+        side: "server"
+    },
 ]

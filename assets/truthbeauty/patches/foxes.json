@@ -58,6 +58,13 @@
     },
     {
         file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/attributes/weightDimorphism",
+        value: 0.1,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: {
@@ -70,15 +77,8 @@
             monthsToGrow: 6.0,
             initialWeightByType: {
                 "*-pup-*": 0.08,
-                "*-male-*": 0.73,
-                "*-female-*": 0.67,
+                "*": 0.7,
             },
-            finalWeightByType: {
-                "*-male-red": 1.1,
-                "*-female-red": 0.9,
-                "*-male-arctic": 1.1,
-                "*-female-arctic": 0.9,
-            }
         },
         side: "server"
     },

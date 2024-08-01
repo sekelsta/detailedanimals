@@ -75,6 +75,13 @@
     {
         file: "game:entities/land/gazelle.json",
         op: "add",
+        path: "/attributes/weightDimorphism",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
         path: "/server/behaviors/-",
         value: {
             code: "genelib.age",
@@ -86,12 +93,11 @@
             monthsToGrow: 6.0,
             initialWeightByType: {
                 "*-calf": 0.1,
-                "*-female": 0.69,
-                "*-male": 0.71,
+                "*": 0.7,
             },
             finalWeightByType: {
-                "*-male": 1.05,
-                "*-female": 0.95,
+                "*-male": 1.0,
+                "*-female": 1.0,
             }
         },
         side: "server"

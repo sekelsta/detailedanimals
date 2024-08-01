@@ -17,23 +17,23 @@
 
     {
         file: "game:entities/land/raccoon-female.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 8.5,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 8.5, weightDimorphism: 0.05 },
         side: "server"
     },
     {
         file: "game:entities/land/raccoon-male.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 8.5,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 8.5, weightDimorphism: 0.05 },
         side: "server"
     },
     {
         file: "game:entities/land/raccoon-pup.json",
-        op: "add",
-        path: "/attributes/adultWeightKg",
-        value: 8.5,
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 8.5, weightDimorphism: 0.05 },
         side: "server"
     },
     {
@@ -43,8 +43,7 @@
         value: {
             code: "genelib.age",
             monthsToGrow: 6.0,
-            initialWeight: 0.69,
-            finalWeight: 0.95,
+            initialWeight: 0.7,
         },
         side: "server"
     },
@@ -55,8 +54,7 @@
         value: {
             code: "genelib.age",
             monthsToGrow: 6.0,
-            initialWeight: 0.71,
-            finalWeight: 1.05,
+            initialWeight: 0.7,
         },
         side: "server"
     },
