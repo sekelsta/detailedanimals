@@ -34,7 +34,7 @@ namespace Genelib {
         public string[] Specialties = new string[0];
         public float FiberDigestion = 0;
         public float MetabolicEfficiency;
-        public float DaysUntilHungry = 4;
+        public float DaysUntilHungry = 2;
         public GrazeMethod[] GrazeMethods;
 
         protected long listenerID;
