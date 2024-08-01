@@ -1,0 +1,48 @@
+[
+    {
+        file: "game:entities/land/bear.json",
+        op: "add",
+        path: "/attributes/adultWeightKgByType",
+        value: {
+            "*-black-*": 95.8,
+            "*-brown-*": 236.25,
+            "*-sun-*": 45,
+            "*-panda-*": 107.5,
+            "*-polar-*": 387.5,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "add",
+        path: "/attributes/weightDimorphismByType",
+        value: {
+            "*-black-*": 0.25,
+            "*-brown-*": 0.14,
+            "*-sun-*": 0.05,
+            "*-panda-*": 0.07,
+            "*-polar-*": 0.4,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            "_comment": "40% of adult weight at one year old, stays with mother about 2.5 years. Here is years 2.5-5.",
+            monthsToGrow: 30.0,
+            initialWeight: 0.7,
+            finalWeight: 1.0,
+        },
+        side: "server"
+    },
+]

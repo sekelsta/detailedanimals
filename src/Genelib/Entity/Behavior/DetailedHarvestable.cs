@@ -60,7 +60,10 @@ namespace Genelib {
             DetailedHarvestable instance = (DetailedHarvestable)__instance;
             Entity entity = instance.entity;
             float cappedAnimalWeight = Math.Min(instance.AnimalWeight, 1.08f);
-            float growth = instance.entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
+            float weight = instance.entity.WeightModifier();
+            if (cappedAnimalWeight > 0) {
+                weight *= cappedAnimalWeight / instance.AnimalWeight;
+            }
             List<ItemStack> drops = new List<ItemStack>();
             foreach (CreatureDropItemStack drop in instance.creatureDrops) {
                 if (drop.Tool != null && (byPlayer == null || byPlayer.InventoryManager.ActiveTool != drop.Tool)) {
@@ -73,14 +76,14 @@ namespace Genelib {
                     multiplier *= byPlayer?.Entity?.Stats.GetBlended(drop.DropModbyStat) ?? 1;
                 }
                 if (drop.Category == EnumDropCategory.Meat) {
-                    multiplier *= growth * cappedAnimalWeight;
+                    multiplier *= weight;
                 }
                 else if (drop.Category == EnumDropCategory.Pelt) {
-                    multiplier *= (float)Math.Pow(growth, 0.6667f);
+                    multiplier *= (float)Math.Pow(weight, 0.6667f);
                 }
                 else if (drop.Category == EnumDropCategory.Fat) {
                     float fatness = Math.Max(0, cappedAnimalWeight - 0.8f) / 0.2f;
-                    multiplier *= growth * fatness * fatness;
+                    multiplier *= weight * fatness * fatness;
                 }
 
                 ItemStack stack = drop.GetNextItemStack(multiplier);
@@ -141,9 +144,8 @@ namespace Genelib {
             Debug.Assert(bodyScore >= 1);
             Debug.Assert(bodyScore <= 9);
 
-            float baseWeightKg = entity.Properties.Attributes["adultWeightKg"].AsFloat();
-            baseWeightKg *= entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
-            double weightKilograms = AnimalWeight * baseWeightKg;
+            double weightKilograms = entity.Properties.Attributes["adultWeightKg"].AsFloat();
+            weightKilograms *= entity.WeightModifier();
             double weightPounds = weightKilograms * 2.20462;
 
             string unitsSuffix = GeneticsModSystem.Config.WeightSuffix();
@@ -157,6 +159,9 @@ namespace Genelib {
         }
 
         private string roundNicely(double x) {
+            if (x == 0) {
+                return x.ToString();
+            }
             double l = Math.Floor(Math.Log10(Math.Abs(x))) - 2;
             double r = Math.Pow(10.0, l);
             if (x / r > 500) {
