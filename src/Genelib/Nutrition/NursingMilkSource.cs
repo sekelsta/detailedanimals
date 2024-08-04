@@ -16,7 +16,7 @@ namespace Genelib {
         public Vec3d Position => Mother.ServerPos.XYZ;
 
         public bool IsSuitableFor(Entity entity, CreatureDiet diet) {
-            return true;
+            return Mother.Alive;
         }
 
         public float ConsumeOnePortion(Entity entity) {
