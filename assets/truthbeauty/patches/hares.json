@@ -139,4 +139,83 @@
         value: 2,
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+				{
+					type: "item", 
+					code: "game:redmeat-raw", 
+					quantity: { avg: 1, var: 0 } 
+				},
+			],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+				{
+					type: "item", 
+					code: "game:redmeat-raw", 
+					quantity: { avg: 1, var: 0 } 
+				},
+				{ type: "item",
+					code: "game:hide-raw-small",
+					quantity: { avg: 0.6, var: 0 } 
+				}
+			],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+				{
+					type: "item", 
+					code: "game:redmeat-raw", 
+					quantity: { avg: 1, var: 0 } 
+				},
+				{ type: "item",
+					code: "game:hide-raw-small",
+					quantity: { avg: 0.6, var: 0 } 
+				}
+			],
+        },
+        side: "server"
+    },
 ]

@@ -86,10 +86,10 @@
         value: { code: "genelib.harvestable", drops: [
 				{
 					type: "item", 
-					code: "poultry-raw", 
+					code: "game:poultry-raw", 
                     category: "meat",
 					quantity: {
-						"*":{ avg: 1.75, var: 0.25 } 
+						"*":{ avg: 0.7, var: 0.1 } 
 					}
 				},
 			],
@@ -110,13 +110,13 @@
         value: { code: "genelib.harvestable", drops: [
 				{
 					type: "item", 
-					code: "poultry-raw", 
+					code: "game:poultry-raw", 
                     category: "meat",
-					quantity: { avg: 1.75, var: 0.25 }
+					quantity: { avg: 0.7, var: 0.1 }
 				},
 				{
 					type: "item", 
-					code: "feather", 
+					code: "game:feather", 
                     category: "pelt",
 					quantity: { avg: 12, var: 4 } 
 				}
@@ -138,13 +138,13 @@
         value: { code: "genelib.harvestable", drops: [
 				{
 					type: "item", 
-					code: "poultry-raw", 
+					code: "game:poultry-raw", 
                     category: "meat",
-					quantity: { avg: 1.75, var: 0.25 }
+					quantity: { avg: 0.7, var: 0.1 }
 				},
 				{
 					type: "item", 
-					code: "feather", 
+					code: "game:feather", 
                     category: "pelt",
 					quantity: { avg: 12, var: 4 } 
 				}

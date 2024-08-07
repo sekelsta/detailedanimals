@@ -99,4 +99,50 @@
         },
         side: "server"
     },
+
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "game:bushmeat-raw",
+                    category: "meat",
+                    quantityByType: {
+                        "*-red-*": { avg: 1.8, var: 0 },
+                        "*-arctic-*": { avg: 0.8, var: 0 } 
+                    },
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-small", 
+                    category: "pelt",
+                    quantityByType: {
+                        "*-red-*": { avg: 1, var: 0 },
+                        "*-arctic-*": { avg: 0.5, var: 0 } 
+                    },
+                },
+                {
+                    type: "item", 
+                    code: "game:fat", 
+                    category: "fat",
+                    quantityByType: {
+                        "*-red-*": { avg: 0.4, var: 0 },
+                        "*-arctic-*": { avg: 0.2, var: 0 } 
+                    },
+                }
+            ]
+        },
+        side: "server"
+    },
 ]

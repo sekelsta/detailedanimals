@@ -102,4 +102,105 @@
         value: 1.5,
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/raccoon-pup.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-female.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-male.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-pup.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "bushmeat-raw", 
+                    quantity: { avg: 2.1, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "hide-raw-small", 
+                    quantity: { avg: 1, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "fat", 
+                    quantity: { avg: 0.5, var: 0 } 
+                }
+            ]
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-female.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "game:bushmeat-raw", 
+                    quantity: { avg: 2.1, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-small", 
+                    quantity: { avg: 1, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:fat", 
+                    quantity: { avg: 0.5, var: 0 } 
+                }
+            ]
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-male.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "game:bushmeat-raw", 
+                    quantity: { avg: 2.1, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-small", 
+                    quantity: { avg: 1, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:fat", 
+                    quantity: { avg: 0.5, var: 0 } 
+                }
+            ]
+        },
+        side: "server"
+    },
 ]

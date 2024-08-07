@@ -128,4 +128,105 @@
         value: 2.2,
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "game:bushmeat-raw", 
+                    quantity: { avg: 9.6, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-small", 
+                    quantity: { avg: 2.8, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:fat", 
+                    quantity: { avg: 2.4, var: 0 } 
+                }
+            ]
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "game:bushmeat-raw", 
+                    quantity: { avg: 9.6, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-medium", 
+                    quantity: { avg: 1.4, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:fat", 
+                    quantity: { avg: 2.4, var: 0 } 
+                }
+            ]
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "game:bushmeat-raw", 
+                    quantity: { avg: 9.6, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-medium", 
+                    quantity: { avg: 1.4, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:fat", 
+                    quantity: { avg: 2.4, var: 0 } 
+                }
+            ]
+        },
+        side: "server"
+    },
 ]

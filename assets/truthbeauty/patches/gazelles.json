@@ -116,4 +116,53 @@
         value: { "*-calf": 1.5, "*": 1 },
         side: "server"
     },
+
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [
+                {
+                    type: "item", 
+                    code: "game:redmeat-raw", 
+                    category: "meat",
+                    quantity: { avg: 5.9, var: 1 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-large", 
+                    category: "pelt",
+                    quantityByType: {
+                        "*-calf": { avg: 0, var: 0 },
+                        "*": { avg: 1, var: 0.1 },
+                    },
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-small", 
+                    category: "pelt",
+                    quantityByType: {
+                        "*-calf": { avg: 2, var: 0 },
+                        "*": { avg: 0, var: 0 },
+                    },
+                },
+                {
+                    type: "item", 
+                    code: "game:fat", 
+                    category: "fat",
+                    quantity: { avg: 1.5, var: 0.3 } 
+                }
+            ],
+        },
+        side: "server"
+    },
 ]

@@ -74,4 +74,51 @@
         value: { "*-baby": 1.8, "*": 1 },
         side: "server"
     },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+			"code": "genelib.harvestable",
+			"drops": [
+				{
+					"type": "item",
+					"code": "game:redmeat-raw",
+                    category: "meat",
+					quantity: { avg: 111, var: 10 }
+				},
+				{
+					"type": "item",
+					"code": "game:hide-raw-huge",
+                    category: "pelt",
+					"quantityByType": {
+						"*-adult": { avg: 2.9, var: 0.2 },
+						"*-baby": { avg: 0, var: 0 }
+					}
+				},
+				{
+					"type": "item",
+					"code": "game:hide-raw-large",
+                    category: "pelt",
+					"quantityByType": {
+						"*-baby": { avg: 4.8, var: 0.2 },
+						"*-adult": { avg: 0, var: 0 }
+					}
+				},
+				{
+					"type": "item",
+					"code": "game:fat",
+					quantity: { avg: 28, var: 0.3 }
+				}
+			]
+		},
+        side: "server"
+    },
 ]
