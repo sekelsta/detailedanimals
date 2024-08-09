@@ -9,36 +9,34 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 namespace Genelib {
-    // Would like to reuse more code from AiTaskSeekFoodAndEat, but almost all its members are private
-    public class AiTaskForage : AiTaskSeekFoodAndEat {
+    public class AiTaskForage : AiTaskSeekPoi<IAnimalFoodSource> {
         protected AnimalHunger hungerBehavior;
-        protected double lastSearchHours;
-        protected float searchRate = 0.25f;
         protected float looseItemSearchDistance = 10;
         protected float motherSearchDistance = 12;
-        protected POIRegistry pointsOfInterest;
         protected AnimationMetaData digAnimation;
         protected AnimationMetaData eatAnimation;
+        protected AnimationMetaData eatLooseItemsAnimation;
+        protected AnimationMetaData currentEatAnimation;
         protected GrazeMethod grazeMethod;
         protected string[] nurseFromEntities;
+        public CreatureDiet Diet;
+        protected bool soundPlayed = false;
+        protected AssetLocation eatSound;
+        protected bool eatAnimationStarted = false;
+        protected float eatTime;
 
-        protected IAnimalFoodSource Target {
-            get => (IAnimalFoodSource) typeof(AiTaskSeekFoodAndEat).GetField("targetPoi", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
-            set => typeof(AiTaskSeekFoodAndEat).GetField("targetPoi", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(this, value);
-        }
-
-        protected AnimationMetaData CurrentEatAnimation {
-            get => (AnimationMetaData) typeof(AiTaskSeekFoodAndEat).GetField("eatAnimMeta", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
-            set => typeof(AiTaskSeekFoodAndEat).GetField("eatAnimMeta", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(this, value);
-        }
-
-        public AiTaskForage(EntityAgent entity) : base(entity) { 
-            pointsOfInterest = entity.Api.ModLoader.GetModSystem<POIRegistry>();
-        }
+        public AiTaskForage(EntityAgent entity) : base(entity) {  }
 
         public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
             base.LoadConfig(taskConfig, aiConfig);
             lastSearchHours = entity.World.Calendar.TotalHours - searchRate * entity.World.Rand.NextSingle();
+
+            Diet = entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>();
+            if (Diet == null) {
+                entity.Api.Logger.Warning("Creature " + entity.Code.ToShortString() + " has SeekFoodAndEat task but no Diet specified");
+            }
+            eatTime = taskConfig["eatTime"].AsFloat(1.5f);
+
             if (taskConfig["digAnimation"].Exists) {
                 string animation = taskConfig["digAnimation"].AsString()?.ToLowerInvariant();
                 digAnimation = new AnimationMetaData() {
@@ -47,7 +45,31 @@ namespace Genelib {
                     AnimationSpeed = taskConfig["digAnimationSpeed"].AsFloat(1f)
                 }.Init();
             }
-            eatAnimation = CurrentEatAnimation;
+
+            if (taskConfig["eatAnimation"].Exists)
+            {
+                eatAnimation = new AnimationMetaData()
+                {
+                    Code = taskConfig["eatAnimation"].AsString()?.ToLowerInvariant(),
+                    Animation = taskConfig["eatAnimation"].AsString()?.ToLowerInvariant(),
+                    AnimationSpeed = taskConfig["eatAnimationSpeed"].AsFloat(1f)
+                }.Init();
+            }
+            if (taskConfig["eatAnimationLooseItems"].Exists)
+            {
+                eatLooseItemsAnimation = new AnimationMetaData()
+                {
+                    Code = taskConfig["eatAnimationLooseItems"].AsString()?.ToLowerInvariant(),
+                    Animation = taskConfig["eatAnimationLooseItems"].AsString()?.ToLowerInvariant(),
+                    AnimationSpeed = taskConfig["eatAnimationSpeedLooseItems"].AsFloat(1f)
+                }.Init();
+            }
+
+            string eatsoundstring = taskConfig["eatSound"].AsString(null);
+            if (eatsoundstring != null) {
+                eatSound = new AssetLocation(eatsoundstring).WithPathPrefix("sounds/");
+            }
+
             if (taskConfig["nurseFromEntities"].Exists) {
                 nurseFromEntities = taskConfig["nurseFromEntities"].AsArray<string>();
             }
@@ -55,20 +77,23 @@ namespace Genelib {
 
         public override void AfterInitialize() {
             hungerBehavior = entity.GetBehavior<AnimalHunger>();
+            if (hungerBehavior == null) {
+                entity.Api.Logger.Warning("forage ai task on " + entity.Code + " with no hunger behavior");
+            }
         }
 
         public override bool ShouldExecute() {
             if (!IsSearchTime()) {
                 return false;
             }
-            Target = null;
-            CurrentEatAnimation = eatAnimation;
+            target = null;
+            currentEatAnimation = eatAnimation;
 
             float foodLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
             if (foodLevel < AnimalHunger.HUNGRY) {
                 if (hungerBehavior.WantsMilk()) {
                     SeekMilk();
-                    if (Target != null) {
+                    if (target != null) {
                         return true;
                     }
                 }
@@ -76,7 +101,8 @@ namespace Genelib {
                     // Eat loose items
                     entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
                         entity.ServerPos.XYZ, looseItemSearchDistance, searchItems, EnumEntitySearchType.Inanimate);
-                    if (Target != null) {
+                    if (target != null) {
+                        currentEatAnimation = eatLooseItemsAnimation ?? eatAnimation;
                         return true;
                     }
                 }
@@ -85,14 +111,14 @@ namespace Genelib {
             float thirstLevel = hungerBehavior.Water.Level;
             if (thirstLevel < foodLevel && thirstLevel < 0) {
                 SeekWater();
-                if (Target != null) {
+                if (target != null) {
                     return true;
                 }
             }
             if (foodLevel < AnimalHunger.HUNGRY) {
                 if (hungerBehavior.StartedWeaning()) {
                     SeekFood();
-                    if (Target != null) {
+                    if (target != null) {
                         return true;
                     }
                 }
@@ -100,23 +126,32 @@ namespace Genelib {
                     SeekMilk();
                 }
             }
-            if (Target == null) {
+            if (target == null) {
                 lastSearchHours = entity.World.Calendar.TotalHours;
             }
-            return Target != null;
+            return target != null;
+        }
+
+        public override void StartExecute() {
+            base.StartExecute();
+            soundPlayed = false;
+            eatAnimationStarted = false;
         }
 
         public override void FinishExecute(bool cancelled) {
-            // Base method resets cooldown if quantityEaten is 0
             base.FinishExecute(cancelled);
             if (!cancelled) {
                 cooldownUntilTotalHours = entity.Api.World.Calendar.TotalHours + mincooldownHours + entity.World.Rand.NextDouble() * (maxcooldownHours - mincooldownHours);
+            }
+
+            if (currentEatAnimation != null) {
+                entity.AnimManager.StopAnimation(currentEatAnimation.Code);
             }
         }
 
         private bool searchItems(Entity entity) {
             if (entity is EntityItem entityitem && hungerBehavior.WantsFood(entityitem.Itemstack)) {
-                Target = new LooseItemFoodSource(entityitem);
+                target = new LooseItemFoodSource(entityitem);
                 return false;
             }
             return true;
@@ -125,7 +160,7 @@ namespace Genelib {
         private bool searchMother(Entity entity) {
             if (entity.EntityId == this.entity.WatchedAttributes.GetLong("motherId")
                     || entity.EntityId == this.entity.WatchedAttributes.GetLong("fosterId")) {
-                Target = new NursingMilkSource(entity);
+                target = new NursingMilkSource(entity);
                 return false;
             }
             return true;
@@ -134,7 +169,7 @@ namespace Genelib {
         private bool searchFoster(Entity entity) {
             foreach (string nurseFrom in nurseFromEntities) {
                 if (entity.WildCardMatch(AssetLocation.Create(nurseFrom, this.entity.Code.Domain))) {
-                    Target = new NursingMilkSource(entity);
+                    target = new NursingMilkSource(entity);
                     this.entity.WatchedAttributes.SetLong("fosterId", entity.EntityId);
                     return false;
                 }
@@ -142,34 +177,27 @@ namespace Genelib {
             return true;
         }
 
-        protected bool IsSearchTime() {
-            return lastSearchHours + searchRate <= entity.World.Calendar.TotalHours
-                && cooldownUntilMs <= entity.World.ElapsedMilliseconds
-                && cooldownUntilTotalHours <= entity.World.Calendar.TotalHours
-                && EmotionStatesSatisifed();
-        }
-
         protected void SeekMilk() {
             entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
                 entity.ServerPos.XYZ, motherSearchDistance, searchMother, EnumEntitySearchType.Creatures);
-            if (Target == null && !hungerBehavior.StartedWeaning() && nurseFromEntities != null) {
+            if (target == null && !hungerBehavior.StartedWeaning() && nurseFromEntities != null) {
                 entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
                     entity.ServerPos.XYZ, motherSearchDistance, searchFoster, EnumEntitySearchType.Creatures);
             }
         }
 
         protected void SeekFood() {
-            Target = pointsOfInterest.GetNearestPoi(entity.ServerPos.XYZ, 48, IsValidFoodPOI) as IAnimalFoodSource;
-            if (Target != null) {
+            target = pointsOfInterest.GetNearestPoi(entity.ServerPos.XYZ, 48, IsValidFoodPOI) as IAnimalFoodSource;
+            if (target != null) {
                 return;
             }
             if (hungerBehavior.EatsGrassOrRoots()) {
                 grazeMethod = hungerBehavior.GetGrazeMethod(entity.World.Rand);
                 var grass = GrassFoodSource.SearchNear(entity);
                 if (grass.IsSuitableFor(entity, grazeMethod) && !RecentlyFailedSeek(grass)) {
-                    Target = grass;
+                    target = grass;
                     if (grazeMethod == GrazeMethod.Root) {
-                        CurrentEatAnimation = digAnimation;
+                        currentEatAnimation = digAnimation;
                     }
                     return;
                 }
@@ -192,25 +220,37 @@ namespace Genelib {
             if (!foodSource.IsSuitableFor(entity, Diet)) {
                 return false;
             }
-            if (RecentlyFailedSeek(poi)) {
+            if (RecentlyFailedSeek(foodSource)) {
                 return false;
             }
             return true;
         }
 
-        protected bool RecentlyFailedSeek(IPointOfInterest poi) {
-            FieldInfo fieldInfo = typeof(AiTaskSeekFoodAndEat).GetField("failedSeekTargets", BindingFlags.NonPublic | BindingFlags.Instance);
-            IDictionary dict = (IDictionary)fieldInfo.GetValue(this);
-            object failedSeek = dict[poi];
-            if (failedSeek == null) {
+        protected override bool OnTargetReached() {
+            if (!target.IsSuitableFor(entity, Diet)) {
                 return false;
             }
-            int count = (int) failedSeek.GetType().GetField("Count", BindingFlags.Public | BindingFlags.Instance).GetValue(failedSeek);
-            if (count < 4) {
+
+            if (currentEatAnimation != null && !eatAnimationStarted) {
+                entity.AnimManager.StartAnimation(currentEatAnimation);
+                eatAnimationStarted = true;
+            }
+
+            if (target is LooseItemFoodSource foodSource) {
+                entity.World.SpawnCubeParticles(entity.ServerPos.XYZ, foodSource.ItemStack, 0.25f, 1, 0.25f + 0.5f * (float)entity.World.Rand.NextDouble());
+            }
+
+            if (timeSinceTargetReached > eatTime * 0.75f && !soundPlayed) {
+                soundPlayed = true;
+                if (eatSound != null) entity.World.PlaySoundAt(eatSound, entity, null, true, 16, 1);
+            }
+
+            if (timeSinceTargetReached >= eatTime) {
+                float saturation = target.ConsumeOnePortion(entity);
+                hungerBehavior.Eat(null, saturation);
                 return false;
             }
-            long lastTryMs = (long) failedSeek.GetType().GetField("LastTryMs", BindingFlags.Public | BindingFlags.Instance).GetValue(failedSeek);
-            return lastTryMs >= entity.World.ElapsedMilliseconds - 60000;
+            return true;
         }
     }
 }
