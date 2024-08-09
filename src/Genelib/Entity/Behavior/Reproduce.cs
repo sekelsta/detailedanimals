@@ -22,6 +22,7 @@ namespace Genelib {
         }
         public const string Code = GeneticsModSystem.NamePrefix + "reproduce";
 
+        // TODO: rearrange to handle hybrids - e.g., offspringBySire
         protected AssetLocation[] SireCodes;
         protected AssetLocation[] OffspringCodes;
         protected float SireSearchRange;
@@ -34,6 +35,7 @@ namespace Genelib {
         protected BreedingSeason Season = BreedingSeason.Continuous;
         protected double litterAddChance = 0;
         protected int litterAddAttempts = 0;
+        public bool LaysEggs;
 
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
@@ -70,6 +72,8 @@ namespace Genelib {
             if (!entity.World.Side.IsServer()) {
                 return;
             }
+
+            LaysEggs = attributes["laysEggs"].AsBool(false);
 
             SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
             OffspringCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
@@ -275,6 +279,12 @@ namespace Genelib {
         }
 
         protected void ProgressPregnancy() {
+            if (LaysEggs) {
+                if (TotalDays > TotalDaysPregnancyStart + GestationDays) {
+                    SetNotPregnant();
+                }
+                return;
+            }
             if (InEarlyPregnancy) {
                 if (TotalDays > TotalDaysPregnancyStart + GestationDays / 8.0) {
                     EntityBehaviorGenetics gb = entity.GetBehavior<EntityBehaviorGenetics>();
@@ -376,6 +386,10 @@ namespace Genelib {
                 return;
             }
             if (IsPregnant) {
+                if (LaysEggs) {
+                    infotext.AppendLine(Lang.Get("game:Ready to lay"));
+                    return;
+                }
                 if (InEarlyPregnancy) {
                     infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-earlypregnancy"));
                 }
