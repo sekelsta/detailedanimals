@@ -493,6 +493,9 @@ namespace Genelib {
                 float updateRateHours = 0.1f;
                 double lastUpdateHours = LastUpdateHours;
                 double updates = (currentHours - lastUpdateHours) / updateRateHours;
+                if (updates <= 0) {
+                    return;
+                }
 
                 float intoxication = entity.WatchedAttributes.GetFloat("intoxication");
                 if (intoxication > 0)
