@@ -255,7 +255,7 @@
         file: "game:entities/land/chicken-baby.json",
         op: "add",
         path: "/client/size",
-        value: 3.0,
+        value: 2.0,
         side: "server"
     },
     {
