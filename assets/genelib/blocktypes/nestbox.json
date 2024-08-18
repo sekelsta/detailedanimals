@@ -1,0 +1,46 @@
+{
+    code: "nestbox",
+    class: "Genelib.BlockNestbox",
+    entityclass: "Genelib.Nestbox",
+	attributes: {
+        inventoryClassName: "nestbox",
+        quantitySlots: 3,
+		suitableFor: ["game:chicken-hen","moreanimals:pheasant-hen","moreanimals:goldenpheasant-hen","moreanimals:capercaillie-hen","moreanimals:wildturkey-hen"],
+		handbook: {
+			extraSections: [
+				{ title: "game:handbooktitle-henbox", text: "game:handbooktext-henbox" }
+			]
+		}
+	},
+	creativeinventory: { general: ["*"] },
+	shape: {
+		base: "game:block/wood/henbox/henbox-empty"
+	},
+	resistance: 1,
+	sideopaque: {
+		all: false
+	},
+	sidesolid: {
+		all: false
+	},
+	blockmaterial: "Wood",
+	materialDensity: 450,
+	randomizeRotations: true,
+	sideao: { all: false },
+	lightAbsorption: 0,
+	collisionbox: {x1: 0.25, y1: 0, z1: 0.25, x2: 0.75, y2: 0.08, z2: 0.75},
+	selectionbox: {
+		x1: 0.2, y1: 0, z1: 0.2,
+		x2: .8, y2: .21, z2: .8
+	},
+	tphandTransform: {
+		origin: { x: 0.5, y: 0.5, z: 0 },
+		translation: { x: -1.2, y: -.5, z: .5 },
+		rotation: { x: 0, y: 0, z: 0 },
+		scale: .5
+	},
+	guiTransform: {
+		origin: { x: 0.5, y: 0.15, z: 0.5 },
+		scale: 1.8
+	}
+}

@@ -39,6 +39,9 @@ namespace Genelib
         public override void Start(ICoreAPI api) {
             HarmonyPatches.Patch();
 
+            api.RegisterBlockClass("Genelib.BlockNestbox", typeof(BlockGeneticNestbox));
+            api.RegisterBlockEntityClass("Genelib.Nestbox", typeof(GeneticNestbox));
+
             api.RegisterEntityBehaviorClass(EntityBehaviorGenetics.Code, typeof(EntityBehaviorGenetics));
             api.RegisterEntityBehaviorClass(Reproduce.Code, typeof(Reproduce));
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));

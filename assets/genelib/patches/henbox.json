@@ -1,0 +1,22 @@
+[
+    {
+        file: "game:recipes/grid/henbox.json",
+        op: "replace",
+        path: "/output/code",
+        value: "genelib:nestbox",
+    },
+    {
+        file: "game:recipes/grid/henbox.json",
+        op: "replace",
+        path: "/enabled",
+        value: true,
+        dependsOn: [ { modid: "moreanimals" } ]
+    },
+    {
+        file: "moreanimals:recipes/grid/nestbox.json",
+        op: "add",
+        path: "/enabled",
+        value: false,
+        dependsOn: [ { modid: "moreanimals" } ]
+    },
+]

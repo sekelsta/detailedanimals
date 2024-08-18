@@ -1,0 +1,178 @@
+using System;
+using System.Linq;
+using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
+
+namespace Genelib {
+    public class GeneticNestbox : BlockEntity, IAnimalNest {
+        public AssetLocation[] suitableFor;
+        public Entity occupier;
+        public InventoryGeneric inventory;
+
+        public Vec3d Position => Pos.ToVec3d().Add(0.5, 0.5, 0.5);
+        public string Type => "nest";
+
+        public bool IsSuitableFor(Entity entity) {
+            return entity is EntityAgent && suitableFor.Any(name => entity.WildCardMatch(name));
+        }
+
+        public bool Occupied(Entity entity) {
+            return occupier != null && occupier != entity;
+        }
+
+        public void SetOccupier(Entity entity) {
+            occupier = entity;
+        }
+
+        public float DistanceWeighting {
+            get {
+                int numEggs = CountEggs();
+                return numEggs == 0 ? 2 : 3 / (numEggs + 2);
+            }
+        }
+
+        public bool TryAddEgg(Entity entity, string chickCode, double incubationDays) {
+            if (Full()) {
+                return false;
+            }
+            // TODO
+            return true;
+        }
+
+        public bool Full() {
+            return CountEggs() >= inventory.Count;
+        }
+
+        public int CountEggs() {
+            int count = 0;
+            for (int i = 0; i < inventory.Count; ++i) {
+                if (!inventory[i].Empty) {
+                    ++count;
+                }
+            }
+            return count;
+        }
+
+        public override void Initialize(ICoreAPI api) {
+            base.Initialize(api);
+
+            string classname = Block.Attributes["inventoryClassName"]?.AsString();
+            int capacity = Block.Attributes["quantitySlots"]?.AsInt(1) ?? 1;
+            if (inventory == null) {
+                CreateInventory(capacity, classname, api);
+            }
+            else if (capacity != inventory.Count) {
+                api.Logger.Warning("Nestbox loaded with " + inventory.Count + " capacity when it should be " + capacity + ".");
+                InventoryGeneric oldInv = inventory;
+                CreateInventory(capacity, classname, api);
+                for (int i = 0; i < capacity && i < oldInv.Count; ++i) {
+                    if (!oldInv[i].Empty) {
+                        inventory[i].Itemstack = oldInv[i].Itemstack;
+                        inventory.DidModifyItemSlot(inventory[i]);
+                    }
+                }
+            }
+
+            string[] suitable = Block.Attributes["suitableFor"]?.AsArray<string>();
+            suitableFor = suitable.Select(name => AssetLocation.Create(name, Block.Code.Domain)).ToArray();
+
+            if (api.Side == EnumAppSide.Server) {
+                api.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
+                RegisterGameTickListener(SlowTick, 12000);
+            }
+        }
+
+        private void CreateInventory(int capacity, string classname, ICoreAPI api) {
+            inventory = new InventoryGeneric(capacity, classname, Pos.ToString(), api);
+            inventory.Pos = this.Pos;
+            inventory.SlotModified += OnSlotModified;
+        }
+
+        public override void OnBlockRemoved() {
+            base.OnBlockRemoved();
+            if (Api.Side == EnumAppSide.Server) {
+                Api.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this);
+            }
+        }
+
+        public override void OnBlockUnloaded() {
+            base.OnBlockUnloaded();
+            if (Api?.Side == EnumAppSide.Server) {
+                Api.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this);
+            }
+        }
+
+        public override void ToTreeAttributes(ITreeAttribute tree) {
+            base.ToTreeAttributes(tree);
+            TreeAttribute invTree = (TreeAttribute) tree.GetOrAddTreeAttribute("inventory");
+            inventory.ToTreeAttributes(invTree);
+        }
+
+
+        public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
+            base.FromTreeAttributes(tree, worldForResolving);
+            TreeAttribute invTree = (TreeAttribute) tree["inventory"];
+            if (inventory == null) {
+                int capacity = invTree.GetInt("qslots");
+                CreateInventory(capacity, "genelib.nestbox", worldForResolving.Api);
+            }
+            inventory.FromTreeAttributes(invTree);
+        }
+
+        protected static void SlowTick(float dt) {
+            // TODO
+        }
+
+        public bool CanHoldItem(ItemStack stack) {
+            if (stack == null) {
+                return false;
+            }
+            // TODO
+            return true;
+        }
+
+        private void OnSlotModified(int slot) {
+            Api.World.BlockAccessor.GetChunkAtBlockPos(Pos)?.MarkModified();
+        }
+
+        public bool OnInteract(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
+            if (!world.Claims.TryAccess(byPlayer, blockSel.Position, EnumBlockAccessFlags.Use)) {
+                return false;
+            }
+
+            ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
+            ItemStackMoveOperation op = new ItemStackMoveOperation(Api.World, EnumMouseButton.Left, 0, EnumMergePriority.AutoMerge, 1);
+            if (CanHoldItem(slot.Itemstack)) {
+                // Place egg in nest
+                for (int i = 0; i < inventory.Count; ++i) {
+                    if (inventory[i].Empty) {
+                        slot.TryPutInto(inventory[i], ref op);
+                        AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
+                        Api.World.PlaySoundAt(sound != null ? sound : new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
+                        return true;
+                    }
+                }
+                return false;
+            }
+            // Try to take all eggs from nest
+            bool anyEggs = false;
+            for (int i = 0; i < inventory.Count; ++i) {
+                if (!inventory[i].Empty) {
+                    bool onlyToPlayerInventory = false;
+                    object[] transferred = byPlayer.InventoryManager.TryTransferAway(inventory[i], ref op, onlyToPlayerInventory);
+                    if (transferred != null && transferred.Length > 0) {
+                        anyEggs = true;
+                    }
+                    // If it oesn't fit, leave it in the nest
+                }
+            }
+            if (anyEggs) {
+                world.PlaySoundAt(new AssetLocation("sounds/player/collect"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+            }
+            return anyEggs;
+        }
+    }
+}
