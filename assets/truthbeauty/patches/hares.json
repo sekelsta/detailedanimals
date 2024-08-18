@@ -119,7 +119,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-babyy.json",
+        file: "game:entities/land/hare-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
