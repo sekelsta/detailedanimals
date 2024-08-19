@@ -1,6 +1,8 @@
 using Newtonsoft.Json.Linq;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 
 namespace Genelib.Extensions {
     public static class VSExtensions {
@@ -25,6 +27,22 @@ namespace Genelib.Extensions {
                 return Lang.Get(key);
             }
             return Lang.Get(key + suffix);
+        }
+
+        public static AnimationMetaData TryGetAnimation(this JsonObject json, string key) {
+            return TryGetAnimation(json, key, key + "Speed");
+        }
+
+        public static AnimationMetaData TryGetAnimation(this JsonObject json, string key, string speedKey) {
+            if (json[key].Exists) {
+                string name = json[key].AsString()?.ToLowerInvariant();
+                return new AnimationMetaData() {
+                    Code = name,
+                    Animation = name,
+                    AnimationSpeed = json[speedKey].AsFloat(1f)
+                }.Init();
+            }
+            return null;
         }
     }
 }

@@ -8,6 +8,8 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
+using Genelib.Extensions;
+
 namespace Genelib {
     public class AiTaskForage : AiTaskSeekPoi<IAnimalFoodSource> {
         protected AnimalHunger hungerBehavior;
@@ -22,7 +24,6 @@ namespace Genelib {
         public CreatureDiet Diet;
         protected bool soundPlayed = false;
         protected AssetLocation eatSound;
-        protected bool eatAnimationStarted = false;
         protected float eatTime;
 
         public AiTaskForage(EntityAgent entity) : base(entity) {  }
@@ -36,34 +37,9 @@ namespace Genelib {
                 entity.Api.Logger.Warning("Creature " + entity.Code.ToShortString() + " has SeekFoodAndEat task but no Diet specified");
             }
             eatTime = taskConfig["eatTime"].AsFloat(1.5f);
-
-            if (taskConfig["digAnimation"].Exists) {
-                string animation = taskConfig["digAnimation"].AsString()?.ToLowerInvariant();
-                digAnimation = new AnimationMetaData() {
-                    Code = animation,
-                    Animation = animation,
-                    AnimationSpeed = taskConfig["digAnimationSpeed"].AsFloat(1f)
-                }.Init();
-            }
-
-            if (taskConfig["eatAnimation"].Exists)
-            {
-                eatAnimation = new AnimationMetaData()
-                {
-                    Code = taskConfig["eatAnimation"].AsString()?.ToLowerInvariant(),
-                    Animation = taskConfig["eatAnimation"].AsString()?.ToLowerInvariant(),
-                    AnimationSpeed = taskConfig["eatAnimationSpeed"].AsFloat(1f)
-                }.Init();
-            }
-            if (taskConfig["eatAnimationLooseItems"].Exists)
-            {
-                eatLooseItemsAnimation = new AnimationMetaData()
-                {
-                    Code = taskConfig["eatAnimationLooseItems"].AsString()?.ToLowerInvariant(),
-                    Animation = taskConfig["eatAnimationLooseItems"].AsString()?.ToLowerInvariant(),
-                    AnimationSpeed = taskConfig["eatAnimationSpeedLooseItems"].AsFloat(1f)
-                }.Init();
-            }
+            digAnimation = taskConfig.TryGetAnimation("digAnimation");
+            eatAnimation = taskConfig.TryGetAnimation("eatAnimation");
+            eatLooseItemsAnimation = taskConfig.TryGetAnimation("eatAnimationLooseItems", "eatAnimationSpeedLooseItems");
 
             string eatsoundstring = taskConfig["eatSound"].AsString(null);
             if (eatsoundstring != null) {
@@ -135,7 +111,6 @@ namespace Genelib {
         public override void StartExecute() {
             base.StartExecute();
             soundPlayed = false;
-            eatAnimationStarted = false;
         }
 
         public override void FinishExecute(bool cancelled) {
@@ -226,14 +201,16 @@ namespace Genelib {
             return true;
         }
 
-        protected override bool OnTargetReached() {
-            if (!target.IsSuitableFor(entity, Diet)) {
-                return false;
-            }
-
-            if (currentEatAnimation != null && !eatAnimationStarted) {
+        protected override void OnArrival() {
+            if (currentEatAnimation != null) {
                 entity.AnimManager.StartAnimation(currentEatAnimation);
-                eatAnimationStarted = true;
+            }
+        }
+
+        protected override void TickTargetReached() {
+            if (!target.IsSuitableFor(entity, Diet)) {
+                done = true;
+                return;
             }
 
             if (target is LooseItemFoodSource foodSource) {
@@ -242,15 +219,16 @@ namespace Genelib {
 
             if (timeSinceTargetReached > eatTime * 0.75f && !soundPlayed) {
                 soundPlayed = true;
-                if (eatSound != null) entity.World.PlaySoundAt(eatSound, entity, null, true, 16, 1);
+                if (eatSound != null) {
+                    entity.World.PlaySoundAt(eatSound, entity, null, true, 16, 1);
+                }
             }
 
             if (timeSinceTargetReached >= eatTime) {
                 float saturation = target.ConsumeOnePortion(entity);
                 hungerBehavior.Eat(null, saturation);
-                return false;
+                done = true;
             }
-            return true;
         }
     }
 }

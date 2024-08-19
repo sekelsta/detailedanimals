@@ -9,19 +9,20 @@ namespace Genelib {
     public abstract class AiTaskSeekPoi<T> : AiTaskBase where T : IPointOfInterest {
         protected POIRegistry pointsOfInterest;
         protected float moveSpeed;
-        protected bool nowStuck = false;
         protected double lastSearchHours;
         protected float searchRate = 0.25f;
         protected Dictionary<T, long> failedSeekTargets = new Dictionary<T, long>();
         protected T target;
         protected float halfTargetWidth = 0.6f; // TODO: Use 0 for chickens nesting, 0.6 for animals eating from trough
         protected float timeSinceTargetReached;
+        protected bool done = false;
 
         public AiTaskSeekPoi(EntityAgent entity)  : base(entity) {
             pointsOfInterest = entity.Api.ModLoader.GetModSystem<POIRegistry>();
         }
 
         public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
+            base.LoadConfig(taskConfig, aiConfig);
             moveSpeed = taskConfig["movespeed"].AsFloat(0.02f);
         }
 
@@ -40,7 +41,7 @@ namespace Genelib {
 
         public override void StartExecute() {
             base.StartExecute();
-            nowStuck = false;
+            done = false;
             timeSinceTargetReached = 0;
             pathTraverser.NavigateTo_Async(target.Position, moveSpeed, MinDistanceToTarget() / 2, OnGoalReached, OnStuck, null, 1000, 1);
         }
@@ -54,6 +55,10 @@ namespace Genelib {
         }
 
         public override bool ContinueExecute(float dt) {
+            if (done || ShouldAbort()) {
+                return false;
+            }
+
             Vec3d pos = target.Position;
             double distance = pos.HorizontalSquareDistanceTo(entity.ServerPos.X, entity.ServerPos.Z);
 
@@ -69,10 +74,11 @@ namespace Genelib {
                 }
 
                 failedSeekTargets.Remove(target);
-                timeSinceTargetReached += dt;
-                if (!OnTargetReached()) {
-                    return false;
+                if (timeSinceTargetReached == 0) {
+                    OnArrival();
                 }
+                timeSinceTargetReached += dt;
+                TickTargetReached();
             }
             else {
                 if (!pathTraverser.Active) {
@@ -82,11 +88,7 @@ namespace Genelib {
                 }
             }
 
-            if (nowStuck) {
-                return false;
-            }
-
-            return true;
+            return !done;
         }
 
 
@@ -99,15 +101,21 @@ namespace Genelib {
             }
         }
 
-        protected void OnStuck() {
-            nowStuck = true;
+        protected virtual void OnStuck() {
+            done = true;
             failedSeekTargets[target] = entity.World.ElapsedMilliseconds;            
         }
 
-        protected void OnGoalReached() {
+        protected virtual void OnGoalReached() {
             failedSeekTargets.Remove(target);
         }
 
-        protected abstract bool OnTargetReached();
+        protected virtual bool ShouldAbort() {
+            return false;
+        }
+
+        protected abstract void OnArrival();
+
+        protected abstract void TickTargetReached();
     }
 }
