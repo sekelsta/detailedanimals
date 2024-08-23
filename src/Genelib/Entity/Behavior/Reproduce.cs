@@ -29,13 +29,23 @@ namespace Genelib {
         protected long listenerID;
         protected double CooldownDays;
         protected double GestationDays;
-        protected double LactationDays;
+        protected double LactationDays = 0;
         protected double EstrousCycleDays;
         protected double DaysInHeat;
         protected BreedingSeason Season = BreedingSeason.Continuous;
         protected double litterAddChance = 0;
         protected int litterAddAttempts = 0;
-        public bool LaysEggs;
+        public AssetLocation EggCode;
+        public bool LaysEggs => EggCode != null;
+
+        public double SynchedTotalDaysCooldownUntil
+        {
+            get { return multiplyTree.GetDouble("totalDaysCooldownUntil"); }
+            set {
+                multiplyTree.SetDouble("totalDaysCooldownUntil", value);
+                entity.WatchedAttributes.MarkPathDirty("multiply");
+            }
+        }
 
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
@@ -55,8 +65,13 @@ namespace Genelib {
 
         protected TreeArrayAttribute Litter {
             get => multiplyTree["litter"] as TreeArrayAttribute;
-            set => multiplyTree["litter"] = value;
+            set { 
+                multiplyTree["litter"] = value;
+                entity.WatchedAttributes.MarkPathDirty("multiply");
+            }
         }
+
+        public int NextGeneration => entity.WatchedAttributes.GetInt("generation", 0) + 1;
 
         public Reproduce(Entity entity) : base(entity) { }
 
@@ -66,6 +81,23 @@ namespace Genelib {
             entity.WatchedAttributes.MarkPathDirty("multiply");
         }
 
+        // Pop as in stack push/pop
+        public TreeAttribute PopChild() {
+            TreeArrayAttribute litter = Litter;
+            if (litter == null) {
+                return null;
+            }
+            TreeAttribute child = litter.value[0];
+            if (litter.value.Length <= 1) {
+                SetNotPregnant();
+            }
+            else {
+                litter.value = litter.value[1..^0];
+                entity.WatchedAttributes.MarkPathDirty("multiply");
+            }
+            return child;
+        }
+
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             // Deliberately skip calling base.Initialize()
             multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
@@ -73,7 +105,10 @@ namespace Genelib {
                 return;
             }
 
-            LaysEggs = attributes["laysEggs"].AsBool(false);
+            string eggString = attributes["eggCode"].AsString();
+            if (eggString != null) {
+                EggCode = AssetLocation.Create(eggString, entity.Code.Domain);
+            }
 
             SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
             OffspringCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
@@ -101,9 +136,6 @@ namespace Genelib {
             }
             else if (attributes.KeyExists("lactationDays")) {
                 LactationDays = attributes["lactationDays"].AsDouble();
-            }
-            else {
-                LactationDays = entity.World.Calendar.DaysPerMonth;
             }
             LactationDays *= GeneticsModSystem.Config.AnimalGrowthTime;
 
@@ -164,7 +196,7 @@ namespace Genelib {
 
             if (IsPregnant && Litter == null) {
                 IsPregnant = false;
-                TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
+                SynchedTotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
             }
             listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000);
         }
@@ -206,15 +238,15 @@ namespace Genelib {
                 return;
             }
 
-            if (TotalDaysCooldownUntil < TotalDays + DaysInHeat) {
-                TotalDaysCooldownUntil += EstrousCycleDays;
+            if (SynchedTotalDaysCooldownUntil + DaysInHeat < TotalDays) {
+                SynchedTotalDaysCooldownUntil += EstrousCycleDays;
             }
-            if (TotalDaysCooldownUntil > TotalDays) {
+            if (SynchedTotalDaysCooldownUntil > TotalDays) {
                 return;
             }
 
             if (!isBreedingSeason()) {
-                TotalDaysCooldownUntil += entity.World.Calendar.DaysPerMonth;
+                SynchedTotalDaysCooldownUntil += entity.World.Calendar.DaysPerMonth;
                 return;
             }
 
@@ -249,7 +281,7 @@ namespace Genelib {
                     child.AddToTree(childGeneticsTree);
                 }
                 litterData.value[i].SetString("code", offspringCode.ToString());
-                litterData.value[i].SetLong("sireId", sire.EntityId);
+                litterData.value[i].SetLong("fatherId", sire.EntityId);
             }
             Litter = litterData;
         }
@@ -275,7 +307,7 @@ namespace Genelib {
 
         // And on revival, if not pregnant, you do not progress towards becoming so
         public override void OnEntityRevive() {
-            TotalDaysCooldownUntil += (entity.World.Calendar.TotalHours - GrowthPausedSince) / 24.0;
+            SynchedTotalDaysCooldownUntil += (entity.World.Calendar.TotalHours - GrowthPausedSince) / 24.0;
         }
 
         protected void ProgressPregnancy() {
@@ -300,6 +332,7 @@ namespace Genelib {
                     }
                     else {
                         Litter.value = surviving.ToArray();
+                        entity.WatchedAttributes.MarkPathDirty("multiply");
                     }
                     InEarlyPregnancy = false;
                 }
@@ -311,37 +344,57 @@ namespace Genelib {
         }
 
         protected void GiveBirth() {
-            int nextGeneration = entity.WatchedAttributes.GetInt("generation", 0) + 1;
+            int nextGeneration = NextGeneration;
             TotalDaysLastBirth = TotalDays;
-            TotalDaysCooldownUntil = TotalDays + CooldownDays;
-            Random random = entity.World.Rand;
+            SynchedTotalDaysCooldownUntil = TotalDays + CooldownDays;
             TreeAttribute[] litterData = Litter?.value;
             foreach (TreeAttribute childData in litterData) {
-                AssetLocation spawnCode = new AssetLocation(childData.GetString("code"));
-                EntityProperties spawnType = entity.World.GetEntityType(spawnCode);
-                if (spawnType == null) {
-                    entity.World.Logger.Error(entity.Code.ToString() + " attempted to give birth to entity with code " 
-                        + spawnCode.ToString() + ", but no such entity was found.");
-                    continue;
-                }
-                Entity spawn = entity.World.ClassRegistry.CreateEntity(spawnType);
-                spawn.ServerPos.SetFrom(entity.ServerPos);
-                spawn.ServerPos.Motion.X += (random.NextDouble() - 0.5f) / 20f;
-                spawn.ServerPos.Motion.Z += (random.NextDouble() - 0.5f) / 20f;
-                spawn.Pos.SetFrom(spawn.ServerPos);
-
-                spawn.Attributes.SetString("origin", "reproduction");
-                spawn.WatchedAttributes.SetInt("generation", nextGeneration);
-                spawn.WatchedAttributes.SetLong("motherId", entity.EntityId);
-                spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("sireId"));
-                if (childData.HasAttribute("genetics")) {
-                    spawn.WatchedAttributes.SetAttribute("genetics", childData.GetTreeAttribute("genetics"));
-                }
-                spawn.WatchedAttributes.SetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
-
-                entity.World.SpawnEntity(spawn);
+                Entity spawn = SpawnNewborn(entity, nextGeneration, childData);
             }
             SetNotPregnant();
+        }
+
+        public static Entity SpawnNewborn(Entity entity, int nextGeneration, TreeAttribute childData) {
+            AssetLocation spawnCode = new AssetLocation(childData.GetString("code"));
+            EntityProperties spawnType = entity.World.GetEntityType(spawnCode);
+            if (spawnType == null) {
+                throw new ArgumentException(entity.Code.ToString() + " attempted to hatch or give birth to entity with code " 
+                    + spawnCode.ToString() + ", but no such entity was found.");
+            }
+            Entity spawn = entity.World.ClassRegistry.CreateEntity(spawnType);
+            spawn.ServerPos.SetFrom(entity.ServerPos);
+            Random random = entity.World.Rand;
+            spawn.ServerPos.Motion.X += (random.NextDouble() - 0.5f) / 20f;
+            spawn.ServerPos.Motion.Z += (random.NextDouble() - 0.5f) / 20f;
+            spawn.Pos.SetFrom(spawn.ServerPos);
+            spawn.Attributes.SetString("origin", "reproduction");
+            spawn.WatchedAttributes.SetInt("generation", nextGeneration);
+            spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("fatherId"));
+            spawn.WatchedAttributes.SetLong("motherId", childData.GetLong("motherId", entity.EntityId));
+            spawn.WatchedAttributes.SetLong("fosterId", entity.EntityId);
+            if (childData.HasAttribute("genetics")) {
+                spawn.WatchedAttributes.SetAttribute("genetics", childData.GetTreeAttribute("genetics"));
+            }
+            spawn.WatchedAttributes.SetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
+
+            entity.World.SpawnEntity(spawn);
+            return spawn;
+        }
+
+        public ItemStack GiveEgg() {
+            CollectibleObject egg = entity.World.GetItem(EggCode);
+            if (egg == null) {
+                egg = entity.World.GetBlock(EggCode);
+            }
+            if (egg == null) {
+                entity.Api.Logger.Warning("Failed to resolve egg item or block with code " + EggCode + " for entity " + entity.Code);
+                return null;
+            }
+            ItemStack eggStack = new ItemStack(egg);
+            TreeAttribute chick = PopChild();
+            chick.SetInt("generation", NextGeneration);
+            eggStack.Attributes["chick"] = chick;
+            return eggStack;
         }
 
         public static bool EntityCanMate(Entity entity) {
@@ -429,7 +482,7 @@ namespace Genelib {
                 return;
             }
 
-            double daysLeft = TotalDaysCooldownUntil - TotalDays;
+            double daysLeft = SynchedTotalDaysCooldownUntil - TotalDays;
             if (daysLeft <= 0) {
                 infotext.AppendLine(Lang.Get("game:Ready to mate"));
             }

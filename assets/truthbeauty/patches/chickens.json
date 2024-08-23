@@ -459,6 +459,56 @@
 
 
     {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/client/behaviors/4",
+        value: { code: "genelib.reproduce", enabledByType: { "chicken-hen": true, "chicken-henpoult": false } },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/7",
+        value: {
+            code: "genelib.reproduce",
+            enabledByType: { "*-henpoult": false, "*": true },
+            eggCode: "game:egg-chicken-raw",
+            sireCodes: [ "game:chicken-rooster" ],
+            offspringCodes: [ "truthbeauty:chicken-male-chick", "truthbeauty:chicken-female-chick" ],
+            "_comment": "In egg-layers, gestationMonths is how long the female can lay fertile eggs after mating.",
+            gestationMonths: 0.6,
+            estrousCycleDays: 1,
+            breedingSeason: "continuous",
+            breedingCooldownMonths: 1.5,
+            "_comment2": "In egg layers, litter size is the number of fertile eggs that can be laid after a single mating.",
+            litterAddAttempts: 15,
+            litterAddChance: 0.5,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/11/aitasks/2",
+        value: {
+            code: "genelib.layegg",
+            priorityByType: { "*-henpoult": 0, "*": 1.36 },
+            layTime: 5,
+            sitDays: 0.9,
+            hoursPerEgg: 25,
+            incubationMonths: 0.7,
+            movespeed: 0.006,
+            animation: "Walk",
+            mincooldownHours: 1,
+            maxcooldownHours: 2,
+            sitAnimation: "Sit",
+            sound: "creature/chicken/hen-lay"
+        },
+        side: "server"
+    },
+
+
+    {
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/client/shape",

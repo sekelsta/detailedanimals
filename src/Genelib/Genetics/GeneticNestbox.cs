@@ -35,15 +35,41 @@ namespace Genelib {
         }
 
         public bool TryAddEgg(Entity entity, string chickCode, double incubationDays) {
+            // TO_OPTIMIZE: Avoid looping over the inventory twice
             if (Full()) {
                 return false;
             }
-            // TODO
+            Reproduce reproduce = entity.GetBehavior<Reproduce>();
+            if (reproduce != null) {
+                AddEgg(entity, reproduce.GiveEgg(), incubationDays);
+                return true;
+            }
+            TreeAttribute tree = new TreeAttribute();
+            tree.SetString("code", chickCode);
+            string eggCode = "game:egg-chicken-raw";
+            Item eggItem = entity.World.GetItem(new AssetLocation(eggCode));
+            if (eggItem == null) {
+                entity.Api.Logger.Warning("Failed to resolve egg " + eggCode + " for entity " + entity.Code);
+                return false;
+            }
+            ItemStack eggStack = new ItemStack(eggItem);
+            AddEgg(entity, eggStack, incubationDays);
             return true;
         }
 
         public bool Full() {
             return CountEggs() >= inventory.Count;
+        }
+
+        public void AddEgg(Entity entity, ItemStack eggStack, double incubationDays) {
+            for (int i = 0; i < inventory.Count; ++i) {
+                if (inventory[i].Empty) {
+                    inventory[i].Itemstack = eggStack;
+                    inventory.DidModifyItemSlot(inventory[i]);
+                    return;
+                }
+            }
+            throw new ArgumentException("Can't add egg to full nestbox!");
         }
 
         public int CountEggs() {
@@ -124,6 +150,23 @@ namespace Genelib {
 
         protected static void SlowTick(float dt) {
             // TODO
+        }
+
+        protected void HatchChicks() {
+            for (int i = 0; i < inventory.Count; ++i) {
+                if (inventory[i].Empty) {
+                    continue;
+                }
+                ItemStack stack = inventory[i].Itemstack;
+                TreeAttribute chickData = (TreeAttribute) stack.Attributes["chick"];
+                if (chickData == null) {
+                    continue;
+                }
+                // TODO: If egg is incubated enough, hatch
+                Entity chick = Reproduce.SpawnNewborn(occupier, chickData.GetInt("generation", 0), chickData);
+                inventory[i].Itemstack = null;
+                inventory.DidModifyItemSlot(inventory[i]);
+            }
         }
 
         public bool CanHoldItem(ItemStack stack) {

@@ -51,6 +51,7 @@ namespace Genelib
             api.RegisterCollectibleBehaviorClass(TryFeedingAnimal.Code, typeof(TryFeedingAnimal));
 
             AiTaskRegistry.Register("genelib.forage", typeof (AiTaskForage));
+            AiTaskRegistry.Register("genelib.layegg", typeof (AiTaskLayEgg));
 
             GenomeType.RegisterInterpreter("Polygenes", new PolygeneInterpreter());
 
