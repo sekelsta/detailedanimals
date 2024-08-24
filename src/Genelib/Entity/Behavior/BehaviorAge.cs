@@ -127,7 +127,7 @@ namespace Genelib {
 
         public void ClientUpdateScale() {
             var baseSize = entity.World.GetEntityType(entity.Code).Client.Size;
-            float renderScale = entity.WatchedAttributes.GetFloat("renderScale");
+            float renderScale = entity.WatchedAttributes.GetFloat("renderScale", 1);
             entity.Properties.Client.Size = baseSize * renderScale;
         }
 
@@ -154,32 +154,27 @@ namespace Genelib {
                 return;
             }
 
-            if (entity.World.Calendar.TotalHours >= TimeSpawned + HoursToGrow) {
+            double age = entity.World.Calendar.TotalHours - TimeSpawned;
+            double expected = Math.Max(ExpectedWeight(age / HoursToGrow), GrowthWeightFraction);
+            expected = Math.Min(expected, maxGrowth * GrowthWeightFraction);
+            float prevAnimalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
+            float currentWeight = prevAnimalWeight * GrowthWeightFraction;
+            GrowthWeightFraction = (float)expected;
+            float newAnimalWeight = currentWeight / (float)expected;
+            float daysPerMonth = entity.World.Calendar.DaysPerMonth;
+            if (daysPerMonth < 30) {
+                newAnimalWeight = (newAnimalWeight * daysPerMonth + prevAnimalWeight * (30 - daysPerMonth)) / 30;
+            }
+            entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
+            entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(expected, 1/3f)));
+            entity.GetBehavior<AnimalHunger>()?.ShiftWeight(prevAnimalWeight - newAnimalWeight);
+
+            if (age >= HoursToGrow) {
                 AttemptBecomingAdult();
             }
             else {
-                double age = entity.World.Calendar.TotalHours - TimeSpawned;
-                if (age >= 0.1 * HoursToGrow) {
-                    // Used for drawing the critter larger over time if SizeGrowthFactor is nonzero
-                    float newAge = (float)(age / HoursToGrow - 0.1);
-                    if (newAge >= 1.01f * growTree.GetFloat("age")) {
-                        growTree.SetFloat("age", newAge);
-                        entity.WatchedAttributes.MarkPathDirty("grow");
-                    }
-                }
-                double expected = Math.Max(ExpectedWeight(age / HoursToGrow), GrowthWeightFraction);
-                expected = Math.Min(expected, maxGrowth * GrowthWeightFraction);
-                float prevAnimalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
-                float currentWeight = prevAnimalWeight * GrowthWeightFraction;
-                GrowthWeightFraction = (float)expected;
-                float newAnimalWeight = currentWeight / (float)expected;
-                float daysPerMonth = entity.World.Calendar.DaysPerMonth;
-                if (daysPerMonth < 30) {
-                    newAnimalWeight = (newAnimalWeight * daysPerMonth + prevAnimalWeight * (30 - daysPerMonth)) / 30;
-                }
-                entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
-                entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(expected, 1/3f)));
-                entity.GetBehavior<AnimalHunger>()?.ShiftWeight(prevAnimalWeight - newAnimalWeight);
+                // Skip updating grow tree "age", which would in vanilla affect render scale depending on sizeGrowthFactor
+
                 callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000));
             }
 

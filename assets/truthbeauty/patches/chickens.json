@@ -259,26 +259,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
-        op: "replace",
-        path: "/client/sizeGrowthFactor",
-        value: 0,
-        side: "server"
-    },
-    {
         file: "game:entities/land/chicken-hen.json",
-        op: "remove",
-        path: "/client/sizeByType",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-hen.json",
-        op: "remove",
-        path: "/client/sizeGrowthFactorByType",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-rooster.json",
         op: "remove",
         path: "/client/sizeByType",
         side: "server"
@@ -286,7 +267,7 @@
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "remove",
-        path: "/client/sizeGrowthFactorByType",
+        path: "/client/sizeByType",
         side: "server"
     },
 

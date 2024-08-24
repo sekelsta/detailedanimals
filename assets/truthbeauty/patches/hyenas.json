@@ -103,13 +103,6 @@
     {
         file: "game:entities/land/hyena-pup.json",
         op: "replace",
-        path: "/client/sizeGrowthFactor",
-        value: 0,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-pup.json",
-        op: "replace",
         path: "/client/size",
         value: 2.5,
         side: "server"

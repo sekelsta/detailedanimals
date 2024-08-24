@@ -127,13 +127,6 @@
     },
     {
         file: "game:entities/land/hare-baby.json",
-        op: "replace",
-        path: "/client/sizeGrowthFactor",
-        value: 0,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-baby.json",
         op: "add",
         path: "/client/size",
         value: 2,

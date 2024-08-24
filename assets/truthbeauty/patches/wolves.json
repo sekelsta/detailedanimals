@@ -117,13 +117,6 @@
     {
         file: "game:entities/land/wolf-pup.json",
         op: "replace",
-        path: "/client/sizeGrowthFactor",
-        value: 0,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
-        op: "replace",
         path: "/client/size",
         value: 2.2,
         side: "server"
