@@ -56,13 +56,6 @@
         side: "server",
     },
     {
-        "file": "game:itemtypes/food/egg.json",
-        "op": "addmerge",
-        "path": "/attributes/foodTags",
-        "value": [ "egg" ],
-        side: "server",
-    },
-    {
         "file": "game:itemtypes/food/fruit.json",
         "op": "remove",
         "path": "/attributes/foodTags",

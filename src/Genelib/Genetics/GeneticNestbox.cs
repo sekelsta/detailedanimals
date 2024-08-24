@@ -170,11 +170,10 @@ namespace Genelib {
         }
 
         public bool CanHoldItem(ItemStack stack) {
-            if (stack == null) {
+            if (stack?.Collectible.Attributes == null) {
                 return false;
             }
-            // TODO
-            return true;
+            return stack.Collectible.Attributes["nestitem"].AsBool(false);
         }
 
         private void OnSlotModified(int slot) {

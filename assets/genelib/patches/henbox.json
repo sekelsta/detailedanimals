@@ -4,12 +4,14 @@
         op: "replace",
         path: "/output/code",
         value: "genelib:nestbox",
+        side: "server",
     },
     {
         file: "game:recipes/grid/henbox.json",
         op: "replace",
         path: "/enabled",
         value: true,
+        side: "server",
         dependsOn: [ { modid: "moreanimals" } ]
     },
     {
@@ -17,6 +19,7 @@
         op: "add",
         path: "/enabled",
         value: false,
+        side: "server",
         dependsOn: [ { modid: "moreanimals" } ]
     },
 ]
