@@ -1,0 +1,24 @@
+{
+    ingredient: { type: "item", code: "game:clay-*", name: "type", allowedVariants: [ "blue", "fire" ] },
+    pattern: [[
+        "##_##_##",
+        "##_##_##",
+        "________",
+        "##_##_##",
+        "##_##_##",
+        "________",
+        "##_##_##",
+        "##_##_##",
+    ], [
+        "##_##_##",
+        "##_##_##",
+        "________",
+        "##_##_##",
+        "##_##_##",
+        "________",
+        "##_##_##",
+        "##_##_##",
+    ]],
+    name: "Ceramicegg",
+    output: { type: "item", code: "truthbeauty:egg-ceramic-raw-{type}", stacksize: 9   }
+}

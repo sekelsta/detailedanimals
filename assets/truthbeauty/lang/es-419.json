@@ -57,4 +57,9 @@
     "item-creature-hare-female-baby": "Lebrata",
     "item-dead-creature-hare-male-baby": "Lebrato muerto",
     "item-dead-creature-hare-female-baby": "Lebrata muerta",
+
+    "item-egg-ceramic-raw-blue": "Huevo de cerámica cruda",
+    "item-egg-ceramic-fired-blue": "Huevo de cerámica",
+    "item-egg-ceramic-raw-fire": "Huevo de cerámica cruda",
+    "item-egg-ceramic-fired-fire": "Huevo de cerámica",
 }

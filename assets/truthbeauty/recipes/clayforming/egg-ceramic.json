@@ -1,0 +1,12 @@
+{
+    ingredient: { type: "item", code: "game:clay-*", name: "type", allowedVariants: [ "blue", "fire" ] },
+    pattern: [[
+        "##",
+        "##",
+    ], [
+        "##",
+        "##",
+    ]],
+    name: "Ceramicegg",
+    output: { type: "item", code: "truthbeauty:egg-ceramic-raw-{type}", stacksize: 1   }
+}

@@ -55,4 +55,9 @@
     "item-creature-hare-female-baby": "Leveret (female)",
     "item-dead-creature-hare-male-baby": "Dead leveret (male)",
     "item-dead-creature-hare-female-baby": "Dead leveret (female)",
+
+    "item-egg-ceramic-raw-blue": "Greenware egg",
+    "item-egg-ceramic-fired-blue": "Ceramic egg",
+    "item-egg-ceramic-raw-fire": "Greenware egg",
+    "item-egg-ceramic-fired-fire": "Ceramic egg",
 }
