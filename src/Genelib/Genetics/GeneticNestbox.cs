@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Text;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -7,10 +9,14 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 namespace Genelib {
-    public class GeneticNestbox : BlockEntity, IAnimalNest {
+    public class GeneticNestbox : BlockEntityDisplay, IAnimalNest {
         public AssetLocation[] suitableFor;
         public Entity occupier;
         public InventoryGeneric inventory;
+
+        public override InventoryBase Inventory => inventory;
+        public string inventoryClassName = "genelib.nestbox";
+        public override string InventoryClassName => inventoryClassName;
 
         public Vec3d Position => Pos.ToVec3d().Add(0.5, 0.5, 0.5);
         public string Type => "nest";
@@ -83,17 +89,15 @@ namespace Genelib {
         }
 
         public override void Initialize(ICoreAPI api) {
-            base.Initialize(api);
-
-            string classname = Block.Attributes["inventoryClassName"]?.AsString();
+            inventoryClassName = Block.Attributes["inventoryClassName"]?.AsString();
             int capacity = Block.Attributes["quantitySlots"]?.AsInt(1) ?? 1;
             if (inventory == null) {
-                CreateInventory(capacity, classname, api);
+                CreateInventory(capacity, api);
             }
             else if (capacity != inventory.Count) {
                 api.Logger.Warning("Nestbox loaded with " + inventory.Count + " capacity when it should be " + capacity + ".");
                 InventoryGeneric oldInv = inventory;
-                CreateInventory(capacity, classname, api);
+                CreateInventory(capacity, api);
                 for (int i = 0; i < capacity && i < oldInv.Count; ++i) {
                     if (!oldInv[i].Empty) {
                         inventory[i].Itemstack = oldInv[i].Itemstack;
@@ -101,6 +105,7 @@ namespace Genelib {
                     }
                 }
             }
+            base.Initialize(api);
 
             string[] suitable = Block.Attributes["suitableFor"]?.AsArray<string>();
             suitableFor = suitable.Select(name => AssetLocation.Create(name, Block.Code.Domain)).ToArray();
@@ -111,8 +116,8 @@ namespace Genelib {
             }
         }
 
-        private void CreateInventory(int capacity, string classname, ICoreAPI api) {
-            inventory = new InventoryGeneric(capacity, classname, Pos.ToString(), api);
+        private void CreateInventory(int capacity, ICoreAPI api) {
+            inventory = new InventoryGeneric(capacity, InventoryClassName, Pos?.ToString(), api);
             inventory.Pos = this.Pos;
             inventory.SlotModified += OnSlotModified;
         }
@@ -133,19 +138,17 @@ namespace Genelib {
 
         public override void ToTreeAttributes(ITreeAttribute tree) {
             base.ToTreeAttributes(tree);
-            TreeAttribute invTree = (TreeAttribute) tree.GetOrAddTreeAttribute("inventory");
-            inventory.ToTreeAttributes(invTree);
         }
 
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
-            base.FromTreeAttributes(tree, worldForResolving);
             TreeAttribute invTree = (TreeAttribute) tree["inventory"];
             if (inventory == null) {
                 int capacity = invTree.GetInt("qslots");
-                CreateInventory(capacity, "genelib.nestbox", worldForResolving.Api);
+                CreateInventory(capacity, worldForResolving.Api);
             }
-            inventory.FromTreeAttributes(invTree);
+            base.FromTreeAttributes(tree, worldForResolving);
+            RedrawAfterReceivingTreeAttributes(worldForResolving);
         }
 
         protected static void SlowTick(float dt) {
@@ -178,6 +181,7 @@ namespace Genelib {
 
         private void OnSlotModified(int slot) {
             Api.World.BlockAccessor.GetChunkAtBlockPos(Pos)?.MarkModified();
+            MarkDirty();
         }
 
         public bool OnInteract(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
@@ -208,13 +212,27 @@ namespace Genelib {
                     if (transferred != null && transferred.Length > 0) {
                         anyEggs = true;
                     }
-                    // If it oesn't fit, leave it in the nest
+                    // If it doesn't fit, leave it in the nest
                 }
             }
             if (anyEggs) {
                 world.PlaySoundAt(new AssetLocation("sounds/player/collect"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
             }
             return anyEggs;
+        }
+
+        public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc) {
+            // No. Just don't.
+        }
+
+        protected override float[][] genTransformationMatrices() {
+            float[][] transforms = new float[DisplayedItems][];
+
+            for (int i = 0; i < transforms.Length; ++i) {
+                // TODO
+                transforms[i] = new Matrixf().Values;
+            }
+            return transforms;
         }
     }
 }
