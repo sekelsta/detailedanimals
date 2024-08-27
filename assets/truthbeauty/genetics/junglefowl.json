@@ -3,6 +3,7 @@
         autosomal: [
             { extension: ["duckwing", "birchen", "black", "brown", "buttercup", "wheaten"] },
             { tyrosinase: ["wildtype", "white"] },
+            { blue_egg: ["white", "blue_lueyang", "blue_dongxiang", "blue_aroucana"] },
         ],
         xz: [
             { chocolate: ["wildtype", "chocolate"] },
