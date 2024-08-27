@@ -5,12 +5,17 @@
 	attributes: {
         inventoryClassName: "nestbox",
         quantitySlots: 3,
+        displayTransforms: [
+            { translation: { x: 0.2, y: 0, z: 0 }, rotation: { x: 0, y: 20, z: 0 } },
+            { translation: { x: 0, y: 0, z: 0 } },
+            { translation: { x: -0.2, y: 0, z: 0 }, rotation: { x: 0, y: -20, z: 0 } },
+        ],
 		suitableFor: ["game:chicken-hen","moreanimals:pheasant-hen","moreanimals:goldenpheasant-hen","moreanimals:capercaillie-hen","moreanimals:wildturkey-hen"],
 		handbook: {
 			extraSections: [
 				{ title: "game:handbooktitle-henbox", text: "game:handbooktext-henbox" }
 			]
-		}
+		},
 	},
 	creativeinventory: { general: ["*"] },
 	shape: {

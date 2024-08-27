@@ -226,13 +226,25 @@ namespace Genelib {
         }
 
         protected override float[][] genTransformationMatrices() {
-            float[][] transforms = new float[DisplayedItems][];
-
-            for (int i = 0; i < transforms.Length; ++i) {
-                // TODO
-                transforms[i] = new Matrixf().Values;
+            ModelTransform[] transforms = Block.Attributes["displayTransforms"]?.AsArray<ModelTransform>();
+            if (transforms.Length != DisplayedItems) {
+                capi.Logger.Warning("Display transforms for " + Block.Code + " block entity do not match number of displayed items.");
             }
-            return transforms;
+
+            float[][] tfMatrices = new float[transforms.Length][];
+            for (int i = 0; i < transforms.Length; ++i) {
+                Vec3f off = transforms[i].Translation;
+                Vec3f rot = transforms[i].Rotation;
+                tfMatrices[i] = new Matrixf()
+                    .Translate(off.X, off.Y, off.Z)
+                    .Translate(0.5f, 0, 0.5f)
+                    .RotateX(rot.X * GameMath.DEG2RAD)
+                    .RotateY(rot.Y * GameMath.DEG2RAD)
+                    .RotateZ(rot.Z * GameMath.DEG2RAD)
+                    .Translate(-0.5f, 0, -0.5f)
+                    .Values;
+            }
+            return tfMatrices;
         }
     }
 }
