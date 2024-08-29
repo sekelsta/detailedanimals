@@ -1,0 +1,26 @@
+[{
+    Ingredients: [
+        {
+            type: "item",
+            code: "game:waterportion",
+            quantity: 50
+        },
+        {
+            type: "item",
+            code: "truthbeauty:egg-chicken-*-raw",
+            quantity: 1,
+            name: "eggsize",
+        },
+    ],
+    Simmering: {
+        meltingPoint: 150,
+        meltingDuration: 100,
+        smeltedRatio: 1,
+        smeltingType: "bake",
+        smeltedStack: {
+            type: "item",
+            code: "truthbeauty:egg-chicken-{eggsize}-boiled"
+        },
+        requiresContainer: false
+    }
+}]
