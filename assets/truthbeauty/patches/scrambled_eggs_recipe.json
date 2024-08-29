@@ -1,0 +1,9 @@
+[
+    {
+        file: "game:recipes/cooking/scrambledeggs.json",
+        op: "add",
+        path: "/ingredients/0/validStacks/-",
+        value: { type: "item", code: "truthbeauty:egg-chicken-*-raw",  shapeElement: "bowl/egg/*", textureMapping: ["scrambledegg", "group7"] },
+        side: "server",
+    },
+]

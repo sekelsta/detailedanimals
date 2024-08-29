@@ -57,14 +57,14 @@
             type: "Perish",
             freshHours: { avg: 216 },
             transitionHours: { avg: 24 },
-            transitionedStack: { type: "item", code: "rot" },
+            transitionedStack: { type: "item", code: "game:rot" },
             transitionRatio: 0.5
         }],
         "*-boiled": [{
             type: "Perish",
             freshHours: { avg: 120 },
             transitionHours: { avg: 24 },
-            transitionedStack: { type: "item", code: "rot" },
+            transitionedStack: { type: "item", code: "game:rot" },
             transitionRatio: 0.5
         }],
     },
