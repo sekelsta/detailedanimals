@@ -392,8 +392,10 @@ namespace Genelib {
             }
             ItemStack eggStack = new ItemStack(egg);
             TreeAttribute chick = PopChild();
-            chick.SetInt("generation", NextGeneration);
-            eggStack.Attributes["chick"] = chick;
+            if (chick != null) {
+                chick.SetInt("generation", NextGeneration);
+                eggStack.Attributes["chick"] = chick;
+            }
             return eggStack;
         }
 
