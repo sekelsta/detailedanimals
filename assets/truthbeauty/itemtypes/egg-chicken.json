@@ -12,8 +12,8 @@
     creativeinventory: { "general": ["*"], "items": ["*"] },
     attributes: {
         displaycaseableByType: { "*-blown": true},
-        shelvableByType: { "*-blown": true},
-        bookshelveableByType: { "*-blown": true},
+        shelvable: true,
+        bookshelveable: true,
         nestitemByType: {
             "*-raw": true,
         },
@@ -52,6 +52,22 @@
     },
     maxstacksize: 32,
     materialDensity: 200,
+    transitionablePropsByType: {
+        "*-raw": [{
+            type: "Perish",
+            freshHours: { avg: 216 },
+            transitionHours: { avg: 24 },
+            transitionedStack: { type: "item", code: "rot" },
+            transitionRatio: 0.5
+        }],
+        "*-boiled": [{
+            type: "Perish",
+            freshHours: { avg: 120 },
+            transitionHours: { avg: 24 },
+            transitionedStack: { type: "item", code: "rot" },
+            transitionRatio: 0.5
+        }],
+    },
     guiTransform: {
         translation: { x: 0, y: 0, z: 0 },
         rotation: { x: -110, y: 0, z: 30 },
