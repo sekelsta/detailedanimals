@@ -460,7 +460,13 @@
         value: {
             code: "genelib.reproduce",
             enabledByType: { "*-henpoult": false, "*": true },
-            eggCode: "game:egg-chicken-raw",
+            eggCodes: [
+                "truthbeauty:egg-chicken-peewee-raw",
+                "truthbeauty:egg-chicken-small-raw",
+                "truthbeauty:egg-chicken-medium-raw",
+                "truthbeauty:egg-chicken-large-raw",
+                "truthbeauty:egg-chicken-jumbo-raw",
+            ],
             sireCodes: [ "game:chicken-rooster" ],
             offspringCodes: [ "truthbeauty:chicken-male-chick", "truthbeauty:chicken-female-chick" ],
             "_comment": "In egg-layers, gestationMonths is how long the female can lay fertile eggs after mating.",

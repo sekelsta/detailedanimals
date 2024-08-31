@@ -21,6 +21,7 @@ namespace Genelib {
             LongDay
         }
         public const string Code = GeneticsModSystem.NamePrefix + "reproduce";
+        private const float DEFAULT_WEIGHT = 0.04f;
 
         // TODO: rearrange to handle hybrids - e.g., offspringBySire
         protected AssetLocation[] SireCodes;
@@ -35,8 +36,8 @@ namespace Genelib {
         protected BreedingSeason Season = BreedingSeason.Continuous;
         protected double litterAddChance = 0;
         protected int litterAddAttempts = 0;
-        public AssetLocation EggCode;
-        public bool LaysEggs => EggCode != null;
+        public CollectibleObject[] EggTypes;
+        public bool LaysEggs => EggTypes != null;
 
         public double SynchedTotalDaysCooldownUntil
         {
@@ -105,9 +106,24 @@ namespace Genelib {
                 return;
             }
 
-            string eggString = attributes["eggCode"].AsString();
-            if (eggString != null) {
-                EggCode = AssetLocation.Create(eggString, entity.Code.Domain);
+            string[] eggStrings = attributes["eggCodes"].AsArray<string>();
+            if (eggStrings != null) {
+                EggTypes = new CollectibleObject[eggStrings.Length];
+                for (int i = 0; i < eggStrings.Length; ++i) {
+                    AssetLocation loc = AssetLocation.Create(eggStrings[i], entity.Code.Domain);
+                    CollectibleObject egg = entity.World.GetItem(loc);
+                    if (egg == null) {
+                        egg = entity.World.GetBlock(loc);
+                    }
+                    if (egg == null) {
+                        entity.Api.Logger.Warning("Failed to resolve egg item or block with code " + loc + " for entity " + entity.Code);
+                    }
+                    EggTypes[i] = egg;
+                }
+                Array.Sort(EggTypes, (x, y) => 
+                    (x.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
+                    .CompareTo(y.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
+                );
             }
 
             SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
@@ -382,14 +398,25 @@ namespace Genelib {
         }
 
         public ItemStack GiveEgg() {
-            CollectibleObject egg = entity.World.GetItem(EggCode);
-            if (egg == null) {
-                egg = entity.World.GetBlock(EggCode);
+            float eggWeight = 0.04f; // TODO: Make different chickens lay different sizes of egg
+
+            CollectibleObject egg = EggTypes[0];
+            float lessw;
+            for (int i = 1; i < EggTypes.Length; ++i) {
+                float w = EggTypes[i].Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT;
+                if (w == eggWeight) {
+                    egg = EggTypes[i];
+                    break;
+                }
+                else if (w > eggWeight) {
+                    lessw = EggTypes[i-1].Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT;
+                    float r = lessw + entity.World.Rand.NextSingle() * (w - lessw);
+                    egg = EggTypes[r > eggWeight ? i : i - 1];
+                    break;
+                }
+                lessw = w;
             }
-            if (egg == null) {
-                entity.Api.Logger.Warning("Failed to resolve egg item or block with code " + EggCode + " for entity " + entity.Code);
-                return null;
-            }
+
             ItemStack eggStack = new ItemStack(egg);
             TreeAttribute chick = PopChild();
             if (chick != null) {

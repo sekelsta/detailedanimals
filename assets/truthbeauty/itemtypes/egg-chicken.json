@@ -17,6 +17,13 @@
         nestitemByType: {
             "*-raw": true,
         },
+        weightKgByType: {
+            "egg-chicken-peewee-raw": 0.035,
+            "egg-chicken-small-raw": 0.044,
+            "egg-chicken-medium-raw": 0.051,
+            "egg-chicken-large-raw": 0.058,
+            "egg-chicken-jumbo-raw": 0.07,
+        },
         nutritionPropsWhenInMealByType: {
             "*-peewee-raw": { saturation: 120, foodCategory: "Protein" },
             "*-peewee-boiled": { saturation: 120, foodCategory: "Protein" },
