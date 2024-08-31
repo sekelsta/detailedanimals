@@ -274,6 +274,13 @@
 
     {
         file: "game:entities/land/chicken-hen.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: [ "Fruit", "Vegetable", "Protein", "Dairy" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
