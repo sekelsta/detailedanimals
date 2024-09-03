@@ -72,6 +72,10 @@ namespace Genelib {
             return true;
         }
 
+        public override float MinDistanceToTarget() {
+            return 0.16f;
+        }
+
         public override void StartExecute() {
             base.StartExecute();
             laid = false;

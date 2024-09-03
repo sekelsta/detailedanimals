@@ -13,7 +13,6 @@ namespace Genelib {
         protected float searchRate = 0.25f;
         protected Dictionary<T, long> failedSeekTargets = new Dictionary<T, long>();
         protected T target;
-        protected float halfTargetWidth = 0.6f; // TODO: Use 0 for chickens nesting, 0.6 for animals eating from trough
         protected float timeSinceTargetReached;
         protected bool done = false;
 
@@ -43,15 +42,15 @@ namespace Genelib {
             base.StartExecute();
             done = false;
             timeSinceTargetReached = 0;
-            pathTraverser.NavigateTo_Async(target.Position, moveSpeed, MinDistanceToTarget() / 2, OnGoalReached, OnStuck, null, 1000, 1);
+            pathTraverser.NavigateTo_Async(target.Position, moveSpeed, MinDistanceToTarget() - 0.1f, OnGoalReached, OnStuck, null, 1000, 1);
         }
 
         public override bool CanContinueExecute() {
             return pathTraverser.Ready;
         }
 
-        public float MinDistanceToTarget() {
-            return halfTargetWidth + entity.SelectionBox.XSize / 2 + 0.05f;
+        public virtual float MinDistanceToTarget() {
+            return entity.SelectionBox.XSize / 2 + 0.6f;
         }
 
         public override bool ContinueExecute(float dt) {
@@ -84,7 +83,7 @@ namespace Genelib {
                 if (!pathTraverser.Active) {
                     float rndx = (float)entity.World.Rand.NextDouble() * 0.3f - 0.15f;
                     float rndz = (float)entity.World.Rand.NextDouble() * 0.3f - 0.15f;
-                    pathTraverser.NavigateTo(target.Position.AddCopy(rndx, 0, rndz), moveSpeed, MinDistanceToTarget() - 0.15f, OnGoalReached, OnStuck, false, 500);
+                    pathTraverser.NavigateTo(target.Position.AddCopy(rndx, 0, rndz), moveSpeed, MinDistanceToTarget() - 0.1f, OnGoalReached, OnStuck, false, 500);
                 }
             }
 
@@ -103,7 +102,7 @@ namespace Genelib {
 
         protected virtual void OnStuck() {
             done = true;
-            failedSeekTargets[target] = entity.World.ElapsedMilliseconds;            
+            failedSeekTargets[target] = entity.World.ElapsedMilliseconds;
         }
 
         protected virtual void OnGoalReached() {
