@@ -91,7 +91,7 @@ namespace Genelib {
         }
 
         protected override void TickTargetReached() {
-            if (sitEndHour > entity.World.Calendar.TotalHours) {
+            if (sitEndHour <= entity.World.Calendar.TotalHours) {
                 done = true;
                 return;
             }
@@ -104,6 +104,8 @@ namespace Genelib {
                     PlaySound();
                     ItemStack egg = reproduce.GiveEgg();
                     nestbox.AddEgg(entity, egg, incubationDays);
+                    laid = true;
+                    done = true;
                 }
             }
             else if (timeSinceTargetReached >= layTime && !laid) {
