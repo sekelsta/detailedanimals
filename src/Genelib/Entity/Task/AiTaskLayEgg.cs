@@ -117,6 +117,14 @@ namespace Genelib {
             }
         }
 
+        public override void FinishExecute(bool cancelled) {
+            base.FinishExecute(cancelled);
+
+            if (sitAnimation != null) {
+                entity.AnimManager.StopAnimation(sitAnimation.Code);
+            }
+        }
+
         protected void PlaySound() {
             if (sound != null) {
                 if (soundStartMs > 0) {
