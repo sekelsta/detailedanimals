@@ -412,10 +412,18 @@ namespace Genelib {
                     lessw = EggTypes[i-1].Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT;
                     float r = lessw + entity.World.Rand.NextSingle() * (w - lessw);
                     egg = EggTypes[r > eggWeight ? i : i - 1];
+                    eggWeight = w;
                     break;
                 }
                 lessw = w;
             }
+
+            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1f);
+            float theRestOfTheWeight = entity.Properties.Attributes["adultWeightKg"].AsFloat() * entity.WeightModifierExceptCondition();
+            float prevTotalWeight = animalWeight * theRestOfTheWeight;
+            float newTotalWeight = Math.Max(prevTotalWeight * 0.1f, prevTotalWeight - eggWeight);
+            float newAnimalWeight = newTotalWeight / theRestOfTheWeight;
+            entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
 
             ItemStack eggStack = new ItemStack(egg);
             TreeAttribute chick = PopChild();

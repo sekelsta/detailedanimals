@@ -61,10 +61,7 @@ namespace Genelib {
             DetailedHarvestable instance = (DetailedHarvestable)__instance;
             Entity entity = instance.entity;
             float cappedAnimalWeight = Math.Min(instance.AnimalWeight, 1.08f);
-            float weight = instance.entity.WeightModifier();
-            if (cappedAnimalWeight > 0) {
-                weight *= cappedAnimalWeight / instance.AnimalWeight;
-            }
+            float weight = instance.entity.WeightModifierExceptCondition() * cappedAnimalWeight;
             List<ItemStack> drops = new List<ItemStack>();
             foreach (CreatureDropItemStack drop in instance.creatureDrops) {
                 if (drop.Tool != null && (byPlayer == null || byPlayer.InventoryManager.ActiveTool != drop.Tool)) {

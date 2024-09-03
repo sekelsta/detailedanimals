@@ -14,11 +14,16 @@ namespace Genelib.Extensions {
             return entity.Properties.Attributes["male"].AsBool();
         }
 
-        public static float WeightModifier(this Entity entity) {
+        public static float WeightModifierExceptCondition(this Entity entity) {
             float weight = entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
-            weight *= entity.WatchedAttributes.GetFloat("animalWeight", 1);
             float dimorphism = entity.Properties.Attributes["weightDimorphism"].AsFloat(0);
             weight *= entity.IsMale() ? 1 + dimorphism : 1 - dimorphism;
+            return weight;
+        }
+
+        public static float WeightModifier(this Entity entity) {
+            float weight = WeightModifierExceptCondition(entity);
+            weight *= entity.WatchedAttributes.GetFloat("animalWeight", 1);
             return weight;
         }
 
