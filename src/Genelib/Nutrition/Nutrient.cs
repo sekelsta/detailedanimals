@@ -46,7 +46,8 @@ namespace Genelib {
         }
 
         public void Consume(float amount) {
-            Level = Math.Clamp(Level - Usage * amount, -2 * MaxSafe, 2 * MaxSafe);
+            float adjustment = 1 + Math.Max(0, Level) / MaxSafe;
+            Level = Math.Clamp(Level - Usage * adjustment * amount, -2 * MaxSafe, 2 * MaxSafe);
         }
     }
 }
