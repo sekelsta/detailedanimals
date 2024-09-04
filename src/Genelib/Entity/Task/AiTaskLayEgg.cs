@@ -108,17 +108,16 @@ namespace Genelib {
                     PlaySound();
                     ItemStack egg = reproduce.GiveEgg();
                     nestbox.AddEgg(entity, egg, incubationDays);
-                    laid = true;
-                    done = true;
                 }
             }
             else if (timeSinceTargetReached >= layTime && !laid) {
-                laid = true;
                 if (target.TryAddEgg(entity, null, incubationDays)) {
                     PlaySound();
-                    done = true;
                 }
             }
+            laid = true;
+            done = true;
+            EggLaidHours = entity.World.Calendar.TotalHours;
         }
 
         public override void FinishExecute(bool cancelled) {
