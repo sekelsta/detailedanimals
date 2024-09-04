@@ -207,4 +207,32 @@
         },
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.reproduce" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: {
+            code: "genelib.reproduce",
+            sireCodes: ["game:hyena-male"],
+            offspringCodes: ["truthbeauty:hyena-male-pup", "truthbeauty:hyena-female-pup"],
+            gestationMonths: 2.05,
+            cooldownMonths: 9.0,
+            lactationMonths: 18.0,
+            estrousCycleMonths: 3.0,
+            daysInHeat: 3.0,
+            breedingSeason: "continuous",
+            litterAddChance: 0.21,
+            litterAddAttempts: 3,
+        },
+        side: "server"
+    },
 ]

@@ -222,4 +222,33 @@
         },
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.reproduce" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: {
+            code: "genelib.reproduce",
+            sireCodes: ["game:wolf-male"],
+            offspringCodes: ["truthbeauty:wolf-male-pup", "truthbeauty:wolf-female-pup"],
+            gestationMonths: 2.05,
+            cooldownMonths: 4.0,
+            lactationMonths: 3.0,
+            "_comment": "A six month seasonal estrous is effectively a twelve month estrous",
+            estrousCycleMonths: 6.0,
+            daysInHeat: 8.0,
+            breedingSeason: "shortday",
+            litterAddChance: 0.25,
+            litterAddAttempts: 14,
+        },
+        side: "server"
+    },
 ]

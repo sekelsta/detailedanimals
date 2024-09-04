@@ -203,4 +203,33 @@
         },
         side: "server"
     },
+
+
+
+    {
+        file: "game:entities/land/raccoon-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.reproduce" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/raccoon-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.reproduce",
+            sireCodes: ["game:raccoon-male"],
+            offspringCodes: ["truthbeauty:raccoon-male-pup", "truthbeauty:raccoon-female-pup"],
+            gestationMonths: 2.2,
+            cooldownMonths: 9.0,
+            lactationMonths: 3.2,
+            estrousCycleMonths: 0.9,
+            daysInHeat: 3.0,
+            breedingSeason: "longday",
+            litterAddChance: 0.4,
+            litterAddAttempts: 6,
+        },
+        side: "server"
+    },
 ]
