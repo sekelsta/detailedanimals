@@ -220,14 +220,19 @@ namespace Genelib {
             if (data == null) {
                 return null;
             }
+            float sum = 0;
+            float worst = 0;
+            string worstName = null;
             foreach (Nutrient nutrient in Nutrients) {
-                if (nutrient.Name.Equals("sugar")) {
-                    continue;
+                float gain = nutrient.Value - nutrient.ValueIfAdded(satiety * data.Values[nutrient.Name]);
+                sum += gain;
+                if (gain < worst) {
+                    worst = gain;
+                    worstName = nutrient.Name;
                 }
-                float newLevel = nutrient.Level + satiety * data.Values[nutrient.Name];
-                if (newLevel > nutrient.MaxSafe) {
-                    return nutrient.Name;
-                }
+            }
+            if (sum < 0 && sum < Fullness) {
+                return worstName;
             }
             return null;
         }
