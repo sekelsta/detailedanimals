@@ -14,6 +14,9 @@ namespace Genelib {
         public Entity occupier;
         public InventoryGeneric inventory;
 
+        protected bool WasOccupied = false;
+        protected double LastUpdateHours = -1;
+
         public override InventoryBase Inventory => inventory;
         public string inventoryClassName = "genelib.nestbox";
         public override string InventoryClassName => inventoryClassName;
@@ -27,6 +30,10 @@ namespace Genelib {
 
         public bool Occupied(Entity entity) {
             return occupier != null && occupier != entity;
+        }
+
+        public bool Occupied() {
+            return occupier != null && occupier.Alive;
         }
 
         public void SetOccupier(Entity entity) {
@@ -45,21 +52,27 @@ namespace Genelib {
             if (Full()) {
                 return false;
             }
+            ItemStack eggStack = null;
             Reproduce reproduce = entity.GetBehavior<Reproduce>();
             if (reproduce != null) {
-                AddEgg(entity, reproduce.GiveEgg(), incubationDays);
+                eggStack = reproduce.GiveEgg();
                 return true;
             }
-            TreeAttribute tree = new TreeAttribute();
-            tree.SetString("code", chickCode);
-            string eggCode = "game:egg-chicken-raw";
-            Item eggItem = entity.World.GetItem(new AssetLocation(eggCode));
-            if (eggItem == null) {
-                entity.Api.Logger.Warning("Failed to resolve egg " + eggCode + " for entity " + entity.Code);
-                return false;
+            else {
+                TreeAttribute tree = new TreeAttribute();
+                tree.SetString("code", chickCode);
+                tree.SetInt("generation", entity.WatchedAttributes.GetInt("generation", 0) + 1);
+                string eggCode = "game:egg-chicken-raw"; // TODO
+                Item eggItem = entity.World.GetItem(new AssetLocation(eggCode));
+                if (eggItem == null) {
+                    entity.Api.Logger.Warning("Failed to resolve egg " + eggCode + " for entity " + entity.Code);
+                    return false;
+                }
+                eggStack = new ItemStack(eggItem);
+                eggStack.Attributes["chick"] = tree;
             }
-            ItemStack eggStack = new ItemStack(eggItem);
-            AddEgg(entity, eggStack, incubationDays);
+            eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24);
+            AddEgg(entity, eggStack);
             return true;
         }
 
@@ -67,7 +80,7 @@ namespace Genelib {
             return CountEggs() >= inventory.Count;
         }
 
-        public void AddEgg(Entity entity, ItemStack eggStack, double incubationDays) {
+        public void AddEgg(Entity entity, ItemStack eggStack) {
             for (int i = 0; i < inventory.Count; ++i) {
                 if (inventory[i].Empty) {
                     inventory[i].Itemstack = eggStack;
@@ -107,6 +120,10 @@ namespace Genelib {
             }
             base.Initialize(api);
 
+            if (LastUpdateHours == -1) {
+                LastUpdateHours = Api.World.Calendar.TotalHours;
+            }
+
             string[] suitable = Block.Attributes["suitableFor"]?.AsArray<string>();
             suitableFor = suitable.Select(name => AssetLocation.Create(name, Block.Code.Domain)).ToArray();
 
@@ -114,6 +131,8 @@ namespace Genelib {
                 api.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
                 RegisterGameTickListener(SlowTick, 12000);
             }
+
+            SlowTick(0);
         }
 
         private void CreateInventory(int capacity, ICoreAPI api) {
@@ -138,10 +157,14 @@ namespace Genelib {
 
         public override void ToTreeAttributes(ITreeAttribute tree) {
             base.ToTreeAttributes(tree);
+            tree.SetDouble("lastUpdateHours", LastUpdateHours);
+            tree.SetBool("wasOccupied", WasOccupied);
         }
 
-
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
+            WasOccupied = tree.GetBool("wasOccupied");
+            LastUpdateHours = tree.GetDouble("lastUpdateHours");
+
             TreeAttribute invTree = (TreeAttribute) tree["inventory"];
             if (inventory == null) {
                 int capacity = invTree.GetInt("qslots");
@@ -151,11 +174,7 @@ namespace Genelib {
             RedrawAfterReceivingTreeAttributes(worldForResolving);
         }
 
-        protected static void SlowTick(float dt) {
-            // TODO
-        }
-
-        protected void HatchChicks() {
+        protected void SlowTick(float dt) {
             for (int i = 0; i < inventory.Count; ++i) {
                 if (inventory[i].Empty) {
                     continue;
@@ -165,11 +184,20 @@ namespace Genelib {
                 if (chickData == null) {
                     continue;
                 }
-                // TODO: If egg is incubated enough, hatch
-                Entity chick = Reproduce.SpawnNewborn(occupier, chickData.GetInt("generation", 0), chickData);
-                inventory[i].Itemstack = null;
-                inventory.DidModifyItemSlot(inventory[i]);
+                // TODO: Chance for eggs to become infertile. Should scale with month length so that longer months do not reduce fertilty.
+                if (WasOccupied) {
+                    double incubationHoursRemaining = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0);
+                    incubationHoursRemaining -= Api.World.Calendar.TotalHours - LastUpdateHours;
+                    if (incubationHoursRemaining <= 0) {
+                        Entity chick = Reproduce.SpawnNewborn(occupier, chickData.GetInt("generation", 0), chickData);
+                        inventory[i].Itemstack = null;
+                        inventory.DidModifyItemSlot(inventory[i]);
+                    }
+                }
             }
+
+            LastUpdateHours = Api.World.Calendar.TotalHours;
+            WasOccupied = Occupied();
         }
 
         public bool CanHoldItem(ItemStack stack) {

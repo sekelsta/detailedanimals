@@ -106,18 +106,22 @@ namespace Genelib {
                 }
                 if (timeSinceTargetReached >= layTime && !laid) {
                     PlaySound();
+                    laid = true;
+                    done = true;
+                    EggLaidHours = entity.World.Calendar.TotalHours;
                     ItemStack egg = reproduce.GiveEgg();
-                    nestbox.AddEgg(entity, egg, incubationDays);
+                    egg.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24);
+                    nestbox.AddEgg(entity, egg);
                 }
             }
             else if (timeSinceTargetReached >= layTime && !laid) {
                 if (target.TryAddEgg(entity, null, incubationDays)) {
                     PlaySound();
+                    laid = true;
+                    done = true;
+                    EggLaidHours = entity.World.Calendar.TotalHours;
                 }
             }
-            laid = true;
-            done = true;
-            EggLaidHours = entity.World.Calendar.TotalHours;
         }
 
         public override void FinishExecute(bool cancelled) {

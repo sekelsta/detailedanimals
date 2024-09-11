@@ -397,6 +397,7 @@ namespace Genelib {
             return spawn;
         }
 
+        // The resulting itemstack does not come with incubation data
         public ItemStack GiveEgg() {
             float eggWeight = 0.04f; // TODO: Make different chickens lay different sizes of egg
 
@@ -427,10 +428,20 @@ namespace Genelib {
 
             ItemStack eggStack = new ItemStack(egg);
             TreeAttribute chick = PopChild();
-            if (chick != null) {
-                chick.SetInt("generation", NextGeneration);
-                eggStack.Attributes["chick"] = chick;
+            if (chick == null) {
+                return eggStack;
             }
+
+            EntityBehaviorGenetics gb = entity.GetBehavior<EntityBehaviorGenetics>();
+            if (gb != null) {
+                Genome childGenome = new Genome(gb.Genome.Type, chick);
+                if (childGenome.EmbryonicLethal()) {
+                    return eggStack;
+                }
+            }
+            chick.SetInt("generation", NextGeneration);
+            eggStack.Attributes["chick"] = chick;
+
             return eggStack;
         }
 
@@ -476,6 +487,7 @@ namespace Genelib {
                 return;
             }
             if (IsPregnant) {
+                // TODO: EggTypes is still null on client while non-null on server, making this show the wrong thing
                 if (LaysEggs) {
                     infotext.AppendLine(Lang.Get("game:Ready to lay"));
                     return;
