@@ -62,7 +62,7 @@
     transitionablePropsByType: {
         "*-raw": [{
             type: "Perish",
-            freshHours: { avg: 216 },
+            freshHours: { avg: 300 },
             transitionHours: { avg: 24 },
             transitionedStack: { type: "item", code: "game:rot" },
             transitionRatio: 0.5

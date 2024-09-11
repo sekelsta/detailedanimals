@@ -249,6 +249,11 @@ namespace Genelib {
             return anyEggs;
         }
 
+        public override float GetPerishRate() {
+            // Scale with month length, just like incubation time does
+            return 9 / Api.World.Calendar.DaysPerMonth;
+        }
+
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc) {
             // No. Just don't.
         }
