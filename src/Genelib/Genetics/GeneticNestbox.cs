@@ -56,22 +56,25 @@ namespace Genelib {
             Reproduce reproduce = entity.GetBehavior<Reproduce>();
             if (reproduce != null) {
                 eggStack = reproduce.GiveEgg();
-                return true;
             }
             else {
-                TreeAttribute tree = new TreeAttribute();
-                tree.SetString("code", chickCode);
-                tree.SetInt("generation", entity.WatchedAttributes.GetInt("generation", 0) + 1);
-                string eggCode = "game:egg-chicken-raw"; // TODO
+                string eggCode = "game:egg-chicken-raw"; // TODO: Get correct egg type
                 Item eggItem = entity.World.GetItem(new AssetLocation(eggCode));
                 if (eggItem == null) {
                     entity.Api.Logger.Warning("Failed to resolve egg " + eggCode + " for entity " + entity.Code);
                     return false;
                 }
                 eggStack = new ItemStack(eggItem);
-                eggStack.Attributes["chick"] = tree;
+                if (chickCode != null) {
+                    TreeAttribute chickTree = new TreeAttribute();
+                    chickTree.SetString("code", AssetLocation.Create(chickCode, entity.Code.Domain).ToString());
+                    chickTree.SetInt("generation", entity.WatchedAttributes.GetInt("generation", 0) + 1);
+                    eggStack.Attributes["chick"] = chickTree;
+                }
             }
-            eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24);
+            if (eggStack.Attributes.HasAttribute("chick")) {
+                eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24);
+            }
             AddEgg(entity, eggStack);
             return true;
         }
