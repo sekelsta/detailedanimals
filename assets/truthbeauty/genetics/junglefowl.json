@@ -1,8 +1,9 @@
 {
     genes: {
         autosomal: [
-            { extension: ["duckwing", "birchen", "black", "brown", "buttercup", "wheaten"] },
+            { extension: ["duckwing", "black", "birchen", "brown", "buttercup", "wheaten"] },
             { tyrosinase: ["wildtype", "white"] },
+            { bluesplash: ["wildtype", "bluesplash"] },
             { blue_egg: ["white", "blue_lueyang", "blue_dongxiang", "blue_aroucana"] },
         ],
         xz: [
@@ -12,6 +13,24 @@
     interpreters: [ "Polygenes", "Junglefowl", ],
     sexdetermination: "zw",
     initializers: {
+        red_junglefowl: {
+            autosomal: {
+            },
+            conditions: {
+                minForest: 0.6,
+                minTemp: 20,
+                minRain: 0.32,
+            }
+        },
+        mutt: {
+            autosomal: {
+                extension: { default: "duckwing", black: 0.1 },
+                tyrosinase: { default: "wildtype", white: 0.1 },
+                bluesplash: { default: "wildtype", bluesplash: 0.2 },
+            },
+            conditions: {
+            }
+        },
         deepforest: {
             autosomal: {
                 extension: { default: "wildtype", black: 0.1 },
