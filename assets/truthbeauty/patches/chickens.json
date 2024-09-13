@@ -551,6 +551,13 @@
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
+        path: "/client/shape",
+        value: { base: "truthbeauty:entity/chicken/rooster" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
         path: "/client/texture",
         value: { base: "game:entity/chicken/rooster1", 
             alternates: [{ base: "truthbeauty:entity/chicken/rooster-white"}, 
