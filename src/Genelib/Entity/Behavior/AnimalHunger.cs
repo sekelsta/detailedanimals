@@ -573,6 +573,9 @@ namespace Genelib {
         }
 
         public override void GetInfoText(StringBuilder infotext) {
+            if (!entity.Alive) {
+                return;
+            }
             base.GetInfoText(infotext);
             double[] hungerBoundaries = new double[] { FULL, NOT_HUNGRY, PECKISH, HUNGRY, VERY_HUNGRY, FAMISHED, STARVING };
             int hungerScore = 0;
