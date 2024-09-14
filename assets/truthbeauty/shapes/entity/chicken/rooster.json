@@ -448,14 +448,14 @@
 									"name": "R sickle 1c",
 									"from": [ 3.0, 0.0, 0.0 ],
 									"to": [ 6.0, 1.0, 0.0 ],
-									"unwrapMode": 6,
+									"unwrapMode": 5,
 									"unwrapRotation": 1,
 									"uv": [ 26.0, 16.0 ],
 									"rotationOrigin": [ 3.0, 1.0, 0.0 ],
 									"rotationY": -1.0,
 									"rotationZ": -50.0,
 									"faces": {
-										"north": { "texture": "#chicken", "uv": [ 26.0, 16.0, 27.0, 19.0 ], "rotation": 90 }
+										"north": { "texture": "#chicken", "uv": [ 26.0, 16.0, 27.0, 19.0 ], "rotation": 270, "windMode": [-1,-1,-1,-1] }
 									}
 								}
 							]
@@ -495,14 +495,14 @@
 									"name": "L sickle 1c",
 									"from": [ 3.0, 0.0, 0.0 ],
 									"to": [ 6.0, 1.0, 0.0 ],
-									"unwrapMode": 6,
+									"unwrapMode": 5,
 									"unwrapRotation": 1,
 									"uv": [ 27.0, 16.0 ],
 									"rotationOrigin": [ 3.0, 1.0, 0.0 ],
 									"rotationY": 1.0,
 									"rotationZ": -53.0,
 									"faces": {
-										"south": { "texture": "#chicken", "uv": [ 27.0, 16.0, 28.0, 19.0 ], "rotation": 270, "windMode": [-1,-1,-1,-1] }
+										"south": { "texture": "#chicken", "uv": [ 27.0, 16.0, 28.0, 19.0 ], "rotation": 90, "windMode": [-1,-1,-1,-1] }
 									}
 								}
 							]
@@ -540,14 +540,14 @@
 									"name": "R sickle 2c",
 									"from": [ 2.0, 0.0, 0.0 ],
 									"to": [ 4.0, 1.0, 0.0 ],
-									"unwrapMode": 6,
+									"unwrapMode": 5,
 									"unwrapRotation": 1,
 									"uv": [ 25.0, 19.0 ],
 									"rotationOrigin": [ 2.0, 1.0, 0.0 ],
 									"rotationY": 1.0,
 									"rotationZ": -47.0,
 									"faces": {
-										"north": { "texture": "#chicken", "uv": [ 25.0, 19.0, 26.0, 21.0 ], "rotation": 90 }
+										"north": { "texture": "#chicken", "uv": [ 25.0, 19.0, 26.0, 21.0 ], "rotation": 270 }
 									}
 								}
 							]
@@ -587,14 +587,14 @@
 									"name": "L sickle 2c",
 									"from": [ 2.0, 0.0, 0.0 ],
 									"to": [ 4.0, 1.0, 0.0 ],
-									"unwrapMode": 6,
+									"unwrapMode": 5,
 									"unwrapRotation": 1,
 									"uv": [ 28.0, 19.0 ],
 									"rotationOrigin": [ 2.0, 1.0, 0.0 ],
 									"rotationY": -1.0,
 									"rotationZ": -50.0,
 									"faces": {
-										"south": { "texture": "#chicken", "uv": [ 28.0, 19.0, 29.0, 21.0 ], "rotation": 270, "windMode": [-1,-1,-1,-1] }
+										"south": { "texture": "#chicken", "uv": [ 28.0, 19.0, 29.0, 21.0 ], "rotation": 90, "windMode": [-1,-1,-1,-1] }
 									}
 								}
 							]

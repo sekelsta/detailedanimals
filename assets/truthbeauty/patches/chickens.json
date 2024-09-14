@@ -540,10 +540,10 @@
         op: "replace",
         path: "/client/texture",
         value: { base: "game:entity/chicken/rooster1", 
-            alternates: [{ base: "truthbeauty:entity/chicken/rooster-white"}, 
-            { base: "truthbeauty:entity/chicken/rooster-black"}, 
-            { base: "truthbeauty:entity/chicken/rooster-blue"},
-            { base: "truthbeauty:entity/chicken/rooster-bluesplash"},
+            alternates: [{ base: "truthbeauty:entity/chicken/adult-white"}, 
+            { base: "truthbeauty:entity/chicken/adult-black"}, 
+            { base: "truthbeauty:entity/chicken/hen-blue"},
+            { base: "truthbeauty:entity/chicken/hen-bluesplash"},
             ] 
         },
         side: "server"
@@ -560,8 +560,8 @@
         op: "replace",
         path: "/client/texture",
         value: { base: "game:entity/chicken/rooster1", 
-            alternates: [{ base: "truthbeauty:entity/chicken/rooster-white"}, 
-            { base: "truthbeauty:entity/chicken/rooster-black"}, 
+            alternates: [{ base: "truthbeauty:entity/chicken/adult-white"}, 
+            { base: "truthbeauty:entity/chicken/adult-black"}, 
             { base: "truthbeauty:entity/chicken/rooster-blue"},
             { base: "truthbeauty:entity/chicken/rooster-bluesplash"},
             ] 
