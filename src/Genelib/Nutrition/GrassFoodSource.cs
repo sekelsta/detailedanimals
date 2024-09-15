@@ -22,8 +22,8 @@ namespace Genelib {
             return dict;
         }
 
-        public static Dictionary<GrazeMethod, System.Func<GrassFoodSource, Entity, Tuple<NutritionData, float>>> GrazeMethods 
-            = new Dictionary<GrazeMethod, System.Func<GrassFoodSource, Entity, Tuple<NutritionData, float>>> {
+        public static Dictionary<GrazeMethod, System.Func<GrassFoodSource, Entity, float>> GrazeMethods 
+            = new Dictionary<GrazeMethod, System.Func<GrassFoodSource, Entity, float>> {
                 { GrazeMethod.Graze, (grass, entity) => grass.Graze(entity) },
                 { GrazeMethod.NibbleGraze, (grass, entity) => grass.GrazeSelectively(entity) },
                 { GrazeMethod.Root, (grass, entity) => grass.DigRoots(entity) },
@@ -86,22 +86,19 @@ namespace Genelib {
         public float ConsumeOnePortion(Entity entity) {
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
             GrazeMethod grazeMethod = hunger.GetGrazeMethod(entity.World.Rand);
-            return ConsumeOnePortion(entity, grazeMethod);
-        }
 
-        public float ConsumeOnePortion(Entity entity, GrazeMethod method) {
-            AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
-            Tuple<NutritionData, float> result = GrazeMethods[method](this, entity);
-            if (result != null) {
-                hunger.Eat(result.Item1, result.Item2);
+            NutritionData nutrition = grazeMethod.Nutrition();
+            float amount = GrazeMethods[grazeMethod](this, entity);
+            if (amount > 0) {
+                hunger.Eat(nutrition, amount);
             }
             return 0;
         }
 
-        public Tuple<NutritionData, float> DigRoots(Entity entity) {
+        public float DigRoots(Entity entity) {
             Block block = entity.World.BlockAccessor.GetBlock(soilPos);
             if (KeepTallgrass(block)) {
-                return null;
+                return 0;
             }
 
             Block above = entity.World.BlockAccessor.GetBlock(tallgrassPos);
@@ -123,11 +120,10 @@ namespace Genelib {
                 entity.World.BlockAccessor.SetBlock(dirt.Id, soilPos);
             }
 
-            NutritionData nutrition = NutritionData.Get("vegetable");
-            return new Tuple<NutritionData, float>(nutrition, 1);
+            return 1;
         }
 
-        public Tuple<NutritionData, float> GrazeSelectively(Entity entity) {
+        public float GrazeSelectively(Entity entity) {
             float stages = 0;
             string tallgrass = tallgrassVariant(entity.World.BlockAccessor);
             if (tallgrass == "none") {
@@ -148,19 +144,17 @@ namespace Genelib {
                 stages = Sparsen(entity, 1);
             }
 
-            NutritionData nutrition = NutritionData.Get("nibbleCrop");
-            return new Tuple<NutritionData, float>(nutrition, 0.25f * stages);
+            return 0.25f * stages;
         }
 
-        public Tuple<NutritionData, float> Graze(Entity entity) {
+        public float Graze(Entity entity) {
             int stagesAttempting = 2 + entity.World.Rand.Next(3);
             int stages = Shorten(entity, stagesAttempting);
             if (stages < stagesAttempting) {
                 stages += Sparsen(entity, 1);
             }
 
-            NutritionData nutrition = NutritionData.Get("grass");
-            return new Tuple<NutritionData, float>(nutrition, 0.25f * stages);
+            return 0.25f * stages;
         }
 
         protected bool KeepTallgrass(Block block) {
