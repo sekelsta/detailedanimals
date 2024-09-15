@@ -120,7 +120,16 @@ namespace Genelib {
             }
 
             if (currentEatAnimation != null) {
-                entity.AnimManager.StopAnimation(currentEatAnimation.Code);
+                RunningAnimation running = entity.AnimManager.GetAnimationState(currentEatAnimation.Code);
+                if (running == null) {
+                    entity.AnimManager.StopAnimation(currentEatAnimation.Code);
+                }
+                else {
+                    float framesRemaining = running.Animation.QuantityFrames - running.CurrentFrame;
+                    float speed = currentEatAnimation.AnimationSpeed;
+                    float ms = framesRemaining * speed * 1000 / 30;
+                    entity.World.RegisterCallback((dt) => entity.AnimManager.StopAnimation(currentEatAnimation.Code), (int)ms);
+                }
             }
         }
 
