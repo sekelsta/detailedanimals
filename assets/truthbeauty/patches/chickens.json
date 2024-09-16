@@ -298,6 +298,7 @@
                 mineralsMax: 0.1,
                 fiberDigestion: 0.1,
                 grazeMethods: ["nibblegraze"],
+                eatRate: 0.04,
         },
         side: "server"
     },
@@ -320,6 +321,7 @@
                 mineralsMax: 0.1,
                 fiberDigestion: 0.1,
                 grazeMethods: ["nibblegraze"],
+                eatRate: 0.04,
         },
         side: "server"
     },
@@ -342,6 +344,7 @@
                 mineralsMax: 0.1,
                 fiberDigestion: 0.1,
                 grazeMethods: ["nibblegraze"],
+                eatRate: 0.04,
         },
         side: "server"
     },
@@ -377,14 +380,14 @@
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/3/mincooldownHours",
-        value: 0.05,
+        value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/3/maxcooldownHours",
-        value: 1,
+        value: 0.05,
         side: "server"
     },
     {
@@ -398,14 +401,14 @@
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/6/mincooldownHours",
-        value: 0.05,
+        value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/6/maxcooldownHours",
-        value: 1,
+        value: 0.05,
         side: "server"
     },
     {
@@ -419,14 +422,14 @@
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/3/mincooldownHours",
-        value: 0.05,
+        value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/3/maxcooldownHours",
-        value: 1,
+        value: 0.05,
         side: "server"
     },
     {

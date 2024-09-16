@@ -86,12 +86,12 @@ namespace Genelib {
         public float ConsumeOnePortion(Entity entity) {
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
             GrazeMethod grazeMethod = hunger.GetGrazeMethod(entity.World.Rand);
-
             NutritionData nutrition = grazeMethod.Nutrition();
-            float amount = GrazeMethods[grazeMethod](this, entity);
-            if (amount > 0) {
-                hunger.Eat(nutrition, amount);
+            float amount = 1;
+            if (entity.World.Rand.NextSingle() <= hunger.EatRate) {
+                amount = GrazeMethods[grazeMethod](this, entity);
             }
+            hunger.Eat(nutrition, amount * hunger.EatRate);
             return 0;
         }
 

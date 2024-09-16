@@ -36,6 +36,7 @@ namespace Genelib {
         public float MetabolicEfficiency;
         public float DaysUntilHungry = 2;
         public GrazeMethod[] GrazeMethods;
+        public float EatRate = 1;
 
         protected long listenerID;
         protected int accumulator;
@@ -132,6 +133,9 @@ namespace Genelib {
             }
             if (typeAttributes.KeyExists("grazeMethods")) {
                 GrazeMethods = typeAttributes["grazeMethods"].AsArray<GrazeMethod>();
+            }
+            if (typeAttributes.KeyExists("eatRate")) {
+                EatRate = typeAttributes["eatRate"].AsFloat();
             }
             prevPos = entity.ServerPos.XYZ;
 
