@@ -336,19 +336,21 @@ namespace Genelib {
             if (InEarlyPregnancy) {
                 if (TotalDays > TotalDaysPregnancyStart + GestationDays / 8.0) {
                     EntityBehaviorGenetics gb = entity.GetBehavior<EntityBehaviorGenetics>();
-                    List<TreeAttribute> surviving = new List<TreeAttribute>();
-                    foreach (TreeAttribute childTree in Litter.value) {
-                        Genome childGenome = new Genome(gb.Genome.Type, childTree);
-                        if (!childGenome.EmbryonicLethal()) {
-                            surviving.Add(childTree);
+                    if (gb != null) {
+                        List<TreeAttribute> surviving = new List<TreeAttribute>();
+                        foreach (TreeAttribute childTree in Litter.value) {
+                            Genome childGenome = new Genome(gb.Genome.Type, childTree);
+                            if (!childGenome.EmbryonicLethal()) {
+                                surviving.Add(childTree);
+                            }
                         }
-                    }
-                    if (surviving.Count == 0) {
-                        SetNotPregnant();
-                    }
-                    else {
-                        Litter.value = surviving.ToArray();
-                        entity.WatchedAttributes.MarkPathDirty("multiply");
+                        if (surviving.Count == 0) {
+                            SetNotPregnant();
+                        }
+                        else {
+                            Litter.value = surviving.ToArray();
+                            entity.WatchedAttributes.MarkPathDirty("multiply");
+                        }
                     }
                     InEarlyPregnancy = false;
                 }
