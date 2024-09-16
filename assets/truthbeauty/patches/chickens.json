@@ -378,6 +378,13 @@
     },
     {
         file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/server/behaviors/11/aitasks/3/eatAnimation",
+        value: "Eat",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/3/mincooldownHours",
         value: 0.0,
@@ -399,6 +406,13 @@
     },
     {
         file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/6/eatAnimation",
+        value: "Eat",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/6/mincooldownHours",
         value: 0.0,
@@ -416,6 +430,13 @@
         op: "replace",
         path: "/server/behaviors/10/aitasks/3/code",
         value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/3/eatAnimation",
+        value: "Eat",
         side: "server"
     },
     {
