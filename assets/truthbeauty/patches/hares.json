@@ -211,4 +211,32 @@
         },
         side: "server"
     },
+
+
+
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.reproduce" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.reproduce",
+            sireCodes: ["game:hare-male-*"],
+            offspringCodes: ["truthbeauty:hare-male-baby", "truthbeauty:hare-female-baby"],
+            gestationMonths: 1.35,
+            cooldownMonths: 1.0,
+            lactationMonths: 1.5,
+            inducedOvulation: true,
+            breedingSeason: "longday",
+            litterAddChance: 0.5,
+            litterAddAttempts: 7,
+        },
+        side: "server"
+    },
 ]

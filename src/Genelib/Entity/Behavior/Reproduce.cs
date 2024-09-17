@@ -16,7 +16,6 @@ namespace Genelib {
     public class Reproduce : EntityBehaviorMultiply {
         protected enum BreedingSeason {
             Continuous,
-            InducedOvulation,
             ShortDay,
             LongDay
         }
@@ -36,6 +35,7 @@ namespace Genelib {
         protected BreedingSeason Season = BreedingSeason.Continuous;
         protected double litterAddChance = 0;
         protected int litterAddAttempts = 0;
+        protected bool InducedOvulation = false;
         public CollectibleObject[] EggTypes;
         public bool LaysEggs => EggTypes != null;
 
@@ -166,22 +166,29 @@ namespace Genelib {
                 CooldownDays = LactationDays;
             }
 
-            if (attributes.KeyExists("estrousCycleMonths")) {
-                EstrousCycleDays = attributes["estrousCycleMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth;
-            }
-            else if (attributes.KeyExists("estrousCycleDays")) {
-                EstrousCycleDays = attributes["estrousCycleDays"].AsDouble();
+            InducedOvulation = attributes["inducedOvulation"].AsBool(false);
+            if (InducedOvulation) {
+                EstrousCycleDays = CooldownDays;
+                DaysInHeat = EstrousCycleDays;
             }
             else {
-                EstrousCycleDays = entity.World.Calendar.DaysPerMonth;
-            }
+                if (attributes.KeyExists("estrousCycleMonths")) {
+                    EstrousCycleDays = attributes["estrousCycleMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth;
+                }
+                else if (attributes.KeyExists("estrousCycleDays")) {
+                    EstrousCycleDays = attributes["estrousCycleDays"].AsDouble();
+                }
+                else {
+                    EstrousCycleDays = entity.World.Calendar.DaysPerMonth;
+                }
 
-            if (attributes.KeyExists("daysInHeat")) {
-                DaysInHeat = attributes["daysInHeat"].AsDouble();
-                DaysInHeat *= Math.Clamp(entity.World.Calendar.DaysPerMonth, 3, 9) / 9;
-            }
-            else {
-                DaysInHeat = 2;
+                if (attributes.KeyExists("daysInHeat")) {
+                    DaysInHeat = attributes["daysInHeat"].AsDouble();
+                    DaysInHeat *= Math.Clamp(entity.World.Calendar.DaysPerMonth, 3, 9) / 9;
+                }
+                else {
+                    DaysInHeat = 2;
+                }
             }
 
             if (attributes.KeyExists("breedingSeason")) {
@@ -191,9 +198,6 @@ namespace Genelib {
                 }
                 else if (breedingSeason.Equals("shortday")) {
                     Season = BreedingSeason.ShortDay;
-                }
-                else if (breedingSeason.Equals("inducedovulation")) {
-                    Season = BreedingSeason.InducedOvulation;
                 }
                 else if (breedingSeason.Equals("continuous")) {
                     Season = BreedingSeason.Continuous;
