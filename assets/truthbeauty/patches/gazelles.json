@@ -165,4 +165,33 @@
         },
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.reproduce", enabledByType: { "gazelle-female": true, "*": false } },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.reproduce",
+            enabledByType: { "gazelle-female": true, "*": false },
+            sireCodes: ["game:gazelle-male"],
+            offspringCodes: ["truthbeauty:gazelle-male-calf", "truthbeauty:gazelle-female-calf"],
+            gestationMonths: 5.5,
+            cooldownMonths: 9.0,
+            lactationMonths: 6,
+            estrousCycleMonths: 1.0,
+            daysInHeat: 2.0,
+            breedingSeason: "shortday",
+            litterAddChance: 0.01,
+            litterAddAttempts: 1,
+        },
+        side: "server"
+    },
 ]
