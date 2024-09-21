@@ -151,29 +151,15 @@
 
     {
         file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/client/behaviors/4/enabledByType",
-        value: { "deer-caribou-*": false, },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/server/behaviors/6/enabledByType",
-        value: { "deer-caribou-*": false, },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/client/behaviors/-",
+        op: "replace",
+        path: "/client/behaviors/4",
         value: { code: "genelib.harvestable" },
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/server/behaviors/-",
+        op: "replace",
+        path: "/server/behaviors/6",
         value: {
 				code: "genelib.harvestable",
                 drops: [
