@@ -106,7 +106,7 @@ namespace Genelib {
                 return;
             }
 
-            string[] eggStrings = attributes["eggCodes"].AsArray<string>();
+            string[] eggStrings = entity.Attributes?.GetStringArray("eggCodes");
             if (eggStrings != null) {
                 EggTypes = new CollectibleObject[eggStrings.Length];
                 for (int i = 0; i < eggStrings.Length; ++i) {
