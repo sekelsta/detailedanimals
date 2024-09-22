@@ -208,10 +208,10 @@ namespace Genelib {
             CopyAttributesTo(adult);
             adult.Attributes.SetString("origin", "growth");
             entity.World.SpawnEntity(adult);
+            entity.Die(EnumDespawnReason.Expire, null);
             // Apparently entity behaviors are only set up after spawning, so we spawn first then copy
             CopyAttributesAfterSpawning(adult);
             adult.WatchedAttributes.GetTreeAttribute("grow").SetDouble("timeSpawned", adult.World.Calendar.TotalHours);
-            entity.Die(EnumDespawnReason.Expire, null);
         }
 
         protected virtual void CopyAttributesTo(Entity adult) {
@@ -240,13 +240,13 @@ namespace Genelib {
 
         protected virtual void CopyAttributesAfterSpawning(Entity adult) {
             adult.GetBehavior<EntityBehaviorNameTag>()?.SetName(entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName);
-            // PetAI compat
-            /* TODO: Add this back if it can be done without creating a hard dependency on PetAI
-            if (entity is EntityPet childPet && adult is EntityPet adultPet) {
-                for (int i = 0; i < childPet.GearInventory.Count; i++) {
-                    childPet.GearInventory[i].TryPutInto(entity.World, adultPet.GearInventory[i]);
+
+            if (entity is EntityAgent childAgent && adult is EntityAgent adultAgent 
+                    && childAgent.GearInventory != null && adultAgent.GearInventory != null) {
+                for (int i = 0; i < childAgent.GearInventory.Count && i < adultAgent.GearInventory.Count; i++) {
+                    childAgent.GearInventory[i].TryPutInto(entity.World, adultAgent.GearInventory[i]);
                 }
-            }*/
+            }
         }
 
         protected void CopyAttributeIfPresent(Entity adult, string key) {
