@@ -530,6 +530,27 @@
         },
         side: "server"
     },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "truthbeauty:junglefowl" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "truthbeauty:junglefowl" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "truthbeauty:junglefowl" },
+        side: "server"
+    },
 
 
     {
