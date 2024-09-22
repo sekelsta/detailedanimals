@@ -194,4 +194,102 @@
         },
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "replace",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 4,
+                fiber: 0.7,
+                sugar: 0.06,
+                maxSugar: 0.15,
+                fat: 0.04,
+                maxFat: 0.2,
+                starch: 0.08,
+                maxStarch: 0.3,
+                protein: 0.12,
+                maxProtein: 0.25,
+                water: 1.0,
+                minerals: 0.02,
+                maxMinerals: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "toughplant" ],
+                fiberDigestion: 1.0,
+                grazeMethods: ["nibblegraze"],
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/2/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/2/nurseFromEntities",
+        value: ["game:deer-{type}-female-adult"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/2/mincooldownHours",
+        value: 0.0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/2/maxcooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/2/eatSound",
+        value: "game:creature/animal-eat-small",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/gazelle.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/3/enabled",
+        value: false,
+        side: "server"
+    },
 ]

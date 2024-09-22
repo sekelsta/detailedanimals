@@ -251,4 +251,95 @@
         },
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 3.5,
+                fiber: 0.7,
+                sugar: 0.05,
+                maxSugar: 0.2,
+                fat: 0.05,
+                maxFat: 0.2,
+                starch: 0.06,
+                maxStarch: 0.3,
+                protein: 0.14,
+                maxProtein: 0.25,
+                water: 1.0,
+                minerals: 0.02,
+                maxMinerals: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "toughplant" ],
+                fiberDigestion: 1.0,
+                grazeMethods: ["nibblegraze"],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: {  code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/server/behaviors/12/aitasks/11/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "add",
+        path: "/server/behaviors/12/aitasks/11/nurseFromEntities",
+        value: ["game:goat-{type}-female-adult"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/server/behaviors/12/aitasks/11/mincooldownHours",
+        value: 0.0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/server/behaviors/12/aitasks/11/maxcooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "add",
+        path: "/server/behaviors/12/aitasks/10/enabled",
+        value: false,
+        side: "server"
+    },
 ]

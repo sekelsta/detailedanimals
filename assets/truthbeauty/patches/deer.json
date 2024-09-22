@@ -400,14 +400,13 @@
         path: "/server/behaviors/-",
         value: {
 				code: "genelib.hunger",
-                monthsUntilWeaned: 6,
-                fiber: 0.8,
-                maxFiber: 1.1,
-                sugar: 0.03,
+                monthsUntilWeaned: 4,
+                fiber: 0.7,
+                sugar: 0.06,
                 maxSugar: 0.15,
-                fat: 0.02,
+                fat: 0.04,
                 maxFat: 0.2,
-                starch: 0.05,
+                starch: 0.08,
                 maxStarch: 0.3,
                 protein: 0.12,
                 maxProtein: 0.25,
@@ -446,14 +445,14 @@
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/11/mincooldownHours",
-        value: 0.05,
+        value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/11/maxcooldownHours",
-        value: 1,
+        value: 0.05,
         side: "server"
     },
     {
