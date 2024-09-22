@@ -214,15 +214,15 @@
 
     {
         file: "game:entities/land/hooved/goat.json",
-        op: "add",
-        path: "/client/behaviors/-",
+        op: "replace",
+        path: "/client/behaviors/5",
         value: { code: "genelib.reproduce", enabledByType: { "*-female-adult": true, "*": false } },
         side: "server"
     },
     {
         file: "game:entities/land/hooved/goat.json",
-        op: "add",
-        path: "/server/behaviors/-",
+        op: "replace",
+        path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
             enabledByType: { "*-female-adult": true, "*": false },
