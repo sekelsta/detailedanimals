@@ -58,7 +58,8 @@ namespace Genelib {
                 eggStack = reproduce.GiveEgg();
             }
             else {
-                string eggCode = "game:egg-chicken-raw"; // TODO: Get correct egg type
+                string[] eggCodes = entity.Attributes?.GetStringArray("eggCodes");
+                string eggCode = eggCodes == null ? "game:egg-chicken-raw" : eggCodes[entity.World.Rand.Next(eggCodes.Length)];
                 Item eggItem = entity.World.GetItem(new AssetLocation(eggCode));
                 if (eggItem == null) {
                     entity.Api.Logger.Warning("Failed to resolve egg " + eggCode + " for entity " + entity.Code);

@@ -1,0 +1,12 @@
+[
+    {
+        file: "moreanimals:entities/pheasant-hen.json",
+        op: "add",
+        path: "/attributes/eggCodes",
+        value: [
+                "moreanimals:egg-pheasant-raw",
+            ],
+        dependsOn: [ { modid: "moreanimals" } ],
+        side: "server"
+    }
+]
