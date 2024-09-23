@@ -5,11 +5,13 @@ This repository contains two projects:
 ## Truth and Beauty
 This is heavily in progress. Will update this doc once things settle down.
 
-Allows gazelle calves to grow into adults, which does not happen in vanilla for some reason
-Adjusts gazelle calf hitbox size to be smaller than the adult size
-Female caribou can grow antlers, as they do in real life
+* Young animals grow into adults gradually
+* Young animals have genders too, not just adults
+* Allows gazelle calves to grow into adults, which does not happen in vanilla for some reason
+* Adjusts gazelle calf hitbox size to be smaller than the adult size
+* Female caribou can grow antlers and female goats grow horns, as they do in real life
 
-Note: Wolf pups tamed with Wolf Taming mod will lose their genders due to the transformation into wolftaming:dog-wolf-pup
+Note: Wolf pups tamed with Wolf Taming mod will lose their genders due to the transformation into wolftaming:dog-wolf-pup, and grow into a dog of a random gender.
 
 ## Genelib
 **This is highly incomplete and I don't recommend using it yet!!**
