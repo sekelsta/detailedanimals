@@ -4,10 +4,10 @@
             { extension: ["duckwing", "black", "birchen", "brown", "buttercup", "wheaten"] },
             { tyrosinase: ["wildtype", "white"] },
             { bluesplash: ["wildtype", "bluesplash"] },
-            { blue_egg: ["white", "blue_lueyang", "blue_dongxiang", "blue_aroucana"] },
+            //{ blue_egg: ["white", "blue_lueyang", "blue_dongxiang", "blue_aroucana"] },
         ],
         xz: [
-            { chocolate: ["wildtype", "chocolate"] },
+            //{ chocolate: ["wildtype", "chocolate"] },
         ],
     },
     interpreters: [ "Polygenes", "Junglefowl", ],
