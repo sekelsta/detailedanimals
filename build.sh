@@ -1,6 +1,7 @@
 # To define the environment variable, put something like this in your .bashrc file:
 # export VINTAGE_STORY_DEV="$HOME/software/vintagestory_dev"
 
+python3 texsrc/cook.py
 cp assets/truthbeauty/lang/es-419.json assets/truthbeauty/lang/es-es.json
 cp assets/genelib/lang/es-419.json assets/genelib/lang/es-es.json
 dotnet run --project ./Build/CakeBuild/CakeBuild.csproj -- "$@"

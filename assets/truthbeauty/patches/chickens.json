@@ -594,7 +594,7 @@
             alternates: [{ base: "truthbeauty:entity/chicken/adult-white"}, 
             { base: "truthbeauty:entity/chicken/adult-black"}, 
             { base: "truthbeauty:entity/chicken/hen-blue"},
-            { base: "truthbeauty:entity/chicken/hen-bluesplash"},
+            { base: "truthbeauty:entity/chicken/hen-splash"},
             ] 
         },
         side: "server"
@@ -614,8 +614,12 @@
             alternates: [{ base: "truthbeauty:entity/chicken/adult-white"}, 
             { base: "truthbeauty:entity/chicken/adult-black"}, 
             { base: "truthbeauty:entity/chicken/rooster-blue"},
-            { base: "truthbeauty:entity/chicken/rooster-bluesplash"},
+            { base: "truthbeauty:entity/chicken/rooster-splash"},
             { base: "truthbeauty:entity/chicken/rooster-birchen"},
+            { base: "truthbeauty:entity/chicken/rooster-birchen-blue"},
+            { base: "truthbeauty:entity/chicken/rooster-birchen-splash"},
+            { base: "truthbeauty:entity/chicken/rooster-duckwing-blue"},
+            { base: "truthbeauty:entity/chicken/rooster-duckwing-splash"},
             ] 
         },
         side: "server"

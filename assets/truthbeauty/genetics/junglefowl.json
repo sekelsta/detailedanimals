@@ -24,7 +24,7 @@
         },
         mutt: {
             autosomal: {
-                extension: { default: "duckwing", black: 0.1 },
+                extension: { default: "duckwing", black: 0.1, birchen: 0.2 },
                 tyrosinase: { default: "wildtype", white: 0.1 },
                 bluesplash: { default: "wildtype", bluesplash: 0.2 },
             },
@@ -33,7 +33,7 @@
         },
         deepforest: {
             autosomal: {
-                extension: { default: "wildtype", black: 0.1 },
+                extension: { default: "duckwing", black: 0.1 },
             },
             conditions: {
                 minForest: 0.6
