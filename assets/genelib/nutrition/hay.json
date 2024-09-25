@@ -1,9 +1,9 @@
 {
     tag: "hay",
-    fiber: 0.8,
-    sugar: 0.04,
-    starch: 0.04,
-    fat: 0.01,
+    fiber: 0.65,
+    sugar: 0.08,
+    starch: 0.06,
+    fat: 0.02,
     protein: 0.1,
     water: 0.1,
     minerals: 0.01,

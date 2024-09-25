@@ -239,4 +239,242 @@
         },
         side: "server"
     },
+
+
+
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "add",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "add",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 1.25,
+                fiber: 0.7,
+                sugar: 0.05,
+                fat: 0.04,
+                starch: 0.08,
+                protein: 0.12,
+                water: 1.0,
+                minerals: 0.02,
+                maxMinerals: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "toughplant" ],
+                fiberDigestion: 1.0,
+                grazeMethods: ["nibblegraze"],
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 1.25,
+                fiber: 0.7,
+                sugar: 0.05,
+                fat: 0.04,
+                starch: 0.08,
+                protein: 0.12,
+                water: 1.0,
+                minerals: 0.02,
+                maxMinerals: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "toughplant" ],
+                fiberDigestion: 1.0,
+                grazeMethods: ["nibblegraze"],
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 1.25,
+                fiber: 0.7,
+                sugar: 0.05,
+                fat: 0.04,
+                starch: 0.08,
+                protein: 0.12,
+                water: 1.0,
+                minerals: 0.02,
+                maxMinerals: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "toughplant" ],
+                fiberDigestion: 1.0,
+                grazeMethods: ["nibblegraze"],
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/3/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/3/nurseFromEntities",
+        value: ["game:hare-female-arctic", "game:hare-female-ashgrey", "game:hare-female-darkbrown", "game:hare-female-desert", "game:hare-female-gold", "game:hare-female-lightbrown", "game:hare-female-lightgrey", "game:hare-female-silver", "game:hare-female-smokegrey"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/3/mincooldownHours",
+        value: 0.0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/3/maxcooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/3/priority",
+        value: 1.39,
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/3/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/3/nurseFromEntities",
+        value: ["game:hare-female-arctic", "game:hare-female-ashgrey", "game:hare-female-darkbrown", "game:hare-female-desert", "game:hare-female-gold", "game:hare-female-lightbrown", "game:hare-female-lightgrey", "game:hare-female-silver", "game:hare-female-smokegrey"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/3/mincooldownHours",
+        value: 0.0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/3/maxcooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hare-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/3/priority",
+        value: 1.39,
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/hare-baby.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/-",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: ["game:hare-female-arctic", "game:hare-female-ashgrey", "game:hare-female-darkbrown", "game:hare-female-desert", "game:hare-female-gold", "game:hare-female-lightbrown", "game:hare-female-lightgrey", "game:hare-female-silver", "game:hare-female-smokegrey"],
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+            priority: 1.39,
+        },
+        side: "server"
+    },
 ]
