@@ -34,7 +34,12 @@ namespace Genelib {
 
         public float GrowthWeightFraction {
             get => entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
-            set => entity.WatchedAttributes.SetFloat("growthWeightFraction", value);
+            set {
+                if (float.IsNaN(value)) {
+                    throw new ArgumentException("Cannot set growth weight fraction to NaN");
+                }
+                entity.WatchedAttributes.SetFloat("growthWeightFraction", value);
+            }
         }
 
         public BehaviorAge(Entity entity) : base(entity) { }
@@ -117,12 +122,13 @@ namespace Genelib {
                     entity.WatchedAttributes.SetDouble("birthTotalDays", totalDays);
                 }
             }
-            if (!entity.WatchedAttributes.HasAttribute("growthWeightFraction")
-                    || Double.IsNaN(entity.WatchedAttributes.GetFloat("growthWeightFraction"))) {
+            if (!entity.WatchedAttributes.HasAttribute("growthWeightFraction")) {
+                // Set to current size, without requiring extra food
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
+                entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(GrowthWeightFraction, 1/3f)));
             }
 
-            callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000));
+            callbackID = entity.World.RegisterCallback(CheckGrowth, entity.World.Rand.Next((int) secondsPerUpdate * 1000));
         }
 
         public void ClientUpdateScale() {
