@@ -275,7 +275,10 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
-                grazeMethods: ["nibblegraze"],
+                grazeMethodsByType: {
+                    "goat-muskox-*": ["graze"],
+                    "*": ["nibblegraze"],
+                }
         },
         side: "server"
     },
