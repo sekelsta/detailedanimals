@@ -499,7 +499,7 @@ namespace Genelib {
             if (accumulator > updateSeconds * TPS) {
                 accumulator = 0;
                 double currentHours = entity.World.Calendar.TotalHours;
-                float updateRateHours = 0.1f;
+                float updateRateHours = 120f / updateSeconds;
                 double lastUpdateHours = LastUpdateHours;
                 double updates = (currentHours - lastUpdateHours) / updateRateHours;
                 if (updates <= 0) {
