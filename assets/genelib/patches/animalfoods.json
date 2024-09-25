@@ -10,7 +10,7 @@
         "file": "game:blocktypes/plant/hay.json",
         "op": "add",
         "path": "/attributes/satiety",
-        "value": 200,
+        "value": 800,
         side: "server",
     },
     {
@@ -38,7 +38,7 @@
         "file": "game:blocktypes/plant/tallgrass.json",
         "op": "add",
         "path": "/attributes/satiety",
-        "value": 25,
+        "value": 100,
         side: "server",
     },
     {
@@ -192,7 +192,7 @@
         "file": "game:itemtypes/resource/drygrass.json",
         "op": "add",
         "path": "/attributes/satiety",
-        "value": 25,
+        "value": 100,
         side: "server",
     },
     {
