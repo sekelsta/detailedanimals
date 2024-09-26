@@ -78,6 +78,26 @@
     },
     {
         file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/client/sizeByType",
+        value: {
+			"*-adult": 1,
+            "goat-ibexalp-*": 2,
+            "goat-takingold-*": 2.5,
+            "goat-markhor-*": 1.9,
+            "goat-mountain-*": 2,
+            "goat-muskox-*": 2.9,
+            "goat-ibexnub-*": 1.5,
+            "goat-turdag-*": 2,
+            "goat-angora-*": 1.8,
+            "goat-nubian-*": 1.6,
+            "goat-sirohi-*": 1.8,
+            "goat-valais-*": 1.7,
+		},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
