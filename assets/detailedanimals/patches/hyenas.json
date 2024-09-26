@@ -235,4 +235,37 @@
         },
         side: "server"
     },
+
+
+
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "add",
+        path: "/attributes/creatureDiet",
+        value: {
+            foodCategories: ["Protein", "Dairy", "Fruit"],
+            foodTags: ["meat"],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "add",
+        path: "/attributes/creatureDiet",
+        value: {
+            foodCategories: ["Protein", "Dairy", "Fruit"],
+            foodTags: ["meat"],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "add",
+        path: "/attributes/creatureDiet",
+        value: {
+            foodCategories: ["Protein", "Dairy", "Fruit"],
+            foodTags: ["meat"],
+        },
+        side: "server"
+    },
 ]

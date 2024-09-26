@@ -298,9 +298,9 @@
     },
     {
         file: "game:entities/land/hooved/goat.json",
-        op: "add",
+        op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
-        value: "Fruit",
+        value: ["Fruit", "Dairy"],
         side: "server"
     },
     {

@@ -304,6 +304,30 @@
         value: { code: "genelib.genetics", genomeType: "detailedanimals:pig" },
         side: "server"
     },
+
+
+
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Dairy",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Dairy",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Dairy",
+        side: "server"
+    },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
