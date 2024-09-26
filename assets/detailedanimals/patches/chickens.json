@@ -508,7 +508,7 @@
             "_comment": "In egg-layers, gestationMonths is how long the female can lay fertile eggs after mating.",
             gestationMonths: 0.6,
             estrousCycleDays: 1,
-            breedingSeason: "continuous",
+            breedingSeason: "longday",
             breedingCooldownMonths: 1.5,
             "_comment2": "In egg layers, litter size is the number of fertile eggs that can be laid after a single mating.",
             litterAddAttempts: 15,
