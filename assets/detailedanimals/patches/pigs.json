@@ -3,28 +3,28 @@
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
         path: "/server/spawnconditions/worldgen/companions",
-        value: ["pig-wild-female", "pig-wild-female", "truthbeauty:pig-wild-female-piglet", "truthbeauty:pig-wild-male-piglet"],
+        value: ["pig-wild-female", "pig-wild-female", "detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
         path: "/server/spawnconditions/runtime/companions",
-        value: ["pig-wild-female", "pig-wild-female", "truthbeauty:pig-wild-female-piglet", "truthbeauty:pig-wild-male-piglet"],
+        value: ["pig-wild-female", "pig-wild-female", "detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
         path: "/server/behaviors/8/states/4/entityCodes",
-        value: ["pig-wild-piglet", "truthbeauty:pig-wild-female-piglet", "truthbeauty:pig-wild-male-piglet"],
+        value: ["pig-wild-piglet", "detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/server/behaviors/9/states/4/entityCodes",
-        value: ["pig-wild-piglet", "truthbeauty:pig-wild-female-piglet", "truthbeauty:pig-wild-male-piglet"],
+        value: ["pig-wild-piglet", "detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
         side: "server"
     },
 
@@ -221,26 +221,26 @@
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/client/texture",
-        value: { base: "truthbeauty:entity/pig/adult-agouti", 
-            alternates: [ { base: "truthbeauty:entity/pig/adult-black" }, 
-                { base: "truthbeauty:entity/pig/adult-red" }, 
-                { base: "truthbeauty:entity/pig/adult-agoutiblack" }, 
-                { base: "truthbeauty:entity/pig/adult-redblack" }, 
-                { base: "truthbeauty:entity/pig/adult-white" }, 
-                { base: "truthbeauty:entity/pig/adult-whiteblack" } ] },
+        value: { base: "detailedanimals:entity/pig/adult-agouti", 
+            alternates: [ { base: "detailedanimals:entity/pig/adult-black" }, 
+                { base: "detailedanimals:entity/pig/adult-red" }, 
+                { base: "detailedanimals:entity/pig/adult-agoutiblack" }, 
+                { base: "detailedanimals:entity/pig/adult-redblack" }, 
+                { base: "detailedanimals:entity/pig/adult-white" }, 
+                { base: "detailedanimals:entity/pig/adult-whiteblack" } ] },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
         path: "/client/texture",
-        value: { base: "truthbeauty:entity/pig/adult-agouti", 
-            alternates: [ { base: "truthbeauty:entity/pig/adult-black" }, 
-                { base: "truthbeauty:entity/pig/adult-red" }, 
-                { base: "truthbeauty:entity/pig/adult-agoutiblack" }, 
-                { base: "truthbeauty:entity/pig/adult-redblack" }, 
-                { base: "truthbeauty:entity/pig/adult-white" }, 
-                { base: "truthbeauty:entity/pig/adult-whiteblack" } ] },
+        value: { base: "detailedanimals:entity/pig/adult-agouti", 
+            alternates: [ { base: "detailedanimals:entity/pig/adult-black" }, 
+                { base: "detailedanimals:entity/pig/adult-red" }, 
+                { base: "detailedanimals:entity/pig/adult-agoutiblack" }, 
+                { base: "detailedanimals:entity/pig/adult-redblack" }, 
+                { base: "detailedanimals:entity/pig/adult-white" }, 
+                { base: "detailedanimals:entity/pig/adult-whiteblack" } ] },
         side: "server"
     },
     {
@@ -248,12 +248,12 @@
         op: "replace",
         path: "/client/texture",
         value: { base: "game:entity/pig/pig-wild-piglet", alternates: [ 
-                { base: "truthbeauty:entity/pig/piglet-black" }, 
-                { base: "truthbeauty:entity/pig/piglet-red" }, 
-                { base: "truthbeauty:entity/pig/piglet-agoutiblack" }, 
-                { base: "truthbeauty:entity/pig/piglet-redblack" }, 
-                { base: "truthbeauty:entity/pig/piglet-white" }, 
-                { base: "truthbeauty:entity/pig/piglet-whiteblack" } ] },
+                { base: "detailedanimals:entity/pig/piglet-black" }, 
+                { base: "detailedanimals:entity/pig/piglet-red" }, 
+                { base: "detailedanimals:entity/pig/piglet-agoutiblack" }, 
+                { base: "detailedanimals:entity/pig/piglet-redblack" }, 
+                { base: "detailedanimals:entity/pig/piglet-white" }, 
+                { base: "detailedanimals:entity/pig/piglet-whiteblack" } ] },
         side: "server"
     },
     {
@@ -270,7 +270,7 @@
         value: {
             code: "genelib.reproduce",
             sireCodes: ["pig-wild-male"],
-            offspringCodes: ["truthbeauty:pig-wild-female-piglet", "truthbeauty:pig-wild-male-piglet"],
+            offspringCodes: ["detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
             gestationMonths: 4.5,
             cooldownMonths: 4.0,
             lactationMonths: 3.5,
@@ -287,21 +287,21 @@
         file: "game:entities/land/pig-wild-female.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "truthbeauty:pig" },
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:pig" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "truthbeauty:pig" },
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:pig" },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "truthbeauty:pig" },
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:pig" },
         side: "server"
     },
     {

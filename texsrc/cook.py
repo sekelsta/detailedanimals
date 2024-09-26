@@ -41,7 +41,7 @@ def shade(shading, srcfile, outfile):
 
 
 source_dir = 'texsrc/chicken/'
-out_dir = 'assets/truthbeauty/textures/entity/chicken/'
+out_dir = 'assets/detailedanimals/textures/entity/chicken/'
 
 
 shading = Image.open(source_dir + 'shading.png').convert('L')

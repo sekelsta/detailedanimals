@@ -7,7 +7,7 @@
         },
         {
             type: "item",
-            code: "truthbeauty:egg-chicken-*-raw",
+            code: "detailedanimals:egg-chicken-*-raw",
             quantity: 1,
             name: "eggsize",
         },
@@ -19,7 +19,7 @@
         smeltingType: "bake",
         smeltedStack: {
             type: "item",
-            code: "truthbeauty:egg-chicken-{eggsize}-boiled"
+            code: "detailedanimals:egg-chicken-{eggsize}-boiled"
         },
         requiresContainer: false
     }

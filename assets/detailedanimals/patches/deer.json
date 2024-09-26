@@ -17,7 +17,7 @@
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
         path: "/client/shapeByType/*-caribou-*-baby",
-        value: { "base": "truthbeauty:entity/deer/caribou-baby" },
+        value: { "base": "detailedanimals:entity/deer/caribou-baby" },
         side: "server"
     },
 
@@ -26,7 +26,7 @@
         file: "game:entities/land/hooved/deer.json",
         op: "addmerge",
         path: "/client/textureByType/*-caribou-*-baby",
-        value: { "base": "truthbeauty:entity/pig/adult-agouti" },
+        value: { "base": "detailedanimals:entity/pig/adult-agouti" },
         side: "server"
     },
     {

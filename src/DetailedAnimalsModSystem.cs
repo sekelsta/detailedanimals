@@ -10,11 +10,11 @@ using Vintagestory.GameContent;
 
 using Genelib;
 
-namespace TruthBeauty
+namespace DetailedAnimals
 {
-    public class TBModSystem : ModSystem
+    public class DetailedAnimalsModSystem : ModSystem
     {
-        public static readonly string modid = "truthbeauty";
+        public static readonly string modid = "detailedanimals";
 
         public override void Start(ICoreAPI api)
         {

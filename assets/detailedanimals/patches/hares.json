@@ -3,7 +3,7 @@
         file: "game:entities/land/hare-male.json",
         op: "replace",
         path: "/server/spawnconditionsByType/*-arctic/worldgen/companions",
-        value: ["game:hare-female-arctic", "truthbeauty:hare-male-baby", "truthbeauty:hare-female-baby"],
+        value: ["game:hare-female-arctic", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
         side: "server"
     },
     {
@@ -17,7 +17,7 @@
         file: "game:entities/land/hare-male.json",
         op: "replace",
         path: "/server/spawnconditionsByType/*-desert/worldgen/companions",
-        value: ["game:hare-female-desert", "truthbeauty:hare-male-baby", "truthbeauty:hare-female-baby"],
+        value: ["game:hare-female-desert", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
         side: "server"
     },
     {
@@ -31,7 +31,7 @@
         file: "game:entities/land/hare-male.json",
         op: "replace",
         path: "/server/spawnconditionsByType/*/worldgen/companions",
-        value: ["game:hare-female-{type}", "truthbeauty:hare-male-baby", "truthbeauty:hare-female-baby"],
+        value: ["game:hare-female-{type}", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
         side: "server"
     },
     {
@@ -228,7 +228,7 @@
         value: {
             code: "genelib.reproduce",
             sireCodes: ["game:hare-male-*"],
-            offspringCodes: ["truthbeauty:hare-male-baby", "truthbeauty:hare-female-baby"],
+            offspringCodes: ["detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
             gestationMonths: 1.35,
             cooldownMonths: 1.0,
             lactationMonths: 1.5,

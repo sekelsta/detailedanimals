@@ -19,7 +19,7 @@
         file: "game:entities/land/gazelle.json",
         op: "replace",
         path: "/server/spawnconditions/worldgen/companions",
-        value: ["game:gazelle-female", "truthbeauty:gazelle-male-calf", "truthbeauty:gazelle-female-calf"],
+        value: ["game:gazelle-female", "detailedanimals:gazelle-male-calf", "detailedanimals:gazelle-female-calf"],
         side: "server"
     },
     {
@@ -182,7 +182,7 @@
             code: "genelib.reproduce",
             enabledByType: { "gazelle-female": true, "*": false },
             sireCodes: ["game:gazelle-male"],
-            offspringCodes: ["truthbeauty:gazelle-male-calf", "truthbeauty:gazelle-female-calf"],
+            offspringCodes: ["detailedanimals:gazelle-male-calf", "detailedanimals:gazelle-female-calf"],
             gestationMonths: 5.5,
             cooldownMonths: 9.0,
             lactationMonths: 6,

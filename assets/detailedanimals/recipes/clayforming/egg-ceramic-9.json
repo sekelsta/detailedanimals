@@ -20,5 +20,5 @@
         "##_##_##",
     ]],
     name: "Ceramicegg",
-    output: { type: "item", code: "truthbeauty:egg-ceramic-raw-{type}", stacksize: 9   }
+    output: { type: "item", code: "detailedanimals:egg-ceramic-raw-{type}", stacksize: 9   }
 }

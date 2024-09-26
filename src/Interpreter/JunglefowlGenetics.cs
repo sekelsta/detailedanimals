@@ -2,7 +2,7 @@ using Genelib;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 
-namespace TruthBeauty {
+namespace DetailedAnimals {
     public class JunglefowlGenetics : GeneInterpreter {
         void GeneInterpreter.Interpret(Genome genome, Entity entity) {
             entity.WatchedAttributes.SetInt("textureIndex", getTextureIndex(genome));

@@ -2,7 +2,7 @@ using Genelib;
 using System;
 using Vintagestory.API.Common.Entities;
 
-namespace TruthBeauty {
+namespace DetailedAnimals {
     public class PigGenetics : GeneInterpreter {
         void GeneInterpreter.Finalize(Genome genome, AlleleFrequencies frequencies, Random random) {
             genome.SetNotHomozygous("KIT", "lethalwhite", frequencies, "wildtype");

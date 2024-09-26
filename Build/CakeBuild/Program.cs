@@ -24,7 +24,7 @@ public static class Program
 
 public class BuildContext : FrostingContext
 {
-    public const string ProjectName = "TruthBeauty";
+    public const string ProjectName = "DetailedAnimals";
     public string BuildConfiguration { get; set; }
     public string Version { get; }
     public string Name { get; }

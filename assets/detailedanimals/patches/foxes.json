@@ -23,7 +23,7 @@
         file: "game:entities/land/fox.json",
         op: "replace",
         path: "/server/spawnconditionsByType/fox-male-red/worldgen/companions",
-        value: ["game:fox-female-red", "truthbeauty:fox-male-pup-red", "truthbeauty:fox-female-pup-red"],
+        value: ["game:fox-female-red", "detailedanimals:fox-male-pup-red", "detailedanimals:fox-female-pup-red"],
         side: "server"
     },
     {
@@ -37,7 +37,7 @@
         file: "game:entities/land/fox.json",
         op: "replace",
         path: "/server/spawnconditionsByType/fox-male-arctic/worldgen/companions",
-        value: ["game:fox-female-arctic", "truthbeauty:fox-male-pup-arctic", "truthbeauty:fox-female-pup-arctic"],
+        value: ["game:fox-female-arctic", "detailedanimals:fox-male-pup-arctic", "detailedanimals:fox-female-pup-arctic"],
         side: "server"
     },
     {
@@ -163,7 +163,7 @@
             code: "genelib.reproduce",
             enabledByType: { "fox-female-red": true, "fox-female-arctic": true, "*": false },
             sireCodes: ["game:raccoon-male"],
-            offspringCodes: ["truthbeauty:fox-male-pup-{type}", "truthbeauty:fox-female-pup-{type}"],
+            offspringCodes: ["detailedanimals:fox-male-pup-{type}", "detailedanimals:fox-female-pup-{type}"],
             gestationMonths: 1.7,
             cooldownMonths: 9.0,
             lactationMonths: 5,

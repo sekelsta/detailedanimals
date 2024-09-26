@@ -2,7 +2,7 @@ This repository contains two projects:
 * Truth and Beauty, an animal overhaul mod where I plan to add animal genetics and allow for more detailed care and interaction.
 * Genelib, a library other modders can use to add genetics without having to write quite so much code
 
-## Truth and Beauty
+## Truth and Beauty: Detailed Animals
 This is heavily in progress. Will update this doc once things settle down.
 
 * Young animals grow into adults gradually

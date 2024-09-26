@@ -3,7 +3,7 @@
         file: "game:entities/land/wolf-male.json",
         op: "replace",
         path: "/server/spawnconditions/runtime/companions",
-        value: [ "game:wolf-female", "truthbeauty:wolf-female-pup", "truthbeauty:wolf-male-pup"],
+        value: [ "game:wolf-female", "detailedanimals:wolf-female-pup", "detailedanimals:wolf-male-pup"],
         side: "server"
     },
     {
@@ -23,14 +23,14 @@
         file: "game:entities/land/wolf-female.json",
         op: "add",
         path: "/server/behaviors/8/spawnEntityCodes",
-        value: [ "truthbeauty:wolf-female-pup", "truthbeauty:wolf-male-pup"],
+        value: [ "detailedanimals:wolf-female-pup", "detailedanimals:wolf-male-pup"],
         side: "server"
     },
     {
         file: "game:entities/land/wolf-female.json",
         op: "replace",
         path: "/server/behaviors/8/growthCapEntityCodes",
-        value: [ "game:wolf-male", "game:wolf-female", "game:wolf-pup", "truthbeauty:wolf-female-pup", "truthbeauty:wolf-male-pup"],
+        value: [ "game:wolf-male", "game:wolf-female", "game:wolf-pup", "detailedanimals:wolf-female-pup", "detailedanimals:wolf-male-pup"],
         side: "server"
     },
 
@@ -238,7 +238,7 @@
         value: {
             code: "genelib.reproduce",
             sireCodes: ["game:wolf-male"],
-            offspringCodes: ["truthbeauty:wolf-male-pup", "truthbeauty:wolf-female-pup"],
+            offspringCodes: ["detailedanimals:wolf-male-pup", "detailedanimals:wolf-female-pup"],
             gestationMonths: 2.05,
             cooldownMonths: 4.0,
             lactationMonths: 3.0,

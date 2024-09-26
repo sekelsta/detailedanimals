@@ -1,0 +1,12 @@
+[
+	{
+		ingredientPattern: "C,E",
+		ingredients: {
+			"C": { type: "item", code: "game:chisel-*", isTool: true  },
+			"E": { type: "item", code: "detailedanimals:egg-chicken-*-raw", name: "eggsize" }
+		},
+		width: 1,
+		height: 2,
+		output: { type: "item", code: "detailedanimals:egg-chicken-{eggsize}-blown", quantity: 1  }
+	},
+]

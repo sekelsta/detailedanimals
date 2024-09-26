@@ -7,7 +7,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.Common;
 
-namespace TruthBeauty
+namespace DetailedAnimals
 {
     public class EntityVariantsModSystem : ModSystem
     {
@@ -151,7 +151,7 @@ namespace TruthBeauty
                 return;
             }
 
-            AssetLocation newAssetLocation = new AssetLocation(TBModSystem.modid, new AssetLocation(path).Path);
+            AssetLocation newAssetLocation = new AssetLocation(DetailedAnimalsModSystem.modid, new AssetLocation(path).Path);
             IAsset newAsset = new Asset(newAssetLocation);
             newAsset.Data = Encoding.UTF8.GetBytes(token.ToString());
             api.Assets.Add(newAssetLocation, newAsset);

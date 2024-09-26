@@ -8,7 +8,7 @@
 	"textureSizes": {
 	},
 	"textures": {
-        "base": "truthbeauty:item/egg/white"
+        "base": "detailedanimals:item/egg/white"
 	},
 	"elements": [
 		{

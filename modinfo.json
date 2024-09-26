@@ -1,7 +1,7 @@
 {
   "type": "code",
-  "modid": "truthbeauty",
-  "name": "Truth and Beauty",
+  "modid": "detailedanimals",
+  "name": "Truth and Beauty: Detailed Animals",
   "description" : "WIP, goal is animal genetics, husbandry, and taming. Maybe plants too.",
   "authors": ["sekelsta"],
   "version": "0.0.0",

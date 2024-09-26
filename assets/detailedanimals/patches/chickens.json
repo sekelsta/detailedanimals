@@ -3,7 +3,7 @@
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/server/spawnconditionsByType/*/worldgen/companions",
-        value: ["chicken-hen", "chicken-hen", "truthbeauty:chicken-female-chick", "truthbeauty:chicken-male-chick"],
+        value: ["chicken-hen", "chicken-hen", "detailedanimals:chicken-female-chick", "detailedanimals:chicken-male-chick"],
         side: "server"
     },
     {
@@ -24,49 +24,49 @@
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/server/spawnconditionsByType/*/runtime/companions",
-        value: ["chicken-hen", "chicken-hen", "truthbeauty:chicken-female-chick", "truthbeauty:chicken-male-chick"],
+        value: ["chicken-hen", "chicken-hen", "detailedanimals:chicken-female-chick", "detailedanimals:chicken-male-chick"],
         side: "server"
     },
     {
         file: "game:entities/land/fox.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/4/entityCodes/-",
-        value: "truthbeauty:chicken-*-chick",
+        value: "detailedanimals:chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/fox.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/5/entityCodes/-",
-        value: "truthbeauty:chicken-*-chick",
+        value: "detailedanimals:chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-female.json",
         op: "add",
         path: "/server/behaviors/10/aitasks/0/entityCodes/-",
-        value: "truthbeauty:chicken-*-chick",
+        value: "detailedanimals:chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-female.json",
         op: "add",
         path: "/server/behaviors/10/aitasks/3/entityCodes/-",
-        value: "truthbeauty:chicken-*-chick",
+        value: "detailedanimals:chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-male.json",
         op: "add",
         path: "/server/behaviors/9/aitasks/0/entityCodes/-",
-        value: "truthbeauty:chicken-*-chick",
+        value: "detailedanimals:chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-male.json",
         op: "add",
         path: "/server/behaviors/9/aitasks/3/entityCodes/-",
-        value: "truthbeauty:chicken-*-chick",
+        value: "detailedanimals:chicken-*-chick",
         side: "server"
     },
 
@@ -481,11 +481,11 @@
         op: "add",
         path: "/attributes/eggCodes",
         value: [
-                "truthbeauty:egg-chicken-peewee-raw",
-                "truthbeauty:egg-chicken-small-raw",
-                "truthbeauty:egg-chicken-medium-raw",
-                "truthbeauty:egg-chicken-large-raw",
-                "truthbeauty:egg-chicken-jumbo-raw",
+                "detailedanimals:egg-chicken-peewee-raw",
+                "detailedanimals:egg-chicken-small-raw",
+                "detailedanimals:egg-chicken-medium-raw",
+                "detailedanimals:egg-chicken-large-raw",
+                "detailedanimals:egg-chicken-jumbo-raw",
             ],
         side: "server"
     },
@@ -504,7 +504,7 @@
             code: "genelib.reproduce",
             enabledByType: { "*-henpoult": false, "*": true },
             sireCodes: [ "game:chicken-rooster" ],
-            offspringCodes: [ "truthbeauty:chicken-male-chick", "truthbeauty:chicken-female-chick" ],
+            offspringCodes: [ "detailedanimals:chicken-male-chick", "detailedanimals:chicken-female-chick" ],
             "_comment": "In egg-layers, gestationMonths is how long the female can lay fertile eggs after mating.",
             gestationMonths: 0.6,
             estrousCycleDays: 1,
@@ -540,21 +540,21 @@
         file: "game:entities/land/chicken-hen.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "truthbeauty:junglefowl" },
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
         side: "server"
     },
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "truthbeauty:junglefowl" },
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
         side: "server"
     },
     {
         file: "game:entities/land/chicken-baby.json",
         op: "add",
         path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "truthbeauty:junglefowl" },
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
         side: "server"
     },
 
@@ -563,18 +563,18 @@
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/client/shape",
-        value: { base: "truthbeauty:entity/chicken/chick" },
+        value: { base: "detailedanimals:entity/chicken/chick" },
         side: "server"
     },
     {
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/client/texture",
-        value: { base: "truthbeauty:entity/chicken/chick_yellow_mid", 
-            alternates: [{ base: "truthbeauty:entity/chicken/chick_yellow_light"}, 
-            { base: "truthbeauty:entity/chicken/chick_yellow_middeep"}, 
-            { base: "truthbeauty:entity/chicken/chick_yellow_deep"},
-            { base: "truthbeauty:entity/chicken/chick_black"},
+        value: { base: "detailedanimals:entity/chicken/chick_yellow_mid", 
+            alternates: [{ base: "detailedanimals:entity/chicken/chick_yellow_light"}, 
+            { base: "detailedanimals:entity/chicken/chick_yellow_middeep"}, 
+            { base: "detailedanimals:entity/chicken/chick_yellow_deep"},
+            { base: "detailedanimals:entity/chicken/chick_black"},
             ] 
         },
         side: "server"
@@ -583,7 +583,7 @@
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/client/shape",
-        value: { base: "truthbeauty:entity/chicken/hen" },
+        value: { base: "detailedanimals:entity/chicken/hen" },
         side: "server"
     },
     {
@@ -591,10 +591,10 @@
         op: "replace",
         path: "/client/texture",
         value: { base: "game:entity/chicken/rooster1", 
-            alternates: [{ base: "truthbeauty:entity/chicken/adult-white"}, 
-            { base: "truthbeauty:entity/chicken/adult-black"}, 
-            { base: "truthbeauty:entity/chicken/hen-blue"},
-            { base: "truthbeauty:entity/chicken/hen-splash"},
+            alternates: [{ base: "detailedanimals:entity/chicken/adult-white"}, 
+            { base: "detailedanimals:entity/chicken/adult-black"}, 
+            { base: "detailedanimals:entity/chicken/hen-blue"},
+            { base: "detailedanimals:entity/chicken/hen-splash"},
             ] 
         },
         side: "server"
@@ -603,23 +603,23 @@
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/client/shape",
-        value: { base: "truthbeauty:entity/chicken/rooster" },
+        value: { base: "detailedanimals:entity/chicken/rooster" },
         side: "server"
     },
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
         path: "/client/texture",
-        value: { base: "truthbeauty:entity/chicken/rooster-duckwing", 
-            alternates: [{ base: "truthbeauty:entity/chicken/adult-white"}, 
-            { base: "truthbeauty:entity/chicken/adult-black"}, 
-            { base: "truthbeauty:entity/chicken/rooster-blue"},
-            { base: "truthbeauty:entity/chicken/rooster-splash"},
-            { base: "truthbeauty:entity/chicken/rooster-birchen"},
-            { base: "truthbeauty:entity/chicken/rooster-birchen-blue"},
-            { base: "truthbeauty:entity/chicken/rooster-birchen-splash"},
-            { base: "truthbeauty:entity/chicken/rooster-duckwing-blue"},
-            { base: "truthbeauty:entity/chicken/rooster-duckwing-splash"},
+        value: { base: "detailedanimals:entity/chicken/rooster-duckwing", 
+            alternates: [{ base: "detailedanimals:entity/chicken/adult-white"}, 
+            { base: "detailedanimals:entity/chicken/adult-black"}, 
+            { base: "detailedanimals:entity/chicken/rooster-blue"},
+            { base: "detailedanimals:entity/chicken/rooster-splash"},
+            { base: "detailedanimals:entity/chicken/rooster-birchen"},
+            { base: "detailedanimals:entity/chicken/rooster-birchen-blue"},
+            { base: "detailedanimals:entity/chicken/rooster-birchen-splash"},
+            { base: "detailedanimals:entity/chicken/rooster-duckwing-blue"},
+            { base: "detailedanimals:entity/chicken/rooster-duckwing-splash"},
             ] 
         },
         side: "server"

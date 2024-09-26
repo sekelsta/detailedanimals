@@ -1,13 +1,13 @@
 [
     {
-        file: "game:entities/land/raccoon-male.json",
+        file: "game:entities/land/hyena-male.json",
         op: "replace",
         path: "/server/spawnconditions/worldgen/companions",
-        value: ["game:raccoon-female", "truthbeauty:raccoon-male-pup", "truthbeauty:raccoon-female-pup"],
+        value: ["game:hyena-female", "detailedanimals:hyena-male-pup", "detailedanimals:hyena-female-pup"],
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-male.json",
+        file: "game:entities/land/hyena-male.json",
         op: "copy",
         path: "/server/spawnconditions/runtime/companions",
         frompath: "/server/spawnconditions/worldgen/companions",
@@ -16,188 +16,192 @@
 
 
     {
-        file: "game:entities/land/raccoon-female.json",
+        file: "game:entities/land/hyena-female.json",
         op: "addmerge",
         path: "/attributes",
-        value: { adultWeightKg: 8.5, weightDimorphism: 0.05 },
+        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
+        op: "add",
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-male.json",
+        file: "game:entities/land/hyena-male.json",
         op: "addmerge",
         path: "/attributes",
-        value: { adultWeightKg: 8.5, weightDimorphism: 0.05 },
+        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
+        op: "add",
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-pup.json",
+        file: "game:entities/land/hyena-pup.json",
         op: "addmerge",
         path: "/attributes",
-        value: { adultWeightKg: 8.5, weightDimorphism: 0.05 },
+        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
+        op: "add",
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-female.json",
+        file: "game:entities/land/hyena-female.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
             code: "genelib.age",
-            monthsToGrow: 6.0,
+            monthsToGrow: 12.0,
             initialWeight: 0.7,
+            finalWeight: 1.0,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-male.json",
+        file: "game:entities/land/hyena-male.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
             code: "genelib.age",
-            monthsToGrow: 6.0,
+            monthsToGrow: 12.0,
             initialWeight: 0.7,
+            finalWeight: 1.0,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-pup.json",
+        file: "game:entities/land/hyena-pup.json",
         op: "replace",
         path: "/server/behaviors/8",
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
-                "*-female-*": [ "game:raccoon-female" ],
-                "*-male-*": [ "game:raccoon-male" ],
-                "*": [ "game:raccoon-male", "game:raccoon-female" ]
+                "*-female-*": [ "game:hyena-female" ],
+                "*-male-*": [ "game:hyena-male" ],
+                "*": [ "game:hyena-male", "game:hyena-female" ]
             },
             monthsToGrow: 6.0,
-            initialWeight: 0.08,
+            initialWeight: 0.025,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-female.json",
+        file: "game:entities/land/hyena-female.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-male.json",
+        file: "game:entities/land/hyena-male.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-pup.json",
+        file: "game:entities/land/hyena-pup.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-pup.json",
+        file: "game:entities/land/hyena-pup.json",
         op: "replace",
         path: "/client/size",
-        value: 1.5,
+        value: 2.5,
         side: "server"
     },
 
-
     {
-        file: "game:entities/land/raccoon-pup.json",
+        file: "game:entities/land/hyena-pup.json",
         op: "replace",
         path: "/client/behaviors/4",
         value: { code: "genelib.harvestable" },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-female.json",
+        file: "game:entities/land/hyena-female.json",
         op: "replace",
         path: "/client/behaviors/4",
         value: { code: "genelib.harvestable" },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-male.json",
+        file: "game:entities/land/hyena-male.json",
         op: "replace",
         path: "/client/behaviors/4",
         value: { code: "genelib.harvestable" },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-pup.json",
+        file: "game:entities/land/hyena-pup.json",
         op: "replace",
         path: "/server/behaviors/6",
         value: {
             code: "genelib.harvestable",
-            drops: [
-                {
-                    type: "item", 
-                    code: "bushmeat-raw", 
-                    quantity: { avg: 2.1, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "hide-raw-small", 
-                    quantity: { avg: 1, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "fat", 
-                    quantity: { avg: 0.5, var: 0 } 
-                }
-            ]
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-female.json",
-        op: "replace",
-        path: "/server/behaviors/6",
-        value: {
-            code: "genelib.harvestable",
-            drops: [
+            drops: [                
                 {
                     type: "item", 
                     code: "game:bushmeat-raw", 
-                    quantity: { avg: 2.1, var: 0 } 
+                    quantity: { avg: 15, var: 1.5 } 
                 },
                 {
                     type: "item", 
                     code: "game:hide-raw-small", 
-                    quantity: { avg: 1, var: 0 } 
+                    quantity: { avg: 3.8, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:fat", 
-                    quantity: { avg: 0.5, var: 0 } 
+                    quantity: { avg: 3.75, var: 0 } 
                 }
             ]
         },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-male.json",
+        file: "game:entities/land/hyena-female.json",
         op: "replace",
         path: "/server/behaviors/6",
         value: {
             code: "genelib.harvestable",
-            drops: [
+            drops: [                
                 {
                     type: "item", 
                     code: "game:bushmeat-raw", 
-                    quantity: { avg: 2.1, var: 0 } 
+                    quantity: { avg: 15, var: 1.5 } 
                 },
                 {
                     type: "item", 
-                    code: "game:hide-raw-small", 
-                    quantity: { avg: 1, var: 0 } 
+                    code: "game:hide-raw-medium", 
+                    quantity: { avg: 1.3, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:fat", 
-                    quantity: { avg: 0.5, var: 0 } 
+                    quantity: { avg: 3.75, var: 0 } 
+                }
+            ]
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+            code: "genelib.harvestable",
+            drops: [                
+                {
+                    type: "item", 
+                    code: "game:bushmeat-raw", 
+                    quantity: { avg: 15, var: 1.5 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-medium", 
+                    quantity: { avg: 1.3, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:fat", 
+                    quantity: { avg: 3.75, var: 0 } 
                 }
             ]
         },
@@ -205,30 +209,29 @@
     },
 
 
-
     {
-        file: "game:entities/land/raccoon-female.json",
+        file: "game:entities/land/hyena-female.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
-        file: "game:entities/land/raccoon-female.json",
-        op: "add",
-        path: "/server/behaviors/-",
+        file: "game:entities/land/hyena-female.json",
+        op: "replace",
+        path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
-            sireCodes: ["game:raccoon-male"],
-            offspringCodes: ["truthbeauty:raccoon-male-pup", "truthbeauty:raccoon-female-pup"],
-            gestationMonths: 2.2,
+            sireCodes: ["game:hyena-male"],
+            offspringCodes: ["detailedanimals:hyena-male-pup", "detailedanimals:hyena-female-pup"],
+            gestationMonths: 2.05,
             cooldownMonths: 9.0,
-            lactationMonths: 3.2,
-            estrousCycleMonths: 0.9,
+            lactationMonths: 18.0,
+            estrousCycleMonths: 3.0,
             daysInHeat: 3.0,
-            breedingSeason: "longday",
-            litterAddChance: 0.4,
-            litterAddAttempts: 6,
+            breedingSeason: "continuous",
+            litterAddChance: 0.21,
+            litterAddAttempts: 3,
         },
         side: "server"
     },
