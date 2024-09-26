@@ -590,11 +590,16 @@
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/client/texture",
-        value: { base: "game:entity/chicken/rooster1", 
+        value: { base: "detailedanimals:entity/chicken/hen-duckwing", 
             alternates: [{ base: "detailedanimals:entity/chicken/adult-white"}, 
             { base: "detailedanimals:entity/chicken/adult-black"}, 
             { base: "detailedanimals:entity/chicken/hen-blue"},
             { base: "detailedanimals:entity/chicken/hen-splash"},
+            { base: "detailedanimals:entity/chicken/rooster-birchen"},
+            { base: "detailedanimals:entity/chicken/rooster-birchen-blue"},
+            { base: "detailedanimals:entity/chicken/rooster-birchen-splash"},
+            { base: "detailedanimals:entity/chicken/hen-duckwing-blue"},
+            { base: "detailedanimals:entity/chicken/hen-duckwing-splash"},
             ] 
         },
         side: "server"
