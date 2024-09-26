@@ -417,6 +417,9 @@
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
                 grazeMethods: ["nibblegraze"],
+                eatRateByType: {
+                    "deer-pudu-*": 0.16,
+                },
 			},
         side: "server"
     },

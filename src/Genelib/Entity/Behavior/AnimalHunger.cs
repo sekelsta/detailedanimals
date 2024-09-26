@@ -523,7 +523,8 @@ namespace Genelib {
                     distance = 0;
                 }
                 prevPos = currentPos;
-                float work = 1 + (float)distance / updateSeconds / 10;
+                float work = 1 + (float)distance / updateSeconds / 40;
+                work = Math.Min(4, work);
                 float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul / 30;
                 float hungerrate = entity.Stats.GetBlended("hungerrate");
                 float saturationConsumed = baseHungerRate * work * hungerrate * timespeed;

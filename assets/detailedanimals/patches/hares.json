@@ -324,6 +324,7 @@
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
                 grazeMethods: ["nibblegraze"],
+                eatRate: 0.08,
 			},
         side: "server"
     },
@@ -346,6 +347,7 @@
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
                 grazeMethods: ["nibblegraze"],
+                eatRate: 0.08,
 			},
         side: "server"
     },
@@ -368,6 +370,7 @@
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
                 grazeMethods: ["nibblegraze"],
+                eatRate: 0.08,
 			},
         side: "server"
     },

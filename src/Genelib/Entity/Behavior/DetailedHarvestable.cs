@@ -43,7 +43,7 @@ namespace Genelib {
 
         public override void AfterInitialized(bool onFirstSpawn) {
             if (onFirstSpawn) {
-                AnimalWeight = 0.88f
+                AnimalWeight = 0.9f
                     + 0.07f * (float)entity.World.Rand.NextDouble()
                     + 0.08f * (float)entity.World.Rand.NextDouble();
                 LastWeightUpdateTotalHours = entity.World.Calendar.TotalHours;
