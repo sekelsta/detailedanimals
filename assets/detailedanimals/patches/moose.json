@@ -2,6 +2,21 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
+        path: "/server/behaviors/4/decayedBlockByType/*-adult",
+        value: "carcass-large",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/4/decayedBlockByType/*",
+        value: "carcass-medium",
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
         path: "/server/behaviors/12/beginGrowMonth",
         value: 4.5,
         side: "server"
