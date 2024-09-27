@@ -102,11 +102,9 @@ namespace Genelib {
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             // Deliberately skip calling base.Initialize()
             multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
-            if (!entity.World.Side.IsServer()) {
-                return;
-            }
 
-            string[] eggStrings = entity.Attributes?.GetStringArray("eggCodes");
+            string[] eggStrings = entity.WatchedAttributes?.GetStringArray("eggCodes")
+                ?? entity.Properties.Attributes?["eggCodes"].AsArray<String>();
             if (eggStrings != null) {
                 EggTypes = new CollectibleObject[eggStrings.Length];
                 for (int i = 0; i < eggStrings.Length; ++i) {
@@ -124,6 +122,10 @@ namespace Genelib {
                     (x.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
                     .CompareTo(y.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
                 );
+            }
+
+            if (!entity.World.Side.IsServer()) {
+                return;
             }
 
             SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
@@ -493,7 +495,6 @@ namespace Genelib {
                 return;
             }
             if (IsPregnant) {
-                // TODO: EggTypes is still null on client while non-null on server, making this show the wrong thing
                 if (LaysEggs) {
                     infotext.AppendLine(Lang.Get("game:Ready to lay"));
                     return;
