@@ -267,21 +267,21 @@
         file: "game:entities/land/hare-female.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay"],
+        value: ["vegetable", "foliage", "hay", "fruitmash"],
         side: "server"
     },
     {
         file: "game:entities/land/hare-male.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay"],
+        value: ["vegetable", "foliage", "hay", "fruitmash"],
         side: "server"
     },
     {
         file: "game:entities/land/hare-baby.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay"],
+        value: ["vegetable", "foliage", "hay", "fruitmash"],
         side: "server"
     },
     {

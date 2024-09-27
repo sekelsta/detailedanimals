@@ -280,6 +280,41 @@
         side: "server"
     },
     {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: [ "Fruit", "Vegetable", "Protein", "Dairy" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: [ "Fruit", "Vegetable", "Protein", "Dairy" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: [ "grass", "vegetable", "foliage", "meat" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: [ "grass", "vegetable", "foliage", "meat" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: [ "grass", "vegetable", "foliage", "meat" ],
+        side: "server"
+    },
+    {
         file: "game:entities/land/chicken-hen.json",
         op: "add",
         path: "/server/behaviors/-",

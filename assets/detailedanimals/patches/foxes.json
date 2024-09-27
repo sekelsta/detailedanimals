@@ -162,7 +162,7 @@
         value: {
             code: "genelib.reproduce",
             enabledByType: { "fox-female-red": true, "fox-female-arctic": true, "*": false },
-            sireCodes: ["game:raccoon-male"],
+            sireCodes: ["game:fox-male-{type}"],
             offspringCodes: ["detailedanimals:fox-male-pup-{type}", "detailedanimals:fox-female-pup-{type}"],
             gestationMonths: 1.7,
             cooldownMonths: 9.0,
@@ -184,7 +184,7 @@
         path: "/attributes/creatureDiet",
         value: {
             foodCategories: ["Protein", "Dairy", "Fruit", "Grain", "Vegetable"],
-            foodTags: ["meat", "vegetable"],
+            foodTags: ["meat", "vegetable", "egg"],
         },
         side: "server"
     },

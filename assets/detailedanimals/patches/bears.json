@@ -119,7 +119,10 @@
         path: "/attributes/creatureDiet",
         value: {
             foodCategories: ["Protein", "Dairy", "Fruit", "Grain", "Vegetable"],
-            foodTags: ["meat", "vegetable", "lootableSweet", "sweetBerryBush"],
+            foodTagsByType: {
+                "*-panda": ["meat", "egg", "vegetable", "lootableSweet", "sweetBerryBush", "foliage", "grass"],
+                "*": ["meat", "egg", "vegetable", "lootableSweet", "sweetBerryBush"],
+            },
         },
         side: "server"
     },

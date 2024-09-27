@@ -240,6 +240,69 @@
     {
         file: "game:entities/land/sheep-bighorn-female.json",
         op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "add",
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
