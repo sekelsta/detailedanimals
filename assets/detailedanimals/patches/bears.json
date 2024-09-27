@@ -140,7 +140,7 @@
                 proteinByType: { "*-polar": 0.6, "*-panda": 0.13, "*": 0.3 },
                 water: 1.0,
                 minerals: 0.02,
-                maxMinerals: 0.1,
+                mineralsMax: 0.1,
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "toughplant" ],
                 fiberDigestion: 0.1,
