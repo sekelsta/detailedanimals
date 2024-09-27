@@ -176,9 +176,9 @@ namespace Genelib {
                 newHeight = Math.Min(prevHeight, Math.Max(1, newHeight));
             }
             string newName = tallgrassArray[newHeight];
-            Block newBlock = entity.World.GetBlock(above.CodeWithParts(newName));
+            Block newBlock = entity.World.GetBlock(above.CodeWithVariant("tallgrass", newName));
             if (newBlock == null) {
-                entity.Api.Logger.Error("GrassFoodSource unable to get shorter version of tallgrass " + above.Code);
+                entity.Api.Logger.Error("GrassFoodSource unable to get shorter version of tallgrass " + above.Code + ", would have been " + above.CodeWithVariant("tallgrass", newName));
                 return 0;
             }
             entity.World.BlockAccessor.SetBlock(newBlock.Id, tallgrassPos);
