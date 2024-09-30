@@ -2,6 +2,52 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
+        path: "/hitBoxSizeByType/deer-caribou-*-baby",
+        value: { "x": 0.7,"y": 0.7},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/deadhitBoxSizeByType/deer-caribou-*-baby",
+        value: { "x": 0.7,"y": 0.4},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/client/shapeByType/*-caribou-*-baby",
+        value: { "base": "detailedanimals:entity/deer/caribou-baby" },
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "addmerge",
+        path: "/client/textureByType/*-caribou-*-baby",
+        value: { "base": "detailedanimals:entity/pig/adult-agouti" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "move",
+        frompath: "/client/textureByType/*",
+        path: "/client/textureByType/temporary",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "move",
+        frompath: "/client/textureByType/temporary",
+        path: "/client/textureByType/*",
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
         path: "/server/behaviors/12/enabledByType",
         value: {
             "*-male-adult": true,

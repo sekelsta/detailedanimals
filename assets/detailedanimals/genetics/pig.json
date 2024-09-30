@@ -1,0 +1,48 @@
+{
+    genes: {
+        autosomal: [
+            { extension: ["wildtype", "red", "spot", "black", "iberian"] },
+            { KIT: ["wildtype", "patch", "lesswhite", "white", "morewhite", "lethalwhite", "belt", "morebelt", "roan"] },
+        ],
+    },
+    interpreters: [ "Polygenes", "Pig", ],
+    initializers: {
+        deepforest: {
+            autosomal: {
+                KIT: { default: "wildtype" },
+                extension: { default: "wildtype", black: 0.1, spot: 0.2 },
+            },
+            conditions: {
+                minForest: 0.6
+            }
+        },
+        verycold: {
+            autosomal: {
+                KIT: { default: "wildtype", white: 0.05, lesswhite: 0.03, morewhite: 0.02, lethalwhite: 0.005 },
+                extension: { default: "wildtype" },
+            },
+            conditions: {
+                maxTemp: 10
+            }
+        },
+        temperate: {
+            autosomal: {
+                KIT: { default: "wildtype", patch: 0.1, belt: 0.1 },
+                extension: { default: "wildtype", red: 0.2 },
+            },
+            conditions: {
+                minTemp: 9,
+                maxTemp: 19
+            }
+        },
+        tropical: {
+            autosomal: {
+                KIT: { default: "wildtype" },
+                extension: { default: "wildtype", iberian: 0.05 },
+            },
+            conditions: {
+                minTemp: 17
+            }
+        },
+    }
+}
