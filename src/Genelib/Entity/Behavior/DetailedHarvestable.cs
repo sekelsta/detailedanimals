@@ -17,7 +17,7 @@ namespace Genelib {
         public const string Code = GeneticsModSystem.NamePrefix + "harvestable";
 
         // Maximum values of each condition
-        public const double SKIN_AND_BONES = 1 - 0.35;
+        public const double SKIN_AND_BONES = 1 - 0.3;
         public const double MALNOURISHED = 1 - 0.18;
         public const double UNDERWEIGHT = 1 - 0.08;
         public const double LEAN = 1 - 0.036;
