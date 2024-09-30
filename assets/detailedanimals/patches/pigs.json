@@ -220,45 +220,6 @@
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
-        path: "/client/texture",
-        value: { base: "detailedanimals:entity/pig/adult-agouti", 
-            alternates: [ { base: "detailedanimals:entity/pig/adult-black" }, 
-                { base: "detailedanimals:entity/pig/adult-red" }, 
-                { base: "detailedanimals:entity/pig/adult-agoutiblack" }, 
-                { base: "detailedanimals:entity/pig/adult-redblack" }, 
-                { base: "detailedanimals:entity/pig/adult-white" }, 
-                { base: "detailedanimals:entity/pig/adult-whiteblack" } ] },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/client/texture",
-        value: { base: "detailedanimals:entity/pig/adult-agouti", 
-            alternates: [ { base: "detailedanimals:entity/pig/adult-black" }, 
-                { base: "detailedanimals:entity/pig/adult-red" }, 
-                { base: "detailedanimals:entity/pig/adult-agoutiblack" }, 
-                { base: "detailedanimals:entity/pig/adult-redblack" }, 
-                { base: "detailedanimals:entity/pig/adult-white" }, 
-                { base: "detailedanimals:entity/pig/adult-whiteblack" } ] },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "replace",
-        path: "/client/texture",
-        value: { base: "game:entity/pig/pig-wild-piglet", alternates: [ 
-                { base: "detailedanimals:entity/pig/piglet-black" }, 
-                { base: "detailedanimals:entity/pig/piglet-red" }, 
-                { base: "detailedanimals:entity/pig/piglet-agoutiblack" }, 
-                { base: "detailedanimals:entity/pig/piglet-redblack" }, 
-                { base: "detailedanimals:entity/pig/piglet-white" }, 
-                { base: "detailedanimals:entity/pig/piglet-whiteblack" } ] },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
         path: "/client/behaviors/4",
         value: { code: "genelib.reproduce" },
         side: "server"
@@ -281,27 +242,6 @@
             "_comment": "TODO: Specifically between November and January",
             breedingSeason: "shortday",
         },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "detailedanimals:pig" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "detailedanimals:pig" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "detailedanimals:pig" },
         side: "server"
     },
 
