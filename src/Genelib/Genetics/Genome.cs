@@ -170,14 +170,16 @@ namespace Genelib {
         }
 
         protected virtual byte[] inherit_autosomal(byte[] maternal, byte[] paternal, Random random) {
-            if (maternal == null || paternal == null) {
+            if (maternal == null && paternal == null) {
                 return null;
             }
-            if (maternal.Length != paternal.Length) {
-                throw new ArgumentException("Parent gene arrays must match in length");
+            if (maternal == null || paternal == null) {
+                throw new ArgumentException("Parent autosomal gene arrays should either both be null or both be non-null");
             }
-            byte[] result = new byte[maternal.Length];
-            for (int i = 0; i < maternal.Length / 2; ++i) {
+            // If lengths do not match, assume the world used to use a newer version of the mod but now uses an older version
+            int length = Math.Min(maternal.Length, paternal.Length);
+            byte[] result = new byte[length];
+            for (int i = 0; i < length / 2; ++i) {
                 result[2 * i] = random.NextBool() ? maternal[2 * i] : maternal[2 * i + 1];
                 result[2 * i + 1] = random.NextBool() ? paternal[2 * i] : paternal[2 * i + 1];
             }
@@ -185,14 +187,15 @@ namespace Genelib {
         }
 
         protected virtual byte[] inherit_xz(byte[] maternal, byte[] paternal, Random random) {
-            if (maternal == null || paternal == null) {
+            if (maternal == null && paternal == null) {
                 return null;
             }
-            if (maternal.Length != paternal.Length) {
-                throw new ArgumentException("Parent gene arrays must match in length");
+            if (maternal == null || paternal == null) {
+                throw new ArgumentException("Parent autosomal gene arrays should either both be null or both be non-null");
             }
-            byte[] result = new byte[maternal.Length];
-            for (int i = 0; i < maternal.Length; ++i) {
+            int length = Math.Min(maternal.Length, paternal.Length);
+            byte[] result = new byte[length];
+            for (int i = 0; i < length; ++i) {
                 result[i] = random.NextBool() ? maternal[i] : paternal[i];
             }
             return result;
