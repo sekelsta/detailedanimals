@@ -401,6 +401,9 @@ namespace Genelib {
             // Game code does it like this, assuming because we can't trust that fedBy.Player will be synchronized
             IPlayer player = fedBy?.World.PlayerByUid((fedBy as EntityPlayer)?.PlayerUID);
             entity.PlayEntitySound("eat", player);
+            if (player != null) {
+                entity.WatchedAttributes.SetBool("fedByPlayer", true);
+            }
 
             EntityAgent agent = entity as EntityAgent;
             ItemStack itemstack = slot.Itemstack;

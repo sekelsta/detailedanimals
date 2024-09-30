@@ -55,6 +55,7 @@ namespace Genelib {
             for (int i = 0; i < config.QuantityPerFillLevel && !__instance.Inventory.Empty; ++i) {
                 hunger.Eat(__instance.Inventory[0]);
             }
+            entity.WatchedAttributes.SetBool("fedByPlayer", true);
             if (__instance.Inventory[0].Empty) {
                 contentCodeField.SetValue(__instance, "");
             }

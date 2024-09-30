@@ -72,7 +72,13 @@ namespace Genelib {
             }
         }
 
-        public int NextGeneration => entity.WatchedAttributes.GetInt("generation", 0) + 1;
+        public int NextGeneration() {
+            int generation = entity.WatchedAttributes.GetInt("generation", 0);
+            if (entity.WatchedAttributes.GetBool("fedByPlayer", false)) {
+                return generation + 1;
+            }
+            return generation;
+        }
 
         public Reproduce(Entity entity) : base(entity) { }
 
@@ -368,7 +374,7 @@ namespace Genelib {
         }
 
         protected void GiveBirth() {
-            int nextGeneration = NextGeneration;
+            int nextGeneration = NextGeneration();
             TotalDaysLastBirth = TotalDays;
             SynchedTotalDaysCooldownUntil = TotalDays + CooldownDays;
             TreeAttribute[] litterData = Litter?.value;
@@ -447,7 +453,7 @@ namespace Genelib {
                     return eggStack;
                 }
             }
-            chick.SetInt("generation", NextGeneration);
+            chick.SetInt("generation", NextGeneration());
             eggStack.Attributes["chick"] = chick;
 
             return eggStack;
