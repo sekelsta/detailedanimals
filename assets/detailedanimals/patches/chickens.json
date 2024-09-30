@@ -605,11 +605,11 @@
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/client/texture",
-        value: { base: "detailedanimals:entity/chicken/chick_yellow_mid", 
-            alternates: [{ base: "detailedanimals:entity/chicken/chick_yellow_light"}, 
-            { base: "detailedanimals:entity/chicken/chick_yellow_middeep"}, 
-            { base: "detailedanimals:entity/chicken/chick_yellow_deep"},
-            { base: "detailedanimals:entity/chicken/chick_black"},
+        value: { base: "detailedanimals:entity/chicken/chick-yellow", 
+            alternates: [{ base: "detailedanimals:entity/chick-yellow"}, 
+            { base: "detailedanimals:entity/chicken/chick-black"}, 
+            { base: "detailedanimals:entity/chicken/chick-blue"},
+            { base: "detailedanimals:entity/chicken/chick-splash"},
             ] 
         },
         side: "server"
