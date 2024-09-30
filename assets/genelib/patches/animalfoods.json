@@ -62,17 +62,6 @@
         "side": "Server"
     },
     {
-        "file": "game:itemtypes/food/fruit.json",
-        "op": "add",
-        "path": "/attributes/foodTagsByType",
-        "value": {
-            "*-cranberry": [ "{fruit}", "sour" ],
-            "*currant": [ "{fruit}", "sour" ],
-            "*": [ "{fruit}" ]
-        },
-        "side": "Server"
-    },
-    {
         "file": "game:itemtypes/food/grain.json",
         "op": "addmerge",
         "path": "/attributes/satiety",
@@ -126,17 +115,6 @@
         "op": "addmerge",
         "path": "/attributes/foodTags",
         "value": [ "jam" ],
-        side: "server",
-    },
-    {
-        "file": "game:itemtypes/liquid/rawjuice.json",
-        "op": "addmerge",
-        "path": "/attributes/foodTagsByType",
-        "value": {
-            "*-cranberry": [ "fruitjuice", "sour" ],
-            "*currant": [ "fruitjuice", "sour" ],
-            "*": [ "fruitjuice" ],
-        },
         side: "server",
     },
     {
