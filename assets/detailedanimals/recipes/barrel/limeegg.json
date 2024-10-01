@@ -1,0 +1,20 @@
+[
+{
+    code: "limeegg",
+    sealHours: 672,
+    ingredients: [
+        { type: "item", code: "game:slakedlimeportion", litres: 0.1, consumeLitres: 0.1 },
+        { type: "item", code: "detailedanimals:egg-chicken-*-raw", name: "size" },
+    ],
+    output: { type: "item", code: "detailedanimals:egg-chicken-{size}-lime" },
+},
+{
+    code: "limeegg",
+    sealHours: 672,
+    ingredients: [
+        { type: "item", code: "game:slakedlimeportion", litres: 0.1, consumeLitres: 0.1 },
+        { type: "item", code: "detailedanimals:egg-chicken-*-lime", name: "size" },
+    ],
+    output: { type: "item", code: "detailedanimals:egg-chicken-{size}-lime" },
+},
+]

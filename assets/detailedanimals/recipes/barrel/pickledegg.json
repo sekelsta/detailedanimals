@@ -1,0 +1,9 @@
+{
+    code: "pickledegg",
+    sealHours: 336,
+    ingredients: [
+        { type: "item", code: "game:vinegarportion", litres: 0.1, consumeLitres: 0.1 },
+        { type: "item", code: "detailedanimals:egg-chicken-*-boiled", name: "size"},
+    ],
+    output: { type: "item", code: "detailedanimals:egg-chicken-{size}-pickled"},
+}

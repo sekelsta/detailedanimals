@@ -2,7 +2,7 @@
     code: "egg-chicken",
     variantgroups: [
         { code: "size", states: [ "peewee", "small", "medium", "large", "jumbo" ] },
-        { code: "state", states: [ "raw", "boiled", "blown" ] },
+        { code: "state", states: [ "raw", "boiled", "blown", "pickled", "lime" ] },
     ],
     behaviors: [
         { name: "GroundStorable", properties: { layout: 'Quadrants', collisionBox: { x1: 0, y1: 0, z1: 0, x2: 1, y2: 0.125, z2: 1 } } }
@@ -25,20 +25,22 @@
             "egg-chicken-jumbo-raw": 0.07,
         },
         nutritionPropsWhenInMealByType: {
-            "*-peewee-raw": { saturation: 120, foodCategory: "Protein" },
-            "*-peewee-boiled": { saturation: 120, foodCategory: "Protein" },
-            "*-small-raw": { saturation: 150, foodCategory: "Protein" },
-            "*-small-boiled": { saturation: 150, foodCategory: "Protein" },
-            "*-medium-raw": { saturation: 176, foodCategory: "Protein" },
-            "*-medium-boiled": { saturation: 176, foodCategory: "Protein" },
-            "*-large-raw": { saturation: 200, foodCategory: "Protein" },
-            "*-large-boiled": { saturation: 200, foodCategory: "Protein" },
-            "*-jumbo-raw": { saturation: 240, foodCategory: "Protein" },
-            "*-jumbo-boiled": { saturation: 240, foodCategory: "Protein" },
+            "@*-peewee-(raw|boiled|lime)": { saturation: 120, foodCategory: "Protein" },
+            "*-peewee-pickled": { saturation: 105, foodCategory: "Protein" },
+            "@*-small-(raw|boiled|lime)": { saturation: 150, foodCategory: "Protein" },
+            "*-small-pickled": { saturation: 131, foodCategory: "Protein" },
+            "@*-medium-(raw|boiled|lime)": { saturation: 176, foodCategory: "Protein" },
+            "*-medium-pickled": { saturation: 154, foodCategory: "Protein" },
+            "@*-large-(raw|boiled|lime)": { saturation: 200, foodCategory: "Protein" },
+            "*-large-pickled": { saturation: 175, foodCategory: "Protein" },
+            "@*-jumbo-(raw|boiled|lime)": { saturation: 240, foodCategory: "Protein" },
+            "*-jumbo-pickled": { saturation: 210, foodCategory: "Protein" },
         },
         foodTagsByType: {
             "*-raw": [ "egg" ],
             "*-boiled": [ "egg" ],
+            "*-lime": [ "egg" ],
+            "*-pickled": [ "egg" ],
         },
         onDisplayTransform: {
             scaleByType: {
@@ -56,6 +58,11 @@
         "*-medium-boiled": { saturation: 140, foodCategory: "Protein" },
         "*-large-boiled": { saturation: 160, foodCategory: "Protein" },
         "*-jumbo-boiled": { saturation: 192, foodCategory: "Protein" },
+        "*-peewee-pickled": { saturation: 84, foodCategory: "Protein" },
+        "*-small-pickled": { saturation: 105, foodCategory: "Protein" },
+        "*-medium-pickled": { saturation: 123, foodCategory: "Protein" },
+        "*-large-pickled": { saturation: 140, foodCategory: "Protein" },
+        "*-jumbo-pickled": { saturation: 168, foodCategory: "Protein" },
     },
     maxstacksize: 32,
     materialDensity: 200,
@@ -67,10 +74,24 @@
             transitionedStack: { type: "item", code: "game:rot" },
             transitionRatio: 0.5
         }],
+        "*-lime": [{
+            type: "Perish",
+            freshHours: { avg: 300 },
+            transitionHours: { avg: 24 },
+            transitionedStack: { type: "item", code: "game:rot" },
+            transitionRatio: 0.5
+        }],
         "*-boiled": [{
             type: "Perish",
             freshHours: { avg: 120 },
             transitionHours: { avg: 24 },
+            transitionedStack: { type: "item", code: "game:rot" },
+            transitionRatio: 0.5
+        }],
+        "*-pickled": [{
+            type: "Perish",
+            freshHours: { avg: 600 },
+            transitionHours: { avg: 72 },
             transitionedStack: { type: "item", code: "game:rot" },
             transitionRatio: 0.5
         }],
