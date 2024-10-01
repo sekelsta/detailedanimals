@@ -324,25 +324,39 @@ namespace Genelib {
             if (entity.Api.Side == EnumAppSide.Client) {
                 return;
             }
+            handled = EnumHandling.PassThrough;
             if (slot.Empty) {
-                handled = EnumHandling.PassThrough;
+                return;
+            }
+            if (!entity.Alive) {
                 return;
             }
             ItemStack itemstack = slot.Itemstack;
             FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
             NutritionData data = GetNutritionData(itemstack, nutriProps);
             if (!CanEat(itemstack, nutriProps, data)) {
-                handled = EnumHandling.PassThrough;
                 return;
             }
             string avoidReason = AvoidReason(data, GetBaseSatiety(itemstack, nutriProps));
             if (avoidReason != null) {
                 messagePlayer("genelib:message-wrongnutrient-" + avoidReason, byEntity);
-                handled = EnumHandling.PassThrough;
                 return;
             }
-            Eat(slot, byEntity, data, nutriProps);
+
+            bool consumeItem = true;
+            EntityBehavior tameable = entity.GetBehavior("tameable");
+            if (tameable != null) {
+                int id = slot.Itemstack.Id;
+                int count = slot.Itemstack.StackSize;
+                tameable.OnInteract(byEntity, slot, hitPosition, mode, ref handled);
+                consumeItem = id == slot.Itemstack.Id && count == slot.Itemstack.StackSize;
+            }
             handled = EnumHandling.PreventSubsequent;
+            if (!entity.Alive) {
+                // Check again, as taming interaction may kill the entity and spawn a new, tame, one
+                return;
+            }
+            Eat(slot, byEntity, data, nutriProps, consumeItem);
             return;
         }
 
@@ -394,7 +408,7 @@ namespace Genelib {
             Eat(slot, null, GetNutritionData(itemstack, nutriProps, foodTags), nutriProps);
         }
 
-        public void Eat(ItemSlot slot, Entity fedBy, NutritionData data, FoodNutritionProperties nutriProps) {
+        public void Eat(ItemSlot slot, Entity fedBy, NutritionData data, FoodNutritionProperties nutriProps, bool consumeItem=true) {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
@@ -434,11 +448,7 @@ namespace Genelib {
             }
             Eat(data, satiety);
 
-            // Make sure itemstack doesn't get modified twice
-            bool alreadyUsed = false;
-            // TODO: Use reflection to check if PetAI:EntityBehaviorTameable exists and call its onInteract
-            // If so, set alreadyUsed to true if the stack has changed
-            if (!alreadyUsed) {
+            if (consumeItem) {
                 slot.TakeOut(1);
                 if (nutriProps?.EatenStack != null) {
                     if (slot.Empty) {
