@@ -228,7 +228,7 @@ namespace Genelib {
             float worst = 0;
             string worstName = null;
             foreach (Nutrient nutrient in Nutrients) {
-                float gain = nutrient.Value - nutrient.ValueIfAdded(satiety * data.Values[nutrient.Name]);
+                float gain = nutrient.ValueIfAdded(satiety * data.Values[nutrient.Name]) - nutrient.Value;
                 sum += gain;
                 if (gain < worst) {
                     worst = gain;
