@@ -1,8 +1,8 @@
 {
     tag: "fruitjuice",
-    fiber: 0.1,
-    sugar: 0.7,
-    starch: 0.1,
+    fiber: 0.05,
+    sugar: 0.75,
+    starch: 0.06,
     fat: 0.01,
     protein: 0.03,
     water: 0.9,

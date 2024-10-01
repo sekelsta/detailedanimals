@@ -1,7 +1,7 @@
 {
     tag: "fruitmash",
-    fiber: 0.4,
-    sugar: 0.2,
+    fiber: 0.3,
+    sugar: 0.3,
     starch: 0.1,
     fat: 0.01,
     protein: 0.06,
