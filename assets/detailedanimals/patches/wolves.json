@@ -300,7 +300,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 2.5,
                 fiber: 0.02,
                 sugar: 0.03,
@@ -313,7 +313,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
-			},
+            },
         side: "server"
     },
     {
@@ -321,7 +321,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 2.5,
                 fiber: 0.02,
                 sugar: 0.03,
@@ -334,7 +334,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
-			},
+            },
         side: "server"
     },
     {
@@ -342,7 +342,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 2.5,
                 fiber: 0.02,
                 sugar: 0.03,
@@ -355,7 +355,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
-			},
+            },
         side: "server"
     },
     {
@@ -377,6 +377,56 @@
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/8",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: "game:wolf-female",
+            eatSound: "creature/animal-eat1",
+            priority: 1.38,
+            eatTime: 1.5,
+            animation: "Walk",
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/7",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: "game:wolf-female",
+            eatSound: "creature/animal-eat1",
+            priority: 1.38,
+            eatTime: 1.5,
+            animation: "Walk",
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/4",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: "game:wolf-female",
+            eatSound: "creature/animal-eat-small",
+            priority: 1.38,
+            movespeed: 0.006,
+            animationSpeed: 1.75,
+            eatTime: 1.5,
+            animation: "Walk",
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+        },
         side: "server"
     },
 ]

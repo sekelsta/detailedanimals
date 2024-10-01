@@ -273,7 +273,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 12,
                 fiber: 0.02,
                 sugar: 0.03,
@@ -286,7 +286,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
-			},
+            },
         side: "server"
     },
     {
@@ -294,7 +294,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 12,
                 fiber: 0.02,
                 sugar: 0.03,
@@ -307,7 +307,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
-			},
+            },
         side: "server"
     },
     {
@@ -315,7 +315,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 12,
                 fiber: 0.02,
                 sugar: 0.03,
@@ -328,7 +328,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
-			},
+            },
         side: "server"
     },
     {
@@ -350,6 +350,56 @@
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/-",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: "game:hyena-female",
+            eatSound: "creature/animal-eat1",
+            priority: 1.38,
+            eatTime: 1.5,
+            animation: "Walk",
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/-",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: "game:hyena-female",
+            eatSound: "creature/animal-eat1",
+            priority: 1.38,
+            eatTime: 1.5,
+            animation: "Walk",
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/-",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: "game:hyena-female",
+            eatSound: "creature/animal-eat-small",
+            priority: 1.38,
+            movespeed: 0.006,
+            animationSpeed: 1.75,
+            eatTime: 1.5,
+            animation: "Walk",
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+        },
         side: "server"
     },
 ]
