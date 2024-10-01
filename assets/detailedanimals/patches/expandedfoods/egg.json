@@ -1,0 +1,23 @@
+[
+    {
+        file: "detailedanimals:itemtypes/egg-chicken.json",
+        op: "add",
+        path: "/attributes/inPiePropertiesByType",
+        value: {
+            "*-raw": {
+                "texture": "game:block/food/pie/fill-egg",
+                "partType": "Filling"
+            },
+            "*-lime": {
+                "texture": "game:block/food/pie/fill-egg",
+                "partType": "Filling"
+            },
+            "*-boiled": {
+                "texture": "game:block/food/pie/fill-egg",
+                "partType": "Filling"
+            }
+        },
+        dependsOn: [ { modid: "expandedfoods" } ],
+        side: "server"
+    }
+]
