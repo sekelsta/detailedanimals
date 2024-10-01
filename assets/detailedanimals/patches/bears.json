@@ -142,8 +142,11 @@
                 minerals: 0.02,
                 mineralsMax: 0.1,
                 avoidFoodTags: [ "sour" ],
-                specialties: [ "toughplant" ],
-                fiberDigestion: 0.1,
+                specialties: [ "bone" ],
+                fiberDigestionByType: {
+                    "*-panda": 0.4,
+                    "*": 0.1
+                },
                 grazeMethods: ["nibblegraze", "root"],
 			},
         side: "server"
@@ -164,7 +167,22 @@
             nurseFromEntities: "game:bear-female-{type}",
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,
-            priority: 1.35
+            priority: 1.35,
+			eatAnimation: "eat",
+			animationSpeedByType: {
+				"*-sun": 1.1,
+				"*-black": 0.8,
+				"*-brown": 0.9,
+				"*-panda": 1,
+				"*-polar": 0.8,
+			},
+			movespeedByType: {
+				"*-sun": 0.01,
+				"*-black": 0.015,
+				"*-polar": 0.019,
+				"*-brown": 0.02,
+				"*-panda": 0.015,
+			},
         },
         side: "server"
     },
