@@ -28,26 +28,26 @@
         op: "replace",
         path: "/server/behaviors/6",
         value: { code: "genelib.harvestable", drops: [
-				{
-					type: "item", 
-					code: "game:redmeat-raw", 
+                {
+                    type: "item", 
+                    code: "game:redmeat-raw", 
                     category: "meat",
-					quantity: { avg: 21, var: 0 } 
-				},
-				{
-					type: "item", 
-					code: "game:hide-raw-small", 
+                    quantity: { avg: 21, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-small", 
                     category: "pelt",
-					quantity: { avg: 4.7, var: 0 } 
-				},
+                    quantity: { avg: 4.7, var: 0 } 
+                },
                 {
                     type: "item", 
                     code: "game:fat", 
                     category: "fat",
                     quantity: { avg: 5.2, var: 0 },
                 }
-			],
-		},
+            ],
+        },
         side: "server"
     },
     {
@@ -62,26 +62,26 @@
         op: "replace",
         path: "/server/behaviors/6",
         value: { code: "genelib.harvestable", drops: [
-				{
-					type: "item", 
-					code: "game:redmeat-raw", 
+                {
+                    type: "item", 
+                    code: "game:redmeat-raw", 
                     category: "meat",
-					quantity: { avg: 21, var: 0 } 
-				},
-				{
-					type: "item", 
-					code: "game:hide-raw-large", 
+                    quantity: { avg: 21, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-large", 
                     category: "pelt",
-					quantity: { avg: 1.6, var: 0 } 
-				},
+                    quantity: { avg: 1.6, var: 0 } 
+                },
                 {
                     type: "item", 
                     code: "game:fat", 
                     category: "fat",
                     quantity: { avg: 5.2, var: 0 },
                 }
-			],
-		},
+            ],
+        },
         side: "server"
     },
     {
@@ -96,26 +96,26 @@
         op: "replace",
         path: "/server/behaviors/6",
         value: { code: "genelib.harvestable", drops: [
-				{
-					type: "item", 
-					code: "game:redmeat-raw", 
+                {
+                    type: "item", 
+                    code: "game:redmeat-raw", 
                     category: "meat",
-					quantity: { avg: 21, var: 0 } 
-				},
-				{
-					type: "item", 
-					code: "game:hide-raw-large", 
+                    quantity: { avg: 21, var: 0 } 
+                },
+                {
+                    type: "item", 
+                    code: "game:hide-raw-large", 
                     category: "pelt",
-					quantity: { avg: 1.6, var: 0 } 
-				},
+                    quantity: { avg: 1.6, var: 0 } 
+                },
                 {
                     type: "item", 
                     code: "game:fat", 
                     category: "fat",
                     quantity: { avg: 5.2, var: 0 },
                 }
-			],
-		},
+            ],
+        },
         side: "server"
     },
 

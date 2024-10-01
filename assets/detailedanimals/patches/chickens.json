@@ -84,16 +84,16 @@
         op: "replace",
         path: "/server/behaviors/6",
         value: { code: "genelib.harvestable", drops: [
-				{
-					type: "item", 
-					code: "game:poultry-raw", 
+                {
+                    type: "item", 
+                    code: "game:poultry-raw", 
                     category: "meat",
-					quantity: {
-						"*":{ avg: 0.7, var: 0.1 } 
-					}
-				},
-			],
-		},
+                    quantity: {
+                        "*":{ avg: 0.7, var: 0.1 } 
+                    }
+                },
+            ],
+        },
         side: "server"
     },
     {
@@ -108,20 +108,20 @@
         op: "replace",
         path: "/server/behaviors/5",
         value: { code: "genelib.harvestable", drops: [
-				{
-					type: "item", 
-					code: "game:poultry-raw", 
+                {
+                    type: "item", 
+                    code: "game:poultry-raw", 
                     category: "meat",
-					quantity: { avg: 0.7, var: 0.1 }
-				},
-				{
-					type: "item", 
-					code: "game:feather", 
+                    quantity: { avg: 0.7, var: 0.1 }
+                },
+                {
+                    type: "item", 
+                    code: "game:feather", 
                     category: "pelt",
-					quantity: { avg: 12, var: 4 } 
-				}
-			],
-		},
+                    quantity: { avg: 12, var: 4 } 
+                }
+            ],
+        },
         side: "server"
     },
     {
@@ -136,20 +136,20 @@
         op: "replace",
         path: "/server/behaviors/6",
         value: { code: "genelib.harvestable", drops: [
-				{
-					type: "item", 
-					code: "game:poultry-raw", 
+                {
+                    type: "item", 
+                    code: "game:poultry-raw", 
                     category: "meat",
-					quantity: { avg: 0.7, var: 0.1 }
-				},
-				{
-					type: "item", 
-					code: "game:feather", 
+                    quantity: { avg: 0.7, var: 0.1 }
+                },
+                {
+                    type: "item", 
+                    code: "game:feather", 
                     category: "pelt",
-					quantity: { avg: 12, var: 4 } 
-				}
-			],
-		},
+                    quantity: { avg: 12, var: 4 } 
+                }
+            ],
+        },
         side: "server"
     },
 

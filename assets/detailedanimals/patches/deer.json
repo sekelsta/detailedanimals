@@ -70,7 +70,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-				code: "genelib.age",
+                code: "genelib.age",
                 monthsToGrowByType: {
                     "*-baby": 12.0,
                     "*-adult": 18.0,
@@ -88,11 +88,11 @@
                     "*-baby": 0.7,
                     "*-adult": 1.0,
                 },
-				adultEntityCodesByType: {
-					"*-male-baby": ["game:deer-{type}-male-adult"],
-					"*-female-baby": ["game:deer-{type}-female-adult"],
-				},
-			},
+                adultEntityCodesByType: {
+                    "*-male-baby": ["game:deer-{type}-male-adult"],
+                    "*-female-baby": ["game:deer-{type}-female-adult"],
+                },
+            },
         side: "server"
     },
     {
@@ -115,13 +115,13 @@
         op: "replace",
         path: "/server/behaviors/6",
         value: {
-				code: "genelib.harvestable",
+                code: "genelib.harvestable",
                 drops: [
-					{
-						"type": "item",
-						"code": "game:redmeat-raw",
+                    {
+                        "type": "item",
+                        "code": "game:redmeat-raw",
                         category: "meat",
-						"quantityByType": {
+                        "quantityByType": {
                             "deer-caribou-*": { avg: 33, var: 3 },
                             "deer-chital-*": { avg: 16, var: 2 },
                             "deer-elk-*": { avg: 71, var: 7 },
@@ -134,25 +134,25 @@
                             "deer-taruca-*": { avg: 14, var: 2 },
                             "deer-water-*": { avg: 5, var: 1 },
                             "deer-whitetail-*": { avg: 14, var: 2 },
-						}
-					},
-					{
-						"type": "item",
-						"code": "game:hide-raw-huge",
+                        }
+                    },
+                    {
+                        "type": "item",
+                        "code": "game:hide-raw-huge",
                         category: "pelt",
-						"quantityByType": {
+                        "quantityByType": {
                             "*-baby": { avg: 0, var: 0 },
                             "deer-caribou-*": { avg: 1.3, var: 0.1 },
                             "deer-elk-*": { avg: 2.2, var: 0.1 },
                             "deer-marsh-*": { avg: 1, var: 0.1 },
-							"*": { avg: 0, var: 0 }
-						}
-					},
-					{
-						"type": "item",
-						"code": "game:hide-raw-large",
+                            "*": { avg: 0, var: 0 }
+                        }
+                    },
+                    {
+                        "type": "item",
+                        "code": "game:hide-raw-large",
                         category: "pelt",
-						"quantityByType": {
+                        "quantityByType": {
                             "deer-elk-*-baby": { avg: 5.4, var: 0.1 },
                             "*-baby": { avg: 0, var: 0 },
                             "deer-chital-*": { avg: 1.4, var: 0.1 },
@@ -160,28 +160,28 @@
                             "deer-guemal-*": { avg: 1.5, var: 0.1 },
                             "deer-taruca-*": { avg: 1.2, var: 0.1 },
                             "deer-whitetail-*": { avg: 1.2, var: 0.1 },
-							"*": { avg: 0, var: 0 }
-						}
-					},
-					{
-						"type": "item",
-						"code": "game:hide-raw-medium",
+                            "*": { avg: 0, var: 0 }
+                        }
+                    },
+                    {
+                        "type": "item",
+                        "code": "game:hide-raw-medium",
                         category: "pelt",
-						"quantityByType": {
+                        "quantityByType": {
                             "deer-caribou-*-baby": { avg: 6.5, var: 0.1 },
                             "deer-marsh-*-baby": { avg: 5.2, var: 0.1 },
                             "*-baby": { avg: 0, var: 0 },
                             "deer-pampas-*": { avg: 1.1, var: 0.1 },
                             "deer-redbrocket-*": { avg: 0.94, var: 0.1 },
                             "deer-water-*": { avg: 0.92, var: 0.1 },
-							"*": { avg: 0, var: 0 }
-						}
-					},
-					{
-						"type": "item",
-						"code": "game:hide-raw-small",
+                            "*": { avg: 0, var: 0 }
+                        }
+                    },
+                    {
+                        "type": "item",
+                        "code": "game:hide-raw-small",
                         category: "pelt",
-						"quantityByType": {
+                        "quantityByType": {
                             "deer-pudu-*-adult": { avg: 0.94, var: 0.1 },
                             "*-adult": { avg: 0, var: 0 },
                             "deer-chital-*": { avg: 4, var: 0.1 },
@@ -192,14 +192,14 @@
                             "deer-taruca-*": { avg: 3.6, var: 0.1 },
                             "deer-water-*": { avg: 1.8, var: 0.1 },
                             "deer-whitetail-*": { avg: 3.7, var: 0.1 },
-							"*": { avg: 0, var: 0 }
-						}
-					},
-					{
-						"type": "item",
-						"code": "game:fat",
+                            "*": { avg: 0, var: 0 }
+                        }
+                    },
+                    {
+                        "type": "item",
+                        "code": "game:fat",
                         category: "fat",
-						"quantityByType": {
+                        "quantityByType": {
                             "deer-caribou-*": { avg: 8.4, var: 0.1 },
                             "deer-chital-*": { avg: 4, var: 0.1 },
                             "deer-elk-*": { avg: 18, var: 0.1 },
@@ -212,10 +212,10 @@
                             "deer-taruca-*": { avg: 3.4, var: 0.1 },
                             "deer-water-*": { avg: 1.25, var: 0.1 },
                             "deer-whitetail-*": { avg: 3.5, var: 0.1 },
-						}
-					}
-				]
-			},
+                        }
+                    }
+                ]
+            },
         side: "server"
     },
     {
@@ -263,20 +263,20 @@
         op: "replace",
         path: "/client/sizeByType",
         value: {
-			"*-adult": 1,
-			"deer-caribou-*-baby": 1.7,
-			"deer-chital-*-baby": 1.5,
-			"deer-elk-*-baby": 2,
-			"deer-fallow-*-baby": 1.5,
-			"deer-guemal-*-baby": 2.2,
-			"deer-marsh-*-baby": 1.7,
-			"deer-pampas-*-baby": 1.3,
-			"deer-pudu-*-baby": 1.2,
-			"deer-redbrocket-*-baby": 1.3,
-			"deer-taruca-*-baby": 1.8,
-			"deer-water-*-baby": 1.3,
-			"deer-whitetail-*-baby": 1.7,
-		},
+            "*-adult": 1,
+            "deer-caribou-*-baby": 1.7,
+            "deer-chital-*-baby": 1.5,
+            "deer-elk-*-baby": 2,
+            "deer-fallow-*-baby": 1.5,
+            "deer-guemal-*-baby": 2.2,
+            "deer-marsh-*-baby": 1.7,
+            "deer-pampas-*-baby": 1.3,
+            "deer-pudu-*-baby": 1.2,
+            "deer-redbrocket-*-baby": 1.3,
+            "deer-taruca-*-baby": 1.8,
+            "deer-water-*-baby": 1.3,
+            "deer-whitetail-*-baby": 1.7,
+        },
         side: "server"
     },
 
@@ -353,7 +353,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 4,
                 fiber: 0.7,
                 sugar: 0.06,
@@ -373,7 +373,7 @@
                 eatRateByType: {
                     "deer-pudu-*": 0.16,
                 },
-			},
+            },
         side: "server"
     },
     {

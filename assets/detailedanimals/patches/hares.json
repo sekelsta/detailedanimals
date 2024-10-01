@@ -162,12 +162,12 @@
         value: {
             code: "genelib.harvestable",
             drops: [
-				{
-					type: "item", 
-					code: "game:redmeat-raw", 
-					quantity: { avg: 1, var: 0 } 
-				},
-			],
+                {
+                    type: "item", 
+                    code: "game:redmeat-raw", 
+                    quantity: { avg: 1, var: 0 } 
+                },
+            ],
         },
         side: "server"
     },
@@ -178,16 +178,16 @@
         value: {
             code: "genelib.harvestable",
             drops: [
-				{
-					type: "item", 
-					code: "game:redmeat-raw", 
-					quantity: { avg: 1, var: 0 } 
-				},
-				{ type: "item",
-					code: "game:hide-raw-small",
-					quantity: { avg: 0.6, var: 0 } 
-				}
-			],
+                {
+                    type: "item", 
+                    code: "game:redmeat-raw", 
+                    quantity: { avg: 1, var: 0 } 
+                },
+                { type: "item",
+                    code: "game:hide-raw-small",
+                    quantity: { avg: 0.6, var: 0 } 
+                }
+            ],
         },
         side: "server"
     },
@@ -198,16 +198,16 @@
         value: {
             code: "genelib.harvestable",
             drops: [
-				{
-					type: "item", 
-					code: "game:redmeat-raw", 
-					quantity: { avg: 1, var: 0 } 
-				},
-				{ type: "item",
-					code: "game:hide-raw-small",
-					quantity: { avg: 0.6, var: 0 } 
-				}
-			],
+                {
+                    type: "item", 
+                    code: "game:redmeat-raw", 
+                    quantity: { avg: 1, var: 0 } 
+                },
+                { type: "item",
+                    code: "game:hide-raw-small",
+                    quantity: { avg: 0.6, var: 0 } 
+                }
+            ],
         },
         side: "server"
     },
@@ -310,7 +310,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 1.25,
                 fiber: 0.7,
                 sugar: 0.05,
@@ -325,7 +325,7 @@
                 fiberDigestion: 1.0,
                 grazeMethods: ["nibblegraze"],
                 eatRate: 0.08,
-			},
+            },
         side: "server"
     },
     {
@@ -333,7 +333,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 1.25,
                 fiber: 0.7,
                 sugar: 0.05,
@@ -348,7 +348,7 @@
                 fiberDigestion: 1.0,
                 grazeMethods: ["nibblegraze"],
                 eatRate: 0.08,
-			},
+            },
         side: "server"
     },
     {
@@ -356,7 +356,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 1.25,
                 fiber: 0.7,
                 sugar: 0.05,
@@ -371,7 +371,7 @@
                 fiberDigestion: 1.0,
                 grazeMethods: ["nibblegraze"],
                 eatRate: 0.08,
-			},
+            },
         side: "server"
     },
     {

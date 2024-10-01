@@ -81,7 +81,7 @@
         op: "replace",
         path: "/client/sizeByType",
         value: {
-			"*-adult": 1,
+            "*-adult": 1,
             "goat-ibexalp-*": 2,
             "goat-takingold-*": 2.5,
             "goat-markhor-*": 1.9,
@@ -93,7 +93,7 @@
             "goat-nubian-*": 1.6,
             "goat-sirohi-*": 1.8,
             "goat-valais-*": 1.7,
-		},
+        },
         side: "server"
     },
     {
@@ -278,7 +278,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 3.5,
                 fiber: 0.7,
                 sugar: 0.05,

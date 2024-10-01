@@ -131,7 +131,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 10,
                 fiberByType: { "*-polar": 0.02, "*-panda": 0.6, "*": 0.18 },
                 sugarByType: { "*-polar": 0.03, "*-panda": 0.12, "*-sun": 0.3, "*": 0.18 },
@@ -148,7 +148,7 @@
                     "*": 0.1
                 },
                 grazeMethods: ["nibblegraze", "root"],
-			},
+            },
         side: "server"
     },
     {
@@ -168,21 +168,21 @@
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,
             priority: 1.35,
-			eatAnimation: "eat",
-			animationSpeedByType: {
-				"*-sun": 1.1,
-				"*-black": 0.8,
-				"*-brown": 0.9,
-				"*-panda": 1,
-				"*-polar": 0.8,
-			},
-			movespeedByType: {
-				"*-sun": 0.01,
-				"*-black": 0.015,
-				"*-polar": 0.019,
-				"*-brown": 0.02,
-				"*-panda": 0.015,
-			},
+            eatAnimation: "eat",
+            animationSpeedByType: {
+                "*-sun": 1.1,
+                "*-black": 0.8,
+                "*-brown": 0.9,
+                "*-panda": 1,
+                "*-polar": 0.8,
+            },
+            movespeedByType: {
+                "*-sun": 0.01,
+                "*-black": 0.015,
+                "*-polar": 0.019,
+                "*-brown": 0.02,
+                "*-panda": 0.015,
+            },
         },
         side: "server"
     },

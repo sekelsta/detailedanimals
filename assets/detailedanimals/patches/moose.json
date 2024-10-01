@@ -202,7 +202,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 4,
                 fiber: 0.7,
                 sugar: 0.06,
@@ -219,7 +219,7 @@
                 specialties: [ "toughplant" ],
                 fiberDigestion: 1.0,
                 grazeMethods: ["nibblegraze"],
-			},
+            },
         side: "server"
     },
     {

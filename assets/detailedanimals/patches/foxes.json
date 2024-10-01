@@ -193,7 +193,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-				code: "genelib.hunger",
+                code: "genelib.hunger",
                 monthsUntilWeaned: 4,
                 fiber: 0.1,
                 sugar: 0.08,
@@ -206,7 +206,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
-			},
+            },
         side: "server"
     },
     {
@@ -224,10 +224,10 @@
             code: "genelib.forage",
             nurseFromEntities: "game:fox-female-{type}",
             priority: 1.35,
-			movespeed: 0.008,
-			animationSpeed: 2,
-			eatTime: 2,
-			animation: "Walk",
+            movespeed: 0.008,
+            animationSpeed: 2,
+            eatTime: 2,
+            animation: "Walk",
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,
         },
