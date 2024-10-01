@@ -25,6 +25,7 @@ namespace Genelib
         public const string NamePrefix = "genelib.";
 
         public static double MutationRate = 0.00004;
+        public static double AnimalGrowthTime = 1;
 
         internal static ICoreServerAPI ServerAPI { get; private set; }
         internal static ICoreClientAPI ClientAPI { get; private set; }
@@ -64,6 +65,7 @@ namespace Genelib
             if (Config == null) {
                 Config = new GenelibConfig();
             }
+            api.StoreModConfig(Config, "genelib_config.json");
         }
 
         public override void AssetsLoaded(ICoreAPI api) {

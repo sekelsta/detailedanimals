@@ -60,7 +60,7 @@ namespace Genelib {
             else {
                 HoursToGrow = typeAttributes["hoursToGrow"].AsFloat(96);
             }
-            HoursToGrow *= GeneticsModSystem.Config.AnimalGrowthTime;
+            HoursToGrow *= GeneticsModSystem.AnimalGrowthTime;
 
             if (typeAttributes.KeyExists("adultEntityCodes")) {
                 string[] locations = typeAttributes["adultEntityCodes"].AsArray<string>(new string[0]);

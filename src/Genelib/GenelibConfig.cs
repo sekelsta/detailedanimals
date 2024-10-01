@@ -1,7 +1,6 @@
 
 namespace Genelib {
     public class GenelibConfig {
-        public double AnimalGrowthTime = 1;
         public string Units = "CUSTOMARY_METRIC";
 
         public string WeightSuffix() {

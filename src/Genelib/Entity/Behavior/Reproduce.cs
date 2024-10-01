@@ -146,7 +146,7 @@ namespace Genelib {
             else {
                 GestationDays = entity.World.Calendar.DaysPerMonth;
             }
-            GestationDays *= GeneticsModSystem.Config.AnimalGrowthTime;
+            GestationDays *= GeneticsModSystem.AnimalGrowthTime;
 
             if (attributes.KeyExists("sireSearchRange")) {
                 SireSearchRange = attributes["sireSearchRange"].AsFloat();
@@ -161,14 +161,14 @@ namespace Genelib {
             else if (attributes.KeyExists("lactationDays")) {
                 LactationDays = attributes["lactationDays"].AsDouble();
             }
-            LactationDays *= GeneticsModSystem.Config.AnimalGrowthTime;
+            LactationDays *= GeneticsModSystem.AnimalGrowthTime;
 
             if (attributes.KeyExists("breedingCooldownMonths")) {
                 CooldownDays = attributes["breedingCooldownMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth
-                    * GeneticsModSystem.Config.AnimalGrowthTime;
+                    * GeneticsModSystem.AnimalGrowthTime;
             }
             else if (attributes.KeyExists("breedingCooldownDays")) {
-                CooldownDays = attributes["breedingCooldownDays"].AsDouble() * GeneticsModSystem.Config.AnimalGrowthTime;
+                CooldownDays = attributes["breedingCooldownDays"].AsDouble() * GeneticsModSystem.AnimalGrowthTime;
             }
             else {
                 CooldownDays = LactationDays;
