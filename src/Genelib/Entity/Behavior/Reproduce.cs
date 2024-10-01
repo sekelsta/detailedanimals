@@ -413,7 +413,7 @@ namespace Genelib {
 
         // The resulting itemstack does not come with incubation data
         public ItemStack GiveEgg() {
-            float eggWeight = 0.04f; // TODO: Make different chickens lay different sizes of egg
+            float eggWeight = 0.051f; // TODO: Make different chickens lay different sizes of egg
 
             CollectibleObject egg = EggTypes[0];
             float lessw;
