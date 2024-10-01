@@ -295,4 +295,88 @@
         value: "egg",
         side: "server"
     },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 2.5,
+                fiber: 0.02,
+                sugar: 0.03,
+                fat: 0.2,
+                starch: 0.03,
+                protein: 0.7,
+                water: 1.0,
+                minerals: 0.02,
+                mineralsMax: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "bone" ],
+                fiberDigestion: 0.0,
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 2.5,
+                fiber: 0.02,
+                sugar: 0.03,
+                fat: 0.2,
+                starch: 0.03,
+                protein: 0.7,
+                water: 1.0,
+                minerals: 0.02,
+                mineralsMax: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "bone" ],
+                fiberDigestion: 0.0,
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 2.5,
+                fiber: 0.02,
+                sugar: 0.03,
+                fat: 0.2,
+                starch: 0.03,
+                protein: 0.7,
+                water: 1.0,
+                minerals: 0.02,
+                mineralsMax: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "bone" ],
+                fiberDigestion: 0.0,
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
 ]

@@ -188,4 +188,49 @@
         },
         side: "server"
     },
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+				code: "genelib.hunger",
+                monthsUntilWeaned: 4,
+                fiber: 0.1,
+                sugar: 0.08,
+                fat: 0.2,
+                starch: 0.1,
+                protein: 0.5,
+                water: 1.0,
+                minerals: 0.02,
+                mineralsMax: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "bone" ],
+                fiberDigestion: 0.0,
+			},
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/server/behaviors/11/aitasks/-",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: "game:fox-female-{type}",
+            priority: 1.35,
+			movespeed: 0.008,
+			animationSpeed: 2,
+			eatTime: 2,
+			animation: "Walk",
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+        },
+        side: "server"
+    },
 ]
