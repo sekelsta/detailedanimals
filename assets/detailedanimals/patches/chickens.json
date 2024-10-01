@@ -605,11 +605,16 @@
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
         path: "/client/texture",
-        value: { base: "detailedanimals:entity/chicken/chick-yellow", 
+        value: { base: "detailedanimals:entity/chicken/chick-duckwing", 
             alternates: [{ base: "detailedanimals:entity/chick-yellow"}, 
             { base: "detailedanimals:entity/chicken/chick-black"}, 
             { base: "detailedanimals:entity/chicken/chick-blue"},
             { base: "detailedanimals:entity/chicken/chick-splash"},
+            { base: "detailedanimals:entity/chicken/chick-black", "_comment": "Birchen chicks look just like black ones"}, 
+            { base: "detailedanimals:entity/chicken/chick-blue"},
+            { base: "detailedanimals:entity/chicken/chick-splash"},
+            { base: "detailedanimals:entity/chicken/chick-duckwing-blue"},
+            { base: "detailedanimals:entity/chicken/chick-duckwing-splash"},
             ] 
         },
         side: "server"
