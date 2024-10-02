@@ -74,7 +74,7 @@ namespace Genelib {
                 }
             }
             if (eggStack.Attributes.HasAttribute("chick")) {
-                eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24);
+                eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24 * GeneticsModSystem.AnimalGrowthTime);
             }
             AddEgg(entity, eggStack);
             return true;
