@@ -361,7 +361,7 @@
     {
         file: "game:entities/land/hooved/goat.json",
         op: "add",
-        path: "/server/behaviors/12/aitasks/10/enabled",
+        path: "/server/behaviors/12/aitasks/9/enabled",
         value: false,
         side: "server"
     },
