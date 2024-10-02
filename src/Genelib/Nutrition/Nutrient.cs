@@ -43,7 +43,7 @@ namespace Genelib {
 
         public float ValueIfAdded(float added) {
             float fill = (Level + added) / MaxSafe;
-            return Math.Max(0, 1 - fill * fill);
+            return 1 - fill * fill; // Allow negatives for more accurate decision-making
         }
 
         public void Gain(float amount) {
