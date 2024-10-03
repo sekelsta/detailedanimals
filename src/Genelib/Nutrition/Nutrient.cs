@@ -37,7 +37,7 @@ namespace Genelib {
         public float Value {
             get {
                 float fill = Level / MaxSafe;
-                return Math.Max(0, 1 - fill * fill);
+                return 1 - fill * fill;
             }
         }
 
