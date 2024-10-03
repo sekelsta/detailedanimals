@@ -43,7 +43,7 @@ namespace Genelib {
         protected Vec3d prevPos;
 
         private const int TPS = 30;
-        private const int updateSeconds = 12;
+        private const int updateSeconds = 6;
 
         // Maximum values of each condition
         public const float STARVING = -0.9f;
@@ -218,6 +218,9 @@ namespace Genelib {
         public string AvoidReason(NutritionData data, float satiety) {
             if (Fullness < FAMISHED) {
                 return null;
+            }
+            if (data != null) {
+                satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);
             }
             satiety = Math.Min(satiety, AdjustedMaxSaturation - Saturation);
             satiety /= AdjustedMaxSaturation;
@@ -443,9 +446,6 @@ namespace Genelib {
 
             float satiety = GetBaseSatiety(itemstack, nutriProps);
             satiety *= satLossMul;
-            if (data != null) {
-                satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);
-            }
             Eat(data, satiety);
 
             if (consumeItem) {
@@ -466,6 +466,9 @@ namespace Genelib {
         }
 
         public void Eat(NutritionData data, float satiety) {
+            if (data != null) {
+                satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);
+            }
             float prevSaturation = Saturation;
             EntityAgent agent = entity as EntityAgent;
             agent?.ReceiveSaturation(satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);
@@ -512,7 +515,7 @@ namespace Genelib {
             if (accumulator > updateSeconds * TPS) {
                 accumulator = 0;
                 double currentHours = entity.World.Calendar.TotalHours;
-                float updateRateHours = 120f / updateSeconds;
+                float updateRateHours = updateSeconds / 120f;
                 double lastUpdateHours = LastUpdateHours;
                 double updates = (currentHours - lastUpdateHours) / updateRateHours;
                 if (updates <= 0) {
@@ -536,17 +539,18 @@ namespace Genelib {
                     distance = 0;
                 }
                 prevPos = currentPos;
-                float work = 1 + (float)distance / updateSeconds / 40;
-                work = Math.Min(4, work);
+                // Commented out for being too wildly variable and out of the player's control
+                //float work = 1 + (float)distance / updateSeconds / 40;
+                //work = Math.Min(4, work);
+                float work = 1.25f; // TODO: Animals should get hungry faster if they move around more
                 float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul / 30;
                 float hungerrate = entity.Stats.GetBlended("hungerrate");
-                float saturationConsumed = baseHungerRate * work * hungerrate * timespeed;
-                saturationConsumed *= 1 / (1 + MetabolicEfficiency);
+                float saturationConsumed = baseHungerRate * work * hungerrate * timespeed / (1 + MetabolicEfficiency);
                 ConsumeSaturation(saturationConsumed);
                 // When player sleeps or chunk is unloaded, regain weight but don't starve
                 while ((currentHours - lastUpdateHours > 2 * updateRateHours) && (Fullness > -0.8f)) {
                     UpdateCondition(updateRateHours);
-                    ConsumeSaturation(saturationConsumed);
+                    ConsumeSaturation(saturationConsumed / work);
                     lastUpdateHours += updateRateHours;
                 }
                 UpdateCondition(updateRateHours);
