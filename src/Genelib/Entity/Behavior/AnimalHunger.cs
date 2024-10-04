@@ -166,13 +166,13 @@ namespace Genelib {
         }
 
         public virtual void ApplyNutritionEffects() {
-            float fiber = Fiber.Value;
-            float sugar = Sugar.Value;
-            float starch = Starch.Value;
-            float fat = Fat.Value;
-            float protein = Protein.Value;
-            float water = Water.Value;
-            float minerals = Minerals.Value;
+            float fiber = Math.Max(0, Fiber.Value);
+            float sugar = Math.Max(0, Sugar.Value);
+            float starch = Math.Max(0, Starch.Value);
+            float fat = Math.Max(0, Fat.Value);
+            float protein = Math.Max(0, Protein.Value);
+            float water = Math.Max(0, Water.Value);
+            float minerals = Math.Max(0, Minerals.Value);
 
             float metabolic_efficiency = 0.1f * starch + 0.2f * water + 0.1f * fiber * FiberDigestion;
             float health = 0.1f * fiber + 0.1f * minerals;
@@ -582,9 +582,11 @@ namespace Genelib {
         }
 
         public void ConsumeSaturation(float amount) {
+            float prevSaturation = Saturation;
             Saturation = Math.Clamp(Saturation - amount, -AdjustedMaxSaturation, AdjustedMaxSaturation);
+            float loss = (prevSaturation - Saturation) / AdjustedMaxSaturation;
             foreach (Nutrient nutrient in Nutrients) {
-                nutrient.Consume(amount);
+                nutrient.Consume(loss);
             }
             ApplyNutritionEffects();
         }
