@@ -1,0 +1,9 @@
+[
+    {
+        "file": "chickenfeed:itemtypes/chickenfeed.json",
+        "op": "add",
+        "path": "/attributes/satiety",
+        "value": 90,
+        side: "server",
+    },
+]

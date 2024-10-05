@@ -1,0 +1,10 @@
+{
+    tag: "pigfeed",
+    fiber: 0.2,
+    sugar: 0.1,
+    starch: 0.5,
+    fat: 0.09,
+    protein: 0.1,
+    water: 0.8,
+    minerals: 0.01,
+}

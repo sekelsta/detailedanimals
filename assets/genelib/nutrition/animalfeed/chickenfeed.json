@@ -1,0 +1,10 @@
+{
+    tag: "chickenfeed",
+    fiber: 0.2,
+    sugar: 0.05,
+    starch: 0.6,
+    fat: 0.09,
+    protein: 0.1,
+    water: 0.8,
+    minerals: 0.01,
+}
