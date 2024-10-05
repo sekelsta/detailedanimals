@@ -1,0 +1,10 @@
+{
+    ingredientPattern: "SPS,S_S",
+    ingredients: {
+        "P": { type: "item", code: "game:plank-*", name: "wood", allowedVariants: ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"] },
+        "S": { type: "item", code: "game:stick" }
+    },
+    width: 3,
+    height: 2,
+    output: { type: "block", code: "detailedAnimals:woodenfencecreepgate-{wood}-n-closed-left-free", quantity: 1  }
+}
