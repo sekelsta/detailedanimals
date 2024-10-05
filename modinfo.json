@@ -2,9 +2,9 @@
   "type": "code",
   "modid": "detailedanimals",
   "name": "Truth and Beauty: Detailed Animals",
-  "description" : "WIP, goal is animal genetics, husbandry, and taming. Maybe plants too.",
+  "description" : "Believable animal husbandry, behaviour, and genetics.",
   "authors": ["sekelsta"],
-  "version": "0.0.0",
+  "version": "0.1.0",
   "dependencies": { 
 	"game": "",
 	"survival": "",
