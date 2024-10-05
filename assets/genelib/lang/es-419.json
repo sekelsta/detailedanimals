@@ -44,6 +44,6 @@
     "message-wrongnutrient-fat": "{entity} no quiere tanta grasa ahora mismo",
     "message-wrongnutrient-protein": "{entity} no quiere tanta proteína ahora mismo",
     "message-wrongnutrient-minerals": "{entity} no quiere tanta sal ahora mismo",
-    "message-wrongnutrient-water": "{entity} no quiere tanta agua ahora mismo",
+    "message-wrongnutrient-water": "{entity} no tiene sed",
     "message-wrongnutrient-sugar": "{entity} no quiere tanta azúcar ahora mismo",
 }
