@@ -123,7 +123,7 @@
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "replace",
-        path: "/server/behaviors/8",
+        path: "/server/behaviors/9",
         value: { 
             code: "genelib.age",
             monthsToGrow: 12.0,
