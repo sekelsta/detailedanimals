@@ -128,7 +128,8 @@ namespace Genelib {
                     float framesRemaining = running.Animation.QuantityFrames - running.CurrentFrame;
                     float speed = currentEatAnimation.AnimationSpeed;
                     float ms = framesRemaining * speed * 1000 / 30;
-                    entity.World.RegisterCallback((dt) => entity.AnimManager.StopAnimation(currentEatAnimation.Code), (int)ms);
+                    string eatCode = currentEatAnimation.Code;
+                    entity.World.RegisterCallback((dt) => entity.AnimManager.StopAnimation(eatCode), (int)ms);
                 }
             }
         }
