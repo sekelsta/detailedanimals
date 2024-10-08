@@ -94,6 +94,12 @@ namespace Genelib {
                     irc.Resolve(slot, entity.World);
                     stack = slot.Itemstack;
                 }
+                while (stack.StackSize > stack.Collectible.MaxStackSize ) {
+                    ItemStack overflow = stack.GetEmptyClone();
+                    overflow.StackSize = stack.Collectible.MaxStackSize;
+                    stack.StackSize -= stack.Collectible.MaxStackSize;
+                    drops.Add(overflow);
+                }
                 drops.Add(stack);
                 if (drop.LastDrop) {
                     break;
