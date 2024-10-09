@@ -387,7 +387,7 @@
     {
         file: "game:entities/land/hyena-pup.json",
         op: "add",
-        path: "/server/behaviors/9/aitasks/-",
+        path: "/server/behaviors/10/aitasks/-",
         value: {
             code: "genelib.forage",
             nurseFromEntities: "game:hyena-female",
