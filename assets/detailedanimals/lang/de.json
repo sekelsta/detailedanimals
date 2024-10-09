@@ -56,10 +56,8 @@
     "item-dead-creature-hare-male-baby": "Totes Hasenjunges (Männlich)",
     "item-dead-creature-hare-female-baby": "Totes Hasenjunges (Weiblich)",
 
-    "item-egg-ceramic-raw-blue": "Ungebranntes Keramikei",
-    "item-egg-ceramic-fired-blue": "Keramikei",
-    "item-egg-ceramic-raw-fire": "Ungebranntes Keramikei",
-    "item-egg-ceramic-fired-fire": "Keramikei",
+    "item-egg-ceramic-raw-*": "Ungebranntes Keramikei",
+    "item-egg-ceramic-fired-*": "Keramikei",
 
     "item-egg-chicken-peewee-raw": "Rohes Hühnerei (Winzig)",
     "item-egg-chicken-small-raw": "Rohes Hühnerei (Klein)",
