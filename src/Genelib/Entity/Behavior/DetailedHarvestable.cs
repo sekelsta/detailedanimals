@@ -35,7 +35,6 @@ namespace Genelib {
             JsonObject editedTypeAttributes = typeAttributes.Clone();
             editedTypeAttributes.Token["fixedweight"] = true;
             base.Initialize(properties, editedTypeAttributes);
-            jsonDrops = null; // Needlessly initialized by base method
             if (entity.World.Side == EnumAppSide.Server) {
                 creatureDrops = typeAttributes["drops"].AsObject<CreatureDropItemStack[]>();
             }
@@ -50,40 +49,37 @@ namespace Genelib {
             }
         }
 
+        public override void OnEntityDeath(DamageSource damageSource) {
+            if (entity.World.Side != EnumAppSide.Server) {
+                return;
+            }
+            float cappedAnimalWeight = Math.Min(AnimalWeight, 1.08f);
+            float healthyWeight = entity.WeightModifierExceptCondition();
+            // Used by Butchering mod, also used by us now
+            jsonDrops = new BlockDropItemStack[creatureDrops.Length];
+            for (int i = 0; i < creatureDrops.Length; ++i) {
+                jsonDrops[i] = creatureDrops[i].WithAnimalWeight(AnimalWeight, cappedAnimalWeight, healthyWeight);
+            }
+        }
+
         public override void OnGameTick(float deltaTime) {
             // Don't call base method. Don't reset AnimalWeight to 1.
         }
 
-        public static bool generateDrops_Prefix(EntityBehaviorHarvestable __instance, IPlayer byPlayer, float dropQuantityMultiplier) {
-            if (!(__instance is DetailedHarvestable)) {
-                return true;
-            }
-            DetailedHarvestable instance = (DetailedHarvestable)__instance;
-            Entity entity = instance.entity;
-            float cappedAnimalWeight = Math.Min(instance.AnimalWeight, 1.08f);
-            float healthyWeight = instance.entity.WeightModifierExceptCondition();
-            float weight = healthyWeight * cappedAnimalWeight;
+        public void GenerateDrops(IPlayer byPlayer, float dropQuantityMultiplier) {
             List<ItemStack> drops = new List<ItemStack>();
-            foreach (CreatureDropItemStack drop in instance.creatureDrops) {
+            float animalWeight = AnimalWeight;
+            foreach (BlockDropItemStack drop in jsonDrops) {
                 if (drop.Tool != null && (byPlayer == null || byPlayer.InventoryManager.ActiveTool != drop.Tool)) {
                     continue;
                 }
                 drop.Resolve(entity.World, "genelib.Harvestable ", entity.Code);
 
-                float multiplier = dropQuantityMultiplier * instance.dropQuantityMultiplier;
+                float multiplier = dropQuantityMultiplier * this.dropQuantityMultiplier;
                 if (drop.DropModbyStat != null) {
                     multiplier *= byPlayer?.Entity?.Stats.GetBlended(drop.DropModbyStat) ?? 1;
                 }
-                if (drop.Category == EnumDropCategory.Meat) {
-                    multiplier *= weight;
-                }
-                else if (drop.Category == EnumDropCategory.Pelt) {
-                    multiplier *= (float)Math.Pow(healthyWeight, 0.6667f) * (1 + cappedAnimalWeight) / 2;
-                }
-                else if (drop.Category == EnumDropCategory.Fat) {
-                    float fatness = Math.Max(0, cappedAnimalWeight - 0.8f) / 0.2f;
-                    multiplier *= weight * fatness * fatness;
-                }
+                multiplier *= animalWeight;
 
                 ItemStack stack = drop.GetNextItemStack(multiplier);
                 if (stack == null || stack.StackSize == 0) {
@@ -115,20 +111,27 @@ namespace Genelib {
                 }
             }
 
-            instance.inv.AddSlots(drops.Count - instance.inv.Count);
+            inv.AddSlots(drops.Count - inv.Count);
             for (int i = 0; i < drops.Count; ++i) {
-                instance.inv[i].Itemstack = drops[i];
+                inv[i].Itemstack = drops[i];
             }
 
             TreeAttribute tree = new TreeAttribute();
-            instance.inv.ToTreeAttributes(tree);
+            inv.ToTreeAttributes(tree);
             entity.WatchedAttributes["harvestableInv"] = tree;
             entity.WatchedAttributes.MarkPathDirty("harvestableInv");
-            entity.WatchedAttributes.MarkPathDirty("harvested");
 
-            if (instance.entity.World.Side == EnumAppSide.Server) {
+            if (entity.World.Side == EnumAppSide.Server) {
                 entity.World.BlockAccessor.GetChunkAtBlockPos(entity.ServerPos.AsBlockPos).MarkModified();
             }
+        }
+
+        public static bool generateDrops_Prefix(EntityBehaviorHarvestable __instance, IPlayer byPlayer, float dropQuantityMultiplier) {
+            if (!(__instance is DetailedHarvestable)) {
+                return true;
+            }
+            DetailedHarvestable instance = (DetailedHarvestable)__instance;
+            instance.GenerateDrops(byPlayer, dropQuantityMultiplier);
 
             return false;
         }
