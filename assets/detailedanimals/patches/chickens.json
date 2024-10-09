@@ -606,7 +606,7 @@
         op: "replace",
         path: "/client/texture",
         value: { base: "detailedanimals:entity/chicken/chick-duckwing", 
-            alternates: [{ base: "detailedanimals:entity/chick-yellow"}, 
+            alternates: [{ base: "detailedanimals:entity/chicken/chick-yellow"}, 
             { base: "detailedanimals:entity/chicken/chick-black"}, 
             { base: "detailedanimals:entity/chicken/chick-blue"},
             { base: "detailedanimals:entity/chicken/chick-splash"},
