@@ -429,4 +429,21 @@
         },
         side: "server"
     },
+
+
+
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/client/shape/base",
+        value: "detailedanimals:entity/wolf-adult",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "replace",
+        path: "/client/shape/base",
+        value: "detailedanimals:entity/wolf-adult",
+        side: "server"
+    },
 ]
