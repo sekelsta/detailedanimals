@@ -56,8 +56,13 @@
     "item-dead-creature-hare-male-baby": "Dead leveret (male)",
     "item-dead-creature-hare-female-baby": "Dead leveret (female)",
 
-    "item-egg-ceramic-raw-*": "Greenware egg",
-    "item-egg-ceramic-fired-*": "Ceramic egg",
+    "item-egg-ceramic-raw-blue": "Greenware egg (white)",
+    "item-egg-ceramic-fired-blue": "Ceramic egg (white)",
+    "item-egg-ceramic-raw-fire": "Greenware egg (brown)",
+    "item-egg-ceramic-fired-fire": "Ceramic egg (brown)",
+    "item-egg-ceramic-raw-red": "Greenware egg (terracotta)",
+    "item-egg-ceramic-fired-red": "Ceramic egg (terracotta)",
+    "itemdesc-egg-ceramic-fired-*": "A ceramic egg to encourage hens to use the nestbox.",
 
     "item-egg-chicken-peewee-raw": "Raw chicken egg (peewee)",
     "item-egg-chicken-small-raw": "Raw chicken egg (small)",
