@@ -27,6 +27,13 @@ namespace Genelib.Extensions {
             return weight;
         }
 
+        public static float HealthyAdultWeightKg(this Entity entity) {
+            float adultWeightKg = entity.Properties?.Attributes?["adultWeightKg"]?.AsFloat(160) ?? 160;
+            float dimorphism = entity.Properties.Attributes["weightDimorphism"].AsFloat(0);
+            float weight = entity.IsMale() ? 1 + dimorphism : 1 - dimorphism;
+            return weight * adultWeightKg;
+        }
+
         public static string GetLangOptionallySuffixed(string key, string suffix) {
             if (Lang.HasTranslation(key)) {
                 return Lang.Get(key);

@@ -334,6 +334,7 @@
                 fiberDigestion: 0.1,
                 grazeMethods: ["nibblegraze"],
                 eatRate: 0.04,
+                saturationPerKgPerDay: 30,
         },
         side: "server"
     },
@@ -357,6 +358,7 @@
                 fiberDigestion: 0.1,
                 grazeMethods: ["nibblegraze"],
                 eatRate: 0.04,
+                saturationPerKgPerDay: 30,
         },
         side: "server"
     },
@@ -380,6 +382,7 @@
                 fiberDigestion: 0.1,
                 grazeMethods: ["nibblegraze"],
                 eatRate: 0.04,
+                saturationPerKgPerDay: 30,
         },
         side: "server"
     },

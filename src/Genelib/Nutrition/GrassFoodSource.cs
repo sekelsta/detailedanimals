@@ -120,7 +120,7 @@ namespace Genelib {
                 entity.World.BlockAccessor.SetBlock(dirt.Id, soilPos);
             }
 
-            return 1;
+            return 0.5f;
         }
 
         public float GrazeSelectively(Entity entity) {

@@ -170,7 +170,7 @@
         "file": "game:itemtypes/resource/drygrass.json",
         "op": "add",
         "path": "/attributes/satiety",
-        "value": 100,
+        "value": 75,
         side: "server",
     },
     {

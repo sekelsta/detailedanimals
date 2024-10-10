@@ -34,7 +34,8 @@ namespace Genelib {
         public string[] Specialties = new string[0];
         public float FiberDigestion = 0;
         public float MetabolicEfficiency;
-        public float DaysUntilHungry = 2;
+        public float DaysUntilHungry = 2.5f;
+        public float SaturationPerKgPerDay = 0.1f; // Based on large animals such as sheep
         public GrazeMethod[] GrazeMethods;
         public float EatRate = 1;
 
@@ -47,13 +48,28 @@ namespace Genelib {
 
         // Maximum values of each condition
         public const float STARVING = -0.9f;
-        public const float FAMISHED = -0.6f;
-        public const float VERY_HUNGRY = -0.3f;
-        public const float HUNGRY = 0.1f;
-        public const float PECKISH = 0.4f;
-        public const float NOT_HUNGRY = 0.6f;
+        public const float FAMISHED = -0.7f;
+        public const float VERY_HUNGRY = -0.4f;
+        public const float HUNGRY = -0.1f;
+        public const float SOMEWHAT_HUNGRY = 0.1f;
+        public const float PECKISH = 0.3f;
+        public const float NOT_HUNGRY = 0.5f;
         public const float FULL = 0.8f;
         // No max for STUFFED
+
+        // Approximate conversion between numbers used for player hunger and by troughs
+        public const float TROUGH_SAT_PER_PLAYER_SAT = 1 / 100f;
+
+        public float BodyCondition {
+            get => entity.WatchedAttributes.GetFloat("bodyCondition");
+            set {
+                if (float.IsNaN(value)) {
+                    throw new ArgumentException("Cannot set body condition value to NaN");
+                }
+                entity.WatchedAttributes.SetFloat("bodyCondition", value);
+                entity.WatchedAttributes.SetFloat("animalWeight", Math.Max(1.08f, value));
+            }
+        }
 
         public float Saturation {
             get => hungerTree.GetFloat("saturation");
@@ -75,21 +91,13 @@ namespace Genelib {
         }
 
         public float AdjustedMaxSaturation {
-            get => MaxSaturation * Math.Max(0.1f, entity.WatchedAttributes.GetFloat("growthWeightFraction", 1));
+            get => MaxSaturation 
+                    * Math.Max(0.1f, entity.WatchedAttributes.GetFloat("growthWeightFraction", 1))
+                    * (BodyCondition + 1) / 2;
         }
 
         public float Fullness {
             get => Saturation / AdjustedMaxSaturation;
-        }
-
-        public float AnimalWeight {
-            get => entity.WatchedAttributes.GetFloat("animalWeight", 1f);
-            set {
-                if (float.IsNaN(value)) {
-                    throw new ArgumentException("Cannot set animalWeight to NaN");
-                }
-                entity.WatchedAttributes.SetFloat("animalWeight", value);
-            }
         }
 
         public double LastUpdateHours {
@@ -112,13 +120,11 @@ namespace Genelib {
             if (typeAttributes.KeyExists("daysUntilHungry")) {
                 DaysUntilHungry = typeAttributes["daysUntilHungry"].AsFloat();
             }
-            if (typeAttributes.KeyExists("maxsaturation")) {
-                MaxSaturation = typeAttributes["maxsaturation"].AsFloat();
+            if (typeAttributes.KeyExists("saturationPerKgPerDay")) {
+                SaturationPerKgPerDay = typeAttributes["saturationPerKgPerDay"].AsFloat() * TROUGH_SAT_PER_PLAYER_SAT;
             }
-            else {
-                float adultWeightKg = entity.Properties?.Attributes?["adultWeightKg"]?.AsFloat(160) ?? 160;
-                MaxSaturation = adultWeightKg / 20;
-            }
+            MaxSaturation = entity.HealthyAdultWeightKg() * SaturationPerKgPerDay * DaysUntilHungry / 2;
+
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAgeDays = typeAttributes["monthsUntilWeaned"].AsFloat() * entity.World.Calendar.DaysPerMonth;
             }
@@ -151,8 +157,7 @@ namespace Genelib {
             ApplyNutritionEffects();
         }
 
-        public override void OnEntityDespawn(EntityDespawnData despawn)
-        {
+        public override void OnEntityDespawn(EntityDespawnData despawn) {
             base.OnEntityDespawn(despawn);
             entity.World.UnregisterGameTickListener(listenerID);
         }
@@ -245,7 +250,7 @@ namespace Genelib {
         }
 
         public bool CanEat(ItemStack itemstack, FoodNutritionProperties nutriProps, NutritionData data) {
-            if (AnimalWeight > 1.8f) {
+            if (BodyCondition > 1.8f) {
                 return false;
             }
             float fullness = Fullness;
@@ -307,8 +312,8 @@ namespace Genelib {
         public bool WantsEmergencyFood() {
             float fullness = Fullness;
             return fullness < STARVING
-                || (AnimalWeight < 0.7 && fullness < HUNGRY) 
-                || (AnimalWeight < 0.85 && fullness < VERY_HUNGRY);
+                || (BodyCondition < 0.7 && fullness < HUNGRY) 
+                || (BodyCondition < 0.85 && fullness < VERY_HUNGRY);
         }
 
         public bool CanDigestMilk() {
@@ -397,7 +402,7 @@ namespace Genelib {
             else if (nutriProps != null) {
                 satiety = nutriProps.Satiety;
             }
-            return satiety / 100;  // Approximate conversion between numbers used for player hunger and by troughs
+            return satiety * TROUGH_SAT_PER_PLAYER_SAT;
         }
 
         public void Eat(ItemStack itemstack) {
@@ -539,10 +544,9 @@ namespace Genelib {
                     distance = 0;
                 }
                 prevPos = currentPos;
-                // Commented out for being too wildly variable and out of the player's control
-                //float work = 1 + (float)distance / updateSeconds / 40;
-                //work = Math.Min(4, work);
-                float work = 1.25f; // TODO: Animals should get hungry faster if they move around more
+                double metersPerSecond = distance / updateSeconds;
+                float work = 0.95f + 0.3f * Math.Min((float)metersPerSecond, 10) / 10;
+
                 float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul / 30;
                 float hungerrate = entity.Stats.GetBlended("hungerrate");
                 float saturationConsumed = baseHungerRate * work * hungerrate * timespeed / (1 + MetabolicEfficiency);
@@ -563,14 +567,14 @@ namespace Genelib {
             // Become fatter or thinner
             float fullness = Fullness;
             float gain = fullness * fullness * fullness;
-            float recovery = 1 - AnimalWeight;
+            float recovery = 1 - BodyCondition;
             float weightShiftRate = 0.5f * hours / 24 / 12.5f;
             ShiftWeight(weightShiftRate * (gain + recovery) / 2);
         }
 
         public void ShiftWeight(float deltaWeight) {
             float inefficiency = deltaWeight > 0 ? 1.05f : 0.95f;
-            AnimalWeight = (float)Math.Clamp(AnimalWeight + deltaWeight, 0.5f, 2f);
+            BodyCondition = (float)Math.Clamp(BodyCondition + deltaWeight, 0.5f, 2f);
             float fractionOfOwnWeightEatenPerDay = 0.04f;
             float totalSaturation = AdjustedMaxSaturation * 2;
             float deltaSat = deltaWeight * inefficiency / fractionOfOwnWeightEatenPerDay * totalSaturation / DaysUntilHungry;
@@ -601,7 +605,7 @@ namespace Genelib {
                 return;
             }
             base.GetInfoText(infotext);
-            double[] hungerBoundaries = new double[] { FULL, NOT_HUNGRY, PECKISH, HUNGRY, VERY_HUNGRY, FAMISHED, STARVING };
+            double[] hungerBoundaries = new double[] { FULL, NOT_HUNGRY, PECKISH, SOMEWHAT_HUNGRY, HUNGRY, VERY_HUNGRY, FAMISHED, STARVING };
             int hungerScore = 0;
             float fullness = Fullness;
             foreach (double b in hungerBoundaries) {

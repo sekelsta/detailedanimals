@@ -29,6 +29,8 @@ namespace Genelib {
 
         protected CreatureDropItemStack[] creatureDrops;
 
+        protected AnimalHunger animalHunger;
+
         public DetailedHarvestable(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
@@ -41,11 +43,17 @@ namespace Genelib {
         }
 
         public override void AfterInitialized(bool onFirstSpawn) {
+            animalHunger = entity.GetBehavior<AnimalHunger>();
             if (onFirstSpawn) {
-                AnimalWeight = 0.9f
+                animalHunger.BodyCondition = 0.9f
                     + 0.07f * (float)entity.World.Rand.NextDouble()
                     + 0.08f * (float)entity.World.Rand.NextDouble();
                 LastWeightUpdateTotalHours = entity.World.Calendar.TotalHours;
+            }
+            else {
+                if (!entity.WatchedAttributes.HasAttribute("bodyCondition")) {
+                    animalHunger.BodyCondition = (AnimalWeight + 3) / 4;
+                }
             }
         }
 
@@ -53,12 +61,11 @@ namespace Genelib {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
-            float cappedAnimalWeight = Math.Min(AnimalWeight, 1.08f);
             float healthyWeight = entity.WeightModifierExceptCondition();
             // Used by Butchering mod, also used by us now
             jsonDrops = new BlockDropItemStack[creatureDrops.Length];
             for (int i = 0; i < creatureDrops.Length; ++i) {
-                jsonDrops[i] = creatureDrops[i].WithAnimalWeight(AnimalWeight, cappedAnimalWeight, healthyWeight);
+                jsonDrops[i] = creatureDrops[i].WithAnimalWeight(AnimalWeight, healthyWeight);
             }
         }
 
@@ -142,7 +149,7 @@ namespace Genelib {
             double[] conditionBoundaries = new double[] {SKIN_AND_BONES, MALNOURISHED, UNDERWEIGHT, LEAN, MODERATE, THICK, CHUBBY, FAT};
             int bodyScore = 1;
             foreach (double b in conditionBoundaries) {
-                if (AnimalWeight > b) {
+                if (animalHunger.BodyCondition > b) {
                     bodyScore += 1;
                 }
                 else {

@@ -11,18 +11,18 @@ namespace Genelib {
     public class CreatureDropItemStack : BlockDropItemStack {
         public EnumDropCategory Category = EnumDropCategory.Other;
 
-        public BlockDropItemStack WithAnimalWeight(float animalWeight, float cappedAnimalWeight, float healthyWeight) {
+        public BlockDropItemStack WithAnimalWeight(float animalWeight, float healthyWeight) {
             // Set with the expectation that this will be multipled by AnimalWeight later
             float multiplier = 1 / animalWeight;
             if (Category == EnumDropCategory.Meat) {
-                multiplier *= cappedAnimalWeight * healthyWeight;
+                multiplier *= Math.Max(0, animalWeight - 0.3f) / 0.7f * healthyWeight;
             }
             else if (Category == EnumDropCategory.Pelt) {
-                multiplier *= (float)Math.Pow(healthyWeight, 0.6667f) * (1 + cappedAnimalWeight) / 2;
+                multiplier *= (float)Math.Pow(healthyWeight, 0.6667f) * (1 + animalWeight) / 2;
             }
             else if (Category == EnumDropCategory.Fat) {
-                float fatness = Math.Max(0, cappedAnimalWeight - 0.8f) / 0.2f;
-                multiplier *= cappedAnimalWeight * healthyWeight * fatness * fatness;
+                float fatness = Math.Max(0, animalWeight - 0.8f) / 0.2f;
+                multiplier *= animalWeight * healthyWeight * fatness * fatness;
             }
 
             BlockDropItemStack result = Clone();
