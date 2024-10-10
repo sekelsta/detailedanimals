@@ -563,13 +563,17 @@ namespace Genelib {
             }
         }
 
-        public void UpdateCondition(float hours) {
-            // Become fatter or thinner
+        public float WeightShiftAmount() {
             float fullness = Fullness;
             float gain = fullness * fullness * fullness;
             float recovery = 1 - BodyCondition;
+            return (gain + recovery) / 2;
+        }
+
+        public void UpdateCondition(float hours) {
+            // Become fatter or thinner
             float weightShiftRate = 0.5f * hours / 24 / 12.5f;
-            ShiftWeight(weightShiftRate * (gain + recovery) / 2);
+            ShiftWeight(weightShiftRate * WeightShiftAmount());
         }
 
         public void ShiftWeight(float deltaWeight) {
