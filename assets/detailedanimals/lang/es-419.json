@@ -58,8 +58,13 @@
     "item-dead-creature-hare-male-baby": "Lebrato muerto",
     "item-dead-creature-hare-female-baby": "Lebrata muerta",
 
-    "item-egg-ceramic-raw-*": "Huevo de cerámica cruda",
-    "item-egg-ceramic-fired-*": "Huevo de cerámica",
+    "item-egg-ceramic-raw-blue": "Huevo blanco de cerámica cruda",
+    "item-egg-ceramic-fired-blue": "Huevo blanco de cerámica",
+    "item-egg-ceramic-raw-fire": "Huevo marrón de cerámica cruda",
+    "item-egg-ceramic-fired-fire": "Huevo marrón de cerámica",
+    "item-egg-ceramic-raw-red": "Huevo terracota cruda",
+    "item-egg-ceramic-fired-red": "Huevo terracota",
+    "itemdesc-egg-ceramic-fired-*": "Un huevo de cerámica para animar a las gallinas a utilizar la caja nido.",
 
     "item-egg-chicken-peewee-raw": "Huevo de gallina crudo (piwi)",
     "item-egg-chicken-small-raw": "Huevo de gallina crudo (pequeño)",
