@@ -170,27 +170,29 @@ namespace Genelib {
                 .Replace("{condition}", VSExtensions.GetLangOptionallySuffixed(conditionKey, genderSuffix))
                 .Replace("{pounds}", roundNicely(weightPounds))
                 .Replace("{kilograms}", roundNicely(weightKilograms));
-            float d = animalHunger.WeightShiftAmount();
-            if (d > 0.01) {
-                if (animalHunger.BodyCondition > 1.06) {
-                    text += " <font color=\"#ee6933\">↑</font>";
+            if (entity.Alive) {
+                float d = animalHunger.WeightShiftAmount();
+                if (d > 0.01) {
+                    if (animalHunger.BodyCondition > 1.06) {
+                        text += " <font color=\"#ee6933\">↑</font>";
+                    }
+                    else if (animalHunger.BodyCondition <= UNDERWEIGHT) {
+                        text += " <font color=\"#65f68e\">↑</font>";
+                    }
+                    else {
+                        text += " ↑";
+                    }
                 }
-                else if (animalHunger.BodyCondition <= UNDERWEIGHT) {
-                    text += " <font color=\"#65f68e\">↑</font>";
-                }
-                else {
-                    text += " ↑";
-                }
-            }
-            else if (d < -0.01) {
-                if (animalHunger.BodyCondition < 0.94) {
-                    text += " <font color=\"#ee6933\">↓</font>";
-                }
-                else if (animalHunger.BodyCondition > THICK) {
-                    text += " <font color=\"#65f68e\">↓</font>";
-                }
-                else {
-                    text += " ↓";
+                else if (d < -0.01) {
+                    if (animalHunger.BodyCondition < 0.94) {
+                        text += " <font color=\"#ee6933\">↓</font>";
+                    }
+                    else if (animalHunger.BodyCondition >= THICK) {
+                        text += " <font color=\"#65f68e\">↓</font>";
+                    }
+                    else {
+                        text += " ↓";
+                    }
                 }
             }
             infotext.AppendLine(text);
