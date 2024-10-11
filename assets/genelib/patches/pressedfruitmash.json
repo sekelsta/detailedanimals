@@ -1,0 +1,16 @@
+[
+    {
+        "file": "game:itemtypes/resource/pressedmash.json",
+        "op": "replace",
+        "path": "/transitionableProps/0/freshHours/avg",
+        "value": 192,
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/pressedmash.json",
+        "op": "replace",
+        "path": "/transitionableProps/0/transitionHours/avg",
+        "value": 48,
+        side: "server",
+    },
+]
