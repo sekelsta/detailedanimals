@@ -1,0 +1,9 @@
+[
+    {
+        "file": "sheepfeed:itemtypes/sheepfeed.json",
+        "op": "add",
+        "path": "/attributes/satiety",
+        "value": 75,
+        side: "server",
+    },
+]

@@ -1,0 +1,10 @@
+{
+    tag: "sheepfeed",
+    fiber: 0.5,
+    sugar: 0.15,
+    starch: 0.08,
+    fat: 0.02,
+    protein: 0.08,
+    water: 0.6,
+    minerals: 0.01,
+}
