@@ -610,7 +610,7 @@ namespace Genelib {
         }
 
         private void messagePlayer(String langKey, Entity byEntity) {
-            String message = Lang.GetUnformatted(langKey).Replace("{entity}", entity.GetName());
+            String message = Lang.GetUnformatted(langKey).Replace("{entity}", entity.GetDisplayName());
             ((byEntity as EntityPlayer)?.Player as IServerPlayer)?.SendMessage(GlobalConstants.GeneralChatGroup, message, EnumChatType.Notification);
         }
 

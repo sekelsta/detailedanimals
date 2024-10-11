@@ -6,6 +6,14 @@ using Vintagestory.API.Datastructures;
 
 namespace Genelib.Extensions {
     public static class VSExtensions {
+        public static string GetDisplayName(this Entity entity) {
+            string name = entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
+            if (name == null || name == "") {
+                return entity.GetName();
+            }
+            return name;
+        }
+
         public static bool IsMale(this Entity entity) {
             if (!entity.Properties.Attributes.KeyExists("male")) {
                 JObject jo = (JObject) entity.Properties.Attributes.Token;

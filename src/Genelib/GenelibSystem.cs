@@ -12,8 +12,10 @@ using Vintagestory.API.Server;
 using Vintagestory.Common;
 using Vintagestory.GameContent;
 using Vintagestory.API.Util;
+using Vintagestory.Client.NoObf;
 
 using Genelib.Extensions;
+using Genelib.Network;
 
 namespace Genelib
 {
@@ -47,6 +49,7 @@ namespace Genelib
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));
             api.RegisterEntityBehaviorClass(DetailedHarvestable.Code, typeof(DetailedHarvestable));
             api.RegisterEntityBehaviorClass(AnimalHunger.Code, typeof(AnimalHunger));
+            api.RegisterEntityBehaviorClass(BehaviorAnimalInfo.Code, typeof(BehaviorAnimalInfo));
 
             api.RegisterCollectibleBehaviorClass(TryFeedingAnimal.Code, typeof(TryFeedingAnimal));
 
@@ -142,10 +145,50 @@ namespace Genelib
 
         public override void StartServerSide(ICoreServerAPI api) {
             ServerAPI = api;
+            api.Network.RegisterChannel("genelib")
+                .RegisterMessageType<SetNameMessage>().SetMessageHandler<SetNameMessage>(OnSetNameMessageServer);
         }
 
         public override void StartClientSide(ICoreClientAPI api) {
             ClientAPI = api;
+            api.Network.RegisterChannel("genelib")
+                .RegisterMessageType<SetNameMessage>();
+
+            api.Input.RegisterHotKey("genelib.info", Lang.Get("genelib:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
+            api.Input.SetHotKeyHandler("genelib.info", ToggleAnimalInfoGUI);
+        }
+
+        public bool ToggleAnimalInfoGUI(KeyCombination keyConbination) {
+            foreach (GuiDialog dialog in ClientAPI.Gui.OpenedGuis) {
+                if (dialog is GuiDialogAnimal && dialog.IsOpened()) {
+                    dialog.TryClose();
+                    return true;
+                }
+            }
+
+            EntityPlayer player = (ClientAPI.World as ClientMain)?.EntityPlayer;
+            EntitySelection entitySelection = player?.EntitySelection;
+            EntityAgent agent = entitySelection?.Entity as EntityAgent;
+            if (agent == null 
+                    || !agent.Alive 
+                    || agent.GetBehavior<BehaviorAnimalInfo>() == null 
+                    || agent.Pos.SquareDistanceTo(player.Pos.XYZ) > 20 * 20) {
+                return false;
+            }
+            GuiDialogAnimal animalDialog = new GuiDialogAnimal(ClientAPI, agent);
+            animalDialog.TryOpen();
+            return true;
+        }
+
+        private void OnSetNameMessageServer(IServerPlayer fromPlayer, SetNameMessage message) {
+            Entity target = ServerAPI.World.GetEntityById(message.entityId);
+            EntityBehaviorNameTag nametag = target.GetBehavior<EntityBehaviorNameTag>();
+            if (nametag == null) {
+                return;
+            }
+            target.Api.Logger.Audit(fromPlayer.PlayerName + " changed name of " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos 
+                + " from " + nametag.DisplayName + " to " + message.name);
+            nametag.SetName(message.name);
         }
     }
 }
