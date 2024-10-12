@@ -73,16 +73,13 @@
                 code: "genelib.age",
                 monthsToGrowByType: {
                     "*-baby": 12.0,
-                    "*-adult": 18.0,
+                    "*-adult": 24.0,
                 },
                 initialWeightByType: {
                     "*-elk-*-baby": 0.05,
                     "*-whitetailed-*-baby": 0.1,
                     "*-baby": 0.08,
-                    "*-caribou-male-adult": 0.94,
-                    "*-caribou-female-adult": 0.77,
-                    "*-male-adult": 0.77,
-                    "*-female-adult": 0.73,
+                    "*": 0.7,
                 },
                 finalWeightByType: {
                     "*-baby": 0.7,
@@ -118,10 +115,10 @@
                 code: "genelib.harvestable",
                 drops: [
                     {
-                        "type": "item",
-                        "code": "game:redmeat-raw",
+                        type: "item",
+                        code: "game:redmeat-raw",
                         category: "meat",
-                        "quantityByType": {
+                        quantityByType: {
                             "deer-caribou-*": { avg: 33, var: 3 },
                             "deer-chital-*": { avg: 16, var: 2 },
                             "deer-elk-*": { avg: 71, var: 7 },
@@ -137,10 +134,10 @@
                         }
                     },
                     {
-                        "type": "item",
-                        "code": "game:hide-raw-huge",
+                        type: "item",
+                        code: "game:hide-raw-huge",
                         category: "pelt",
-                        "quantityByType": {
+                        quantityByType: {
                             "*-baby": { avg: 0, var: 0 },
                             "deer-caribou-*": { avg: 1.3, var: 0.1 },
                             "deer-elk-*": { avg: 2.2, var: 0.1 },
@@ -149,10 +146,10 @@
                         }
                     },
                     {
-                        "type": "item",
-                        "code": "game:hide-raw-large",
+                        type: "item",
+                        code: "game:hide-raw-large",
                         category: "pelt",
-                        "quantityByType": {
+                        quantityByType: {
                             "deer-elk-*-baby": { avg: 5.4, var: 0.1 },
                             "*-baby": { avg: 0, var: 0 },
                             "deer-chital-*": { avg: 1.4, var: 0.1 },
@@ -164,10 +161,10 @@
                         }
                     },
                     {
-                        "type": "item",
-                        "code": "game:hide-raw-medium",
+                        type: "item",
+                        code: "game:hide-raw-medium",
                         category: "pelt",
-                        "quantityByType": {
+                        quantityByType: {
                             "deer-caribou-*-baby": { avg: 6.5, var: 0.1 },
                             "deer-marsh-*-baby": { avg: 5.2, var: 0.1 },
                             "*-baby": { avg: 0, var: 0 },
@@ -178,10 +175,10 @@
                         }
                     },
                     {
-                        "type": "item",
-                        "code": "game:hide-raw-small",
+                        type: "item",
+                        code: "game:hide-raw-small",
                         category: "pelt",
-                        "quantityByType": {
+                        quantityByType: {
                             "deer-pudu-*-adult": { avg: 0.94, var: 0.1 },
                             "*-adult": { avg: 0, var: 0 },
                             "deer-chital-*": { avg: 4, var: 0.1 },
@@ -196,10 +193,10 @@
                         }
                     },
                     {
-                        "type": "item",
-                        "code": "game:fat",
+                        type: "item",
+                        code: "game:fat",
                         category: "fat",
-                        "quantityByType": {
+                        quantityByType: {
                             "deer-caribou-*": { avg: 8.4, var: 0.1 },
                             "deer-chital-*": { avg: 4, var: 0.1 },
                             "deer-elk-*": { avg: 18, var: 0.1 },
@@ -295,7 +292,10 @@
         value: {
             code: "genelib.reproduce",
             enabledByType: { "*-female-adult": true, "*": false },
-            sireCodes: ["game:deer-{type}-male-adult"],
+            sireCodesByType: {
+                "*-elk-*": ["game:deer-{type}-male-adult", "game:tamedeer-{type}-male-adult", "game:tamedeer-albino{type}-male-adult"],
+                "*": ["game:deer-{type}-male-adult"],
+            },
             offspringCodes: ["game:deer-{type}-male-baby", "game:deer-{type}-female-baby"],
             gestationMonthsByType: {
                 "deer-caribou-*": 7.56,
@@ -316,7 +316,7 @@
             estrousCycleMonths: 0.6,
             daysInHeat: 2.0,
             breedingSeason: "shortday",
-            litterAddChanceyType: {
+            litterAddChanceByType: {
                 "deer-caribou-*": 0.004,
                 "deer-elk-*": 0.004,
                 "*": 0.02
