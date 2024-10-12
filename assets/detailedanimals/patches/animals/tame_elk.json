@@ -1,0 +1,229 @@
+[
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/12/beginGrowMonth",
+        value: 7,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/12/growDurationMonths",
+        value: 3,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/12/grownDurationMonths",
+        value: 4,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/12/shedDurationMonths",
+        value: 0.9,
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: {
+                code: "genelib.age",
+                startAgeMonths: 24.0,
+                monthsToGrow: 12.0,
+                initialWeight: 0.9,
+            },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/client/behaviors/6",
+        value: { code: "genelib.harvestable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/6",
+        value: {
+                code: "genelib.harvestable",
+                drops: [
+                    {
+                        type: "item",
+                        code: "game:redmeat-raw",
+                        category: "meat",
+                        quantity: { avg: 71, var: 7 },
+                    },
+                    {
+                        type: "item",
+                        code: "game:hide-raw-huge",
+                        category: "pelt",
+                        quantity: { avg: 2.2, var: 0.1 },
+                    },
+                    {
+                        type: "item",
+                        code: "game:fat",
+                        category: "fat",
+                        quantityByType: { avg: 18, var: 0.1 },
+                    }
+                ]
+            },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 285,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/attributes/weightDimorphism",
+        value: 0.19,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/client/sizeByType",
+        value: {
+            "*-adult": 1,
+        },
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.reproduce", enabledByType: { "*-female-adult": true, "*": false } },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.reproduce",
+            enabledByType: { "*-female-adult": true, "*": false },
+            sireCodes: ["game:deer-elk-male-adult", "game:tamedeer-elk-male-adult", "game:tamedeer-albinoelk-male-adult"],
+            offspringCodes: ["game:deer-elk-male-baby", "game:deer-elk-female-baby"],
+            gestationMonths: 8.05,
+            cooldownMonths: 9.0,
+            lactationMonths: 6,
+            estrousCycleMonths: 0.6,
+            daysInHeat: 2.0,
+            breedingSeason: "shortday",
+            litterAddChance: 0.004,
+            litterAddAttempts: 2,
+        },
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/foodTags/-",
+        value: ["vegetable", "foliage", "hay", "fruitmash", "sheepfeed"],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+                code: "genelib.hunger",
+                monthsUntilWeaned: 4,
+                fiber: 0.7,
+                sugar: 0.06,
+                sugarMax: 0.15,
+                fat: 0.04,
+                fatMax: 0.2,
+                starch: 0.08,
+                starchMax: 0.3,
+                protein: 0.12,
+                water: 1.0,
+                minerals: 0.02,
+                mineralsMax: 0.1,
+                avoidFoodTags: [ "sour" ],
+                specialties: [ "toughplant" ],
+                fiberDigestion: 1.0,
+                grazeMethods: ["nibblegraze"],
+            },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.hunger" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/7/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/7/mincooldownHours",
+        value: 0.0,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/7/maxcooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/10/aitasks/7/priority",
+        value: 1.39,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/8/enabled",
+        value: false,
+        side: "server"
+    },
+]
