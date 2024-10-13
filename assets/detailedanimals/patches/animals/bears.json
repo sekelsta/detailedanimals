@@ -39,6 +39,7 @@
         value: {
             code: "genelib.age",
             "_comment": "40% of adult weight at one year old, stays with mother about 2.5 years. Here is years 2.5-5.",
+            startAgeMonths: 30,
             monthsToGrow: 30.0,
             initialWeight: 0.7,
             finalWeight: 1.0,

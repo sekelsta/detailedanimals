@@ -70,26 +70,29 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-                code: "genelib.age",
-                monthsToGrowByType: {
-                    "*-baby": 12.0,
-                    "*-adult": 24.0,
-                },
-                initialWeightByType: {
-                    "*-elk-*-baby": 0.05,
-                    "*-whitetailed-*-baby": 0.1,
-                    "*-baby": 0.08,
-                    "*": 0.7,
-                },
-                finalWeightByType: {
-                    "*-baby": 0.7,
-                    "*-adult": 1.0,
-                },
-                adultEntityCodesByType: {
-                    "*-male-baby": ["game:deer-{type}-male-adult"],
-                    "*-female-baby": ["game:deer-{type}-female-adult"],
-                },
+            code: "genelib.age",
+            monthsToGrowByType: {
+                "*-baby": 12.0,
+                "*-adult": 24.0,
             },
+            startAgeMonthsByType: {
+                "*-adult": 12.0,
+            },
+            initialWeightByType: {
+                "*-elk-*-baby": 0.05,
+                "*-whitetailed-*-baby": 0.1,
+                "*-baby": 0.08,
+                "*": 0.7,
+            },
+            finalWeightByType: {
+                "*-baby": 0.7,
+                "*-adult": 1.0,
+            },
+            adultEntityCodesByType: {
+                "*-male-baby": ["game:deer-{type}-male-adult"],
+                "*-female-baby": ["game:deer-{type}-female-adult"],
+            },
+        },
         side: "server"
     },
     {

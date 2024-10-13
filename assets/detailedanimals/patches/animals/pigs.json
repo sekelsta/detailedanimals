@@ -149,6 +149,7 @@
         value: { 
             code: "genelib.age",
             monthsToGrow: 51.0,
+            startAgeMonths: 9.0,
             initialWeight: 0.36,
             finalWeight: 1.0
         },
@@ -161,6 +162,7 @@
         value: { 
             code: "genelib.age",
             monthsToGrow: 51.0,
+            startAgeMonths: 9.0,
             initialWeight: 0.36,
             finalWeight: 1.0
         },

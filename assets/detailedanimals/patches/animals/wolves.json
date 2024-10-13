@@ -61,7 +61,8 @@
         path: "/server/behaviors/-",
         value: {
             code: "genelib.age",
-            monthsToGrow: 6.0,
+            monthsToGrow: 18.0,
+            startAgeMonths: 6.0,
             initialWeight: 0.7,
         },
         side: "server"
@@ -72,7 +73,8 @@
         path: "/server/behaviors/-",
         value: {
             code: "genelib.age",
-            monthsToGrow: 6.0,
+            monthsToGrow: 18.0,
+            startAgeMonths: 6.0,
             initialWeight: 0.7,
         },
         side: "server"

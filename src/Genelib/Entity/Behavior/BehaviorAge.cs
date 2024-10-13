@@ -116,12 +116,15 @@ namespace Genelib {
                     spawnAge = entity.World.Rand.NextSingle() * HoursToGrow * (AdultEntityCode == null ? 4 : 1);
                 }
                 TimeSpawned = entity.World.Calendar.TotalHours - spawnAge;
-                double birthDate = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
-                double totalDays = entity.World.Calendar.TotalDays - spawnAge / entity.World.Calendar.HoursPerDay;
-                if (birthDate > totalDays) {
-                    entity.WatchedAttributes.SetDouble("birthTotalDays", totalDays);
-                }
             }
+
+            double birthDate = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
+            double spawnDate = TimeSpawned / entity.World.Calendar.HoursPerDay;
+            float startAgeDays = typeAttributes["startAgeMonths"].AsFloat(0) * entity.World.Calendar.DaysPerMonth;
+            if (birthDate > spawnDate - startAgeDays) {
+                entity.WatchedAttributes.SetDouble("birthTotalDays", spawnDate - startAgeDays);
+            }
+
             if (!entity.WatchedAttributes.HasAttribute("growthWeightFraction")) {
                 // Set to current size, without requiring extra food
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
@@ -271,7 +274,6 @@ namespace Genelib {
         public override void OnEntityDespawn(EntityDespawnData despawn) {
             UnregisterCallback();
         }
-
 
         public override string PropertyName() => Code;
     }

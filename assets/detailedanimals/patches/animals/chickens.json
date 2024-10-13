@@ -159,7 +159,7 @@
         path: "/server/behaviors/7",
         value: { 
             code: "genelib.age",
-            monthsToGrow: 2.1,
+            monthsToGrow: 2.0,
             adultEntityCodesByType: {
                 "*-male-*": ["game:chicken-roosterpoult"],
                 "*-female-*": ["game:chicken-henpoult"],
@@ -175,7 +175,11 @@
         path: "/server/behaviors/8",
         value: { 
             code: "genelib.age",
-            monthsToGrow: 2.6,
+            monthsToGrow: 2.7,
+            startAgeMonthsByType: {
+                "*-henpoult": 2.0,
+                "*-hen": 4.7,
+            },
             adultEntityCodeByType: {
                 "*-henpoult": "chicken-hen",
             },
@@ -195,7 +199,11 @@
         path: "/server/behaviors/7",
         value: { 
             code: "genelib.age",
-            monthsToGrow: 2.6,
+            monthsToGrow: 2.7,
+            startAgeMonthsByType: {
+                "*-roosterpoult": 2.0,
+                "*-rooster": 4.7,
+            },
             adultEntityCodeByType: {
                 "*-roosterpoult": "chicken-rooster",
             },

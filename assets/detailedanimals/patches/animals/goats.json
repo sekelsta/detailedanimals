@@ -114,6 +114,9 @@
                 "*-female-baby": ["goat-{type}-female-adult"]
             },
             monthsToGrow: 10.0,
+            startAgeMonthsByType: {
+                "*-adult": 10.0,
+            },
             initialWeightByType: {
                 "goat-mountain-*-baby": 0.02,
                 "*-baby": 0.04,

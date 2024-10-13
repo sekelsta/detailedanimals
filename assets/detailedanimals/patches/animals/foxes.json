@@ -75,6 +75,10 @@
                 "fox-pup-*": [ "game:fox-male-{type}", "game:fox-female-{type}" ]
             },
             monthsToGrow: 6.0,
+            startAgeMonthsByType: {
+                "*-pup": 0.0,
+                "*": 6.0,
+            },
             initialWeightByType: {
                 "*-pup-*": 0.08,
                 "*": 0.7,

@@ -90,7 +90,14 @@
                 "*-male-calf": [ "game:gazelle-male" ],
                 "*-calf": [ "game:gazelle-male", "game:gazelle-female" ]
             },
-            monthsToGrow: 6.0,
+            monthsToGrowByType: {
+                "*-calf": 6.0,
+                "*": 18.0
+            },
+            startAgeMonthsByType: {
+                "*-calf": 12.0,
+                "*": 6.0,
+            },
             initialWeightByType: {
                 "*-calf": 0.1,
                 "*": 0.7,
