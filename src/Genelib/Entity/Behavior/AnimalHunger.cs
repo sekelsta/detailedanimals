@@ -72,7 +72,7 @@ namespace Genelib {
         }
 
         public float Saturation {
-            get => hungerTree.GetFloat("saturation");
+            get => hungerTree?.GetFloat("saturation") ?? 0;
             set {
                 if (float.IsNaN(value)) {
                     throw new ArgumentException("Cannot set saturation value to NaN");
@@ -83,7 +83,7 @@ namespace Genelib {
         }
 
         public float MaxSaturation {
-            get => hungerTree.GetFloat("maxsaturation");
+            get => hungerTree?.GetFloat("maxsaturation") ?? 1;
             set {
                 hungerTree.SetFloat("maxsaturation", value);
                 entity.WatchedAttributes.MarkPathDirty("hunger");
@@ -111,10 +111,11 @@ namespace Genelib {
         public AnimalHunger(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
-            hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
             if (entity.Api.Side == EnumAppSide.Client) {
                 return;
             }
+            // Do NOT create hunger tree on the client side, or it won't sync over the values
+            hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
 
             accumulator = entity.World.Rand.Next(updateSeconds * TPS);
             if (typeAttributes.KeyExists("daysUntilHungry")) {
@@ -155,6 +156,12 @@ namespace Genelib {
             Nutrients = new List<Nutrient> { Fiber, Sugar, Starch, Fat, Protein, Water, Minerals };
             listenerID = entity.World.RegisterGameTickListener(SlowServerTick, 12000);
             ApplyNutritionEffects();
+        }
+
+        public override void AfterInitialized(bool onFirstSpawn) {
+            if (onFirstSpawn) {
+                LastUpdateHours = entity.World.Calendar.TotalHours;
+            }
         }
 
         public override void OnEntityDespawn(EntityDespawnData despawn) {
@@ -609,6 +616,10 @@ namespace Genelib {
                 return;
             }
             base.GetInfoText(infotext);
+            hungerTree = entity.WatchedAttributes.GetTreeAttribute("hunger");
+            if (hungerTree == null) {
+                return;
+            }
             double[] hungerBoundaries = new double[] { FULL, NOT_HUNGRY, PECKISH, SOMEWHAT_HUNGRY, HUNGRY, VERY_HUNGRY, FAMISHED, STARVING };
             int hungerScore = 0;
             float fullness = Fullness;
