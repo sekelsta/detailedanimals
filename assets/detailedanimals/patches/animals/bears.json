@@ -149,6 +149,7 @@
                     "*": 0.1
                 },
                 grazeMethods: ["nibblegraze", "root"],
+                daysUntilHungry: 4,
             },
         side: "server"
     },

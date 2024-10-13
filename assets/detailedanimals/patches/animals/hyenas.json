@@ -288,6 +288,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
+                daysUntilHungry: 4,
             },
         side: "server"
     },
@@ -309,6 +310,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
+                daysUntilHungry: 4,
             },
         side: "server"
     },
@@ -330,6 +332,7 @@
                 avoidFoodTags: [ "sour" ],
                 specialties: [ "bone" ],
                 fiberDigestion: 0.0,
+                daysUntilHungry: 4,
             },
         side: "server"
     },
