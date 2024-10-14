@@ -291,6 +291,9 @@ namespace Genelib {
             }
 
             if (!diet.Matches(itemstack)) {
+                if (foodTags.Length == 0 && nutriProps == null && data == null && !itemstack.Collectible.Attributes.KeyExists("satiety")) {
+                    return false;
+                }
                 return WantsEmergencyFood();
             }
             foreach (string avoid in AvoidFoodTags) {
