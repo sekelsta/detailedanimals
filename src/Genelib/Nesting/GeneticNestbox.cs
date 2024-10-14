@@ -24,6 +24,10 @@ namespace Genelib {
         public Vec3d Position => Pos.ToVec3d().Add(0.5, 0.5, 0.5);
         public string Type => "nest";
 
+        public GeneticNestbox() {
+            container = new NestContainer(() => Inventory, "inventory");
+        }
+
         public bool IsSuitableFor(Entity entity) {
             return entity is EntityAgent && suitableFor.Any(name => entity.WildCardMatch(name));
         }
@@ -251,11 +255,6 @@ namespace Genelib {
                 world.PlaySoundAt(new AssetLocation("sounds/player/collect"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
             }
             return anyEggs;
-        }
-
-        public override float GetPerishRate() {
-            // Scale with month length, just like incubation time does
-            return 9 / Api.World.Calendar.DaysPerMonth;
         }
 
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc) {
