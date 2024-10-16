@@ -109,21 +109,21 @@ namespace Genelib {
             // Deliberately skip calling base.Initialize()
             multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
 
-            string[] eggStrings = entity.WatchedAttributes?.GetStringArray("eggCodes")
-                ?? entity.Properties.Attributes?["eggCodes"].AsArray<String>();
-            if (eggStrings != null) {
-                EggTypes = new CollectibleObject[eggStrings.Length];
-                for (int i = 0; i < eggStrings.Length; ++i) {
-                    AssetLocation loc = AssetLocation.Create(eggStrings[i], entity.Code.Domain);
-                    CollectibleObject egg = entity.World.GetItem(loc);
-                    if (egg == null) {
-                        egg = entity.World.GetBlock(loc);
-                    }
-                    if (egg == null) {
-                        entity.Api.Logger.Warning("Failed to resolve egg item or block with code " + loc + " for entity " + entity.Code);
-                    }
-                    EggTypes[i] = egg;
-                }
+            // TODO: Add a way to customize this per-entity from WatchedAttributes or similar
+            JsonItemStack[] eggs = entity.Properties.Attributes?["eggTypes"].AsArray<JsonItemStack>();
+            if (eggs != null) {
+                EggTypes = eggs.Select(
+                    (jsonEgg) => {
+                        if (jsonEgg.Resolve(entity.World, null, false)) {
+                            return jsonEgg.ResolvedItemstack.Collectible;
+                        }
+                        else {
+                            entity.Api.Logger.Warning("Failed to resolve egg " + jsonEgg.Type + " with code " + jsonEgg.Code + " for entity " + entity.Code);
+                            return null;
+                        }
+                    } 
+                ).Where(x => x != null).ToArray();
+
                 Array.Sort(EggTypes, (x, y) => 
                     (x.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
                     .CompareTo(y.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)

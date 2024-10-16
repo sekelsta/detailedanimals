@@ -2,9 +2,9 @@
     {
         file: "moreanimals:entities/wildturkey-hen.json",
         op: "add",
-        path: "/attributes/eggCodes",
+        path: "/attributes/eggTypes",
         value: [
-                "moreanimals:egg-wildturkey-raw",
+                { type: "item", code: "moreanimals:egg-wildturkey-raw", },
             ],
         dependsOn: [ { modid: "moreanimals" } ],
         side: "server"

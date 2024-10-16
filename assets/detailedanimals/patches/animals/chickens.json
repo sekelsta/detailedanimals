@@ -525,13 +525,13 @@
     {
         file: "game:entities/land/chicken-hen.json",
         op: "add",
-        path: "/attributes/eggCodes",
+        path: "/attributes/eggTypes",
         value: [
-                "detailedanimals:egg-chicken-peewee-raw",
-                "detailedanimals:egg-chicken-small-raw",
-                "detailedanimals:egg-chicken-medium-raw",
-                "detailedanimals:egg-chicken-large-raw",
-                "detailedanimals:egg-chicken-jumbo-raw",
+                { type: "item", code: "detailedanimals:egg-chicken-peewee-raw", },
+                { type: "item", code: "detailedanimals:egg-chicken-small-raw", },
+                { type: "item", code: "detailedanimals:egg-chicken-medium-raw", },
+                { type: "item", code: "detailedanimals:egg-chicken-large-raw", },
+                { type: "item", code: "detailedanimals:egg-chicken-jumbo-raw", },
             ],
         side: "server"
     },
