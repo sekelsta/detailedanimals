@@ -133,7 +133,7 @@
                 {
                     "type": "item",
                     "code": "game:fat",
-                    quantity: { avg: 28, var: 0.3 }
+                    quantity: { avg: 18, var: 0.3 }
                 }
             ]
         },

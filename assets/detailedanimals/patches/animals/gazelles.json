@@ -166,7 +166,7 @@
                     type: "item", 
                     code: "game:fat", 
                     category: "fat",
-                    quantity: { avg: 1.5, var: 0.3 } 
+                    quantity: { avg: 1, var: 0 } 
                 }
             ],
         },

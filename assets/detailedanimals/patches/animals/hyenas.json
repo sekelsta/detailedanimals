@@ -151,7 +151,7 @@
                 {
                     type: "item", 
                     code: "game:fat", 
-                    quantity: { avg: 3.75, var: 0 } 
+                    quantity: { avg: 2.5, var: 0 } 
                 }
             ]
         },
@@ -177,7 +177,7 @@
                 {
                     type: "item", 
                     code: "game:fat", 
-                    quantity: { avg: 3.75, var: 0 } 
+                    quantity: { avg: 2.5, var: 0 } 
                 }
             ]
         },
@@ -203,7 +203,7 @@
                 {
                     type: "item", 
                     code: "game:fat", 
-                    quantity: { avg: 3.75, var: 0 } 
+                    quantity: { avg: 2.5, var: 0 } 
                 }
             ]
         },

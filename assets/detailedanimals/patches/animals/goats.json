@@ -216,17 +216,17 @@
                         "code": "game:fat",
                         category: "fat",
                         "quantityByType": {
-                            "goat-ibexalp-*": { avg: 3.6, var: 0.3 },
-                            "goat-takingold-*": { avg: 13, var: 0.1 },
-                            "goat-markhor-*": { avg: 4, var: 0.4 },
-                            "goat-mountain-*": { avg: 5.4, var: 0.5 },
-                            "goat-muskox-*": { avg: 18, var: 0.2 },
-                            "goat-ibexnub-*": { avg: 3.1, var: 0.3 },
-                            "goat-turdag-*": { avg: 4, var: 0.4 },
-                            "goat-angora-*": { avg: 4, var: 0.4 },
-                            "goat-nubian-*": { avg: 4, var: 0.4 },
-                            "goat-sirohi-*": { avg: 4, var: 0.4 },
-                            "goat-valais-*": { avg: 4, var: 0.4 },
+                            "goat-ibexalp-*": { avg: 2.4, var: 0 },
+                            "goat-takingold-*": { avg: 9, var: 0.1 },
+                            "goat-markhor-*": { avg: 2.7, var: 0 },
+                            "goat-mountain-*": { avg: 3.6, var: 0 },
+                            "goat-muskox-*": { avg: 12, var: 0.2 },
+                            "goat-ibexnub-*": { avg: 2.1, var: 0 },
+                            "goat-turdag-*": { avg: 2.7, var: 0 },
+                            "goat-angora-*": { avg: 2.7, var: 0 },
+                            "goat-nubian-*": { avg: 2.7, var: 0 },
+                            "goat-sirohi-*": { avg: 2.7, var: 0 },
+                            "goat-valais-*": { avg: 2.7, var: 0 },
                         }
                     }
                 ]

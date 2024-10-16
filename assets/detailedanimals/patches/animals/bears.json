@@ -89,11 +89,11 @@
                     code: "game:fat", 
                     category: "fat",
                     quantityByType: {
-                        "*-black": { avg: 12, var: 2 },
-                        "*-brown": { avg: 30, var: 3 },
-                        "*-sun": { avg: 5.6, var: 1 },
-                        "*-panda": { avg: 13, var: 2 },
-                        "*-polar": { avg: 48, var: 5 },
+                        "*-black": { avg: 6, var: 0.1 },
+                        "*-brown": { avg: 15, var: 0.2 },
+                        "*-sun": { avg: 2.8, var: 0.1 },
+                        "*-panda": { avg: 7, var: 0.1 },
+                        "*-polar": { avg: 24, var: 0.3 },
                     },
                 },
                 {
