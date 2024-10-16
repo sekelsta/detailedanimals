@@ -3,8 +3,9 @@
         "file": "game:itemtypes/resource/pressedmash.json",
         "op": "replace",
         "path": "/transitionableProps/0/freshHours/avg",
-        "value": 192,
+        "value": 120,
         side: "server",
+        dependsOn: [{modid: "expandedfoods", invert: true}],
     },
     {
         "file": "game:itemtypes/resource/pressedmash.json",
@@ -12,5 +13,22 @@
         "path": "/transitionableProps/0/transitionHours/avg",
         "value": 48,
         side: "server",
+        dependsOn: [{modid: "expandedfoods", invert: true}],
+    },
+    {
+        "file": "game:itemtypes/resource/pressedmash.json",
+        "op": "replace",
+        "path": "/transitionablePropsByType/*/0/freshHours/avg",
+        "value": 120,
+        side: "server",
+        dependsOn: [{modid: "expandedfoods"}],
+    },
+    {
+        "file": "game:itemtypes/resource/pressedmash.json",
+        "op": "replace",
+        "path": "/transitionablePropsByType/*/0/transitionHours/avg",
+        "value": 48,
+        side: "server",
+        dependsOn: [{modid: "expandedfoods"}],
     },
 ]
