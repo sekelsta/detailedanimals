@@ -29,7 +29,7 @@ namespace Genelib {
             return lastSearchHours + searchRate <= entity.World.Calendar.TotalHours
                 && cooldownUntilMs <= entity.World.ElapsedMilliseconds
                 && cooldownUntilTotalHours <= entity.World.Calendar.TotalHours
-                && EmotionStatesSatisifed();
+                && PreconditionsSatisifed();
         }
 
         protected bool RecentlyFailedSeek(T poi) {
@@ -81,9 +81,9 @@ namespace Genelib {
             }
             else {
                 if (!pathTraverser.Active) {
-                    float rndx = (float)entity.World.Rand.NextDouble() * 0.3f - 0.15f;
-                    float rndz = (float)entity.World.Rand.NextDouble() * 0.3f - 0.15f;
-                    pathTraverser.NavigateTo(target.Position.AddCopy(rndx, 0, rndz), moveSpeed, MinDistanceToTarget() - 0.1f, OnGoalReached, OnStuck, false, 500);
+                    float rndx = (float)entity.World.Rand.NextDouble() * 0.2f - 0.1f;
+                    float rndz = (float)entity.World.Rand.NextDouble() * 0.2f - 0.1f;
+                    pathTraverser.NavigateTo_Async(target.Position.AddCopy(rndx, 0, rndz), moveSpeed, MinDistanceToTarget() - 0.1f, OnGoalReached, OnStuck, null, 1000, 1);
                 }
             }
 
