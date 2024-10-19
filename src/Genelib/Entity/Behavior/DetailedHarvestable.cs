@@ -113,14 +113,7 @@ namespace Genelib {
                 drops.Add(stack);
             }
 
-            var eagent = entity as EntityAgent;
-            if (eagent.GearInventory != null) {
-                foreach (var slot in eagent.GearInventory) {
-                    if (!slot.Empty) {
-                        drops.Add(slot.Itemstack);
-                    }
-                }
-            }
+            // TODO: Make sure the player gets equipped items back
 
             inv.AddSlots(drops.Count - inv.Count);
             for (int i = 0; i < drops.Count; ++i) {

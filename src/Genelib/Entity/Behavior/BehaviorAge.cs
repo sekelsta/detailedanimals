@@ -249,13 +249,7 @@ namespace Genelib {
 
         protected virtual void CopyAttributesAfterSpawning(Entity adult) {
             adult.GetBehavior<EntityBehaviorNameTag>()?.SetName(entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName);
-
-            if (entity is EntityAgent childAgent && adult is EntityAgent adultAgent 
-                    && childAgent.GearInventory != null && adultAgent.GearInventory != null) {
-                for (int i = 0; i < childAgent.GearInventory.Count && i < adultAgent.GearInventory.Count; i++) {
-                    childAgent.GearInventory[i].TryPutInto(entity.World, adultAgent.GearInventory[i]);
-                }
-            }
+            // TODO: Consider copying over equipment
         }
 
         protected void CopyAttributeIfPresent(Entity adult, string key) {
