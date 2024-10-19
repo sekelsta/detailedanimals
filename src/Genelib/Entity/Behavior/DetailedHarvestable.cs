@@ -109,6 +109,10 @@ namespace Genelib {
                 }
             }
 
+            foreach (ItemStack stack in entity.GetDrops(entity.World, entity.ServerPos.AsBlockPos, byPlayer)) {
+                drops.Add(stack);
+            }
+
             var eagent = entity as EntityAgent;
             if (eagent.GearInventory != null) {
                 foreach (var slot in eagent.GearInventory) {
