@@ -110,7 +110,7 @@ namespace Genelib {
                     done = true;
                     EggLaidHours = entity.World.Calendar.TotalHours;
                     ItemStack egg = reproduce.GiveEgg();
-                    egg.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24 * GeneticsModSystem.AnimalGrowthTime);
+                    egg.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24 * GenelibSystem.AnimalGrowthTime);
                     nestbox.AddEgg(entity, egg);
                 }
             }

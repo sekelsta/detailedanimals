@@ -14,7 +14,7 @@ using Vintagestory.GameContent;
 
 namespace Genelib {
     public class DetailedHarvestable : EntityBehaviorHarvestable {
-        public const string Code = GeneticsModSystem.NamePrefix + "harvestable";
+        public const string Code = "genelib.harvestable";
 
         // Maximum values of each condition
         public const double SKIN_AND_BONES = 1 - 0.3;
@@ -160,7 +160,7 @@ namespace Genelib {
             weightKilograms *= entity.WeightModifier();
             double weightPounds = weightKilograms * 2.20462;
 
-            string unitsSuffix = GeneticsModSystem.Config.WeightSuffix();
+            string unitsSuffix = GenelibSystem.Config.WeightSuffix();
             string conditionKey = "genelib:infotext-bodycondition" + bodyScore.ToString();
             string genderSuffix = entity.IsMale() ? "-male" : "-female";
             string text = Lang.GetUnformatted("genelib:infotext-conditionweight" + unitsSuffix)
