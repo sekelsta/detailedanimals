@@ -12,6 +12,7 @@ using Vintagestory.API.Server;
 using Vintagestory.Common;
 using Vintagestory.GameContent;
 using Vintagestory.API.Util;
+using Vintagestory.Client.NoObf;
 
 using Genelib.Extensions;
 
@@ -137,13 +138,20 @@ namespace Genelib
         public override void StartClientSide(ICoreClientAPI api) {
             ClientAPI = api;
 
-            // TODO: Get these strings from lang file
-            api.Input.RegisterHotKey("genelib.info", "View animal info or change name", GlKeys.N, type: HotkeyType.GUIOrOtherControls);
-            api.Input.SetHotKeyHandler("genelib.info", OpenInfoGUI);
+            api.Input.RegisterHotKey("genelib.info", Lang.Get("genelib:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
+            api.Input.SetHotKeyHandler("genelib.info", ToggleAnimalInfoGUI);
         }
 
-        private bool OpenInfoGUI(KeyCombination keyConbination) {
-            ClientAPI.Logger.Notification("TODO hotkey pressed");
+        public bool ToggleAnimalInfoGUI(KeyCombination keyConbination) {
+            // TODO: If dialog is already open, close it
+            EntitySelection entitySelection = (ClientAPI.World as ClientMain)?.EntityPlayer?.EntitySelection;
+            EntityAgent agent = entitySelection?.Entity as EntityAgent;
+            if (agent == null) {
+                return false;
+            }
+            // TODO: Check if entity is a valid target of this dialog
+            GuiDialogAnimal dialog = new GuiDialogAnimal(ClientAPI, agent);
+            dialog.TryOpen();
             return true;
         }
     }
