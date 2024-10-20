@@ -137,6 +137,15 @@ namespace Genelib
 
         public override void StartClientSide(ICoreClientAPI api) {
             ClientAPI = api;
+
+            // TODO: Get these strings from lang file
+            api.Input.RegisterHotKey("genelib.info", "View animal info or change name", GlKeys.N, type: HotkeyType.GUIOrOtherControls);
+            api.Input.SetHotKeyHandler("genelib.info", OpenInfoGUI);
+        }
+
+        private bool OpenInfoGUI(KeyCombination keyConbination) {
+            ClientAPI.Logger.Notification("TODO hotkey pressed");
+            return true;
         }
     }
 }
