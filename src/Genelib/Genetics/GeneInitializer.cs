@@ -58,8 +58,8 @@ namespace Genelib {
                     || climateCondition.MinForestOrShrubs <= climate.ShrubDensity)
                 && (maxForestOrShrubs >= climate.ForestDensity 
                     || maxForestOrShrubs >= climate.ShrubDensity);
-            int sealevel = GeneticsModSystem.ServerAPI.World.SeaLevel;
-            int maxheight = GeneticsModSystem.ServerAPI.WorldManager.MapSizeY;
+            int sealevel = GenelibSystem.ServerAPI.World.SeaLevel;
+            int maxheight = GenelibSystem.ServerAPI.WorldManager.MapSizeY;
             float highY = (y + 3f) > sealevel ? (y + 3f - sealevel) / (maxheight - sealevel) : (y + 3f) / sealevel;
             float lowY = (y - 3f) > sealevel ? (y - 3f - sealevel) / (maxheight - sealevel) : (y - 3f) / sealevel;
             return forestOrShrubs

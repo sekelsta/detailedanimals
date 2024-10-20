@@ -3,7 +3,7 @@ using Vintagestory.API.Common;
 
 namespace Genelib {
     class TryFeedingAnimal : CollectibleBehavior {
-        public const string Code = GeneticsModSystem.NamePrefix + "tryfeedinganimal";
+        public const string Code = "genelib.tryfeedinganimal";
 
         public TryFeedingAnimal(CollectibleObject collObj) : base(collObj) { }
 

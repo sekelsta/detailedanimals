@@ -19,7 +19,7 @@ namespace Genelib {
             ShortDay,
             LongDay
         }
-        public const string Code = GeneticsModSystem.NamePrefix + "reproduce";
+        public const string Code = "genelib.reproduce";
         private const float DEFAULT_WEIGHT = 0.04f;
 
         // TODO: rearrange to handle hybrids - e.g., offspringBySire
@@ -146,7 +146,7 @@ namespace Genelib {
             else {
                 GestationDays = entity.World.Calendar.DaysPerMonth;
             }
-            GestationDays *= GeneticsModSystem.AnimalGrowthTime;
+            GestationDays *= GenelibSystem.AnimalGrowthTime;
 
             if (attributes.KeyExists("sireSearchRange")) {
                 SireSearchRange = attributes["sireSearchRange"].AsFloat();
@@ -161,14 +161,14 @@ namespace Genelib {
             else if (attributes.KeyExists("lactationDays")) {
                 LactationDays = attributes["lactationDays"].AsDouble();
             }
-            LactationDays *= GeneticsModSystem.AnimalGrowthTime;
+            LactationDays *= GenelibSystem.AnimalGrowthTime;
 
             if (attributes.KeyExists("breedingCooldownMonths")) {
                 CooldownDays = attributes["breedingCooldownMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth
-                    * GeneticsModSystem.AnimalGrowthTime;
+                    * GenelibSystem.AnimalGrowthTime;
             }
             else if (attributes.KeyExists("breedingCooldownDays")) {
-                CooldownDays = attributes["breedingCooldownDays"].AsDouble() * GeneticsModSystem.AnimalGrowthTime;
+                CooldownDays = attributes["breedingCooldownDays"].AsDouble() * GenelibSystem.AnimalGrowthTime;
             }
             else {
                 CooldownDays = LactationDays;
@@ -304,7 +304,7 @@ namespace Genelib {
                 if (ourGenome != null && sireGenome != null) {
                     bool heterogametic = ourGenome.Type.SexDetermination.Heterogametic(entity.IsMale());
                     Genome child = new Genome(ourGenome, sireGenome, heterogametic, entity.World.Rand);
-                    child.Mutate(GeneticsModSystem.MutationRate, entity.World.Rand);
+                    child.Mutate(GenelibSystem.MutationRate, entity.World.Rand);
                     TreeAttribute childGeneticsTree = (TreeAttribute) litterData.value[i].GetOrAddTreeAttribute("genetics");
                     child.AddToTree(childGeneticsTree);
                 }

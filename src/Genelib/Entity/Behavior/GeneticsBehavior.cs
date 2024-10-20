@@ -9,7 +9,7 @@ using Vintagestory.API.MathTools;
 
 namespace Genelib {
     public class EntityBehaviorGenetics : EntityBehavior {
-        public const string Code = GeneticsModSystem.NamePrefix + "genetics";
+        public const string Code = "genelib.genetics";
 
         protected GenomeType GenomeType { get; set; }
         private Genome genome;
@@ -71,7 +71,7 @@ namespace Genelib {
                     frequencies = defaultFrequencies;
                 }
                 Genome = new Genome(frequencies, heterogametic, random);
-                Genome.Mutate(GeneticsModSystem.MutationRate, random);
+                Genome.Mutate(GenelibSystem.MutationRate, random);
                 foreach (GeneInterpreter interpreter in Genome.Type.Interpreters) {
                     interpreter.Finalize(Genome, frequencies, random);
                 }

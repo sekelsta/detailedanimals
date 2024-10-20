@@ -17,12 +17,11 @@ using Genelib.Extensions;
 
 namespace Genelib
 {
-    public class GeneticsModSystem : ModSystem
+    public class GenelibSystem : ModSystem
     {
         public static GenelibConfig Config = null;
         public static AssetCategory genetics = null;
         public static AssetCategory nutrition = null;
-        public const string NamePrefix = "genelib.";
 
         public static double MutationRate = 0.00004;
         public static double AnimalGrowthTime = 1.0;

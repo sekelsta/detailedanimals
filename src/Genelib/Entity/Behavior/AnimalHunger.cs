@@ -17,7 +17,7 @@ using Vintagestory.GameContent;
 
 namespace Genelib {
     public class AnimalHunger : EntityBehavior {
-        public const string Code = GeneticsModSystem.NamePrefix + "hunger";
+        public const string Code = "genelib.hunger";
 
         public float weanedAgeDays = 0;
         protected internal ITreeAttribute hungerTree;
@@ -204,7 +204,7 @@ namespace Genelib {
 
             EntityBehaviorHealth healthBehavior = entity.GetBehavior<EntityBehaviorHealth>();
             if (healthBehavior == null) {
-                GeneticsModSystem.ServerAPI.Logger.Warning(Code + " expected non-null health behavior for entity " + entity.Code);
+                GenelibSystem.ServerAPI.Logger.Warning(Code + " expected non-null health behavior for entity " + entity.Code);
             }
             else {
                 healthBehavior.MaxHealthModifiers["nutrientHealthMod"] = health;

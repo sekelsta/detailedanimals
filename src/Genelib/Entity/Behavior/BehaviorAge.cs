@@ -9,7 +9,7 @@ using Vintagestory.API.MathTools;
 
 namespace Genelib {
     public class BehaviorAge : EntityBehavior {
-        public const string Code = GeneticsModSystem.NamePrefix + "age";
+        public const string Code = "genelib.age";
         private const float secondsPerUpdate = 24;
 
         private long? callbackID;
@@ -60,7 +60,7 @@ namespace Genelib {
             else {
                 HoursToGrow = typeAttributes["hoursToGrow"].AsFloat(96);
             }
-            HoursToGrow *= GeneticsModSystem.AnimalGrowthTime;
+            HoursToGrow *= GenelibSystem.AnimalGrowthTime;
 
             if (typeAttributes.KeyExists("adultEntityCodes")) {
                 string[] locations = typeAttributes["adultEntityCodes"].AsArray<string>(new string[0]);
