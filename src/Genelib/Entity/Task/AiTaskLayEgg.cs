@@ -13,6 +13,7 @@ namespace Genelib {
         protected bool laid = false;
         protected float layTime;
         protected double incubationDays;
+        protected bool incubationScalesWithMonthLength = true;
         protected double hoursPerEgg;
 
         public double EggLaidHours {
@@ -111,6 +112,19 @@ namespace Genelib {
                     EggLaidHours = entity.World.Calendar.TotalHours;
                     ItemStack egg = reproduce.GiveEgg();
                     egg.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24 * GeneticsModSystem.AnimalGrowthTime);
+                    // If incubation length scales with month length, freshness should too
+                    if (incubationScalesWithMonthLength) {
+                        TransitionState[] transitions = egg.Collectible?.UpdateAndGetTransitionStates(entity.World, new DummySlot(egg));
+                        // Note calling UpdateAndGetTransitionStates may set the itemstack to null e.g. if it rotted with 50% conversion rate
+                        if (transitions != null && egg.Collectible != null) {
+                            for (int i = 0; i < transitions.Length; ++i) {
+                                if (transitions[i].Props.Type == EnumTransitionType.Perish) {
+                                    ITreeAttribute attr = (ITreeAttribute)egg.Attributes["transitionstate"];
+                                    (attr["freshHours"] as FloatArrayAttribute).value[i] *= entity.World.Calendar.DaysPerMonth / 9f;
+                                }
+                            }
+                        }
+                    }
                     nestbox.AddEgg(entity, egg);
                 }
             }

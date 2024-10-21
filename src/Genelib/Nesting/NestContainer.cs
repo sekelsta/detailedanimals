@@ -6,8 +6,7 @@ namespace Genelib {
         public NestContainer(InventorySupplierDelegate inventorySupplier, string treeAttrKey) : base(inventorySupplier, treeAttrKey) { }
 
         public override float GetPerishRate() {
-            // Scale with month length, just like incubation time does
-            return 9 / Api.World.Calendar.DaysPerMonth;
+            return 1f;
         }
     }
 }
