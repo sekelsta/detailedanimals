@@ -1,5 +1,7 @@
 {
     "block-nestbox": "Caja nido",
+    "gui-animalinfo-status": "Estado",
+    "gui-animalinfo-info": "Info",
     "gui-hotkey-animalinfo": "Abrir perfil de animal",
     "infotext-bodycondition1": "Piel y huesos",
     "infotext-bodycondition2-male": "Desnutrido",

@@ -143,15 +143,21 @@ namespace Genelib
         }
 
         public bool ToggleAnimalInfoGUI(KeyCombination keyConbination) {
-            // TODO: If dialog is already open, close it
+            foreach (GuiDialog dialog in ClientAPI.Gui.OpenedGuis) {
+                if (dialog is GuiDialogAnimal && dialog.IsOpened()) {
+                    dialog.TryClose();
+                    return true;
+                }
+            }
+
             EntitySelection entitySelection = (ClientAPI.World as ClientMain)?.EntityPlayer?.EntitySelection;
             EntityAgent agent = entitySelection?.Entity as EntityAgent;
-            if (agent == null) {
+            if (agent == null || !agent.Alive) {
                 return false;
             }
             // TODO: Check if entity is a valid target of this dialog
-            GuiDialogAnimal dialog = new GuiDialogAnimal(ClientAPI, agent);
-            dialog.TryOpen();
+            GuiDialogAnimal animalDialog = new GuiDialogAnimal(ClientAPI, agent);
+            animalDialog.TryOpen();
             return true;
         }
     }
