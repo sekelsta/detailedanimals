@@ -1,5 +1,6 @@
 {
     "block-nestbox": "Nestbox",
+    "blockinfo-suitable-nestbox": "Suitable for: {0}",
     "infotext-bodycondition1": "Skin and bones",
     "infotext-bodycondition2": "Malnourished",
     "infotext-bodycondition3": "Underweight",

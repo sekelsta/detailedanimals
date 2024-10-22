@@ -1,5 +1,6 @@
 {
     "block-nestbox": "Caja nido",
+    "blockinfo-suitable-nestbox": "Adecuada para: {0}",
     "infotext-bodycondition1": "Piel y huesos",
     "infotext-bodycondition2-male": "Desnutrido",
     "infotext-bodycondition3": "Bajo peso",

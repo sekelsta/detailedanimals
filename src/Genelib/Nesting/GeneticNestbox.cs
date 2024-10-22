@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using Vintagestory.ServerMods.NoObf;
 
 namespace Genelib {
     public class GeneticNestbox : BlockEntityDisplay, IAnimalNest {
@@ -258,7 +261,34 @@ namespace Genelib {
         }
 
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc) {
-            // No. Just don't.
+            // Deliberately avoid calling base method
+            bool anyEggs = false;
+            for (int i = 0; i < inventory.Count; ++i) {
+                if (inventory[i].Empty) {
+                    continue;
+                }
+                anyEggs = true;
+                if (inventory[i].Itemstack.Collectible.RequiresTransitionableTicking(Api.World, inventory[i].Itemstack)) {
+                    dsc.Append(BlockEntityShelf.PerishableInfoCompact(Api, inventory[i], 0));
+                }
+                else {
+                    dsc.AppendLine(inventory[i].GetStackName());
+                }
+            }
+            if (anyEggs) {
+                return;
+            }
+            // TO_OPTIMIZE: O(entity types * suitable wildcards)
+            HashSet<string> creatureNames = new HashSet<string>();
+            foreach (EntityProperties type in Api.World.EntityTypes) {
+                foreach (AssetLocation suitable in suitableFor) {
+                    if (RegistryObjectType.WildCardMatch(suitable, type.Code)) {
+                        string code = type.Attributes?["handbook"]["groupcode"].AsString() ?? type.Code.Domain + ":item-creature-" + type.Code.Path; 
+                        creatureNames.Add(Lang.Get(code));
+                    }
+                }
+            }
+            dsc.AppendLine(Lang.Get("genelib:blockinfo-suitable-nestbox", string.Join(", ", creatureNames)));
         }
 
         protected override float[][] genTransformationMatrices() {
