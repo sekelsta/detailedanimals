@@ -15,6 +15,7 @@ using Vintagestory.API.Util;
 using Vintagestory.Client.NoObf;
 
 using Genelib.Extensions;
+using Genelib.Network;
 
 namespace Genelib
 {
@@ -133,10 +134,14 @@ namespace Genelib
 
         public override void StartServerSide(ICoreServerAPI api) {
             ServerAPI = api;
+            api.Network.RegisterChannel("genelib")
+                .RegisterMessageType<SetNameMessage>().SetMessageHandler<SetNameMessage>(OnSetNameMessageServer);
         }
 
         public override void StartClientSide(ICoreClientAPI api) {
             ClientAPI = api;
+            api.Network.RegisterChannel("genelib")
+                .RegisterMessageType<SetNameMessage>();
 
             api.Input.RegisterHotKey("genelib.info", Lang.Get("genelib:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
             api.Input.SetHotKeyHandler("genelib.info", ToggleAnimalInfoGUI);
@@ -159,6 +164,11 @@ namespace Genelib
             GuiDialogAnimal animalDialog = new GuiDialogAnimal(ClientAPI, agent);
             animalDialog.TryOpen();
             return true;
+        }
+
+        private void OnSetNameMessageServer(IServerPlayer fromPlayer, SetNameMessage message) {
+            Entity target = ServerAPI.World.GetEntityById(message.entityId);
+            target.GetBehavior<EntityBehaviorNameTag>()?.SetName(message.name);
         }
     }
 }

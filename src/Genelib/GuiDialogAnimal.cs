@@ -7,6 +7,8 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
+using Genelib.Network;
+
 namespace Genelib {
     public class GuiDialogAnimal : GuiDialog {
         protected EntityAgent animal;
@@ -53,8 +55,8 @@ namespace Genelib {
         }
 
         private void OnNameSet(string name) {
-            animal.Api.Logger.Notification("sekdebug Name set to " + name);
-            // TODO
+            SetNameMessage message = new SetNameMessage() { entityId = animal.EntityId, name = name };
+            GenelibSystem.ClientAPI.Network.GetChannel("genelib").SendPacket<SetNameMessage>(message);
         }
 
         protected void AddStatusContents() {
