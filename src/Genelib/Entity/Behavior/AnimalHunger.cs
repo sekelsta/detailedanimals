@@ -60,14 +60,14 @@ namespace Genelib {
         // Approximate conversion between numbers used for player hunger and by troughs
         public const float TROUGH_SAT_PER_PLAYER_SAT = 1 / 100f;
 
-        public float BodyCondition {
-            get => entity.WatchedAttributes.GetFloat("bodyCondition");
+        public double BodyCondition {
+            get => entity.WatchedAttributes.TryGetDouble("bodyCondition") ?? entity.WatchedAttributes.GetFloat("bodyCondition");
             set {
-                if (float.IsNaN(value)) {
+                if (double.IsNaN(value)) {
                     throw new ArgumentException("Cannot set body condition value to NaN");
                 }
-                entity.WatchedAttributes.SetFloat("bodyCondition", value);
-                entity.WatchedAttributes.SetFloat("animalWeight", Math.Max(1.08f, value));
+                entity.WatchedAttributes.SetDouble("bodyCondition", value);
+                entity.WatchedAttributes.SetDouble("animalWeight", Math.Max(1.08, value));
             }
         }
 
@@ -93,7 +93,7 @@ namespace Genelib {
         public float AdjustedMaxSaturation {
             get => MaxSaturation 
                     * Math.Max(0.1f, entity.WatchedAttributes.GetFloat("growthWeightFraction", 1))
-                    * (BodyCondition + 1) / 2;
+                    * ((float)BodyCondition + 1) / 2;
         }
 
         public float Fullness {
@@ -576,7 +576,7 @@ namespace Genelib {
         public float WeightShiftAmount() {
             float fullness = Fullness;
             float gain = fullness * fullness * fullness;
-            float recovery = 1 - BodyCondition;
+            float recovery = 1 - (float)BodyCondition;
             return (gain + recovery) / 2;
         }
 
@@ -588,7 +588,7 @@ namespace Genelib {
 
         public void ShiftWeight(float deltaWeight) {
             float inefficiency = deltaWeight > 0 ? 1.05f : 0.95f;
-            BodyCondition = (float)Math.Clamp(BodyCondition + deltaWeight, 0.5f, 2f);
+            BodyCondition = Math.Clamp(BodyCondition + deltaWeight, 0.5, 2.0);
             float fractionOfOwnWeightEatenPerDay = 0.04f;
             float totalSaturation = AdjustedMaxSaturation * 2;
             float deltaSat = deltaWeight * inefficiency / fractionOfOwnWeightEatenPerDay * totalSaturation / DaysUntilHungry;
