@@ -1,0 +1,33 @@
+{
+    genes: {
+        autosomal: [
+            { polled: ["horned", "polled"] },
+        ],
+        xz: [
+        ],
+    },
+    interpreters: [ "Polygenes", "Goat", ],
+    sexdetermination: "xy",
+    initializers: {
+        wildtype: {
+            autosomal: {
+            },
+            conditions: {
+            }
+        },
+        nubian: {
+            autosomal: {
+                polled: { default: "horned", polled: 0.3 },
+            },
+            conditions: {
+            }
+        },
+        sirohi: {
+            autosomal: {
+                polled: { default: "horned", polled: 0.4 },
+            },
+            conditions: {
+            }
+        },
+    }
+}

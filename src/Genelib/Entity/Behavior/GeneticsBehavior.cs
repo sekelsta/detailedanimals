@@ -76,15 +76,18 @@ namespace Genelib {
                     interpreter.Finalize(Genome, frequencies, random);
                 }
             }
-        }
-
-        public void GenomeModified() {
-            TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetOrAddTreeAttribute("genetics");
-            genome.AddToTree(geneticsTree);
-            entity.WatchedAttributes.MarkPathDirty("genetics");
             foreach (GeneInterpreter interpreter in Genome.Type.Interpreters) {
                 interpreter.Interpret(Genome, entity);
             }
+        }
+
+        public void GenomeModified() {
+            if (entity.World.Side == EnumAppSide.Client) {
+                return;
+            }
+            TreeAttribute geneticsTree = (TreeAttribute) entity.WatchedAttributes.GetOrAddTreeAttribute("genetics");
+            genome.AddToTree(geneticsTree);
+            entity.WatchedAttributes.MarkPathDirty("genetics");
         }
 
         public override string PropertyName() => Code;

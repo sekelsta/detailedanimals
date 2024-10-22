@@ -19,6 +19,7 @@ namespace DetailedAnimals
         public override void Start(ICoreAPI api)
         {
             GenomeType.RegisterInterpreter("Junglefowl", new JunglefowlGenetics());
+            GenomeType.RegisterInterpreter("Goat", new GoatGenetics());
         }
 
         public override void StartServerSide(ICoreServerAPI api)
