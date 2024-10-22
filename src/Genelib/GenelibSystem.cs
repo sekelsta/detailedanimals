@@ -49,6 +49,7 @@ namespace Genelib
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));
             api.RegisterEntityBehaviorClass(DetailedHarvestable.Code, typeof(DetailedHarvestable));
             api.RegisterEntityBehaviorClass(AnimalHunger.Code, typeof(AnimalHunger));
+            api.RegisterEntityBehaviorClass(BehaviorAnimalInfo.Code, typeof(BehaviorAnimalInfo));
 
             api.RegisterCollectibleBehaviorClass(TryFeedingAnimal.Code, typeof(TryFeedingAnimal));
 
@@ -157,10 +158,9 @@ namespace Genelib
 
             EntitySelection entitySelection = (ClientAPI.World as ClientMain)?.EntityPlayer?.EntitySelection;
             EntityAgent agent = entitySelection?.Entity as EntityAgent;
-            if (agent == null || !agent.Alive) {
+            if (agent == null || !agent.Alive || agent.GetBehavior<BehaviorAnimalInfo>() == null) {
                 return false;
             }
-            // TODO: Check if entity is a valid target of this dialog
             GuiDialogAnimal animalDialog = new GuiDialogAnimal(ClientAPI, agent);
             animalDialog.TryOpen();
             return true;
