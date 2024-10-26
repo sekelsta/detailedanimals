@@ -69,7 +69,29 @@ namespace Genelib {
             y += 25;
             SingleComposer.AddStaticText("Sex: Ewe", infoFont, ElementBounds.Fixed(0, y, width, 25));
             y += 25;
-            SingleComposer.AddStaticText("Age: 2 months 5 days (lamb)", infoFont, ElementBounds.Fixed(0, y, width, 25));
+
+            if (animal.WatchedAttributes.HasAttribute("birthTotalDays")) {
+                double birthDate = animal.WatchedAttributes.GetDouble("birthTotalDays");
+                double ageDays = animal.World.Calendar.TotalDays - birthDate;
+                double ageMonths = ageDays / animal.World.Calendar.DaysPerMonth;
+                double ageYears = ageMonths / 12;
+                int wholeYears = (int) ageYears;
+                double remainderMonths = ageMonths - wholeYears * 12;
+                int wholeMonths = (int) remainderMonths;
+                double remainderDays = ageDays - (wholeYears * 12 + wholeMonths) * animal.World.Calendar.DaysPerMonth;
+                int wholeDays = (int) remainderDays;
+
+                string yearsKey = "genelib:gui-age-year" + wholeYears;
+                string stringYears = Lang.HasTranslation(yearsKey) ? Lang.Get(yearsKey) : Lang.Get("genelib:gui-age-year", wholeYears);
+                string monthsKey = "genelib:gui-age-month" + wholeMonths;
+                string stringMonths = Lang.HasTranslation(monthsKey) ? Lang.Get(monthsKey) : Lang.Get("genelib:gui-age-month", wholeMonths);
+                string daysKey = "genelib:gui-age-day" + wholeDays;
+                string stringDays = Lang.HasTranslation(daysKey) ? Lang.Get(daysKey) : Lang.Get("genelib:gui-age-day", wholeDays);
+
+                string ageString = stringYears + " " + stringMonths + " " + stringDays;
+                string ageText = Lang.Get("genelib:gui-animalinfo-age", ageString);
+                SingleComposer.AddStaticText(ageText, infoFont, ElementBounds.Fixed(0, y, width, 25));
+            }
         }
 
         protected void OnTabClicked(int tab) {

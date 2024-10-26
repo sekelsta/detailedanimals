@@ -1,6 +1,13 @@
 {
     "block-nestbox": "Nestbox",
     "blockinfo-suitable-nestbox": "Suitable for: {0}",
+    "gui-age-year": "{0} years",
+    "gui-age-year1": "1 year",
+    "gui-age-month": "{0} months",
+    "gui-age-month1": "1 month",
+    "gui-age-day": "{0} days",
+    "gui-age-day1": "1 day",
+    "gui-animalinfo-age": "Age: {0}",
     "gui-animalinfo-status": "Status",
     "gui-animalinfo-info": "Info",
     "gui-hotkey-animalinfo": "Open animal profile",

@@ -1,6 +1,13 @@
 {
     "block-nestbox": "Caja nido",
     "blockinfo-suitable-nestbox": "Adecuada para: {0}",
+    "gui-age-year": "{0} años",
+    "gui-age-year1": "1 año",
+    "gui-age-month": "{0} meses",
+    "gui-age-month1": "1 mes",
+    "gui-age-day": "{0} días",
+    "gui-age-day1": "1 día",
+    "gui-animalinfo-age": "Edad: {0}",
     "gui-animalinfo-status": "Estado",
     "gui-animalinfo-info": "Info",
     "gui-hotkey-animalinfo": "Abrir perfil de animal",
