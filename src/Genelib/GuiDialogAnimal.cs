@@ -146,6 +146,13 @@ namespace Genelib {
                 y += 25;
             }
 
+            string motherString = getParentName("mother");
+            string fatherString = getParentName("father");
+            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-mother", motherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            y += 25;
+            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-father", fatherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            y += 25;
+
             ITreeAttribute geneticsTree = animal.WatchedAttributes.GetTreeAttribute("genetics");
             if (geneticsTree != null && geneticsTree.HasAttribute("coi")) {
                 float coi = geneticsTree.GetFloat("coi");
@@ -169,6 +176,26 @@ namespace Genelib {
                 SingleComposer.GetTextInput("note").SetValue(note);
             }
             y += 25;
+        }
+
+        private string getParentName(string parent) {
+            if (animal.WatchedAttributes.HasAttribute(parent+"Id")) {
+                long id = animal.WatchedAttributes.GetLong(parent+"Id");
+                Entity entity = animal.Api.World.GetEntityById(id);
+                if (entity == null) {
+                    return Lang.Get("genelib:gui-animalinfo-unknown" + parent);
+                }
+                else {
+                    return entity.GetDisplayName();
+                }
+            }
+            else if (parent == "mother" && animal.WatchedAttributes.HasAttribute("fatherId")) {
+                // For a time (until 0.3.2?) there was a bug where only fathers not mothers were being recorded
+                return Lang.Get("genelib:gui-animalinfo-unknownmother");
+            }
+            else {
+                return Lang.Get("genelib:gui-animalinfo-foundation");
+            }
         }
 
         protected void OnTabClicked(int tab) {
