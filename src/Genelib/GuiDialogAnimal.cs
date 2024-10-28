@@ -189,6 +189,11 @@ namespace Genelib {
         // TO_OPTIMIZE: Consider calculating once on dialog open and caching the result, instead of recalculating every tick
         private string getParentName(string parent) {
             if (animal.WatchedAttributes.HasAttribute(parent+"Id")) {
+                long id = animal.WatchedAttributes.GetLong(parent+"Id");
+                Entity entity = animal.Api.World.GetEntityByUID(id);
+                if (entity != null) {
+                    return entity.GetDisplayName();
+                }
                 if (animal.WatchedAttributes.HasAttribute(parent+"Name")) {
                     return animal.WatchedAttributes.GetString(parent+"Name");
                 }
