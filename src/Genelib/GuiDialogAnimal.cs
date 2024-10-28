@@ -141,6 +141,14 @@ namespace Genelib {
                 SingleComposer.AddStaticText(ageText, infoFont, ElementBounds.Fixed(0, y, width, 25));
                 y += 25;
             }
+
+            string motherString = getParentName("mother");
+            string fatherString = getParentName("father");
+            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-mother", motherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            y += 25;
+            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-father", fatherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            y += 25;
+
             SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-note"), infoFont, ElementBounds.Fixed(0, y, width, 25));
             y += 25;
             string note = animal.GetBehavior<BehaviorAnimalInfo>().Note;
@@ -152,6 +160,22 @@ namespace Genelib {
                 SingleComposer.GetTextInput("note").SetValue(note);
             }
             y += 25;
+        }
+
+        private string getParentName(string parent) {
+            if (animal.WatchedAttributes.HasAttribute(parent+"Id")) {
+                long id = animal.WatchedAttributes.GetLong(parent+"Id");
+                Entity entity = animal.Api.World.GetEntityById(id);
+                if (entity == null) {
+                    return Lang.Get("genelib:gui-animalinfo-unloaded" + parent);
+                }
+                else {
+                    return entity.GetDisplayName();
+                }
+            }
+            else {
+                return Lang.Get("genelib:gui-animalinfo-unknown" + parent);
+            }
         }
 
         protected void OnTabClicked(int tab) {
