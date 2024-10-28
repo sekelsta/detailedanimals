@@ -146,6 +146,21 @@ namespace Genelib {
                 y += 25;
             }
 
+            string motherString = getParentName("mother");
+            string fatherString = getParentName("father");
+            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-father", fatherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            y += 25;
+            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-mother", motherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            y += 25;
+            if (animal.WatchedAttributes.HasAttribute("fosterId")) {
+                long fosterId = animal.WatchedAttributes.GetLong("fosterId");
+                if (fosterId != animal.WatchedAttributes.GetLong("motherId", -1)) {
+                    string fosterString = getParentName("foster"); // TO_OPTIMIZE: skip getting foster ID again
+                    SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-foster", fosterString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+                    y += 25;
+                }
+            }
+
             ITreeAttribute geneticsTree = animal.WatchedAttributes.GetTreeAttribute("genetics");
             if (geneticsTree != null && geneticsTree.HasAttribute("coi")) {
                 float coi = geneticsTree.GetFloat("coi");
@@ -169,6 +184,29 @@ namespace Genelib {
                 SingleComposer.GetTextInput("note").SetValue(note);
             }
             y += 25;
+        }
+
+        // TO_OPTIMIZE: Consider calculating once on dialog open and caching the result, instead of recalculating every tick
+        private string getParentName(string parent) {
+            if (animal.WatchedAttributes.HasAttribute(parent+"Id")) {
+                if (animal.WatchedAttributes.HasAttribute(parent+"Name")) {
+                    return animal.WatchedAttributes.GetString(parent+"Name");
+                }
+                if (animal.WatchedAttributes.HasAttribute(parent+"Key")) {
+                    return Lang.Get(animal.WatchedAttributes.GetString(parent+"Key"));
+                }
+                if (parent == "foster") {
+                    return Lang.Get("genelib:gui-animalinfo-unknownmother");
+                }
+                return Lang.Get("genelib:gui-animalinfo-unknown" + parent);
+            }
+            else if (parent == "mother" && animal.WatchedAttributes.HasAttribute("fatherId")) {
+                // For a time (until 0.3.2?) there was a bug where only fathers not mothers were being recorded
+                return Lang.Get("genelib:gui-animalinfo-unknownmother");
+            }
+            else {
+                return Lang.Get("genelib:gui-animalinfo-foundation");
+            }
         }
 
         protected void OnTabClicked(int tab) {
