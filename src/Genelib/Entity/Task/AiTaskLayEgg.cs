@@ -1,4 +1,5 @@
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
@@ -120,7 +121,7 @@ namespace Genelib {
                             for (int i = 0; i < transitions.Length; ++i) {
                                 if (transitions[i].Props.Type == EnumTransitionType.Perish) {
                                     ITreeAttribute attr = (ITreeAttribute)egg.Attributes["transitionstate"];
-                                    (attr["freshHours"] as FloatArrayAttribute).value[i] *= entity.World.Calendar.DaysPerMonth / 9f;
+                                    (attr["freshHours"] as FloatArrayAttribute).value[i] *= entity.World.Calendar.DaysPerMonth / 9f * GlobalConstants.PerishSpeedModifier;
                                 }
                             }
                         }
