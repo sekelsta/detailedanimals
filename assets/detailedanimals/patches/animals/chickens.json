@@ -31,42 +31,42 @@
         file: "game:entities/land/fox.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/4/entityCodes/-",
-        value: "detailedanimals:chicken-*-chick",
+        value: "chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/fox.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/5/entityCodes/-",
-        value: "detailedanimals:chicken-*-chick",
+        value: "chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-female.json",
         op: "add",
         path: "/server/behaviors/10/aitasks/0/entityCodes/-",
-        value: "detailedanimals:chicken-*-chick",
+        value: "chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-female.json",
         op: "add",
         path: "/server/behaviors/10/aitasks/3/entityCodes/-",
-        value: "detailedanimals:chicken-*-chick",
+        value: "chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-male.json",
         op: "add",
         path: "/server/behaviors/9/aitasks/0/entityCodes/-",
-        value: "detailedanimals:chicken-*-chick",
+        value: "chicken-*-chick",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-male.json",
         op: "add",
         path: "/server/behaviors/9/aitasks/3/entityCodes/-",
-        value: "detailedanimals:chicken-*-chick",
+        value: "chicken-*-chick",
         side: "server"
     },
 
@@ -328,7 +328,6 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 0.5,
                 fiber: 0.1,
                 fiberMax: 0.5,
                 sugar: 0.1,
@@ -352,7 +351,6 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 0.5,
                 fiber: 0.1,
                 fiberMax: 0.5,
                 sugar: 0.1,
@@ -376,7 +374,6 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 0.5,
                 fiber: 0.1,
                 fiberMax: 0.5,
                 sugar: 0.1,

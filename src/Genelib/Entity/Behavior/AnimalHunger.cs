@@ -57,7 +57,7 @@ namespace Genelib {
         // No max for STUFFED
 
         // Approximate conversion between numbers used for player hunger and by troughs
-        public const float TROUGH_SAT_PER_PLAYER_SAT = 1 / 100f;
+        public const float TROUGH_SAT_PER_PLAYER_SAT = 1 / 50f;
 
         public double BodyCondition {
             get => entity.WatchedAttributes.TryGetDouble("bodyCondition") ?? entity.WatchedAttributes.GetFloat("bodyCondition");
@@ -249,7 +249,7 @@ namespace Genelib {
                     worstName = nutrient.Name;
                 }
             }
-            if (sum < 0 && sum < Fullness) {
+            if (sum < 0 && 2 * sum < Fullness) {
                 return worstName;
             }
             return null;

@@ -276,7 +276,6 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 6,
                 monthsUntilWeaned: 2.5,
                 fiber: 0.18,
                 sugar: 0.12,
@@ -299,7 +298,6 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 6,
                 monthsUntilWeaned: 2.5,
                 fiber: 0.18,
                 sugar: 0.12,
@@ -322,7 +320,6 @@
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                maxSaturation: 6,
                 monthsUntilWeaned: 2.5,
                 fiber: 0.18,
                 sugar: 0.12,
