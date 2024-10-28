@@ -3,6 +3,7 @@ using Genelib.Network;
 
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 
 namespace Genelib {
@@ -24,8 +25,8 @@ namespace Genelib {
                 .WithFixedAlignmentOffset(-GuiStyle.DialogToScreenPadding, 0);
 
             GuiTab[] tabs = new GuiTab[] {
-                new GuiTab() { Name = Lang.Get("genelib:gui-animalinfo-status"), DataInt = 0 },
-                new GuiTab() { Name = Lang.Get("genelib:gui-animalinfo-info"), DataInt = 1 },
+                new GuiTab() { Name = Lang.Get("genelib:gui-animalinfo-tab-status"), DataInt = 0 },
+                new GuiTab() { Name = Lang.Get("genelib:gui-animalinfo-tab-info"), DataInt = 1 },
             };
             ElementBounds tabBounds = ElementBounds.Fixed(0, -24, width, 25);
             CairoFont tabFont = CairoFont.WhiteDetailText();
@@ -64,11 +65,6 @@ namespace Genelib {
         protected void AddInfoContents() {
             CairoFont infoFont = CairoFont.WhiteDetailText();
             int y = 20;
-            // TODO
-            SingleComposer.AddStaticText("Species: Bighorn Sheep", infoFont, ElementBounds.Fixed(0, y, width, 25));
-            y += 25;
-            SingleComposer.AddStaticText("Sex: Ewe", infoFont, ElementBounds.Fixed(0, y, width, 25));
-            y += 25;
 
             if (animal.WatchedAttributes.HasAttribute("birthTotalDays")) {
                 double birthDate = animal.WatchedAttributes.GetDouble("birthTotalDays");
@@ -91,6 +87,7 @@ namespace Genelib {
                 string ageString = stringYears + " " + stringMonths + " " + stringDays;
                 string ageText = Lang.Get("genelib:gui-animalinfo-age", ageString);
                 SingleComposer.AddStaticText(ageText, infoFont, ElementBounds.Fixed(0, y, width, 25));
+                y += 25;
             }
         }
 
