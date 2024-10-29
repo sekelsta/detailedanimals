@@ -433,12 +433,13 @@ namespace Genelib {
                 lessw = w;
             }
 
-            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1f);
-            float theRestOfTheWeight = entity.Properties.Attributes["adultWeightKg"].AsFloat() * entity.WeightModifierExceptCondition();
-            float prevTotalWeight = animalWeight * theRestOfTheWeight;
-            float newTotalWeight = Math.Max(prevTotalWeight * 0.1f, prevTotalWeight - eggWeight);
-            float newAnimalWeight = newTotalWeight / theRestOfTheWeight;
-            entity.WatchedAttributes.SetFloat("animalWeight", newAnimalWeight);
+            AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
+            if (hunger != null) {
+                float theRestOfTheWeight = entity.Properties.Attributes["adultWeightKg"].AsFloat() * entity.WeightModifierExceptCondition();
+                double prevTotalWeight = hunger.BodyCondition * theRestOfTheWeight;
+                double newTotalWeight = Math.Max(prevTotalWeight * 0.1f, prevTotalWeight - eggWeight);
+                hunger.BodyCondition = newTotalWeight / theRestOfTheWeight;
+            }
 
             ItemStack eggStack = new ItemStack(egg);
             TreeAttribute chick = PopChild();

@@ -66,7 +66,7 @@ namespace Genelib {
                     throw new ArgumentException("Cannot set body condition value to NaN");
                 }
                 entity.WatchedAttributes.SetDouble("bodyCondition", value);
-                entity.WatchedAttributes.SetDouble("animalWeight", Math.Max(1.08, value));
+                entity.WatchedAttributes.SetFloat("animalWeight", (float)Math.Max(1.08, value));
             }
         }
 
@@ -256,7 +256,7 @@ namespace Genelib {
         }
 
         public bool CanEat(ItemStack itemstack, FoodNutritionProperties nutriProps, NutritionData data) {
-            if (BodyCondition > 1.8f) {
+            if (BodyCondition > 1.8) {
                 return false;
             }
             float fullness = Fullness;
@@ -572,29 +572,29 @@ namespace Genelib {
             }
         }
 
-        public float WeightShiftAmount() {
+        public double WeightShiftAmount() {
             float fullness = Fullness;
-            float gain = fullness * fullness * fullness;
-            float recovery = 1 - (float)BodyCondition;
+            double gain = fullness * fullness * fullness;
+            double recovery = 1 - BodyCondition;
             return (gain + recovery) / 2;
         }
 
         public void UpdateCondition(float hours) {
             // Become fatter or thinner
-            float weightShiftRate = 0.5f * hours / 24 / 12.5f;
+            double weightShiftRate = 0.5 * hours / 24 / 12.5;
             ShiftWeight(weightShiftRate * WeightShiftAmount());
         }
 
-        public void ShiftWeight(float deltaWeight) {
-            float inefficiency = deltaWeight > 0 ? 1.05f : 0.95f;
+        public void ShiftWeight(double deltaWeight) {
+            double inefficiency = deltaWeight > 0 ? 1.05 : 0.95;
             BodyCondition = Math.Clamp(BodyCondition + deltaWeight, 0.5, 2.0);
-            float fractionOfOwnWeightEatenPerDay = 0.04f;
-            float totalSaturation = AdjustedMaxSaturation * 2;
-            float deltaSat = deltaWeight * inefficiency / fractionOfOwnWeightEatenPerDay * totalSaturation / DaysUntilHungry;
-            ConsumeSaturation(deltaSat);
-            Fat.Consume(deltaSat / 4);
+            double fractionOfOwnWeightEatenPerDay = 0.04;
+            double totalSaturation = AdjustedMaxSaturation * 2;
+            double deltaSat = deltaWeight * inefficiency / fractionOfOwnWeightEatenPerDay * totalSaturation / DaysUntilHungry;
+            ConsumeSaturation((float)deltaSat);
+            Fat.Consume((float)deltaSat / 4);
             if (deltaWeight > 0) {
-                Protein.Consume(deltaSat / 4);
+                Protein.Consume((float)deltaSat / 4);
             }
         }
 

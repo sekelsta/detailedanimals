@@ -45,9 +45,9 @@ namespace Genelib {
         public override void AfterInitialized(bool onFirstSpawn) {
             animalHunger = entity.GetBehavior<AnimalHunger>();
             if (onFirstSpawn) {
-                animalHunger.BodyCondition = 0.9f
-                    + 0.07f * (float)entity.World.Rand.NextDouble()
-                    + 0.08f * (float)entity.World.Rand.NextDouble();
+                animalHunger.BodyCondition = 0.9
+                    + 0.07 * entity.World.Rand.NextDouble()
+                    + 0.08 * entity.World.Rand.NextDouble();
                 LastWeightUpdateTotalHours = entity.World.Calendar.TotalHours;
             }
             else {
@@ -168,7 +168,7 @@ namespace Genelib {
                 .Replace("{pounds}", roundNicely(weightPounds))
                 .Replace("{kilograms}", roundNicely(weightKilograms));
             if (entity.Alive) {
-                float d = animalHunger.WeightShiftAmount();
+                double d = animalHunger.WeightShiftAmount();
                 if (d > 0.01) {
                     if (animalHunger.BodyCondition > 1.06) {
                         text += " <font color=\"#ee6933\">↑</font>";
