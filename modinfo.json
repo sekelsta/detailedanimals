@@ -6,7 +6,7 @@
   "authors": ["sekelsta"],
   "version": "0.1.6",
   "dependencies": { 
-	"game": "",
+	"game": "1.20.0-pre",
 	"survival": "",
   }
 }
