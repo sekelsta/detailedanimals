@@ -556,7 +556,8 @@ namespace Genelib {
                 double metersPerSecond = distance / updateSeconds;
                 float work = 0.95f + 0.3f * Math.Min((float)metersPerSecond, 10) / 10;
 
-                float timespeed = entity.Api.World.Calendar.SpeedOfTime * entity.Api.World.Calendar.CalendarSpeedMul / 30;
+                // Do not reference Calendar.SpeedOfTime, because that increases while sleeping
+                float timespeed = entity.Api.World.Calendar.CalendarSpeedMul * 2;
                 float hungerrate = entity.Stats.GetBlended("hungerrate");
                 float saturationConsumed = baseHungerRate * work * hungerrate * timespeed / (1 + MetabolicEfficiency);
                 ConsumeSaturation(saturationConsumed);
