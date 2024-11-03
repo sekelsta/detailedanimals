@@ -1,10 +1,10 @@
 {
     tag: "foliage",
-    fiber: 0.55,
-    sugar: 0.25,
-    starch: 0.1,
-    fat: 0.01,
-    protein: 0.08,
+    fiber: 0.58,
+    sugar: 0.12,
+    starch: 0.11,
+    fat: 0.02,
+    protein: 0.16,
     water: 0.85,
     minerals: 0.01,
 }
