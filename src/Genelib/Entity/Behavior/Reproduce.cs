@@ -107,7 +107,6 @@ namespace Genelib {
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             // Deliberately skip calling base.Initialize()
-            multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
 
             // TODO: Add a way to customize this per-entity from WatchedAttributes or similar
             JsonItemStack[] eggs = entity.Properties.Attributes?["eggTypes"].AsArray<JsonItemStack>();
@@ -131,8 +130,10 @@ namespace Genelib {
             }
 
             if (!entity.World.Side.IsServer()) {
+                // Do not add multiply tree client-side or it won't sync
                 return;
             }
+            multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
 
             SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
             OffspringCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
@@ -500,6 +501,7 @@ namespace Genelib {
             if (!entity.Alive) {
                 return;
             }
+            multiplyTree = multiplyTree ?? entity.WatchedAttributes.GetTreeAttribute("multiply");
             if (IsPregnant) {
                 if (LaysEggs) {
                     infotext.AppendLine(Lang.Get("game:Ready to lay"));
