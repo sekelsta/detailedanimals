@@ -89,15 +89,25 @@ namespace Genelib
             if (api.Side != EnumAppSide.Server) {
                 return;
             }
-            // Need to do the same thing as ModSystemSyncHarvestableDropsToClient
-            // so detailedharvestable drops show up in the handbook client-side
+
             foreach (EntityProperties entityType in api.World.EntityTypes) {
                 foreach (JsonObject jsonObject in entityType.Server.BehaviorsAsJsonObj) {
+                    // Need to do the same thing as ModSystemSyncHarvestableDropsToClient
+                    // so detailedharvestable drops show up in the handbook client-side
                     if (jsonObject["code"].AsString() == DetailedHarvestable.Code) {
                         if (entityType.Attributes == null) {
                             entityType.Attributes = new JsonObject(JToken.Parse("{}"));
                         }
                         entityType.Attributes.Token["harvestableDrops"] = jsonObject["drops"].Token;
+                    }
+                    // Sync over reproduce setup so infotext displayed will be correct
+                    else if (jsonObject["code"].AsString() == Reproduce.Code) {
+                        for (int i = 0; i < entityType.Client.BehaviorsAsJsonObj.Length; ++i) {
+                            JsonObject clientJson = entityType.Client.BehaviorsAsJsonObj[i];
+                            if (clientJson["code"].AsString() == Reproduce.Code) {
+                                entityType.Client.BehaviorsAsJsonObj[i] = jsonObject;
+                            }
+                        }
                     }
                     // Also pre-process some aging stuff
                     else if (jsonObject["code"].AsString() == BehaviorAge.Code) {

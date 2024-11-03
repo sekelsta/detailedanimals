@@ -129,12 +129,6 @@ namespace Genelib {
                 );
             }
 
-            if (!entity.World.Side.IsServer()) {
-                // Do not add multiply tree client-side or it won't sync
-                return;
-            }
-            multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
-
             SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
             OffspringCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
 
@@ -222,6 +216,12 @@ namespace Genelib {
             if (attributes.KeyExists("litterAddAttempts")) {
                 litterAddAttempts = attributes["litterAddAttempts"].AsInt();
             }
+
+            if (!entity.World.Side.IsServer()) {
+                // Do not add multiply tree client-side or it won't sync
+                return;
+            }
+            multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
 
             if (IsPregnant && Litter == null) {
                 IsPregnant = false;
