@@ -201,6 +201,10 @@ namespace Genelib {
                     if (incubationHoursRemaining <= 0) {
                         Entity chick = Reproduce.SpawnNewborn(occupier, chickData.GetInt("generation", 0), chickData);
                         inventory[i].Itemstack = null;
+                        AnimalHunger hunger = chick.GetBehavior<AnimalHunger>();
+                        if (hunger != null) {
+                            hunger.Saturation = hunger.AdjustedMaxSaturation * AnimalHunger.FULL;
+                        }
                     }
                     else {
                         stack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursRemaining);
