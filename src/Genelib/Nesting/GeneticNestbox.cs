@@ -234,10 +234,13 @@ namespace Genelib {
                 // Place egg in nest
                 for (int i = 0; i < inventory.Count; ++i) {
                     if (inventory[i].Empty) {
-                        slot.TryPutInto(inventory[i], ref op);
                         AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
-                        Api.World.PlaySoundAt(sound != null ? sound : new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
-                        return true;
+                        AssetLocation itemPlaced = slot.Itemstack?.Collectible?.Code;
+                        if (slot.TryPutInto(inventory[i], ref op) > 0) {
+                            world.Api.Logger.Audit(byPlayer.PlayerName + " put 1x" + itemPlaced + " into " + Block.Code + " at " + Pos);
+                            Api.World.PlaySoundAt(sound != null ? sound : new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -247,9 +250,10 @@ namespace Genelib {
             for (int i = 0; i < inventory.Count; ++i) {
                 if (!inventory[i].Empty) {
                     bool onlyToPlayerInventory = false;
-                    object[] transferred = byPlayer.InventoryManager.TryTransferAway(inventory[i], ref op, onlyToPlayerInventory);
-                    if (transferred != null && transferred.Length > 0) {
+                    ItemStack stack = inventory[i].TakeOut(1);
+                    if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
                         anyEggs = true;
+                        world.Api.Logger.Audit(byPlayer.PlayerName + " took 1x" + stack?.Collectible?.Code + " from " + Block.Code + " at " + Pos);
                     }
                     // If it doesn't fit, leave it in the nest
                 }
