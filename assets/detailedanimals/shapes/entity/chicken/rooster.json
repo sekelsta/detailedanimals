@@ -726,6 +726,21 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "Tail",
+					"from": [ 5.4, 2.0, 1.0 ],
+					"to": [ 7.4, 4.0, 3.0 ],
+					"unwrapMode": 5,
+					"unwrapRotation": 1,
+					"uv": [ 25.5, 0.5 ],
+					"rotationOrigin": [ 5.4, 3.0, 1.0 ],
+					"rotationZ": 30.0,
+					"faces": {
+						"north": { "texture": "#chicken", "uv": [ 25.5, 0.5, 27.5, 2.5 ], "rotation": 270 },
+						"south": { "texture": "#chicken", "uv": [ 29.5, 0.5, 31.5, 2.5 ], "rotation": 90 },
+						"up": { "texture": "#chicken", "uv": [ 27.5, 0.5, 29.5, 2.5 ], "rotation": 90 }
+					}
 				}
 			],
 			"attachmentpoints": [
