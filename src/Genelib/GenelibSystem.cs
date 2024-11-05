@@ -146,13 +146,15 @@ namespace Genelib
         public override void StartServerSide(ICoreServerAPI api) {
             ServerAPI = api;
             api.Network.RegisterChannel("genelib")
-                .RegisterMessageType<SetNameMessage>().SetMessageHandler<SetNameMessage>(OnSetNameMessageServer);
+                .RegisterMessageType<SetNameMessage>().SetMessageHandler<SetNameMessage>(OnSetNameMessageServer)
+                .RegisterMessageType<ToggleBreedingMessage>().SetMessageHandler<ToggleBreedingMessage>(OnToggleBreedingMessageServer);
         }
 
         public override void StartClientSide(ICoreClientAPI api) {
             ClientAPI = api;
             api.Network.RegisterChannel("genelib")
-                .RegisterMessageType<SetNameMessage>();
+                .RegisterMessageType<SetNameMessage>()
+                .RegisterMessageType<ToggleBreedingMessage>();
 
             api.Input.RegisterHotKey("genelib.info", Lang.Get("genelib:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
             api.Input.SetHotKeyHandler("genelib.info", ToggleAnimalInfoGUI);
@@ -189,6 +191,18 @@ namespace Genelib
             target.Api.Logger.Audit(fromPlayer.PlayerName + " changed name of " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos 
                 + " from " + nametag.DisplayName + " to " + message.name);
             nametag.SetName(message.name);
+        }
+
+        private void OnToggleBreedingMessageServer(IServerPlayer fromPlayer, ToggleBreedingMessage message) {
+            Entity target = ServerAPI.World.GetEntityById(message.entityId);
+            ITreeAttribute domestication = target.WatchedAttributes.GetTreeAttribute("domesticationstatus");
+            if (domestication != null) {
+                domestication.SetBool("multiplyAllowed", !message.preventBreeding);
+            }
+            else {
+                target.WatchedAttributes.SetBool("preventBreeding", message.preventBreeding);
+            }
+            target.Api.Logger.Audit(fromPlayer.PlayerName + " set preventBreeding=" + message.preventBreeding + " for " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos);
         }
     }
 }

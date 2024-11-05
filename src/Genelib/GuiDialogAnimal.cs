@@ -56,10 +56,19 @@ namespace Genelib {
             GenelibSystem.ClientAPI.Network.GetChannel("genelib").SendPacket<SetNameMessage>(message);
         }
 
+        private void OnPreventBreedingSet(bool value) {
+            ToggleBreedingMessage message = new ToggleBreedingMessage() { entityId = animal.EntityId, preventBreeding = value };
+            GenelibSystem.ClientAPI.Network.GetChannel("genelib").SendPacket<ToggleBreedingMessage>(message);
+        }
+
         protected void AddStatusContents() {
             int y = 20;
-            // TODO: Nutrition, toggles
-            SingleComposer.AddStaticText("TODO: Nutrition info, toggles", CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
+            if (!animal.WatchedAttributes.GetBool("neutered", false)) {
+                SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-preventbreeding"), CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
+                SingleComposer.AddSwitch(OnPreventBreedingSet, ElementBounds.Fixed(width - 25, y, 25, 25), "preventbreeding");
+                SingleComposer.GetSwitch("preventbreeding").SetValue(!animal.MatingAllowed());
+                y += 25;
+            }
         }
 
         protected void AddInfoContents() {

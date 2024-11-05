@@ -468,10 +468,8 @@ namespace Genelib {
             if (entity.WatchedAttributes.GetBool("neutered", false)) {
                 return false;
             }
-            if (entity.WatchedAttributes.HasAttribute("domesticationstatus")) {
-                if (!entity.WatchedAttributes.GetTreeAttribute("domesticationstatus").GetBool("multiplyAllowed", true)) {
-                    return false;
-                }
+            if (!entity.MatingAllowed()) {
+                return false;
             }
             float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
             if (animalWeight <= DetailedHarvestable.MALNOURISHED || animalWeight > DetailedHarvestable.FAT) {
@@ -522,10 +520,8 @@ namespace Genelib {
             if (entity.WatchedAttributes.GetBool("neutered", false)) {
                 return;
             }
-            if (entity.WatchedAttributes.HasAttribute("domesticationstatus")) {
-                if (!entity.WatchedAttributes.GetTreeAttribute("domesticationstatus").GetBool("multiplyAllowed", true)) {
-                    return;
-                }
+            if (!entity.MatingAllowed()) {
+                return;
             }
             float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
             if (animalWeight <= DetailedHarvestable.MALNOURISHED) {

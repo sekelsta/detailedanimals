@@ -42,6 +42,18 @@ namespace Genelib.Extensions {
             return weight * adultWeightKg;
         }
 
+        public static bool MatingAllowed(this Entity entity) {
+            if (entity.WatchedAttributes.HasAttribute("domesticationstatus")) {
+                if (!entity.WatchedAttributes.GetTreeAttribute("domesticationstatus").GetBool("multiplyAllowed", true)) {
+                    return false;
+                }
+            }
+            else if (entity.WatchedAttributes.GetBool("preventBreeding", false)) {
+                return false;
+            }
+            return true;
+        }
+
         public static string GetLangOptionallySuffixed(string key, string suffix) {
             if (Lang.HasTranslation(key)) {
                 return Lang.Get(key);
