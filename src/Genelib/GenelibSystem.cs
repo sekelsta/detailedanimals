@@ -185,7 +185,7 @@ namespace Genelib
         private void OnSetNameMessageServer(IServerPlayer fromPlayer, SetNameMessage message) {
             Entity target = ServerAPI.World.GetEntityById(message.entityId);
             EntityBehaviorNameTag nametag = target.GetBehavior<EntityBehaviorNameTag>();
-            if (nametag == null) {
+            if (nametag == null || target.OwnedByOther(fromPlayer)) {
                 return;
             }
             target.Api.Logger.Audit(fromPlayer.PlayerName + " changed name of " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos 
@@ -195,6 +195,9 @@ namespace Genelib
 
         private void OnToggleBreedingMessageServer(IServerPlayer fromPlayer, ToggleBreedingMessage message) {
             Entity target = ServerAPI.World.GetEntityById(message.entityId);
+            if (target.OwnedByOther(fromPlayer)) {
+                return;
+            }
             ITreeAttribute domestication = target.WatchedAttributes.GetTreeAttribute("domesticationstatus");
             if (domestication != null) {
                 domestication.SetBool("multiplyAllowed", !message.preventBreeding);

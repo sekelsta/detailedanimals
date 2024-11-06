@@ -9,6 +9,7 @@
     "gui-age-day1": "1 day",
     "gui-animalinfo-age": "Age: {0}",
     "gui-animalinfo-preventbreeding": "Prevent breeding",
+    "gui-animalinfo-breedingprevented": "Breeding prevented",
     "gui-animalinfo-father": "Sire: {0}",
     "gui-animalinfo-mother": "Dam: {0}",
     "gui-animalinfo-unknownfather": "Unknown",

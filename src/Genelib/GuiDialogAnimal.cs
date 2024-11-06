@@ -5,6 +5,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.Client.NoObf;
 
 namespace Genelib {
     public class GuiDialogAnimal : GuiDialog {
@@ -38,8 +39,13 @@ namespace Genelib {
                 .AddHorizontalTabs(tabs, tabBounds, OnTabClicked, tabFont, tabFont.Clone().WithColor(GuiStyle.ActiveButtonTextColor), "tabs")
                 .BeginChildElements(bgBounds);
 
-            SingleComposer.AddTextInput(ElementBounds.Fixed(0, -14, 200, 22), OnNameSet, null, "animalName");
-            SingleComposer.GetTextInput("animalName").SetValue(animalName);
+            if (animal.OwnedByOther((GenelibSystem.ClientAPI.World as ClientMain)?.Player)) {
+                SingleComposer.AddStaticText(animalName, CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, -14, 200, 22));
+            }
+            else {
+                SingleComposer.AddTextInput(ElementBounds.Fixed(0, -14, 200, 22), OnNameSet, null, "animalName");
+                SingleComposer.GetTextInput("animalName").SetValue(animalName);
+            }
 
             SingleComposer.GetHorizontalTabs("tabs").activeElement = currentTab;
             if (currentTab == 0) {
@@ -64,10 +70,22 @@ namespace Genelib {
         protected void AddStatusContents() {
             int y = 20;
             if (!animal.WatchedAttributes.GetBool("neutered", false)) {
-                SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-preventbreeding"), CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
-                SingleComposer.AddSwitch(OnPreventBreedingSet, ElementBounds.Fixed(width - 25, y, 25, 25), "preventbreeding");
-                SingleComposer.GetSwitch("preventbreeding").SetValue(!animal.MatingAllowed());
-                y += 25;
+                if (animal.OwnedByOther((GenelibSystem.ClientAPI.World as ClientMain)?.Player)) {
+                    if (!animal.MatingAllowed()) {
+                        SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-breedingprevented"), CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
+                        y += 25;
+                    }
+                    else {
+                        // TODO: Less hacky fix for crashing if the composer has no contents.
+                        SingleComposer.AddStaticText(" ", CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
+                    }
+                }
+                else {
+                    SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-preventbreeding"), CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
+                    SingleComposer.AddSwitch(OnPreventBreedingSet, ElementBounds.Fixed(width - 25, y, 25, 25), "preventbreeding");
+                    SingleComposer.GetSwitch("preventbreeding").SetValue(!animal.MatingAllowed());
+                    y += 25;
+                }
             }
         }
 

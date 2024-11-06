@@ -54,6 +54,15 @@ namespace Genelib.Extensions {
             return true;
         }
 
+        public static bool OwnedBy(this Entity entity, IPlayer player) {
+            return player != null && entity.WatchedAttributes.GetTreeAttribute("ownedby")?.GetString("uid") == player.PlayerUID;
+        }
+
+        public static bool OwnedByOther(this Entity entity, IPlayer player) {
+            string ownerUID = entity.WatchedAttributes.GetTreeAttribute("ownedby")?.GetString("uid");
+            return ownerUID != null && ownerUID != player?.PlayerUID;
+        }
+
         public static string GetLangOptionallySuffixed(string key, string suffix) {
             if (Lang.HasTranslation(key)) {
                 return Lang.Get(key);
