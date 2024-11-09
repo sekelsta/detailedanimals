@@ -24,7 +24,6 @@
     "gui-animalinfo-amount-f-midhigh": "Buena (alta)",
     "gui-animalinfo-amount-f-high": "Alta",
     "gui-animalinfo-amount-f-veryhigh": "Muy alta",
-    "gui-animalinfo-nutrition": "Nutrición:",
     "gui-animalinfo-nutrient-fiber": "Fibra: {f}",
     "gui-animalinfo-nutrient-sugar": "Azúcar: {f}",
     "gui-animalinfo-nutrient-starch": "Almidón: {m}",

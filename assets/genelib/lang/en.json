@@ -17,7 +17,6 @@
     "gui-animalinfo-amount-midhigh": "Good (high)",
     "gui-animalinfo-amount-high": "High",
     "gui-animalinfo-amount-veryhigh": "Very High",
-    "gui-animalinfo-nutrition": "Nutrition:",
     "gui-animalinfo-nutrient-fiber": "Fiber: {n}",
     "gui-animalinfo-nutrient-sugar": "Sugar: {n}",
     "gui-animalinfo-nutrient-starch": "Starch: {n}",

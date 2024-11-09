@@ -39,6 +39,10 @@
         <HintPath>$(VINTAGE_STORY)/Lib/protobuf-net.dll</HintPath>
         <Private>False</Private>
     </Reference>
+    <Reference Include="cairo-sharp">
+        <HintPath>$(VINTAGE_STORY)/Lib/cairo-sharp.dll</HintPath>
+        <Private>False</Private>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

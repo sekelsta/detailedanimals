@@ -68,7 +68,7 @@ namespace Genelib {
         }
 
         protected void AddStatusContents() {
-            int y = 20;
+            int y = 25;
             if (!animal.WatchedAttributes.GetBool("neutered", false)) {
                 if (animal.OwnedByOther((GenelibSystem.ClientAPI.World as ClientMain)?.Player)) {
                     if (!animal.MatingAllowed()) {
@@ -82,7 +82,7 @@ namespace Genelib {
                 }
                 else {
                     SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-preventbreeding"), CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, width, 25));
-                    SingleComposer.AddSwitch(OnPreventBreedingSet, ElementBounds.Fixed(width - 25, y, 25, 25), "preventbreeding");
+                    SingleComposer.AddSwitch(OnPreventBreedingSet, ElementBounds.Fixed(width - 25, y - 5, 25, 25), "preventbreeding");
                     SingleComposer.GetSwitch("preventbreeding").SetValue(!animal.MatingAllowed());
                     y += 25;
                 }
@@ -90,7 +90,7 @@ namespace Genelib {
             AnimalHunger hunger = animal.GetBehavior<AnimalHunger>();
             if (hunger != null) {
                 y += 5;
-                SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-nutrition"), CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, width, 25));
+                SingleComposer.AddStaticText(Lang.Get("playerinfo-nutrition"), CairoFont.WhiteSmallText().WithWeight(Cairo.FontWeight.Bold), ElementBounds.Fixed(0, y, width, 25));
                 y += 25;
                 foreach (Nutrient nutrient in hunger.Nutrients) {
                     if (nutrient.Name == "water" || nutrient.Name == "minerals") {
