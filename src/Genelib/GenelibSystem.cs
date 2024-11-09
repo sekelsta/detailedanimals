@@ -157,6 +157,7 @@ namespace Genelib
             ServerAPI = api;
             api.Network.RegisterChannel("genelib")
                 .RegisterMessageType<SetNameMessage>().SetMessageHandler<SetNameMessage>(OnSetNameMessageServer)
+                .RegisterMessageType<SetNoteMessage>().SetMessageHandler<SetNoteMessage>(OnSetNoteMessageServer)
                 .RegisterMessageType<ToggleBreedingMessage>().SetMessageHandler<ToggleBreedingMessage>(OnToggleBreedingMessageServer);
         }
 
@@ -164,6 +165,7 @@ namespace Genelib
             ClientAPI = api;
             api.Network.RegisterChannel("genelib")
                 .RegisterMessageType<SetNameMessage>()
+                .RegisterMessageType<SetNoteMessage>()
                 .RegisterMessageType<ToggleBreedingMessage>();
 
             api.Input.RegisterHotKey("genelib.info", Lang.Get("genelib:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
@@ -201,6 +203,17 @@ namespace Genelib
             target.Api.Logger.Audit(fromPlayer.PlayerName + " changed name of " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos 
                 + " from " + nametag.DisplayName + " to " + message.name);
             nametag.SetName(message.name);
+        }
+
+        private void OnSetNoteMessageServer(IServerPlayer fromPlayer, SetNoteMessage message) {
+            Entity target = ServerAPI.World.GetEntityById(message.entityId);
+            BehaviorAnimalInfo info = target.GetBehavior<BehaviorAnimalInfo>();
+            if (info == null || target.OwnedByOther(fromPlayer)) {
+                return;
+            }
+            target.Api.Logger.Audit(fromPlayer.PlayerName + " changed note of " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos 
+                + " from " + info.Note + " to " + message.note);
+            info.Note = message.note;
         }
 
         private void OnToggleBreedingMessageServer(IServerPlayer fromPlayer, ToggleBreedingMessage message) {

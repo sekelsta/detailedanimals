@@ -62,6 +62,11 @@ namespace Genelib {
             GenelibSystem.ClientAPI.Network.GetChannel("genelib").SendPacket<SetNameMessage>(message);
         }
 
+        private void OnNoteSet(string note) {
+            SetNoteMessage message = new SetNoteMessage() { entityId = animal.EntityId, note = note };
+            GenelibSystem.ClientAPI.Network.GetChannel("genelib").SendPacket<SetNoteMessage>(message);
+        }
+
         private void OnPreventBreedingSet(bool value) {
             ToggleBreedingMessage message = new ToggleBreedingMessage() { entityId = animal.EntityId, preventBreeding = value };
             GenelibSystem.ClientAPI.Network.GetChannel("genelib").SendPacket<ToggleBreedingMessage>(message);
@@ -136,6 +141,17 @@ namespace Genelib {
                 SingleComposer.AddStaticText(ageText, infoFont, ElementBounds.Fixed(0, y, width, 25));
                 y += 25;
             }
+            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-note"), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            y += 25;
+            string note = animal.GetBehavior<BehaviorAnimalInfo>().Note;
+            if (animal.OwnedByOther((GenelibSystem.ClientAPI.World as ClientMain)?.Player)) {
+                SingleComposer.AddStaticText(note, CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width - 20, 22));
+            }
+            else {
+                SingleComposer.AddTextInput(ElementBounds.Fixed(0, y, width - 20, 22), OnNoteSet, CairoFont.WhiteDetailText(), "note");
+                SingleComposer.GetTextInput("note").SetValue(note);
+            }
+            y += 25;
         }
 
         protected void OnTabClicked(int tab) {

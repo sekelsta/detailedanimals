@@ -8,6 +8,7 @@
     "gui-age-day": "{0} días",
     "gui-age-day1": "1 día",
     "gui-animalinfo-age": "Edad: {0}",
+    "gui-animalinfo-note": "Nota:",
     "gui-animalinfo-preventbreeding": "Impida la reproducción",
     "gui-animalinfo-breedingprevented": "Se impide la reproducción",
     "gui-animalinfo-amount-m-verylow": "Muy bajo",

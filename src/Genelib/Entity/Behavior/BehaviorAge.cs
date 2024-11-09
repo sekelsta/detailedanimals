@@ -244,16 +244,18 @@ namespace Genelib {
                 adult.WatchedAttributes.SetInt("textureIndex", entity.WatchedAttributes.GetInt("textureIndex", 0));
             }
 
+            CopyAttributeIfPresent(adult, "nametag");
             CopyAttributeIfPresent(adult, "genetics");
             CopyAttributeIfPresent(adult, "motherId");
             CopyAttributeIfPresent(adult, "fatherId");
+            CopyAttributeIfPresent(adult, "preventBreeding");
 
             // PetAI compat
             CopyAttributeIfPresent(adult, "domesticationstatus");
         }
 
         protected virtual void CopyAttributesAfterSpawning(Entity adult) {
-            adult.GetBehavior<EntityBehaviorNameTag>()?.SetName(entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName);
+            // This no longer does anything, consider removing it
             // TODO: Consider copying over equipment
         }
 
