@@ -249,7 +249,6 @@ namespace Genelib {
             bool anyEggs = false;
             for (int i = 0; i < inventory.Count; ++i) {
                 if (!inventory[i].Empty) {
-                    bool onlyToPlayerInventory = false;
                     ItemStack stack = inventory[i].TakeOut(1);
                     if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
                         anyEggs = true;
