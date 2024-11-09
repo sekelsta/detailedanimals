@@ -54,5 +54,32 @@ namespace Genelib {
             float adjustment = 1 + Math.Max(0, Level) / MaxSafe;
             Level = Math.Clamp(Level - Usage * adjustment * amount, -2 * MaxSafe, 2 * MaxSafe);
         }
+
+        public string Amount {
+            get {
+                float fill = Level / MaxSafe;
+                if (fill < -1) {
+                    return "verylow";
+                }
+                else if (fill <= -0.5) {
+                    return "low";
+                }
+                else if (fill <= -0.25) {
+                    return "midlow";
+                }
+                else if (fill < 0.25) {
+                    return "mid";
+                }
+                else if (fill < 0.5) {
+                    return "midhigh";
+                }
+                else if (fill <= 1) {
+                    return "high";
+                }
+                else {
+                    return "veryhigh";
+                }
+            }
+        }
     }
 }

@@ -81,11 +81,27 @@ namespace Genelib {
                     }
                 }
                 else {
-                    SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-preventbreeding"), CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
+                    SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-preventbreeding"), CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, width, 25));
                     SingleComposer.AddSwitch(OnPreventBreedingSet, ElementBounds.Fixed(width - 25, y, 25, 25), "preventbreeding");
                     SingleComposer.GetSwitch("preventbreeding").SetValue(!animal.MatingAllowed());
                     y += 25;
                 }
+            }
+            AnimalHunger hunger = animal.GetBehavior<AnimalHunger>();
+            if (hunger != null) {
+                y += 5;
+                SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-nutrition"), CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, width, 25));
+                y += 25;
+                foreach (Nutrient nutrient in hunger.Nutrients) {
+                    if (nutrient.Name == "water" || nutrient.Name == "minerals") {
+                        // Don't display these until the player has a way to feed them
+                        continue;
+                    }
+                    string text = Lang.Get("genelib:gui-animalinfo-nutrient-" + nutrient.Name) + Lang.Get("genelib:gui-animalinfo-amount-" + nutrient.Amount);
+                    SingleComposer.AddStaticText(text, CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
+                    y += 20;
+                }
+                y += 5;
             }
         }
 

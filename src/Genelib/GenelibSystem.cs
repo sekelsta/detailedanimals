@@ -94,31 +94,41 @@ namespace Genelib
             }
 
             foreach (EntityProperties entityType in api.World.EntityTypes) {
+                JsonObject serverReproduce = null;
+                JsonObject serverHunger = null;
                 foreach (JsonObject jsonObject in entityType.Server.BehaviorsAsJsonObj) {
+                    string code = jsonObject["code"].AsString();
                     // Need to do the same thing as ModSystemSyncHarvestableDropsToClient
                     // so detailedharvestable drops show up in the handbook client-side
-                    if (jsonObject["code"].AsString() == DetailedHarvestable.Code) {
+                    if (code == DetailedHarvestable.Code) {
                         if (entityType.Attributes == null) {
                             entityType.Attributes = new JsonObject(JToken.Parse("{}"));
                         }
                         entityType.Attributes.Token["harvestableDrops"] = jsonObject["drops"].Token;
                     }
-                    // Sync over reproduce setup so infotext displayed will be correct
-                    else if (jsonObject["code"].AsString() == Reproduce.Code) {
-                        for (int i = 0; i < entityType.Client.BehaviorsAsJsonObj.Length; ++i) {
-                            JsonObject clientJson = entityType.Client.BehaviorsAsJsonObj[i];
-                            if (clientJson["code"].AsString() == Reproduce.Code) {
-                                entityType.Client.BehaviorsAsJsonObj[i] = jsonObject;
-                            }
-                        }
+                    else if (code == Reproduce.Code) {
+                        serverReproduce = jsonObject;
+                    }
+                    else if (code == AnimalHunger.Code) {
+                        serverHunger = jsonObject;
                     }
                     // Also pre-process some aging stuff
-                    else if (jsonObject["code"].AsString() == BehaviorAge.Code) {
+                    else if (code == BehaviorAge.Code) {
                         if (entityType.Attributes == null) {
                             entityType.Attributes = new JsonObject(JToken.Parse("{}"));
                         }
                         if (jsonObject.KeyExists("initialWeight")) {
                             entityType.Attributes.Token["initialWeight"] = jsonObject["initialWeight"].Token;
+                        }
+                    }
+                    // Sync over reproduce and hunger setups so info displayed will be correct
+                    for (int i = 0; i < entityType.Client.BehaviorsAsJsonObj.Length; ++i) {
+                        JsonObject clientJson = entityType.Client.BehaviorsAsJsonObj[i];
+                        if (clientJson["code"].AsString() == Reproduce.Code && serverReproduce != null) {
+                            entityType.Client.BehaviorsAsJsonObj[i] = serverReproduce;
+                        }
+                        else if (clientJson["code"].AsString() == AnimalHunger.Code && serverHunger != null) {
+                            entityType.Client.BehaviorsAsJsonObj[i] = serverHunger;
                         }
                     }
                 }

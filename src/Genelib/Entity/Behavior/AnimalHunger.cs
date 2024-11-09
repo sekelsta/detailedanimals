@@ -110,20 +110,12 @@ namespace Genelib {
         public AnimalHunger(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
-            if (entity.Api.Side == EnumAppSide.Client) {
-                return;
-            }
-            // Do NOT create hunger tree on the client side, or it won't sync over the values
-            hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
-
-            accumulator = entity.World.Rand.Next(updateSeconds * TPS);
             if (typeAttributes.KeyExists("daysUntilHungry")) {
                 DaysUntilHungry = typeAttributes["daysUntilHungry"].AsFloat();
             }
             if (typeAttributes.KeyExists("saturationPerKgPerDay")) {
                 SaturationPerKgPerDay = typeAttributes["saturationPerKgPerDay"].AsFloat() * TROUGH_SAT_PER_PLAYER_SAT;
             }
-            MaxSaturation = entity.HealthyAdultWeightKg() * SaturationPerKgPerDay * DaysUntilHungry / 2;
 
             if (typeAttributes.KeyExists("monthsUntilWeaned")) {
                 weanedAgeDays = typeAttributes["monthsUntilWeaned"].AsFloat() * entity.World.Calendar.DaysPerMonth;
@@ -143,7 +135,6 @@ namespace Genelib {
             if (typeAttributes.KeyExists("eatRate")) {
                 EatRate = typeAttributes["eatRate"].AsFloat();
             }
-            prevPos = entity.ServerPos.XYZ;
 
             Fiber = new Nutrient("fiber", typeAttributes, this);
             Sugar = new Nutrient("sugar", typeAttributes, this);
@@ -153,6 +144,16 @@ namespace Genelib {
             Water = new Nutrient("water", typeAttributes, this);
             Minerals = new Nutrient("minerals", typeAttributes, this);
             Nutrients = new List<Nutrient> { Fiber, Sugar, Starch, Fat, Protein, Water, Minerals };
+
+            if (entity.Api.Side == EnumAppSide.Client) {
+                return;
+            }
+            // Do NOT create hunger tree on the client side, or it won't sync over the values
+            hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
+            MaxSaturation = entity.HealthyAdultWeightKg() * SaturationPerKgPerDay * DaysUntilHungry / 2;
+
+            accumulator = entity.World.Rand.Next(updateSeconds * TPS);
+            prevPos = entity.ServerPos.XYZ;
             listenerID = entity.World.RegisterGameTickListener(SlowServerTick, 12000);
             ApplyNutritionEffects();
         }
@@ -161,6 +162,7 @@ namespace Genelib {
             if (onFirstSpawn) {
                 LastUpdateHours = entity.World.Calendar.TotalHours;
             }
+            hungerTree = hungerTree ?? entity.WatchedAttributes.GetTreeAttribute("hunger");
         }
 
         public override void OnEntityDespawn(EntityDespawnData despawn) {
@@ -619,7 +621,7 @@ namespace Genelib {
                 return;
             }
             base.GetInfoText(infotext);
-            hungerTree = entity.WatchedAttributes.GetTreeAttribute("hunger");
+            hungerTree = hungerTree ?? entity.WatchedAttributes.GetTreeAttribute("hunger");
             if (hungerTree == null) {
                 return;
             }
