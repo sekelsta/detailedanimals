@@ -97,7 +97,11 @@ namespace Genelib {
                         // Don't display these until the player has a way to feed them
                         continue;
                     }
-                    string text = Lang.Get("genelib:gui-animalinfo-nutrient-" + nutrient.Name) + Lang.Get("genelib:gui-animalinfo-amount-" + nutrient.Amount);
+                    string n = Lang.Get("genelib:gui-animalinfo-amount-" + nutrient.Amount);
+                    string f = Lang.Get("genelib:gui-animalinfo-amount-f-" + nutrient.Amount);
+                    string m = Lang.Get("genelib:gui-animalinfo-amount-m-" + nutrient.Amount);
+                    string text = Lang.Get("genelib:gui-animalinfo-nutrient-" + nutrient.Name)
+                        .Replace("{n}", n).Replace("{m}", m).Replace("{f}", f);
                     SingleComposer.AddStaticText(text, CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
                     y += 20;
                 }
