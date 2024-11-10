@@ -193,28 +193,42 @@
         file: "game:entities/land/pig-wild-piglet.json",
         op: "addmerge",
         path: "/attributes",
-        value: { adultWeightKg: 112, weightDimorphism: 0.015 },
+        value: { adultWeightKg: 112, weightDimorphism: 0.12 },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "addmerge",
         path: "/attributes",
-        value: { adultWeightKg: 112, weightDimorphism: 0.015 },
+        value: { adultWeightKg: 112, weightDimorphism: 0.12 },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "addmerge",
         path: "/attributes",
-        value: { adultWeightKg: 112, weightDimorphism: 0.015 },
+        value: { adultWeightKg: 112, weightDimorphism: 0.12 },
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
         path: "/client/size",
-        value: 2.2,
+        value: 2.9,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "add",
+        path: "/client/size",
+        value: 1.17,
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "add",
+        path: "/client/size",
+        value: 1.17,
         side: "server"
     },
 
