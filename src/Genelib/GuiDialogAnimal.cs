@@ -105,7 +105,7 @@ namespace Genelib {
                     string n = Lang.Get("genelib:gui-animalinfo-amount-" + nutrient.Amount);
                     string f = Lang.Get("genelib:gui-animalinfo-amount-f-" + nutrient.Amount);
                     string m = Lang.Get("genelib:gui-animalinfo-amount-m-" + nutrient.Amount);
-                    string text = Lang.Get("genelib:gui-animalinfo-nutrient-" + nutrient.Name)
+                    string text = Lang.GetUnformatted("genelib:gui-animalinfo-nutrient-" + nutrient.Name)
                         .Replace("{n}", n).Replace("{m}", m).Replace("{f}", f);
                     SingleComposer.AddStaticText(text, CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
                     y += 20;
