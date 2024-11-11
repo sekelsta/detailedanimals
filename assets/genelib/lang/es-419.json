@@ -1,5 +1,7 @@
 {
     "block-nestbox": "Caja nido",
+    "blockinfo-fertility": "Fértil. Eclosiona tras {0} días de incubación.",
+    "blockinfo-fertilitylost": "Ya no es fértil.",
     "blockinfo-suitable-nestbox": "Adecuada para: {0}",
     "gui-age-year": "{0} años",
     "gui-age-year1": "1 año",
