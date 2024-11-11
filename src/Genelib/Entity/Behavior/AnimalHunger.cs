@@ -162,7 +162,6 @@ namespace Genelib {
             if (onFirstSpawn) {
                 LastUpdateHours = entity.World.Calendar.TotalHours;
             }
-            hungerTree = hungerTree ?? entity.WatchedAttributes.GetTreeAttribute("hunger");
         }
 
         public override void OnEntityDespawn(EntityDespawnData despawn) {
@@ -621,7 +620,7 @@ namespace Genelib {
                 return;
             }
             base.GetInfoText(infotext);
-            hungerTree = hungerTree ?? entity.WatchedAttributes.GetTreeAttribute("hunger");
+            hungerTree = entity.WatchedAttributes.GetTreeAttribute("hunger");
             if (hungerTree == null) {
                 return;
             }

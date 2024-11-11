@@ -24,7 +24,8 @@ namespace Genelib {
         }
 
         public float Level {
-            get => outer.hungerTree.GetFloat(Name + "Level");
+            // If we're on the client side, we need to re-fetch the hunger tree in case it updated, instead of trusting outer.hungerTree
+            get => outer.entity.WatchedAttributes.GetTreeAttribute("hunger")?.GetFloat(Name + "Level") ?? 0;
             set {
                 if (float.IsNaN(value)) {
                     throw new ArgumentException("Cannot set nutrient value to NaN");

@@ -500,7 +500,7 @@ namespace Genelib {
             if (!entity.Alive) {
                 return;
             }
-            multiplyTree = multiplyTree ?? entity.WatchedAttributes.GetTreeAttribute("multiply");
+            multiplyTree = entity.WatchedAttributes.GetTreeAttribute("multiply");
             if (IsPregnant) {
                 if (LaysEggs) {
                     infotext.AppendLine(Lang.Get("game:Ready to lay"));
