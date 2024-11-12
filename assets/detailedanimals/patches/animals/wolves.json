@@ -156,16 +156,19 @@
                 {
                     type: "item", 
                     code: "game:bushmeat-raw", 
+                    category: "meat",
                     quantity: { avg: 9.6, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:hide-raw-small", 
+                    category: "pelt",
                     quantity: { avg: 2.8, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:fat", 
+                    category: "fat",
                     quantity: { avg: 1.6, var: 0 } 
                 }
             ]
@@ -182,16 +185,19 @@
                 {
                     type: "item", 
                     code: "game:bushmeat-raw", 
+                    category: "meat",
                     quantity: { avg: 9.6, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:hide-raw-medium", 
+                    category: "pelt",
                     quantity: { avg: 1.4, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:fat", 
+                    category: "fat",
                     quantity: { avg: 1.6, var: 0 } 
                 }
             ]
@@ -208,16 +214,19 @@
                 {
                     type: "item", 
                     code: "game:bushmeat-raw", 
+                    category: "meat",
                     quantity: { avg: 9.6, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:hide-raw-medium", 
+                    category: "pelt",
                     quantity: { avg: 1.4, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:fat", 
+                    category: "fat",
                     quantity: { avg: 1.6, var: 0 } 
                 }
             ]
