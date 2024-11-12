@@ -136,16 +136,19 @@
             drops: [
                 {
                     type: "item", 
+                    category: "meat",
                     code: "bushmeat-raw", 
                     quantity: { avg: 2.1, var: 0 } 
                 },
                 {
                     type: "item", 
+                    category: "pelt",
                     code: "hide-raw-small", 
                     quantity: { avg: 1, var: 0 } 
                 },
                 {
                     type: "item", 
+                    category: "fat",
                     code: "fat", 
                     quantity: { avg: 0.4, var: 0 } 
                 }
@@ -162,16 +165,19 @@
             drops: [
                 {
                     type: "item", 
+                    category: "meat",
                     code: "game:bushmeat-raw", 
                     quantity: { avg: 2.1, var: 0 } 
                 },
                 {
                     type: "item", 
+                    category: "pelt",
                     code: "game:hide-raw-small", 
                     quantity: { avg: 1, var: 0 } 
                 },
                 {
                     type: "item", 
+                    category: "fat",
                     code: "game:fat", 
                     quantity: { avg: 0.4, var: 0 } 
                 }
@@ -188,16 +194,19 @@
             drops: [
                 {
                     type: "item", 
+                    category: "meat",
                     code: "game:bushmeat-raw", 
                     quantity: { avg: 2.1, var: 0 } 
                 },
                 {
                     type: "item", 
+                    category: "pelt",
                     code: "game:hide-raw-small", 
                     quantity: { avg: 1, var: 0 } 
                 },
                 {
                     type: "item", 
+                    category: "fat",
                     code: "game:fat", 
                     quantity: { avg: 0.4, var: 0 } 
                 }

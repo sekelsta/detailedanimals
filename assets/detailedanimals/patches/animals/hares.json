@@ -167,6 +167,7 @@
                 {
                     type: "item", 
                     code: "game:redmeat-raw", 
+                    category: "meat",
                     quantity: { avg: 1, var: 0 } 
                 },
             ],
@@ -183,10 +184,13 @@
                 {
                     type: "item", 
                     code: "game:redmeat-raw", 
+                    category: "meat",
                     quantity: { avg: 1, var: 0 } 
                 },
-                { type: "item",
+                {
+                    type: "item",
                     code: "game:hide-raw-small",
+                    category: "pelt",
                     quantity: { avg: 0.6, var: 0 } 
                 }
             ],
@@ -203,10 +207,13 @@
                 {
                     type: "item", 
                     code: "game:redmeat-raw", 
+                    category: "meat",
                     quantity: { avg: 1, var: 0 } 
                 },
-                { type: "item",
+                {
+                    type: "item",
                     code: "game:hide-raw-small",
+                    category: "pelt",
                     quantity: { avg: 0.6, var: 0 } 
                 }
             ],
