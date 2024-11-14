@@ -269,7 +269,7 @@ namespace Genelib {
             return anyEggs;
         }
 
-        public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc) {
+        public override void GetBlockInfo(IPlayer forPlayer, StringBuilder info) {
             // Deliberately avoid calling base method
             bool anyEggs = false;
             for (int i = 0; i < inventory.Count; ++i) {
@@ -277,11 +277,17 @@ namespace Genelib {
                     continue;
                 }
                 anyEggs = true;
-                if (inventory[i].Itemstack.Collectible.RequiresTransitionableTicking(Api.World, inventory[i].Itemstack)) {
-                    dsc.Append(BlockEntityShelf.PerishableInfoCompact(Api, inventory[i], 0));
+                ItemStack stack = inventory[i].Itemstack;
+                if (stack.Collectible.RequiresTransitionableTicking(Api.World, inventory[i].Itemstack)) {
+                    info.Append(BlockEntityShelf.PerishableInfoCompact(Api, inventory[i], 0));
                 }
                 else {
-                    dsc.AppendLine(inventory[i].GetStackName());
+                    info.AppendLine(inventory[i].GetStackName());
+                }
+                TreeAttribute chickData = (TreeAttribute) stack.Attributes["chick"];
+                if (chickData != null) {
+                    double incubationDaysRemaining = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0) / 24;
+                    info.AppendLine(" • " + Lang.Get("genelib:blockinfo-fertility", incubationDaysRemaining.ToString("#.##")));
                 }
             }
             if (anyEggs) {
@@ -297,7 +303,7 @@ namespace Genelib {
                     }
                 }
             }
-            dsc.AppendLine(Lang.Get("genelib:blockinfo-suitable-nestbox", string.Join(", ", creatureNames)));
+            info.AppendLine(Lang.Get("genelib:blockinfo-suitable-nestbox", string.Join(", ", creatureNames)));
         }
 
         protected override float[][] genTransformationMatrices() {
