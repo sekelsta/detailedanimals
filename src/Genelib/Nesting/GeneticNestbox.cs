@@ -195,15 +195,17 @@ namespace Genelib {
                 if (chickData == null) {
                     continue;
                 }
-                // TODO: Chance for eggs to become infertile. Should scale with month length so that longer months do not reduce fertilty.
                 if (WasOccupied) {
                     double incubationHoursRemaining = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0);
                     incubationHoursRemaining -= Api.World.Calendar.TotalHours - LastUpdateHours;
                     if (incubationHoursRemaining <= 0) {
                         Entity chick = Reproduce.SpawnNewborn(occupier, chickData.GetInt("generation", 0), chickData);
                         inventory[i].Itemstack = null;
-                        inventory.DidModifyItemSlot(inventory[i]);
                     }
+                    else {
+                        stack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursRemaining);
+                    }
+                    inventory.DidModifyItemSlot(inventory[i]);
                 }
             }
 
