@@ -448,9 +448,15 @@ namespace Genelib {
                 return eggStack;
             }
 
-            EntityBehaviorGenetics gb = entity.GetBehavior<EntityBehaviorGenetics>();
-            if (gb != null) {
-                Genome childGenome = new Genome(gb.Genome.Type, chick);
+            string chickCode = chick.GetString("code");
+            EntityProperties spawnType = entity.World.GetEntityType(chickCode);
+            if (spawnType == null) {
+                throw new ArgumentException(entity.Code.ToString() + " attempted to lay egg containing entity with code " 
+                    + chickCode.ToString() + ", but no such entity was found.");
+            }
+            GenomeType genomeType = spawnType.GetGenomeType();
+            if (genomeType != null) {
+                Genome childGenome = new Genome(genomeType, chick);
                 if (childGenome.EmbryonicLethal()) {
                     return eggStack;
                 }
