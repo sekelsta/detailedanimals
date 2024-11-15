@@ -65,10 +65,20 @@ namespace Genelib {
             if (nest == null) {
                 return false;
             }
-            if (!nest.IsSuitableFor(entity) || nest.Occupied(entity)) {
+            if (!nest.IsSuitableFor(entity) || !IsStillValidNest(nest)) {
                 return false;
             }
             if (RecentlyFailedSeek(nest)) {
+                return false;
+            }
+            return true;
+        }
+
+        protected bool IsStillValidNest(IAnimalNest nest) {
+            if (nest.Occupied(entity)) {
+                return false;
+            }
+            if ((nest as GeneticNestbox)?.ContainsRot() == true) {
                 return false;
             }
             return true;
@@ -84,7 +94,7 @@ namespace Genelib {
         }
 
         protected override bool ShouldAbort() {
-            return target.Occupied(entity);
+            return !IsStillValidNest(target);
         }
 
         protected override void OnArrival() {
@@ -103,6 +113,10 @@ namespace Genelib {
             }
             GeneticNestbox nestbox = target as GeneticNestbox;
             if (nestbox != null) {
+                if (nestbox.ContainsRot()) {
+                    done = true;
+                    return;
+                }
                 if (nestbox.Full()) {
                     return;
                 }

@@ -47,6 +47,19 @@ namespace Genelib {
             occupier = entity;
         }
 
+        public bool ContainsRot() {
+            for (int i = 0; i < inventory.Count; ++i) {
+                if (inventory[i].Empty) {
+                    continue;
+                }
+                AssetLocation code = inventory[i].Itemstack.Collectible?.Code;
+                if (code != null && code.Domain == "game" && code.Path == "rot") {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public float DistanceWeighting {
             get {
                 int numEggs = CountEggs();
