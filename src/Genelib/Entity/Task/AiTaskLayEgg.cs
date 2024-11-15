@@ -126,7 +126,9 @@ namespace Genelib {
                     done = true;
                     EggLaidHours = entity.World.Calendar.TotalHours;
                     ItemStack egg = reproduce.GiveEgg();
-                    egg.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24 * GenelibSystem.AnimalGrowthTime);
+                    double incubationHoursTotal = incubationDays * 24 * GenelibSystem.AnimalGrowthTime;
+                    egg.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
+                    egg.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
                     // If incubation length scales with month length, freshness should too
                     if (incubationScalesWithMonthLength) {
                         TransitionState[] transitions = egg.Collectible?.UpdateAndGetTransitionStates(entity.World, new DummySlot(egg));

@@ -11,6 +11,8 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 using Vintagestory.ServerMods.NoObf;
 
+using Genelib.Extensions;
+
 namespace Genelib {
     public class GeneticNestbox : BlockEntityDisplay, IAnimalNest {
         public AssetLocation[] suitableFor;
@@ -94,7 +96,9 @@ namespace Genelib {
                 }
             }
             if (eggStack.Attributes.HasAttribute("chick")) {
-                eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationDays * 24 * GenelibSystem.AnimalGrowthTime);
+                double incubationHoursTotal = incubationDays * 24 * GenelibSystem.AnimalGrowthTime;
+                eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
+                eggStack.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
             }
             AddEgg(entity, eggStack);
             return true;
@@ -208,10 +212,32 @@ namespace Genelib {
                 if (chickData == null) {
                     continue;
                 }
+                string chickCode = chickData.GetString("code");
+                if (chickCode == null || chickCode == "") {
+                    continue;
+                }
                 if (WasOccupied) {
-                    double incubationHoursRemaining = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0);
-                    incubationHoursRemaining -= Api.World.Calendar.TotalHours - LastUpdateHours;
-                    if (incubationHoursRemaining <= 0) {
+                    double incubationHoursPrev = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0);
+                    double incubationHoursNext = incubationHoursPrev - (Api.World.Calendar.TotalHours - LastUpdateHours);
+                    double incubationHoursTotal = stack.Attributes.GetDouble("incubationHoursTotal", 0);
+                    double check = 0.1;
+                    if (incubationHoursTotal > 0 && 1 - (incubationHoursPrev / incubationHoursTotal) < check 
+                                                 && 1 - (incubationHoursNext / incubationHoursTotal) >= check) {
+                        EntityProperties spawnType = Api.World.GetEntityType(chickCode);
+                        if (spawnType == null) {
+                            throw new ArgumentException(Block.Code.ToString() + " attempted to incubate egg containing entity with code " + chickCode.ToString() + ", but no such entity was found.");
+                        }
+                        GenomeType genomeType = spawnType.GetGenomeType();
+                        if (genomeType != null) {
+                            Genome childGenome = new Genome(genomeType, chickData);
+                            if (childGenome.EmbryonicLethal()) {
+                                chickCode = null;
+                                chickData.SetString("code", "");
+                            }
+                        }
+                    }
+
+                    if (incubationHoursNext <= 0 && chickCode != null && chickCode != "") {
                         Entity chick = Reproduce.SpawnNewborn(occupier, chickData.GetInt("generation", 0), chickData);
                         inventory[i].Itemstack = null;
                         AnimalHunger hunger = chick.GetBehavior<AnimalHunger>();
@@ -220,8 +246,9 @@ namespace Genelib {
                         }
                     }
                     else {
-                        stack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursRemaining);
+                        stack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursNext);
                     }
+
                     inventory.DidModifyItemSlot(inventory[i]);
                 }
             }
@@ -299,8 +326,14 @@ namespace Genelib {
                 }
                 TreeAttribute chickData = (TreeAttribute) stack.Attributes["chick"];
                 if (chickData != null) {
-                    double incubationDaysRemaining = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0) / 24;
-                    info.AppendLine(" • " + Lang.Get("genelib:blockinfo-fertility", incubationDaysRemaining.ToString("#.##")));
+                    string chickCode = chickData.GetString("code");
+                    if (chickCode == null || chickCode == "") {
+                        info.AppendLine(" • " + Lang.Get("genelib:blockinfo-fertilitylost"));
+                    }
+                    else {
+                        double incubationDaysRemaining = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0) / 24;
+                        info.AppendLine(" • " + Lang.Get("genelib:blockinfo-fertility", incubationDaysRemaining.ToString("#.##")));
+                    }
                 }
             }
             if (anyEggs) {
