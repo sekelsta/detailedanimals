@@ -483,6 +483,12 @@ namespace Genelib {
             if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
                 return false;
             }
+            if (!isBreedingSeason()) {
+                return false;
+            }
+            if (SynchedTotalDaysCooldownUntil > TotalDays) {
+                return false;
+            }
             return true;
         }
 
