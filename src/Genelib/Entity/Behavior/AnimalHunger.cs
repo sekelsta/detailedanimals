@@ -335,7 +335,7 @@ namespace Genelib {
         }
 
         public bool WantsMilk() {
-            return getAgeDays() > (0.25 + entity.World.Rand.NextSingle()) * weanedAgeDays;
+            return getAgeDays() < (0.25 + entity.World.Rand.NextSingle()) * weanedAgeDays;
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode, ref EnumHandling handled) {
