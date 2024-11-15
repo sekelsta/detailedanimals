@@ -42,7 +42,8 @@ namespace Genelib {
             if (EggLaidHours + hoursPerEgg > entity.World.Calendar.TotalHours) {
                 return false;
             }
-            if (!Reproduce.EntityCanMate(entity)) {
+            if (!reproduce.CanLayEgg()) {
+                EggLaidHours = entity.World.Calendar.TotalHours;
                 return false;
             }
 

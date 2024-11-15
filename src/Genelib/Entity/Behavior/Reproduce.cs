@@ -474,6 +474,20 @@ namespace Genelib {
             return true;
         }
 
+        public bool CanLayEgg() {
+            if (!entity.Alive || entity.WatchedAttributes.GetBool("neutered", false)) {
+                return false;
+            }
+            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
+            if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
+                return false;
+            }
+            if (SynchedTotalDaysCooldownUntil > TotalDays) {
+                return false;
+            }
+            return true;
+        }
+
         protected virtual Entity GetSire() {
             return entity.World.GetNearestEntity(entity.ServerPos.XYZ, SireSearchRange, SireSearchRange,
                 (e) => {
