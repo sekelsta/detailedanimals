@@ -312,6 +312,7 @@ namespace Genelib {
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder info) {
             // Deliberately avoid calling base method
             bool anyEggs = false;
+            bool anyFertile = false;
             for (int i = 0; i < inventory.Count; ++i) {
                 if (inventory[i].Empty) {
                     continue;
@@ -331,12 +332,25 @@ namespace Genelib {
                         info.AppendLine(" • " + Lang.Get("genelib:blockinfo-fertilitylost"));
                     }
                     else {
-                        double incubationDaysRemaining = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0) / 24;
-                        info.AppendLine(" • " + Lang.Get("genelib:blockinfo-fertility", incubationDaysRemaining.ToString("#.##")));
+                        anyFertile = true;
+                        double hours = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0);
+                        double days = hours / 24;
+                        if (days > 1) {
+                            info.AppendLine(" • " + Lang.Get("Incubation time remaining: {0:0} days", days));
+                        }
+                        else {
+                            info.AppendLine(" • " + Lang.Get("Incubation time remaining: {0:0} hours", hours));
+                        }
                     }
                 }
             }
             if (anyEggs) {
+                if (anyFertile && occupier == null && Full()) {
+                    info.AppendLine(Lang.Get("A broody hen is needed!"));
+                }
+                else if (!anyFertile) {
+                    info.AppendLine(Lang.Get("No eggs are fertilized"));
+                }
                 return;
             }
             // TO_OPTIMIZE: O(entity types * suitable wildcards)

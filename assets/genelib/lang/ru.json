@@ -1,6 +1,5 @@
 {
     "block-nestbox": "Гнездо",
-    "blockinfo-fertility": "Оплодотворено. Вылупится через {0} дней инкубации.",
     "blockinfo-fertilitylost": "Не может быть оплодотворено.",
     "blockinfo-suitable-nestbox": "Подходит для: {0}",
     "gui-age-year": "{0} лет",

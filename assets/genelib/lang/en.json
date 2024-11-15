@@ -1,6 +1,5 @@
 {
     "block-nestbox": "Nestbox",
-    "blockinfo-fertility": "Fertile. Hatches after {0} days of incubation.",
     "blockinfo-fertilitylost": "No longer fertile.",
     "blockinfo-suitable-nestbox": "Suitable for: {0}",
     "gui-age-year": "{0} years",
