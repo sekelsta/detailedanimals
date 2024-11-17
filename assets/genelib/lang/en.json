@@ -1,5 +1,6 @@
 {
     "block-nestbox": "Nestbox",
+    "block-nest-ground": "Ground nest",
     "blockinfo-fertilitylost": "No longer fertile.",
     "blockinfo-suitable-nestbox": "Suitable for: {0}",
     "gui-age-year": "{0} years",

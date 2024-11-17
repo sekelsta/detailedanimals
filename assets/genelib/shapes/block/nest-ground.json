@@ -1,0 +1,48 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textures": {
+        "singlehay2": "game:block/wood/trough/large/singlehay2"
+	},
+	"elements": [
+		{
+			"name": "Hay1",
+			"from": [ 6.0, 0.1, 6.0 ],
+			"to": [ 9.0, 0.1, 8.5 ],
+			"renderPass": 2,
+			"rotationOrigin": [ 8.0, 0.1, 8.0 ],
+			"rotationY": 18.0,
+			"rotationZ": -12.0,
+			"faces": {
+				"up": { "texture": "#singlehay2", "uv": [ 0.0, 1.5, 3.0, 4.0 ], "windMode": [-1,-1,-1,-1] }
+			}
+		},
+		{
+			"name": "Hay2",
+			"from": [ 6.0, 0.1, 7.0 ],
+			"to": [ 8.0, 0.1, 9.0 ],
+			"renderPass": 2,
+			"rotationOrigin": [ 8.0, 0.1, 8.0 ],
+			"rotationY": 112.0,
+			"rotationZ": -15.0,
+			"faces": {
+				"up": { "texture": "#singlehay2", "uv": [ 3.0, 2.0, 5.0, 4.0 ], "rotation": 270 }
+			}
+		},
+		{
+			"name": "Hay3",
+			"from": [ 6.0, 0.1, 6.0 ],
+			"to": [ 9.0, 0.1, 8.5 ],
+			"renderPass": 2,
+			"rotationOrigin": [ 8.0, 0.1, 8.0 ],
+			"rotationY": -132.0,
+			"rotationZ": -5.0,
+			"faces": {
+				"up": { "texture": "#singlehay2", "uv": [ 0.0, 1.5, 3.0, 4.0 ] }
+			}
+		}
+	]}

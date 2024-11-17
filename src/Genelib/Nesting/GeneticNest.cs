@@ -148,6 +148,7 @@ namespace Genelib {
             }
             base.Initialize(api);
 
+            (container as NestContainer).PerishRate = Block.Attributes["perishRate"]?.AsFloat(1) ?? 1;
             if (LastUpdateHours == -1) {
                 LastUpdateHours = Api.World.Calendar.TotalHours;
             }
@@ -158,9 +159,8 @@ namespace Genelib {
             if (api.Side == EnumAppSide.Server) {
                 api.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
                 RegisterGameTickListener(SlowTick, 12000);
+                SlowTick(0);
             }
-
-            SlowTick(0);
         }
 
         private void CreateInventory(int capacity, ICoreAPI api) {
@@ -170,7 +170,7 @@ namespace Genelib {
         }
 
         public override void OnBlockRemoved() {
-            base.OnBlockRemoved();
+            base.OnBlockRemoved(); // Unregisters the tick listener
             if (Api.Side == EnumAppSide.Server) {
                 Api.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this);
             }
@@ -306,6 +306,10 @@ namespace Genelib {
             }
             if (anyEggs) {
                 world.PlaySoundAt(new AssetLocation("sounds/player/collect"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+                if (CountEggs() == 0 && Block.Attributes?["permenant"]?.AsBool(false) == true) {
+                    IBlockAccessor blockAccess = Api.World.BlockAccessor;
+                    blockAccess.SetBlock(0, Pos);
+                }
             }
             return anyEggs;
         }
@@ -354,17 +358,20 @@ namespace Genelib {
                 }
                 return;
             }
-            // TO_OPTIMIZE: O(entity types * suitable wildcards)
-            HashSet<string> creatureNames = new HashSet<string>();
-            foreach (EntityProperties type in Api.World.EntityTypes) {
-                foreach (AssetLocation suitable in suitableFor) {
-                    if (RegistryObjectType.WildCardMatch(suitable, type.Code)) {
-                        string code = type.Attributes?["handbook"]["groupcode"].AsString() ?? type.Code.Domain + ":item-creature-" + type.Code.Path; 
-                        creatureNames.Add(Lang.Get(code));
+            bool showSpecies = Block.Attributes?["showSuitableSpecies"]?.AsBool(true) ?? true;
+            if (showSpecies) {
+                // TO_OPTIMIZE: O(entity types * suitable wildcards)
+                HashSet<string> creatureNames = new HashSet<string>();
+                foreach (EntityProperties type in Api.World.EntityTypes) {
+                    foreach (AssetLocation suitable in suitableFor) {
+                        if (RegistryObjectType.WildCardMatch(suitable, type.Code)) {
+                            string code = type.Attributes?["handbook"]["groupcode"].AsString() ?? type.Code.Domain + ":item-creature-" + type.Code.Path; 
+                            creatureNames.Add(Lang.Get(code));
+                        }
                     }
                 }
+                info.AppendLine(Lang.Get("genelib:blockinfo-suitable-nestbox", string.Join(", ", creatureNames)));
             }
-            info.AppendLine(Lang.Get("genelib:blockinfo-suitable-nestbox", string.Join(", ", creatureNames)));
         }
 
         protected override float[][] genTransformationMatrices() {

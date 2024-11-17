@@ -1,6 +1,9 @@
+using System;
+
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 using Genelib.Extensions;
@@ -51,11 +54,43 @@ namespace Genelib {
             target = pointsOfInterest.GetWeightedNearestPoi(entity.ServerPos.XYZ, searchRadius, IsValidNest) as IAnimalNest;
 
             if (target == null) {
-                // TODO: Lay egg on ground
-                return false;
+                target = CreateGroundNest();
             }
 
-            return true;
+            return target != null;
+        }
+
+        public IAnimalNest CreateGroundNest() {
+            string nestCode = "genelib:nest-ground";
+            Block block = entity.World.GetBlock(nestCode);
+            if (block == null) {
+                throw new ArgumentException(entity.Code.ToString() + " attempted to create nest block of type " 
+                        + nestCode + " but no such block was found.");
+            }
+
+            BlockPos pos = entity.ServerPos.XYZ.AsBlockPos;
+            IBlockAccessor blockAccess = entity.World.BlockAccessor;
+            if (blockAccess.GetBlock(pos, BlockLayersAccess.Fluid).IsLiquid()
+                    || !blockAccess.GetBlock(pos).IsReplacableBy(block)) {
+                return null;
+            }
+            BlockPos below = pos.DownCopy();
+            if (!blockAccess.GetMostSolidBlock(below).CanAttachBlockAt(blockAccess, block, below, BlockFacing.UP)) {
+                return null;
+            }
+            blockAccess.SetBlock(block.BlockId, pos);
+
+            // This seems to only be used by torches, but vanilla checks it so let's do that too
+            BlockEntityTransient transient = blockAccess.GetBlockEntity(pos) as BlockEntityTransient;
+            if (transient != null) {
+                transient.SetPlaceTime(entity.World.Calendar.TotalHours);
+                if (transient.IsDueTransition()) {
+                    blockAccess.SetBlock(0, pos);
+                    return null;
+                }
+            }
+
+            return blockAccess.GetBlockEntity(pos) as IAnimalNest;
         }
 
         protected bool IsValidNest(IPointOfInterest poi) {
