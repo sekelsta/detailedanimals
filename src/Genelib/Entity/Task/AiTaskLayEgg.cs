@@ -78,7 +78,7 @@ namespace Genelib {
             if (nest.Occupied(entity)) {
                 return false;
             }
-            if ((nest as GeneticNestbox)?.ContainsRot() == true) {
+            if ((nest as GeneticNest)?.ContainsRot() == true) {
                 return false;
             }
             return true;
@@ -111,13 +111,13 @@ namespace Genelib {
                 done = true;
                 return;
             }
-            GeneticNestbox nestbox = target as GeneticNestbox;
-            if (nestbox != null) {
-                if (nestbox.ContainsRot()) {
+            GeneticNest nest = target as GeneticNest;
+            if (nest != null) {
+                if (nest.ContainsRot()) {
                     done = true;
                     return;
                 }
-                if (nestbox.Full()) {
+                if (nest.Full()) {
                     return;
                 }
                 if (timeSinceTargetReached >= layTime && !laid) {
@@ -142,7 +142,7 @@ namespace Genelib {
                             }
                         }
                     }
-                    nestbox.AddEgg(entity, egg);
+                    nest.AddEgg(entity, egg);
                 }
             }
             else if (timeSinceTargetReached >= layTime && !laid) {

@@ -3,9 +3,9 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 namespace Genelib {
-    public class BlockGeneticNestbox : BlockContainer {
+    public class BlockGeneticNest : BlockContainer {
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
-            var blockEntity = world.BlockAccessor.GetBlockEntity(blockSel.Position) as GeneticNestbox;
+            var blockEntity = world.BlockAccessor.GetBlockEntity(blockSel.Position) as GeneticNest;
             if (blockEntity != null) {
                 return blockEntity.OnInteract(world, byPlayer, blockSel);
             }

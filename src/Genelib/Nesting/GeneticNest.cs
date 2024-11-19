@@ -14,7 +14,7 @@ using Vintagestory.ServerMods.NoObf;
 using Genelib.Extensions;
 
 namespace Genelib {
-    public class GeneticNestbox : BlockEntityDisplay, IAnimalNest {
+    public class GeneticNest : BlockEntityDisplay, IAnimalNest {
         public AssetLocation[] suitableFor;
         public Entity occupier;
         public InventoryGeneric inventory;
@@ -23,13 +23,13 @@ namespace Genelib {
         protected double LastUpdateHours = -1;
 
         public override InventoryBase Inventory => inventory;
-        public string inventoryClassName = "genelib.nestbox";
+        public string inventoryClassName = "genelib.nest";
         public override string InventoryClassName => inventoryClassName;
 
         public Vec3d Position => Pos.ToVec3d().Add(0.5, 0.5, 0.5);
         public string Type => "nest";
 
-        public GeneticNestbox() {
+        public GeneticNest() {
             container = new NestContainer(() => Inventory, "inventory");
         }
 
@@ -116,7 +116,7 @@ namespace Genelib {
                     return;
                 }
             }
-            throw new ArgumentException("Can't add egg to full nestbox!");
+            throw new ArgumentException("Can't add egg to full nest!");
         }
 
         public int CountEggs() {
@@ -136,7 +136,7 @@ namespace Genelib {
                 CreateInventory(capacity, api);
             }
             else if (capacity != inventory.Count) {
-                api.Logger.Warning("Nestbox loaded with " + inventory.Count + " capacity when it should be " + capacity + ".");
+                api.Logger.Warning("Nest " + Block.Code + " loaded with " + inventory.Count + " capacity when it should be " + capacity + ".");
                 InventoryGeneric oldInv = inventory;
                 CreateInventory(capacity, api);
                 for (int i = 0; i < capacity && i < oldInv.Count; ++i) {
