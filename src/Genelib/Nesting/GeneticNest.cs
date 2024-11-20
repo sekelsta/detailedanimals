@@ -238,7 +238,8 @@ namespace Genelib {
                     }
 
                     if (incubationHoursNext <= 0 && chickCode != null && chickCode != "") {
-                        Entity chick = Reproduce.SpawnNewborn(occupier, chickData.GetInt("generation", 0), chickData);
+                        EntityPos pos = new EntityPos().SetPos(Pos);
+                        Entity chick = Reproduce.SpawnNewborn(Api.World, pos, occupier, chickData.GetInt("generation", 0), chickData);
                         inventory[i].Itemstack = null;
                         AnimalHunger hunger = chick.GetBehavior<AnimalHunger>();
                         if (hunger != null) {
@@ -336,16 +337,16 @@ namespace Genelib {
                         double hours = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0);
                         double days = hours / 24;
                         if (days > 1) {
-                            info.AppendLine(" • " + Lang.Get("Incubation time remaining: {0:0} days", days));
+                            info.AppendLine(" • " + Lang.Get("Incubation time remaining: {0:0.0} days", days));
                         }
                         else {
-                            info.AppendLine(" • " + Lang.Get("Incubation time remaining: {0:0} hours", hours));
+                            info.AppendLine(" • " + Lang.Get("Incubation time remaining: {0:0.0} hours", hours));
                         }
                     }
                 }
             }
             if (anyEggs) {
-                if (anyFertile && occupier == null && Full()) {
+                if (anyFertile && !WasOccupied && Full()) {
                     info.AppendLine(Lang.Get("A broody hen is needed!"));
                 }
                 else if (!anyFertile) {

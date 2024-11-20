@@ -161,6 +161,10 @@ namespace Genelib {
             if (sitAnimation != null) {
                 entity.AnimManager.StopAnimation(sitAnimation.Code);
             }
+
+            if (target != null && !target.Occupied(entity)) {
+                target.SetOccupier(null);
+            }
         }
 
         protected void PlaySound() {

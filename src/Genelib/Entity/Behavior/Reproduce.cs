@@ -380,35 +380,38 @@ namespace Genelib {
             SynchedTotalDaysCooldownUntil = TotalDays + CooldownDays;
             TreeAttribute[] litterData = Litter?.value;
             foreach (TreeAttribute childData in litterData) {
-                Entity spawn = SpawnNewborn(entity, nextGeneration, childData);
+                Entity spawn = SpawnNewborn(entity.World, entity.ServerPos, entity, nextGeneration, childData);
             }
             SetNotPregnant();
         }
 
-        public static Entity SpawnNewborn(Entity entity, int nextGeneration, TreeAttribute childData) {
+        public static Entity SpawnNewborn(IWorldAccessor world, EntityPos pos, Entity foster, int nextGeneration, TreeAttribute childData) {
             AssetLocation spawnCode = new AssetLocation(childData.GetString("code"));
-            EntityProperties spawnType = entity.World.GetEntityType(spawnCode);
+            EntityProperties spawnType = world.GetEntityType(spawnCode);
             if (spawnType == null) {
-                throw new ArgumentException(entity.Code.ToString() + " attempted to hatch or give birth to entity with code " 
+                throw new ArgumentException(foster?.Code.ToString() + " attempted to hatch or give birth to entity with code " 
                     + spawnCode.ToString() + ", but no such entity was found.");
             }
-            Entity spawn = entity.World.ClassRegistry.CreateEntity(spawnType);
-            spawn.ServerPos.SetFrom(entity.ServerPos);
-            Random random = entity.World.Rand;
+            Entity spawn = world.ClassRegistry.CreateEntity(spawnType);
+            spawn.ServerPos.SetFrom(pos);
+            spawn.ServerPos.Yaw = world.Rand.NextSingle() * GameMath.TWOPI;
+            Random random = world.Rand;
             spawn.ServerPos.Motion.X += (random.NextDouble() - 0.5f) / 20f;
             spawn.ServerPos.Motion.Z += (random.NextDouble() - 0.5f) / 20f;
             spawn.Pos.SetFrom(spawn.ServerPos);
             spawn.Attributes.SetString("origin", "reproduction");
             spawn.WatchedAttributes.SetInt("generation", nextGeneration);
             spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("fatherId"));
-            spawn.WatchedAttributes.SetLong("motherId", childData.GetLong("motherId", entity.EntityId));
-            spawn.WatchedAttributes.SetLong("fosterId", entity.EntityId);
+            spawn.WatchedAttributes.SetLong("motherId", childData.GetLong("motherId"));
+            if (foster != null) {
+                spawn.WatchedAttributes.SetLong("fosterId", foster.EntityId);
+            }
             if (childData.HasAttribute("genetics")) {
                 spawn.WatchedAttributes.SetAttribute("genetics", childData.GetTreeAttribute("genetics"));
             }
-            spawn.WatchedAttributes.SetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
+            spawn.WatchedAttributes.SetDouble("birthTotalDays", world.Calendar.TotalDays);
 
-            entity.World.SpawnEntity(spawn);
+            world.SpawnEntity(spawn);
             return spawn;
         }
 
