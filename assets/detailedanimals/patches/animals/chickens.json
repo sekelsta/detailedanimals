@@ -589,7 +589,7 @@
             priorityByType: { "*-henpoult": 0, "*": 1.36 },
             layTime: 5,
             sitDays: 0.9,
-            hoursPerEgg: 25,
+            hoursPerEgg: { avg: 25, var: 2, dist: "narrowgaussian" },
             incubationMonths: 0.7,
             movespeed: 0.006,
             animation: "Walk",
