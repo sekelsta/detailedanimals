@@ -79,6 +79,16 @@
     {
         "file": "game:itemtypes/food/egg.json",
         "op": "add",
+        "path": "/attributes/foodTagsByType",
+        "value": {
+            "*-raw": [ "egg", "rawegg" ],
+            "*": [ "egg" ],
+        },
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/egg.json",
+        "op": "add",
         "path": "/attributes/satietyByType",
         "value": { "*-raw": 120},
         side: "server",

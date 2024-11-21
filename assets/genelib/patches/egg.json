@@ -2,13 +2,6 @@
     {
         "file": "game:itemtypes/food/egg.json",
         "op": "addmerge",
-        "path": "/attributes/foodTags",
-        "value": [ "egg" ],
-        side: "server",
-    },
-    {
-        "file": "game:itemtypes/food/egg.json",
-        "op": "addmerge",
         "path": "/attributes/nestitemByType",
         "value": {
             "*-raw": true,

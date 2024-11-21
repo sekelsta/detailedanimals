@@ -6,5 +6,5 @@
     fiber: 0.0,
     minerals: 0.02,
     sugar: 0.01,
-    starch: 0.0,
+    starch: 0.04,
 }

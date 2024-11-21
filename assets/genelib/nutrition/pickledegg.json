@@ -1,0 +1,11 @@
+{
+    tag: "pickledegg",
+    water: 0.65,
+    protein: 0.5,
+    fat: 0.4,
+    fiber: 0.0,
+    minerals: 0.2,
+    sugar: 0.0,
+    starch: 0.04,
+    priority: 1
+}

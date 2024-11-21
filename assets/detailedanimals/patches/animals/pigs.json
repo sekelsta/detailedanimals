@@ -375,21 +375,21 @@
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
-        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava", "rawegg" ],
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
-        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava", "rawegg" ],
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
-        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava", "rawegg" ],
         side: "server"
     },
     {

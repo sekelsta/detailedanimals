@@ -324,6 +324,27 @@
     },
     {
         file: "game:entities/land/chicken-hen.json",
+        op: "addmerge",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "rawegg" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "addmerge",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "rawegg" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "addmerge",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "rawegg" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {

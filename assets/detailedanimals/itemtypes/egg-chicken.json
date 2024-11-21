@@ -37,10 +37,10 @@
             "*-jumbo-pickled": { saturation: 210, foodCategory: "Protein" },
         },
         foodTagsByType: {
-            "*-raw": [ "egg" ],
+            "*-raw": [ "egg", "rawegg" ],
             "*-boiled": [ "egg" ],
-            "*-lime": [ "egg" ],
-            "*-pickled": [ "egg" ],
+            "*-lime": [ "egg", "rawegg" ],
+            "*-pickled": [ "egg", "pickledegg" ],
         },
         onDisplayTransform: {
             scaleByType: {
