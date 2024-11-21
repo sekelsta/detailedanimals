@@ -586,7 +586,7 @@
                 enabledByType: { "*-henpoult": false, "*": true },
                 priority: 1.37,
                 layTime: 5,
-                hoursPerEgg: 25,
+                hoursPerEgg: { avg: 25, var: 2, dist: "narrowgaussian" },
                 incubationMonths: 0.7,
                 movespeed: 0.006,
                 animation: "Walk",

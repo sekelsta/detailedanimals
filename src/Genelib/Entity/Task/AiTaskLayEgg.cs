@@ -15,12 +15,17 @@ namespace Genelib {
         protected float layTime;
         protected double incubationDays;
         protected bool incubationScalesWithMonthLength = true;
-        protected double hoursPerEgg;
+        protected NatFloat hoursPerEgg;
         protected int failedSearchAttempts = 0;
 
         public double EggLaidHours {
             get => entity.WatchedAttributes.GetDouble("eggLaidHours");
             set => entity.WatchedAttributes.SetDouble("eggLaidHours", value);
+        }
+
+        public double NextEggHours {
+            get => entity.WatchedAttributes.GetDouble("nextEggHours");
+            set => entity.WatchedAttributes.SetDouble("nextEggHours", value);
         }
 
         public AiTaskLayEgg(EntityAgent entity) : base(entity) { }
@@ -29,7 +34,7 @@ namespace Genelib {
             base.LoadConfig(taskConfig, aiConfig);
             layTime = taskConfig["layTime"].AsFloat(1.5f);
             incubationDays = taskConfig["incubationMonths"].AsDouble(1) * entity.World.Calendar.DaysPerMonth;
-            hoursPerEgg = taskConfig["hoursPerEgg"].AsDouble(30f);
+            hoursPerEgg = taskConfig["hoursPerEgg"].AsObject<NatFloat>();
         }
 
         public override void AfterInitialize() {
@@ -43,11 +48,11 @@ namespace Genelib {
             if (!IsSearchTime()) {
                 return false;
             }
-            if (EggLaidHours + hoursPerEgg > entity.World.Calendar.TotalHours) {
+            if (NextEggHours > entity.World.Calendar.TotalHours) {
                 return false;
             }
             if (!reproduce.CanLayEgg()) {
-                EggLaidHours = entity.World.Calendar.TotalHours;
+                NextEggHours = entity.World.Calendar.TotalHours + hoursPerEgg.nextFloat(1, entity.World.Rand);
                 return false;
             }
 
@@ -133,6 +138,7 @@ namespace Genelib {
                         laid = true;
                         done = true;
                         EggLaidHours = entity.World.Calendar.TotalHours;
+                        NextEggHours = entity.World.Calendar.TotalHours + hoursPerEgg.nextFloat(1, entity.World.Rand);
                         ItemStack egg = reproduce.GiveEgg();
                         double incubationHoursTotal = incubationDays * 24 * GenelibSystem.AnimalGrowthTime;
                         egg.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
@@ -165,6 +171,7 @@ namespace Genelib {
                     laid = true;
                     done = true;
                     EggLaidHours = entity.World.Calendar.TotalHours;
+                    NextEggHours = entity.World.Calendar.TotalHours + hoursPerEgg.nextFloat(1, entity.World.Rand);
                 }
             }
         }
