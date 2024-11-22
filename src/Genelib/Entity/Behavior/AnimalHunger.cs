@@ -244,10 +244,12 @@ namespace Genelib {
             string worstName = null;
             foreach (Nutrient nutrient in Nutrients) {
                 float gain = nutrient.ValueIfAdded(satiety * data.Values[nutrient.Name]) - nutrient.Value;
-                sum += gain;
-                if (gain < worst) {
-                    worst = gain;
-                    worstName = nutrient.Name;
+                if (gain > 0 || Fullness > SOMEWHAT_HUNGRY || data.Values[nutrient.Name] > nutrient.Usage ) {
+                    sum += gain;
+                    if (gain < worst) {
+                        worst = gain;
+                        worstName = nutrient.Name;
+                    }
                 }
             }
             if (sum < 0 && sum < Fullness) {
