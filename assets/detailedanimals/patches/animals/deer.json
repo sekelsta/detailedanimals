@@ -12,9 +12,13 @@
     },
     {
         file: "game:entities/land/hooved/deer.json",
-        op: "copy",
+        op: "replace",
         path: "/client/behaviors/6/enabledByType",
-        frompath: "/server/behaviors/12/enabledByType",
+        value: {
+            "*-male-adult": true,
+            "deer-caribou-female-adult": true,
+            "*": false
+        },
         side: "server"
     },
     {

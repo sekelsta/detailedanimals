@@ -8,9 +8,9 @@
     },
     {
         file: "game:entities/land/hyena-male.json",
-        op: "copy",
+        op: "replace",
         path: "/server/spawnconditions/runtime/companions",
-        frompath: "/server/spawnconditions/worldgen/companions",
+        value: ["game:hyena-female", "detailedanimals:hyena-male-pup", "detailedanimals:hyena-female-pup"],
         side: "server"
     },
 
