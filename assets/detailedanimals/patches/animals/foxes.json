@@ -28,9 +28,9 @@
     },
     {
         file: "game:entities/land/fox.json",
-        op: "copy",
+        op: "replace",
         path: "/server/spawnconditionsByType/fox-male-red/runtime/companions",
-        frompath: "/server/spawnconditionsByType/fox-male-red/worldgen/companions",
+        value: ["game:fox-female-red", "detailedanimals:fox-male-pup-red", "detailedanimals:fox-female-pup-red"],
         side: "server"
     },
     {
@@ -42,9 +42,9 @@
     },
     {
         file: "game:entities/land/fox.json",
-        op: "copy",
+        op: "replace",
         path: "/server/spawnconditionsByType/fox-male-arctic/runtime/companions",
-        frompath: "/server/spawnconditionsByType/fox-male-arctic/worldgen/companions",
+        value: ["game:fox-female-arctic", "detailedanimals:fox-male-pup-arctic", "detailedanimals:fox-female-pup-arctic"],
         side: "server"
     },
 

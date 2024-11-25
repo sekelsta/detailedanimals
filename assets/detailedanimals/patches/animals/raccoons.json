@@ -8,9 +8,9 @@
     },
     {
         file: "game:entities/land/raccoon-male.json",
-        op: "copy",
+        op: "replace",
         path: "/server/spawnconditions/runtime/companions",
-        frompath: "/server/spawnconditions/worldgen/companions",
+        value: ["game:raccoon-female", "detailedanimals:raccoon-male-pup", "detailedanimals:raccoon-female-pup"],
         side: "server"
     },
 

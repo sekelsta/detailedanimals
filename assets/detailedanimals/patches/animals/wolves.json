@@ -2,15 +2,15 @@
     {
         file: "game:entities/land/wolf-male.json",
         op: "replace",
-        path: "/server/spawnconditions/runtime/companions",
+        path: "/server/spawnconditions/worldgen/companions",
         value: [ "game:wolf-female", "detailedanimals:wolf-female-pup", "detailedanimals:wolf-male-pup"],
         side: "server"
     },
     {
         file: "game:entities/land/wolf-male.json",
-        op: "copy",
-        path: "/server/spawnconditions/worldgen/companions",
-        frompath: "/server/spawnconditions/runtime/companions",
+        op: "replace",
+        path: "/server/spawnconditions/runtime/companions",
+        value: [ "game:wolf-female", "detailedanimals:wolf-female-pup", "detailedanimals:wolf-male-pup"],
         side: "server"
     },
     {

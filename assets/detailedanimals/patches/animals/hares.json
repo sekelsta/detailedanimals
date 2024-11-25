@@ -8,9 +8,9 @@
     },
     {
         file: "game:entities/land/hare-male.json",
-        op: "copy",
+        op: "replace",
         path: "/server/spawnconditionsByType/*-arctic/runtime/companions",
-        frompath: "/server/spawnconditionsByType/*-arctic/worldgen/companions",
+        value: ["game:hare-female-arctic", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
         side: "server"
     },
     {
@@ -22,9 +22,9 @@
     },
     {
         file: "game:entities/land/hare-male.json",
-        op: "copy",
+        op: "replace",
         path: "/server/spawnconditionsByType/*-desert/runtime/companions",
-        frompath: "/server/spawnconditionsByType/*-desert/worldgen/companions",
+        value: ["game:hare-female-desert", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
         side: "server"
     },
     {
@@ -36,9 +36,9 @@
     },
     {
         file: "game:entities/land/hare-male.json",
-        op: "copy",
+        op: "replace",
         path: "/server/spawnconditionsByType/*/runtime/companions",
-        frompath: "/server/spawnconditionsByType/*/worldgen/companions",
+        value: ["game:hare-female-{type}", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
         side: "server"
     },
 

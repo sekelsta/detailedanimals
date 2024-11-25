@@ -24,9 +24,9 @@
     },
     {
         file: "game:entities/land/gazelle.json",
-        op: "copy",
+        op: "replace",
         path: "/server/spawnconditions/runtime/companions",
-        frompath: "/server/spawnconditions/worldgen/companions",
+        value: ["game:gazelle-female", "detailedanimals:gazelle-male-calf", "detailedanimals:gazelle-female-calf"],
         side: "server"
     },
 
