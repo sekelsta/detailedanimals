@@ -18,4 +18,12 @@
         side: "server",
         dependsOn: [ { modid: "moreanimals" } ],
     },
+    {
+        "file": "moreanimals:itemtypes/egg.json",
+        "op": "replace",
+        "path": "/transitionableProps/0/freshHours/avg",
+        "value": 300,
+        side: "server",
+        dependsOn: [ { modid: "moreanimals" } ],
+    },
 ]
