@@ -29,6 +29,11 @@ namespace Genelib {
         public Vec3d Position => Pos.ToVec3d().Add(0.5, 0.5, 0.5);
         public string Type => "nest";
 
+        public double decayHours;
+        public double DecayStartHours = double.MaxValue;
+
+        public bool Permenant => decayHours <= 0;
+
         public GeneticNest() {
             container = new NestContainer(() => Inventory, "inventory");
         }
@@ -54,12 +59,16 @@ namespace Genelib {
                 if (inventory[i].Empty) {
                     continue;
                 }
-                AssetLocation code = inventory[i].Itemstack.Collectible?.Code;
-                if (code != null && code.Domain == "game" && code.Path == "rot") {
+                if (isRot(inventory[i].Itemstack)) {
                     return true;
                 }
             }
             return false;
+        }
+
+        private bool isRot(ItemStack stack) {
+            AssetLocation code = stack.Collectible?.Code;
+            return code != null && code.Domain == "game" && code.Path == "rot";
         }
 
         public float DistanceWeighting {
@@ -148,6 +157,8 @@ namespace Genelib {
             }
             base.Initialize(api);
 
+            decayHours = Block.Attributes?["decayHours"]?.AsDouble(0) ?? 0;
+
             (container as NestContainer).PerishRate = Block.Attributes["perishRate"]?.AsFloat(1) ?? 1;
             if (LastUpdateHours == -1) {
                 LastUpdateHours = Api.World.Calendar.TotalHours;
@@ -186,12 +197,14 @@ namespace Genelib {
         public override void ToTreeAttributes(ITreeAttribute tree) {
             base.ToTreeAttributes(tree);
             tree.SetDouble("lastUpdateHours", LastUpdateHours);
+            tree.SetDouble("decayStartHours", DecayStartHours);
             tree.SetBool("wasOccupied", WasOccupied);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
             WasOccupied = tree.GetBool("wasOccupied");
             LastUpdateHours = tree.GetDouble("lastUpdateHours");
+            DecayStartHours = tree.GetDouble("decayStartHours");
 
             TreeAttribute invTree = (TreeAttribute) tree["inventory"];
             if (inventory == null) {
@@ -203,11 +216,18 @@ namespace Genelib {
         }
 
         protected void SlowTick(float dt) {
+            bool anyEggs = false;
+            bool anyRot = false;
             for (int i = 0; i < inventory.Count; ++i) {
                 if (inventory[i].Empty) {
                     continue;
                 }
                 ItemStack stack = inventory[i].Itemstack;
+                if (isRot(stack)) {
+                    anyRot = true;
+                    continue;
+                }
+                anyEggs = true;
                 TreeAttribute chickData = (TreeAttribute) stack.Attributes["chick"];
                 if (chickData == null) {
                     continue;
@@ -254,6 +274,18 @@ namespace Genelib {
                 }
             }
 
+            if (!Permenant) {
+                if ((anyEggs && !anyRot) || DecayStartHours > Api.World.Calendar.TotalHours) {
+                    DecayStartHours = Api.World.Calendar.TotalHours;
+                    MarkDirty();
+                }
+                else {
+                    if (DecayStartHours + decayHours < Api.World.Calendar.TotalHours) {
+                        Api.World.BlockAccessor.SetBlock(0, Pos);
+                    }
+                }
+            }
+
             LastUpdateHours = Api.World.Calendar.TotalHours;
             WasOccupied = Occupied();
         }
@@ -266,7 +298,6 @@ namespace Genelib {
         }
 
         private void OnSlotModified(int slot) {
-            Api.World.BlockAccessor.GetChunkAtBlockPos(Pos)?.MarkModified();
             MarkDirty();
         }
 
@@ -306,10 +337,6 @@ namespace Genelib {
             }
             if (anyEggs) {
                 world.PlaySoundAt(new AssetLocation("sounds/player/collect"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
-                if (CountEggs() == 0 && Block.Attributes?["permenant"]?.AsBool(false) == true) {
-                    IBlockAccessor blockAccess = Api.World.BlockAccessor;
-                    blockAccess.SetBlock(0, Pos);
-                }
             }
             return anyEggs;
         }

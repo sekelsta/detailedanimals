@@ -13,7 +13,7 @@
         ],
         suitableFor: ["game:chicken-hen","moreanimals:pheasant-hen","moreanimals:goldenpheasant-hen","moreanimals:capercaillie-hen","moreanimals:wildturkey-hen"],
         perishRate: 1.5,
-        permenant: false,
+        decayHours: 72,
         showSuitableSpecies: false,
     },
     behaviors: [{name: "Unstable"}],
