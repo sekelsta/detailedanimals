@@ -513,7 +513,9 @@ namespace Genelib {
             multiplyTree = entity.WatchedAttributes.GetTreeAttribute("multiply");
             if (IsPregnant) {
                 if (LaysEggs) {
-                    infotext.AppendLine(Lang.Get("game:Ready to lay"));
+                    string key = "genelib:infotext-reproduce-eggsfertile";
+                    string translated = Lang.AvailableLanguages[Lang.CurrentLocale].GetUnformatted(key);
+                    infotext.AppendLine((key != translated) ? translated : Lang.Get("game:Ready to lay"));
                     return;
                 }
                 if (InEarlyPregnancy) {
