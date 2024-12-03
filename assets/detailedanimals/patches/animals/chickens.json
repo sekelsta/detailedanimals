@@ -586,7 +586,8 @@
         path: "/server/behaviors/11/aitasks/2",
         value: {
             code: "genelib.layegg",
-            priorityByType: { "*-henpoult": 0, "*": 1.36 },
+            enabledByType: { "*-henpoult": false, "*": true },
+            priority: 1.36,
             layTime: 5,
             sitDays: 0.9,
             hoursPerEgg: 25,

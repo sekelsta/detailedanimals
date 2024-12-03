@@ -25,9 +25,7 @@ namespace Genelib {
             set => entity.WatchedAttributes.SetDouble("eggLaidHours", value);
         }
 
-        public AiTaskLayEgg(EntityAgent entity) : base(entity) {
-            reproduce = entity.GetBehavior<Reproduce>();
-        }
+        public AiTaskLayEgg(EntityAgent entity) : base(entity) { }
 
         public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
             base.LoadConfig(taskConfig, aiConfig);
@@ -36,6 +34,13 @@ namespace Genelib {
             layTime = taskConfig["layTime"].AsFloat(1.5f);
             incubationDays = taskConfig["incubationMonths"].AsDouble(1) * entity.World.Calendar.DaysPerMonth;
             hoursPerEgg = taskConfig["hoursPerEgg"].AsDouble(30f);
+        }
+
+        public override void AfterInitialize() {
+            reproduce = entity.GetBehavior<Reproduce>();
+            if (reproduce == null) {
+                throw new FormatException("No reproduce behavior found for " + entity.Code + " needed by AiTaskLayEgg");
+            }
         }
 
         public override bool ShouldExecute() {
