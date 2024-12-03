@@ -2,6 +2,7 @@
     "block-nestbox": "Caja nido",
     "block-nest-ground": "Nido en el suelo",
     "blockinfo-fertilitylost": "Ya no es fértil.",
+    "blockinfo-nest-rotten": "Necesita limpiarse la putrefacción",
     "blockinfo-suitable-nestbox": "Adecuada para: {0}",
     "gui-age-year": "{0} años",
     "gui-age-year1": "1 año",
