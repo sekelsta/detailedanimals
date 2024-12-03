@@ -344,13 +344,19 @@ namespace Genelib {
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder info) {
             // Deliberately avoid calling base method
             bool anyEggs = false;
+            bool anyRot = false;
             bool anyFertile = false;
             for (int i = 0; i < inventory.Count; ++i) {
                 if (inventory[i].Empty) {
                     continue;
                 }
-                anyEggs = true;
                 ItemStack stack = inventory[i].Itemstack;
+                if (isRot(stack)) {
+                    anyRot = true;
+                }
+                else {
+                    anyEggs = true;
+                }
                 if (stack.Collectible.RequiresTransitionableTicking(Api.World, inventory[i].Itemstack)) {
                     info.Append(BlockEntityShelf.PerishableInfoCompact(Api, inventory[i], 0));
                 }
@@ -377,16 +383,19 @@ namespace Genelib {
                 }
             }
             if (anyEggs) {
-                if (anyFertile && !WasOccupied && Full()) {
+                if (anyFertile && !WasOccupied && Full() && !anyRot) {
                     info.AppendLine(Lang.Get("A broody hen is needed!"));
                 }
                 else if (!anyFertile) {
                     info.AppendLine(Lang.Get("No eggs are fertilized"));
                 }
+            }
+            if (anyRot) {
+                info.AppendLine(Lang.Get("genelib:blockinfo-nest-rotten"));
                 return;
             }
             bool showSpecies = Block.Attributes?["showSuitableSpecies"]?.AsBool(true) ?? true;
-            if (showSpecies) {
+            if (showSpecies && !anyEggs) {
                 // TO_OPTIMIZE: O(entity types * suitable wildcards)
                 HashSet<string> creatureNames = new HashSet<string>();
                 foreach (EntityProperties type in Api.World.EntityTypes) {
