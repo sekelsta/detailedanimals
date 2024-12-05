@@ -310,7 +310,8 @@ namespace Genelib {
                     child.AddToTree(childGeneticsTree);
                 }
                 litterData.value[i].SetString("code", offspringCode.ToString());
-                litterData.value[i].SetLong("fatherId", sire.EntityId);
+                litterData.value[i].SetLong("motherId", entity.UniqueID());
+                litterData.value[i].SetLong("fatherId", sire.UniqueID());
             }
             Litter = litterData;
         }
@@ -404,7 +405,7 @@ namespace Genelib {
             spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("fatherId"));
             spawn.WatchedAttributes.SetLong("motherId", childData.GetLong("motherId"));
             if (foster != null) {
-                spawn.WatchedAttributes.SetLong("fosterId", foster.EntityId);
+                spawn.WatchedAttributes.SetLong("fosterId", foster.UniqueID());
             }
             if (childData.HasAttribute("genetics")) {
                 spawn.WatchedAttributes.SetAttribute("genetics", childData.GetTreeAttribute("genetics"));

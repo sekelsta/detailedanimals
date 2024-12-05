@@ -7,6 +7,10 @@ using Vintagestory.GameContent;
 
 namespace Genelib.Extensions {
     public static class VSExtensions {
+        public static long UniqueID(this Entity entity) {
+            return entity.WatchedAttributes.GetLong("UID", entity.EntityId);
+        }
+
         public static string GetDisplayName(this Entity entity) {
             string name = entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
             if (name == null || name == "") {
