@@ -1,6 +1,6 @@
-// Based on PetAI's BehaviorRaisable (MIT licensed), which is based on Vintage Story's BehaviorGrow
-// Options for code reuse limited by the majority of the logic in BehaviorGrow hiding in a private non-virtual method
+// Initially based on PetAI's BehaviorRaisable (MIT licensed), which is based on Vintage Story's BehaviorGrow
 
+using Genelib.Extensions;
 using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -249,6 +249,8 @@ namespace Genelib {
             CopyAttributeIfPresent(adult, "motherId");
             CopyAttributeIfPresent(adult, "fatherId");
             CopyAttributeIfPresent(adult, "preventBreeding");
+
+            adult.WatchedAttributes.SetLong("UID", entity.UniqueID());
 
             // PetAI compat
             CopyAttributeIfPresent(adult, "domesticationstatus");

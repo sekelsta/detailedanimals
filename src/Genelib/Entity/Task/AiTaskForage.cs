@@ -154,7 +154,7 @@ namespace Genelib {
             foreach (string nurseFrom in nurseFromEntities) {
                 if (entity.WildCardMatch(AssetLocation.Create(nurseFrom, this.entity.Code.Domain))) {
                     target = new NursingMilkSource(entity);
-                    this.entity.WatchedAttributes.SetLong("fosterId", entity.EntityId);
+                    this.entity.WatchedAttributes.SetLong("fosterId", entity.UniqueID());
                     return false;
                 }
             }

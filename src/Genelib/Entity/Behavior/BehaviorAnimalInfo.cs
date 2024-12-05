@@ -11,7 +11,11 @@ namespace Genelib {
             set => entity.WatchedAttributes.GetTreeAttribute("nametag").SetString("note", value);
         }
 
-        public BehaviorAnimalInfo(Entity entity) : base(entity) { }
+        public BehaviorAnimalInfo(Entity entity) : base(entity) {
+            if (!entity.WatchedAttributes.HasAttribute("UID")) {
+                entity.WatchedAttributes.SetLong("UID", entity.EntityId);
+            }
+        }
 
         public override string GetName(ref EnumHandling handling) {
             // Unlike base method, don't set handling to prevent default
