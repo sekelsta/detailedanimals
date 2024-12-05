@@ -6,6 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.Client.NoObf;
+using Vintagestory.GameContent;
 
 namespace Genelib {
     public class GuiDialogAnimal : GuiDialog {
