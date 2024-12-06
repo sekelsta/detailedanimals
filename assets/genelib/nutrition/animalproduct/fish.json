@@ -1,0 +1,11 @@
+{
+    tag: "fish",
+    water: 0.72,
+    protein: 0.65,
+    fat: 0.32,
+    fiber: 0.0,
+    minerals: 0.03,
+    sugar: 0.0,
+    starch: 0.0,
+    source: "https://fdc.nal.usda.gov/food-details/173688/nutrients"
+}

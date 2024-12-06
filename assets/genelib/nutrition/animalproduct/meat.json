@@ -7,4 +7,5 @@
     minerals: 0.04,
     sugar: 0.01,
     starch: 0.0,
+    priority: -1,
 }

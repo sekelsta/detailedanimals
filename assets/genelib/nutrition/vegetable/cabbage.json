@@ -1,0 +1,10 @@
+{
+    tag: "cabbage",
+    fiber: 0.3,
+    sugar: 0.3,
+    starch: 0.13,
+    fat: 0.025,
+    protein: 0.13,
+    water: 0.9,
+    minerals: 0.015,
+}

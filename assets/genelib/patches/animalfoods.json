@@ -77,6 +77,13 @@
         side: "server",
     },
     {
+        "file": "game:itemtypes/food/poultry.json",
+        "op": "addmerge",
+        "path": "/attributes/foodTags",
+        "value": [ "fish" ],
+        side: "server",
+    },
+    {
         "file": "game:itemtypes/food/egg.json",
         "op": "add",
         "path": "/attributes/foodTagsByType",
@@ -132,6 +139,27 @@
         "op": "addmerge",
         "path": "/attributes/foodTags",
         "value": [ "pickledvegetable", "sour" ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/vegetable.json",
+        "op": "addmerge",
+        "path": "/attributesByType/*-cabbage/foodTags",
+        "value": [ "{type}" ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/vegetable.json",
+        "op": "addmerge",
+        "path": "/attributesByType/*-pumpkin/foodTags",
+        "value": [ "{type}" ],
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/vegetable.json",
+        "op": "addmerge",
+        "path": "/attributesByType/*-cassava/foodTags",
+        "value": [ "processedcassava" ],
         side: "server",
     },
     {

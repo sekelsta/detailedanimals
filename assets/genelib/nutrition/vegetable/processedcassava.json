@@ -1,0 +1,12 @@
+{
+    tag: "processedcassava",
+    fiber: 0.05,
+    sugar: 0.04,
+    starch: 0.89,
+    fat: 0.0,
+    protein: 0.01,
+    water: 0.6,
+    minerals: 0.01,
+    source: "https://fdc.nal.usda.gov/food-details/169985/nutrients",
+    source2: "https://fdc.nal.usda.gov/food-details/2512377/nutrients",
+}

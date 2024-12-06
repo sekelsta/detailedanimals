@@ -1,0 +1,12 @@
+{
+    tag: "poultry",
+    water: 0.7,
+    protein: 0.65,
+    fat: 0.3,
+    fiber: 0.01,
+    minerals: 0.02,
+    sugar: 0.01,
+    starch: 0.0,
+    source: "https://fdc.nal.usda.gov/food-details/171507/nutrients",
+    source2: "https://www.nutritionix.com/food/whole-chicken"
+}

@@ -1,0 +1,11 @@
+{
+    tag: "turnip",
+    fiber: 0.24,
+    sugar: 0.5,
+    starch: 0.1,
+    fat: 0.01,
+    protein: 0.12,
+    water: 0.9,
+    minerals: 0.01,
+    source: "https://fdc.nal.usda.gov/food-details/170465/nutrients",
+}

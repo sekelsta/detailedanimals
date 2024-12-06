@@ -1,0 +1,12 @@
+{
+    tag: "carrot",
+    fiber: 0.26,
+    sugar: 0.44,
+    starch: 0.19,
+    fat: 0.02,
+    protein: 0.08,
+    water: 0.88,
+    minerals: 0.01,
+    source: "https://fdc.nal.usda.gov/food-details/170393/nutrients",
+    source2: "https://fdc.nal.usda.gov/food-details/170500/nutrients",
+}
