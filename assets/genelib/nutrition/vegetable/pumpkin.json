@@ -1,0 +1,12 @@
+{
+    tag: "pumpkin",
+    fiber: 0.12,
+    sugar: 0.35,
+    starch: 0.38,
+    fat: 0.01,
+    protein: 0.13,
+    water: 0.95,
+    minerals: 0.01,
+    source: "https://fdc.nal.usda.gov/food-details/168448/nutrients",
+    adjustments: "bump water and fiber, cut starch and sugar, for more jack-o-lantern type balance. Compare zucchini."
+}

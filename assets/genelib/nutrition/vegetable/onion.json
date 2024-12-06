@@ -1,0 +1,11 @@
+{
+    tag: "onion",
+    fiber: 0.16,
+    sugar: 0.4,
+    starch: 0.33,
+    fat: 0.0,
+    protein: 0.1,
+    water: 0.9,
+    minerals: 0.01,
+    source: "https://fdc.nal.usda.gov/food-details/170000/nutrients",
+}
