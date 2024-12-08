@@ -12,5 +12,10 @@ namespace Genelib {
         }
 
         public BehaviorAnimalInfo(Entity entity) : base(entity) { }
+
+        public override string GetName(ref EnumHandling handling) {
+            // Unlike base method, don't set handling to prevent default
+            return DisplayName;
+        }
     }
 }
