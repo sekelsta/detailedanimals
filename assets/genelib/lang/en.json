@@ -71,4 +71,5 @@
     "message-wrongnutrient-minerals": "{entity} doesn't want that much salt right now",
     "message-wrongnutrient-water": "{entity} is not thirsty",
     "message-wrongnutrient-sugar": "{entity} doesn't want that much sugar right now",
+    "game:blockdesc-henbox-*": "Pick up and place down to get modded features",
 }
