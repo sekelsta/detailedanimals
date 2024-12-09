@@ -46,7 +46,7 @@
                     type: "item", 
                     code: "game:redmeat-raw", 
                     category: "meat",
-                    quantity: { avg: 14, var: 0 } 
+                    quantity: { avg: 20, var: 0 } 
                 },
                 {
                     type: "item", 
@@ -57,6 +57,7 @@
                 {
                     type: "item", 
                     code: "game:fat", 
+                    category: "fat",
                     quantity: { avg: 7, var: 0 } 
                 }
             ]
@@ -78,16 +79,19 @@
                 {
                     type: "item", 
                     code: "game:redmeat-raw", 
+                    category: "meat",
                     quantity: { avg: 20, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:hide-raw-medium", 
+                    category: "pelt",
                     quantity: { avg: 1.2, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:fat", 
+                    category: "fat",
                     quantity: { avg: 7, var: 0 } 
                 }
             ],
@@ -109,16 +113,19 @@
                 {
                     type: "item", 
                     code: "game:redmeat-raw", 
+                    category: "meat",
                     quantity: { avg: 20, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:hide-raw-medium", 
+                    category: "pelt",
                     quantity: { avg: 1.2, var: 0 } 
                 },
                 {
                     type: "item", 
                     code: "game:fat", 
+                    category: "fat",
                     quantity: { avg: 7, var: 0 } 
                 }
             ],

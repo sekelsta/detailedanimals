@@ -66,7 +66,7 @@ namespace Genelib {
                     throw new ArgumentException("Cannot set body condition value to NaN");
                 }
                 entity.WatchedAttributes.SetDouble("bodyCondition", value);
-                entity.WatchedAttributes.SetFloat("animalWeight", (float)Math.Max(1.08, value));
+                entity.WatchedAttributes.SetFloat("animalWeight", (float)Math.Min(1.08, value));
             }
         }
 
