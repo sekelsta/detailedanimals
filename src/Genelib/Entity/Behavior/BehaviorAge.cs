@@ -141,6 +141,7 @@ namespace Genelib {
         }
 
         protected virtual double ExpectedWeight(double ageFraction) {
+            ageFraction = Math.Min(ageFraction, 1);
             double coef = 1;
             double r = 1 - Math.Exp(-1 * coef);
             double n = -1 / coef * Math.Log(1 - StartingWeight / FinalWeight * r);
