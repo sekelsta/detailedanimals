@@ -214,7 +214,7 @@
         file: "game:entities/land/gazelle.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "fruitmash", "sheepfeed"],
+        value: ["vegetable", "foliage", "hay", "fruitmash", "sheepfeed", "toughstem"],
         side: "server"
     },
     {
