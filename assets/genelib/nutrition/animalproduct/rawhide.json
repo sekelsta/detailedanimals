@@ -1,0 +1,11 @@
+{
+    tag: "rawhide",
+    water: 0.15,
+    protein: 0.75,
+    fat: 0.08,
+    fiber: 0.15,
+    minerals: 0.02,
+    sugar: 0.0,
+    starch: 0.0,
+    priority: -1,
+}

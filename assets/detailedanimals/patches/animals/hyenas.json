@@ -255,7 +255,7 @@
         path: "/attributes/creatureDiet",
         value: {
             foodCategories: ["Protein", "Dairy", "Fruit"],
-            foodTags: ["meat", "egg", "bone"],
+            foodTags: ["meat", "egg", "bone", "rawhide"],
         },
         side: "server"
     },
@@ -265,7 +265,7 @@
         path: "/attributes/creatureDiet",
         value: {
             foodCategories: ["Protein", "Dairy", "Fruit"],
-            foodTags: ["meat", "egg", "bone"],
+            foodTags: ["meat", "egg", "bone", "rawhide"],
         },
         side: "server"
     },
@@ -275,7 +275,7 @@
         path: "/attributes/creatureDiet",
         value: {
             foodCategories: ["Protein", "Dairy", "Fruit"],
-            foodTags: ["meat", "egg", "bone"],
+            foodTags: ["meat", "egg", "rawhide"],
         },
         side: "server"
     },

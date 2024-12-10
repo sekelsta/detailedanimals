@@ -247,6 +247,27 @@
         side: "server",
     },
     {
+        "file": "game:itemtypes/resource/hide.json",
+        "op": "add",
+        "path": "/attributes/foodTagsByType",
+        "value": {
+            "hide-raw-*": [ "rawhide" ],
+        },
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/resource/hide.json",
+        "op": "add",
+        "path": "/attributes/satietyByType",
+        "value": {
+            "hide-raw-small": 100,
+            "hide-raw-medium": 200,
+            "hide-raw-large": 300,
+            "hide-raw-huge": 500,
+        },
+        side: "server",
+    },
+    {
         "file": "game:itemtypes/resource/honeycomb.json",
         "op": "addmerge",
         "path": "/attributes/foodTags",

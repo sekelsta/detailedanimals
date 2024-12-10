@@ -289,14 +289,14 @@
         file: "game:entities/land/wolf-female.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["egg", "bone"],
+        value: ["egg", "bone", "rawhide"],
         side: "server"
     },
     {
         file: "game:entities/land/wolf-male.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["egg", "bone"],
+        value: ["egg", "bone", "rawhide"],
         side: "server"
     },
     {
