@@ -1,10 +1,10 @@
 [
     {
-        file: "moreanimals:entities/capercaille-hen.json",
+        file: "moreanimals:entities/capercaillie-hen.json",
         op: "add",
         path: "/attributes/eggTypes",
         value: [
-                { type: "item", code: "moreanimals:egg-capercaille-raw", },
+                { type: "item", code: "moreanimals:egg-capercaillie-raw", },
             ],
         dependsOn: [ { modid: "moreanimals" } ],
         side: "server"

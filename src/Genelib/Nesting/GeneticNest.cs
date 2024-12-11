@@ -89,14 +89,20 @@ namespace Genelib {
                 eggStack = reproduce.GiveEgg();
             }
             else {
-                string[] eggCodes = entity.Attributes?.GetStringArray("eggCodes");
-                string eggCode = eggCodes == null ? "game:egg-chicken-raw" : eggCodes[entity.World.Rand.Next(eggCodes.Length)];
-                Item eggItem = entity.World.GetItem(new AssetLocation(eggCode));
-                if (eggItem == null) {
-                    entity.Api.Logger.Warning("Failed to resolve egg " + eggCode + " for entity " + entity.Code);
-                    return false;
+                JsonItemStack[] eggTypes = entity.Properties.Attributes?["eggTypes"].AsArray<JsonItemStack>();
+                if (eggTypes == null) {
+                    string fallbackCode = "game:egg-chicken-raw";
+                    entity.Api.Logger.Warning("No egg type specified for entity " + entity.Code + ", falling back to " + fallbackCode);
+                    eggStack = new ItemStack(entity.World.GetItem(fallbackCode));
                 }
-                eggStack = new ItemStack(eggItem);
+                else {
+                    JsonItemStack jsonEgg = eggTypes[entity.World.Rand.Next(eggTypes.Length)];
+                    if (!jsonEgg.Resolve(entity.World, null, false)) {
+                        entity.Api.Logger.Warning("Failed to resolve egg " + jsonEgg.Type + " with code " + jsonEgg.Code + " for entity " + entity.Code);
+                        return false;
+                    }
+                    eggStack = new ItemStack(jsonEgg.ResolvedItemstack.Collectible);
+                }
                 if (chickCode != null) {
                     TreeAttribute chickTree = new TreeAttribute();
                     chickTree.SetString("code", AssetLocation.Create(chickCode, entity.Code.Domain).ToString());

@@ -108,7 +108,6 @@ namespace Genelib {
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             // Deliberately skip calling base.Initialize()
 
-            // TODO: Add a way to customize this per-entity from WatchedAttributes or similar
             JsonItemStack[] eggs = entity.Properties.Attributes?["eggTypes"].AsArray<JsonItemStack>();
             if (eggs != null) {
                 EggTypes = eggs.Select(
