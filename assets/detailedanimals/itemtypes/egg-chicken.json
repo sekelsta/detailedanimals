@@ -17,6 +17,7 @@
         nestitemByType: {
             "*-raw": true,
         },
+        eggShelfCheck: true,
         weightKgByType: {
             "egg-chicken-peewee-raw": 0.035,
             "egg-chicken-small-raw": 0.044,

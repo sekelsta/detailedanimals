@@ -19,7 +19,8 @@
         bookshelveable: true,
         nestitemByType: {
             "*-fired-*": true,
-        }
+        },
+        eggShelfCheck: true,
     },
     combustiblePropsByType: {
         "*-raw-*": {
