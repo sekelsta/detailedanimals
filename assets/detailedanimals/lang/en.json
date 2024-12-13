@@ -53,6 +53,7 @@
     "item-dead-creature-gazelle-female-calf": "Dead gazelle calf (female)",
     "item-creature-hare-male-baby": "Leveret (male)",
     "item-creature-hare-female-baby": "Leveret (female)",
+    "itemdesc-creature-hare-*-baby": "Baby hare",
     "item-dead-creature-hare-male-baby": "Dead leveret (male)",
     "item-dead-creature-hare-female-baby": "Dead leveret (female)",
 
