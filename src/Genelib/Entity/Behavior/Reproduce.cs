@@ -508,13 +508,7 @@ namespace Genelib {
                 return;
             }
             multiplyTree = entity.WatchedAttributes.GetTreeAttribute("multiply");
-            if (IsPregnant) {
-                if (LaysEggs) {
-                    string key = "genelib:infotext-reproduce-eggsfertile";
-                    string translated = Lang.AvailableLanguages[Lang.CurrentLocale].GetUnformatted(key);
-                    infotext.AppendLine((key != translated) ? translated : Lang.Get("game:Ready to lay"));
-                    return;
-                }
+            if (IsPregnant && !LaysEggs) {
                 if (InEarlyPregnancy) {
                     infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-earlypregnancy"));
                 }
@@ -529,10 +523,22 @@ namespace Genelib {
             if (entity.WatchedAttributes.GetBool("neutered", false)) {
                 return;
             }
+            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
+            if (LaysEggs) {
+                if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
+                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight"));
+                    return;
+                }
+                if (IsPregnant) {
+                    string key = "genelib:infotext-reproduce-eggsfertile";
+                    string translated = Lang.AvailableLanguages[Lang.CurrentLocale].GetUnformatted(key);
+                    infotext.AppendLine((key != translated) ? translated : Lang.Get("game:Ready to lay"));
+                    return;
+                }
+            }
             if (!entity.MatingAllowed()) {
                 return;
             }
-            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
             if (animalWeight <= DetailedHarvestable.MALNOURISHED) {
                 infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight"));
                 return;
