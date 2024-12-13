@@ -1,4 +1,5 @@
 {
+    "//info": "Localization version: 1.1 (12.12.2024) - Mod Version 0.3.2 - Author: Brady_The",
     "block-woodenfencecreepgate-aged-n-closed-left-*": "Hölzernes Kriechgatter (Gealtert)",
     "block-woodenfencecreepgate-birch-n-closed-left-*": "Hölzernes Kriechgatter (Birke)",
     "block-woodenfencecreepgate-oak-n-closed-left-*": "Hölzernes Kriechgatter (Eiche)",
@@ -56,8 +57,13 @@
     "item-dead-creature-hare-male-baby": "Totes Hasenjunges (Männlich)",
     "item-dead-creature-hare-female-baby": "Totes Hasenjunges (Weiblich)",
 
-    "item-egg-ceramic-raw-*": "Ungebranntes Keramikei",
-    "item-egg-ceramic-fired-*": "Keramikei",
+    "item-egg-ceramic-raw-blue": "Ungebranntes Keramikei (Weiß)",
+    "item-egg-ceramic-fired-blue": "Keramikei (Weiß)",
+    "item-egg-ceramic-raw-fire": "Ungebranntes Keramikei (Braun)",
+    "item-egg-ceramic-fired-fire": "Keramikei (Braun)",
+    "item-egg-ceramic-raw-red": "Ungebranntes Keramikei (Terrakotta)",
+    "item-egg-ceramic-fired-red": "Keramikei (Terrakotta)",
+    "itemdesc-egg-ceramic-fired-*": "Ein Keramikei, um die Hennen dazu zu animieren, den Nistkasten zu benutzen.",
 
     "item-egg-chicken-peewee-raw": "Rohes Hühnerei (Winzig)",
     "item-egg-chicken-small-raw": "Rohes Hühnerei (Klein)",
