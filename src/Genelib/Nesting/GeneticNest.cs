@@ -265,6 +265,9 @@ namespace Genelib {
 
                     if (incubationHoursNext <= 0 && chickCode != null && chickCode != "") {
                         EntityPos pos = new EntityPos().SetPos(Pos);
+                        pos.X += 0.5;
+                        pos.Z += 0.5;
+                        pos.Y += 0.05;
                         Entity chick = Reproduce.SpawnNewborn(Api.World, pos, occupier, chickData.GetInt("generation", 0), chickData);
                         inventory[i].Itemstack = null;
                         AnimalHunger hunger = chick.GetBehavior<AnimalHunger>();
