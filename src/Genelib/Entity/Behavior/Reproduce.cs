@@ -560,7 +560,7 @@ namespace Genelib {
             float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
             if (LaysEggs) {
                 if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
-                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight"));
+                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight-eggs"));
                     return;
                 }
                 if (IsPregnant) {
