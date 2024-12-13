@@ -159,6 +159,7 @@ namespace Genelib {
                     return;
                 }
                 if (nest.Full()) {
+                    laid = true;
                     return;
                 }
                 if (timeSinceTargetReached >= layTime && !laid) {
