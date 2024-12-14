@@ -162,29 +162,34 @@ namespace Genelib {
                     laid = true;
                     return;
                 }
-                if (timeSinceTargetReached >= layTime && !laid) {
-                    PlaySound();
-                    laid = true;
-                    done = true;
-                    EggLaidHours = entity.World.Calendar.TotalHours;
-                    ItemStack egg = reproduce.GiveEgg();
-                    double incubationHoursTotal = incubationDays * 24 * GenelibSystem.AnimalGrowthTime;
-                    egg.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
-                    egg.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
-                    // If incubation length scales with month length, freshness should too
-                    if (incubationScalesWithMonthLength) {
-                        TransitionState[] transitions = egg.Collectible?.UpdateAndGetTransitionStates(entity.World, new DummySlot(egg));
-                        // Note calling UpdateAndGetTransitionStates may set the itemstack to null e.g. if it rotted with 50% conversion rate
-                        if (transitions != null && egg.Collectible != null) {
-                            for (int i = 0; i < transitions.Length; ++i) {
-                                if (transitions[i].Props.Type == EnumTransitionType.Perish) {
-                                    ITreeAttribute attr = (ITreeAttribute)egg.Attributes["transitionstate"];
-                                    (attr["freshHours"] as FloatArrayAttribute).value[i] *= entity.World.Calendar.DaysPerMonth / 9f * GlobalConstants.PerishSpeedModifier;
+                if (timeSinceTargetReached >= layTime) {
+                    if (!laid) {
+                        PlaySound();
+                        laid = true;
+                        done = true;
+                        EggLaidHours = entity.World.Calendar.TotalHours;
+                        ItemStack egg = reproduce.GiveEgg();
+                        double incubationHoursTotal = incubationDays * 24 * GenelibSystem.AnimalGrowthTime;
+                        egg.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
+                        egg.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
+                        // If incubation length scales with month length, freshness should too
+                        if (incubationScalesWithMonthLength) {
+                            TransitionState[] transitions = egg.Collectible?.UpdateAndGetTransitionStates(entity.World, new DummySlot(egg));
+                            // Note calling UpdateAndGetTransitionStates may set the itemstack to null e.g. if it rotted with 50% conversion rate
+                            if (transitions != null && egg.Collectible != null) {
+                                for (int i = 0; i < transitions.Length; ++i) {
+                                    if (transitions[i].Props.Type == EnumTransitionType.Perish) {
+                                        ITreeAttribute attr = (ITreeAttribute)egg.Attributes["transitionstate"];
+                                        (attr["freshHours"] as FloatArrayAttribute).value[i] *= entity.World.Calendar.DaysPerMonth / 9f * GlobalConstants.PerishSpeedModifier;
+                                    }
                                 }
                             }
                         }
+                        nest.AddEgg(entity, egg);
                     }
-                    nest.AddEgg(entity, egg);
+                    if (nest.CountEggs() == 0) {
+                        done = true;
+                    }
                 }
             }
             else if (timeSinceTargetReached >= layTime && !laid) {
