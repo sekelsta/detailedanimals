@@ -6,6 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace Genelib {
     public class BehaviorAge : EntityBehavior {
@@ -183,6 +184,8 @@ namespace Genelib {
                 hunger.ShiftWeight(prevAnimalWeight - newAnimalWeight);
             }
             entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(expected, 1/3f)));
+
+            entity.GetBehavior<EntityBehaviorHealth>()?.MarkDirty();
 
             if (age >= HoursToGrow) {
                 AttemptBecomingAdult();

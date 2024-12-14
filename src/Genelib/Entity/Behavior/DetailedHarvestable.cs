@@ -195,7 +195,7 @@ namespace Genelib {
             infotext.AppendLine(text);
         }
 
-        private string roundNicely(double x) {
+        private static string roundNicely(double x) {
             if (x == 0) {
                 return x.ToString();
             }
