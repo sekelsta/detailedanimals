@@ -180,7 +180,8 @@
         path: "/server/behaviors/-",
         value: { code: "genelib.info", showtagonlywhentargeted: true },
         side: "server"
-    },    {
+    },
+    {
         file: "game:entities/land/hyena-male.json",
         op: "add",
         path: "/client/behaviors/-",
@@ -263,7 +264,8 @@
         path: "/server/behaviors/-",
         value: { code: "genelib.info", showtagonlywhentargeted: true },
         side: "server"
-    },    {
+    },
+    {
         file: "game:entities/land/wolf-male.json",
         op: "add",
         path: "/client/behaviors/-",
@@ -304,7 +306,8 @@
         path: "/server/behaviors/-",
         value: { code: "genelib.info", showtagonlywhentargeted: true },
         side: "server"
-    },    {
+    },
+    {
         file: "game:entities/land/pig-wild-male.json",
         op: "add",
         path: "/client/behaviors/-",
@@ -345,7 +348,8 @@
         path: "/server/behaviors/-",
         value: { code: "genelib.info", showtagonlywhentargeted: true },
         side: "server"
-    },    {
+    },
+    {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "add",
         path: "/client/behaviors/-",
