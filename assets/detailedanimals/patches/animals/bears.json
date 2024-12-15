@@ -17,11 +17,11 @@
         op: "add",
         path: "/attributes/weightDimorphismByType",
         value: {
-            "*-black-*": 0.25,
-            "*-brown-*": 0.14,
-            "*-sun-*": 0.05,
-            "*-panda-*": 0.07,
-            "*-polar-*": 0.4,
+            "*-black": 0.25,
+            "*-brown": 0.14,
+            "*-sun": 0.05,
+            "*-panda": 0.07,
+            "*-polar": 0.4,
         },
         side: "server"
     },
