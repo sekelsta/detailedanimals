@@ -180,7 +180,9 @@ namespace Genelib {
                                 for (int i = 0; i < transitions.Length; ++i) {
                                     if (transitions[i].Props.Type == EnumTransitionType.Perish) {
                                         ITreeAttribute attr = (ITreeAttribute)egg.Attributes["transitionstate"];
-                                        (attr["freshHours"] as FloatArrayAttribute).value[i] *= entity.World.Calendar.DaysPerMonth / 9f * GlobalConstants.PerishSpeedModifier;
+                                        float[] freshHours = (attr["freshHours"] as FloatArrayAttribute).value;
+                                        float adjusted = freshHours[i] * entity.World.Calendar.DaysPerMonth / 9f * GlobalConstants.PerishSpeedModifier;
+                                        freshHours[i] = (float)Math.Max(adjusted, 6 * 24 + incubationHoursTotal);
                                     }
                                 }
                             }
