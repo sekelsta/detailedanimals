@@ -32,16 +32,17 @@
 					"name": "neck",
 					"from": [ -0.2, 1.8, 1.0 ],
 					"to": [ 1.8, 4.8, 3.0 ],
+					"autoUnwrap": false,
 					"uv": [ 17.0, 0.0 ],
 					"rotationOrigin": [ 0.5, 2.0, 2.0 ],
 					"rotationZ": 35.0,
 					"faces": {
-						"north": { "texture": "#chicken", "uv": [ 17.0, 2.0, 19.0, 5.0 ] },
+						"north": { "texture": "#chicken", "uv": [ 21.0, 2.0, 23.0, 5.0 ] },
 						"east": { "texture": "#chicken", "uv": [ 19.0, 2.0, 21.0, 5.0 ] },
-						"south": { "texture": "#chicken", "uv": [ 21.0, 2.0, 23.0, 5.0 ] },
+						"south": { "texture": "#chicken", "uv": [ 17.0, 2.0, 19.0, 5.0 ] },
 						"west": { "texture": "#chicken", "uv": [ 23.0, 2.0, 25.0, 5.0 ] },
-						"up": { "texture": "#chicken", "uv": [ 17.0, 0.0, 19.0, 2.0 ], "rotation": 90 },
-						"down": { "texture": "#chicken", "uv": [ 19.0, 0.0, 21.0, 2.0 ], "rotation": 90 }
+						"up": { "texture": "#chicken", "uv": [ 17.0, 0.0, 19.0, 2.0 ], "rotation": 180 },
+						"down": { "texture": "#chicken", "uv": [ 19.0, 0.0, 21.0, 2.0 ] }
 					},
 					"children": [
 						{
