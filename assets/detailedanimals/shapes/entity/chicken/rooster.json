@@ -730,16 +730,15 @@
 					"name": "Tail",
 					"from": [ 5.4, 2.0, 1.0 ],
 					"to": [ 7.4, 4.0, 3.0 ],
-					"uv": [ 0.0, 0.0 ],
+					"unwrapMode": 5,
+					"unwrapRotation": 1,
+					"uv": [ 25.5, 0.5 ],
 					"rotationOrigin": [ 5.4, 3.0, 1.0 ],
 					"rotationZ": 30.0,
 					"faces": {
-						"north": { "texture": "#chicken", "uv": [ 0.0, 2.0, 2.0, 4.0 ] },
-						"east": { "texture": "#chicken", "uv": [ 2.0, 2.0, 4.0, 4.0 ] },
-						"south": { "texture": "#chicken", "uv": [ 4.0, 2.0, 6.0, 4.0 ] },
-						"west": { "texture": "#chicken", "uv": [ 6.0, 2.0, 8.0, 4.0 ] },
-						"up": { "texture": "#chicken", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
-						"down": { "texture": "#chicken", "uv": [ 2.0, 0.0, 4.0, 2.0 ] }
+						"north": { "texture": "#chicken", "uv": [ 25.5, 0.5, 27.5, 2.5 ], "rotation": 270 },
+						"south": { "texture": "#chicken", "uv": [ 29.5, 0.5, 31.5, 2.5 ], "rotation": 90 },
+						"up": { "texture": "#chicken", "uv": [ 27.5, 0.5, 29.5, 2.5 ], "rotation": 90 }
 					}
 				}
 			],
