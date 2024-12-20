@@ -734,12 +734,12 @@
 					"rotationOrigin": [ 5.4, 3.0, 1.0 ],
 					"rotationZ": 30.0,
 					"faces": {
-						"north": { "texture": "#null", "uv": [ 0.0, 2.0, 2.0, 4.0 ] },
-						"east": { "texture": "#null", "uv": [ 2.0, 2.0, 4.0, 4.0 ] },
-						"south": { "texture": "#null", "uv": [ 4.0, 2.0, 6.0, 4.0 ] },
-						"west": { "texture": "#null", "uv": [ 6.0, 2.0, 8.0, 4.0 ] },
-						"up": { "texture": "#null", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
-						"down": { "texture": "#null", "uv": [ 2.0, 0.0, 4.0, 2.0 ] }
+						"north": { "texture": "#chicken", "uv": [ 0.0, 2.0, 2.0, 4.0 ] },
+						"east": { "texture": "#chicken", "uv": [ 2.0, 2.0, 4.0, 4.0 ] },
+						"south": { "texture": "#chicken", "uv": [ 4.0, 2.0, 6.0, 4.0 ] },
+						"west": { "texture": "#chicken", "uv": [ 6.0, 2.0, 8.0, 4.0 ] },
+						"up": { "texture": "#chicken", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
+						"down": { "texture": "#chicken", "uv": [ 2.0, 0.0, 4.0, 2.0 ] }
 					}
 				}
 			],
