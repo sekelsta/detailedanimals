@@ -241,10 +241,16 @@ namespace Genelib {
             bool anyEggs = false;
             for (int i = 0; i < inventory.Count; ++i) {
                 if (!inventory[i].Empty) {
-                    bool onlyToPlayerInventory = false;
-                    object[] transferred = byPlayer.InventoryManager.TryTransferAway(inventory[i], ref op, onlyToPlayerInventory);
-                    if (transferred != null && transferred.Length > 0) {
+                    // Assume stack size is 1, because other parts of the code should guarantee that
+                    string audit = inventory[i].Itemstack.Collectible?.Code.ToString();
+                    if (byPlayer.InventoryManager.TryGiveItemstack(inventory[i].Itemstack)) {
+                        ItemStack stack = inventory[i].TakeOut(1);
                         anyEggs = true;
+                        world.Api.Logger.Audit(byPlayer.PlayerName + " took 1x " + audit + " from " + Block.Code + " at " + Pos);
+                    }
+                    else {
+                        // For some reason trying and failing to give itemstack changes the stack size to 0
+                        inventory[i].Itemstack.StackSize = 1;
                     }
                     // If it doesn't fit, leave it in the nest
                 }
