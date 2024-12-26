@@ -49,11 +49,15 @@ namespace Genelib {
                 return;
             }
 
+            #pragma warning disable CS0618
             // Repeating the vanilla calculation because it seems when I read MaxHealth right after it's not always set to the result
             float totalMaxHealth = __instance.BaseMaxHealth;
-            foreach (var val in __instance.MaxHealthModifiers) {
-                totalMaxHealth += val.Value;
+            if (__instance.MaxHealthModifiers != null) {
+                foreach (var val in __instance.MaxHealthModifiers) {
+                    totalMaxHealth += val.Value;
+                }
             }
+            #pragma warning restore CS0618
             totalMaxHealth += entity.Stats.GetBlended("maxhealthExtraPoints") - 1;
 
             bool wasFullHealth = __instance.Health >= __instance.MaxHealth;

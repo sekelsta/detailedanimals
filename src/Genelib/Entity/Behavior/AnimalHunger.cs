@@ -208,7 +208,7 @@ namespace Genelib {
                 GenelibSystem.ServerAPI.Logger.Warning(Code + " expected non-null health behavior for entity " + entity.Code);
             }
             else {
-                healthBehavior.MaxHealthModifiers["nutrientHealthMod"] = health;
+                healthBehavior.SetMaxHealthModifiers("nutrientHealthMod", health);
                 healthBehavior.MarkDirty();
             }
 
