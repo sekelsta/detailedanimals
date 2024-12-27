@@ -156,6 +156,8 @@ namespace Genelib {
             prevPos = entity.ServerPos.XYZ;
             listenerID = entity.World.RegisterGameTickListener(SlowServerTick, 12000);
             ApplyNutritionEffects();
+
+            entity.AlwaysActive = true;
         }
 
         public override void AfterInitialized(bool onFirstSpawn) {
