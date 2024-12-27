@@ -157,6 +157,8 @@ namespace DetailedAnimals {
                 listenerID = entity.World.RegisterGameTickListener(SlowServerTick, 12000), "register tick listener"
             );
             ApplyNutritionEffects();
+
+            entity.AlwaysActive = true;
         }
 
         public override void AfterInitialized(bool onFirstSpawn) {
