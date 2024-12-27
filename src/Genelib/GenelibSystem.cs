@@ -60,6 +60,7 @@ namespace Genelib
 
             try {
                 Config = api.LoadModConfig<GenelibConfig>("genelib_config.json");
+                Config.MakeValid();
             }
             catch (Exception e) {
                 api.Logger.Error("Failed to load config file for Genelib: " + e);
