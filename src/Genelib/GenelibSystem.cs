@@ -67,6 +67,7 @@ namespace Genelib
             if (Config == null) {
                 Config = new GenelibConfig();
             }
+            Config.MakeValid();
             api.StoreModConfig(Config, "genelib_config.json");
         }
 

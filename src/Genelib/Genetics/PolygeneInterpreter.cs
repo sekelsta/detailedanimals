@@ -10,7 +10,7 @@ namespace Genelib {
 
         void GeneInterpreter.Finalize(Genome genome, AlleleFrequencies frequencies, Random random) {
             for (int i = 2 * NUM_DIVERSITY_GENES; i < 2 * (NUM_DIVERSITY_GENES + NUM_VITALITY_GENES); ++i) {
-                if (random.NextBool()) {
+                if (random.NextSingle() < GenelibSystem.Config.InbreedingResistance) {
                     genome.anonymous[i] = 0;
                 }
             }
