@@ -20,6 +20,10 @@ namespace Genelib.Extensions {
         }
 
         public static bool IsMale(this Entity entity) {
+            // Sometimes property attributes are null, so need to check
+            if (entity.Properties.Attributes == null) {
+                return false;
+            }
             if (!entity.Properties.Attributes.KeyExists("male")) {
                 JObject jo = (JObject) entity.Properties.Attributes.Token;
                 jo.Add("male", !entity.Code.Path.Contains("-female"));
@@ -29,7 +33,7 @@ namespace Genelib.Extensions {
 
         public static float WeightModifierExceptCondition(this Entity entity) {
             float weight = entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
-            float dimorphism = entity.Properties.Attributes["weightDimorphism"].AsFloat(0);
+            float dimorphism = entity.Properties.Attributes?["weightDimorphism"].AsFloat(0) ?? 0;
             weight *= entity.IsMale() ? 1 + dimorphism : 1 - dimorphism;
             return weight;
         }
@@ -42,7 +46,7 @@ namespace Genelib.Extensions {
 
         public static float HealthyAdultWeightKg(this Entity entity) {
             float adultWeightKg = entity.Properties?.Attributes?["adultWeightKg"]?.AsFloat(160) ?? 160;
-            float dimorphism = entity.Properties.Attributes["weightDimorphism"].AsFloat(0);
+            float dimorphism = entity.Properties.Attributes?["weightDimorphism"].AsFloat(0) ?? 0;
             float weight = entity.IsMale() ? 1 + dimorphism : 1 - dimorphism;
             return weight * adultWeightKg;
         }
