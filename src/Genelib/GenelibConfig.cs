@@ -16,10 +16,4 @@ namespace Genelib {
             return "_lbs_kg";
         }
     }
-    public enum MeasurementSystem {
-        IMPERIAL,
-        METRIC,
-        METRIC_IMPERIAL,
-        IMPERIAL_METRIC
-    }
 }
