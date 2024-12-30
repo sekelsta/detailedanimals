@@ -14,6 +14,8 @@
     "gui-animalinfo-note": "Nota:",
     "gui-animalinfo-preventbreeding": "Impida la reproducción",
     "gui-animalinfo-breedingprevented": "Se impide la reproducción",
+    "gui-animalinfo-inbreedingcoefficient": "CDE: {0}%",
+    "gui-animalinfo-inbreedingcoefficient-desc": "Coeficiente de endogamia (probabilístico)",
     "gui-animalinfo-amount-m-verylow": "Muy bajo",
     "gui-animalinfo-amount-m-low": "Bajo",
     "gui-animalinfo-amount-m-midlow": "Bueno (bajo)",
