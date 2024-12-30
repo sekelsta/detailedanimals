@@ -1,3 +1,5 @@
+using System;
+
 using Genelib.Extensions;
 using Genelib.Network;
 
@@ -5,6 +7,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.Client.NoObf;
 using Vintagestory.GameContent;
 
@@ -55,7 +58,7 @@ namespace Genelib {
             else if (currentTab == 1) {
                 AddInfoContents();
             }
-            SingleComposer.Compose();
+            SingleComposer.EndChildElements().Compose();
         }
 
         private void OnNameSet(string name) {
@@ -142,6 +145,19 @@ namespace Genelib {
                 SingleComposer.AddStaticText(ageText, infoFont, ElementBounds.Fixed(0, y, width, 25));
                 y += 25;
             }
+
+            ITreeAttribute geneticsTree = animal.WatchedAttributes.GetTreeAttribute("genetics");
+            if (geneticsTree != null && geneticsTree.HasAttribute("coi")) {
+                float coi = geneticsTree.GetFloat("coi");
+                if (coi >= 0.0395) {
+                    string coiText = Lang.Get("genelib:gui-animalinfo-inbreedingcoefficient", Math.Round(100 * coi));
+                    SingleComposer.AddStaticText(coiText, infoFont, ElementBounds.Fixed(0, y, width, 25));
+                    string desc = Lang.Get("genelib:gui-animalinfo-inbreedingcoefficient-desc");
+                    SingleComposer.AddAutoSizeHoverText(desc, CairoFont.WhiteDetailText(), 350, ElementBounds.Fixed(0, y, width, 25), "hoverCOI");
+                    y += 25;
+                }
+            }
+
             SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-note"), infoFont, ElementBounds.Fixed(0, y, width, 25));
             y += 25;
             string note = animal.GetBehavior<BehaviorAnimalInfo>().Note;
