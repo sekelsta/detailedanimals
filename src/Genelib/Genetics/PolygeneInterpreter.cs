@@ -43,7 +43,7 @@ namespace Genelib {
                 }
             }
             float coi = repeats / (float)NUM_DIVERSITY_GENES;
-            entity.WatchedAttributes.GetOrAddTreeAttribute(EntityBehaviorGenetics.Code).SetFloat("coi", coi);
+            entity.WatchedAttributes.GetOrAddTreeAttribute("genetics").SetFloat("coi", coi);
         }
     }
 }
