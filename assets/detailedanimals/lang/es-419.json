@@ -92,4 +92,18 @@
     "item-egg-chicken-large-lime": "Huevo de gallina en cal (grande)",
     "item-egg-chicken-jumbo-lime": "Huevo de gallina en cal (gigante)",
     "game:item-handbooktext-creature-deer-*": "",
+
+    "phenotype-horns-yes": "Con cuernos",
+    "phenotype-horns-no": "Sin cuernos",
+    "phenotype-color-white": "Blanca",
+    "phenotype-color-black": "Negro",
+
+    "phenotype-color-chicken-blue": "Gris azulada",
+    "phenotype-color-chicken-splash": "Blanco ceniciento",
+    "phenotype-color-chicken-duckwing": "Tipo silvestre",
+    "phenotype-color-chicken-blue-duckwing": "Gris azulada silvestre",
+    "phenotype-color-chicken-splash-duckwing": "Blanco ceniciento silvestre",
+    "phenotype-color-chicken-birchen": "Abedul/Birchen",
+    "phenotype-color-chicken-blue-birchen": "Abedul azulada",
+    "phenotype-color-chicken-splash-birchen": "Abedul blanco ceniciento",
 }

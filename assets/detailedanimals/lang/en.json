@@ -91,4 +91,18 @@
     "item-egg-chicken-large-lime": "Water-glassed chicken egg (large)",
     "item-egg-chicken-jumbo-lime": "Water-glassed chicken egg (jumbo)",
     "game:item-handbooktext-creature-deer-*": "",
+
+    "phenotype-horns-yes": "Horned",
+    "phenotype-horns-no": "Polled",
+    "phenotype-color-white": "White",
+    "phenotype-color-black": "Black",
+
+    "phenotype-color-chicken-blue": "Blue",
+    "phenotype-color-chicken-splash": "Blue splash",
+    "phenotype-color-chicken-duckwing": "Duckwing (wildtype)",
+    "phenotype-color-chicken-blue-duckwing": "Blue duckwing",
+    "phenotype-color-chicken-splash-duckwing": "Splash duckwing",
+    "phenotype-color-chicken-birchen": "Birchen/Crow-wing",
+    "phenotype-color-chicken-blue-birchen": "Blue birchen",
+    "phenotype-color-chicken-splash-birchen": "Splash birchen",
 }
