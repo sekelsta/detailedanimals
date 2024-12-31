@@ -84,5 +84,8 @@
     "item-egg-chicken-medium-lime": "Консервированное яйцо (среднее)",
     "item-egg-chicken-large-lime": "Консервированное яйцо (большое)",
     "item-egg-chicken-jumbo-lime": "Консервированное яйцо (гиганское)",
+
+    "recipeingredient-item-egg-*": "яйцо",
+
     "game:item-handbooktext-creature-deer-*": "",
 }

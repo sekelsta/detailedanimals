@@ -88,5 +88,10 @@
     "item-egg-chicken-small-lime": "Œuf de poule conservé à l'eau de chaux (petit)",
     "item-egg-chicken-medium-lime": "Œuf de poule conservé à l'eau de chaux (moyen)",
     "item-egg-chicken-large-lime": "Œuf de poule conservé à l'eau de chaux (grand)",
-    "item-egg-chicken-jumbo-lime": "Œuf de poule conservé à l'eau de chaux (géant)"
+    "item-egg-chicken-jumbo-lime": "Œuf de poule conservé à l'eau de chaux (géant)",
+
+    "recipeingredient-item-egg-*": "œuf",
+
+    "game:item-handbooktext-creature-deer-*": "",
+
 }
