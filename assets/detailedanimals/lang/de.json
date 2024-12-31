@@ -90,6 +90,9 @@
     "item-egg-chicken-medium-lime": "In Kaliumwasserglas eingelegtes Hühnerei (Mittel)",
     "item-egg-chicken-large-lime": "In Kaliumwasserglas eingelegtes Hühnerei (Groß)",
     "item-egg-chicken-jumbo-lime": "In Kaliumwasserglas eingelegtes Hühnerei (Riesig)",
+
+    "recipeingredient-item-egg-*": "Ei",
+
     "game:item-handbooktext-creature-deer-*": "",
 }
 
