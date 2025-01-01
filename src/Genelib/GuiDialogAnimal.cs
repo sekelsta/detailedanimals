@@ -148,10 +148,18 @@ namespace Genelib {
 
             string motherString = getParentName("mother");
             string fatherString = getParentName("father");
-            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-mother", motherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
-            y += 25;
             SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-father", fatherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
             y += 25;
+            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-mother", motherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            y += 25;
+            if (animal.WatchedAttributes.HasAttribute("fosterId")) {
+                long fosterId = animal.WatchedAttributes.GetLong("fosterId");
+                if (fosterId != animal.WatchedAttributes.GetLong("motherId", -1)) {
+                    string fosterString = getParentName("foster"); // TO_OPTIMIZE: skip getting foster ID again
+                    SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-foster", fosterString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+                    y += 25;
+                }
+            }
 
             ITreeAttribute geneticsTree = animal.WatchedAttributes.GetTreeAttribute("genetics");
             if (geneticsTree != null && geneticsTree.HasAttribute("coi")) {
