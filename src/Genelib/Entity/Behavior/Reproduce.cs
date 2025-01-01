@@ -486,7 +486,7 @@ namespace Genelib {
         }
 
         protected virtual Entity GetSire() {
-            return entity.World.GetNearestEntity(entity.ServerPos.XYZ, SireSearchRange, SireSearchRange,
+            Entity[] entities = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, SireSearchRange, SireSearchRange,
                 (e) => {
                     foreach (AssetLocation sire in SireCodes) {
                         if (e.WildCardMatch(sire) && EntityCanMate(e)) {
@@ -496,6 +496,25 @@ namespace Genelib {
                     return false;
                 }
             );
+            if (entities == null || entities.Length == 0) {
+                return null;
+            }
+            Entity best = entities[0];
+            bool closeRelative = entity.IsCloseRelative(best);
+            float distance = entity.ServerPos.SquareDistanceTo(best.ServerPos);
+            for (int i = 1; i < entities.Length; ++i) {
+                if (closeRelative && !entity.IsCloseRelative(entities[i])) {
+                    best = entities[i];
+                    closeRelative = false;
+                    continue;
+                }
+                float currentDistance = entity.ServerPos.SquareDistanceTo(entities[i].ServerPos);
+                if (distance > currentDistance) {
+                    best = entities[i];
+                    distance = currentDistance;
+                }
+            }
+            return best;
         }
 
         public override void OnEntityDespawn(EntityDespawnData despawn) {

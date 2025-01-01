@@ -63,6 +63,24 @@ namespace Genelib.Extensions {
             return true;
         }
 
+        public static bool IsCloseRelative(this Entity entity, Entity other) {
+            long ourID = entity.UniqueID();
+            long theirID = other.UniqueID();
+            long ourMother = entity.WatchedAttributes.GetLong("motherId", -1);
+            long ourFather = entity.WatchedAttributes.GetLong("fatherId", -1);
+            long ourFoster = entity.WatchedAttributes.GetLong("fosterId", -1);
+            long theirMother = other.WatchedAttributes.GetLong("motherId", -1);
+            long theirFather = other.WatchedAttributes.GetLong("fatherId", -1);
+            long theirFoster = other.WatchedAttributes.GetLong("fosterId", -1);
+
+            bool isParent = ourID == theirMother || ourID == theirFather || ourID == theirFoster;
+            bool isChild = theirID == ourMother || theirID == ourFather || theirID == ourFoster;
+            // Skip sibling check for adoption
+            bool sharesMother = ourMother != -1 && (ourMother == theirMother || ourMother == theirFather);
+            bool sharesFather = ourFather != -1 && (ourFather == theirFather || ourFather == theirMother);
+            return isParent || isChild || sharesMother || sharesFather;
+        }
+
         public static bool OwnedBy(this Entity entity, IPlayer player) {
             return player != null && entity.WatchedAttributes.GetTreeAttribute("ownedby")?.GetString("uid") == player.PlayerUID;
         }
