@@ -6,7 +6,7 @@ namespace Genelib {
 
         public float AnimalMeat = 0.25f;
 
-        public float InbreedingResistance = 0.5f;
+        public float InbreedingResistance = 0.6f;
 
         public int ConfigVersion = 0;
 
