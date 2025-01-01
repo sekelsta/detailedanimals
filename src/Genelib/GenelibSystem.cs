@@ -30,6 +30,7 @@ namespace Genelib
 
         internal static ICoreServerAPI ServerAPI { get; private set; }
         internal static ICoreClientAPI ClientAPI { get; private set; }
+        internal static ICoreAPI API => (ICoreAPI)ServerAPI ?? (ICoreAPI)ClientAPI;
 
         // Called during intial mod loading, called before any mod receives the call to Start()
         public override void StartPre(ICoreAPI api) {
