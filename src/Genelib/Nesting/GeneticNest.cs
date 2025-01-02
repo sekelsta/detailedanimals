@@ -20,6 +20,7 @@ namespace Genelib {
         public InventoryGeneric inventory;
 
         protected bool WasOccupied = false;
+        protected long LastOccupier = -1;
         protected double LastUpdateHours = -1;
 
         public override InventoryBase Inventory => inventory;
@@ -52,6 +53,9 @@ namespace Genelib {
 
         public void SetOccupier(Entity entity) {
             occupier = entity;
+            if (entity != null) {
+                LastOccupier = entity.UniqueID();
+            }
         }
 
         public bool ContainsRot() {
@@ -205,6 +209,7 @@ namespace Genelib {
             tree.SetDouble("lastUpdateHours", LastUpdateHours);
             tree.SetDouble("decayStartHours", DecayStartHours);
             tree.SetBool("wasOccupied", WasOccupied);
+            tree.SetLong("lastOccupier", LastOccupier);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
@@ -217,6 +222,7 @@ namespace Genelib {
                 int capacity = invTree.GetInt("qslots");
                 CreateInventory(capacity, worldForResolving.Api);
             }
+            LastOccupier = tree.GetLong("lastOccupier", -1);
             base.FromTreeAttributes(tree, worldForResolving);
             RedrawAfterReceivingTreeAttributes(worldForResolving);
         }
@@ -273,6 +279,9 @@ namespace Genelib {
                         AnimalHunger hunger = chick.GetBehavior<AnimalHunger>();
                         if (hunger != null) {
                             hunger.Saturation = hunger.AdjustedMaxSaturation * AnimalHunger.FULL;
+                        }
+                        if (LastOccupier != -1 && !chick.WatchedAttributes.HasAttribute("fosterId")) {
+                            chick.WatchedAttributes.SetLong("fosterId", LastOccupier);
                         }
                     }
                     else {
