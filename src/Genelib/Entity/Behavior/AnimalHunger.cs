@@ -153,7 +153,7 @@ namespace Genelib {
             MaxSaturation = entity.HealthyAdultWeightKg() * SaturationPerKgPerDay * DaysUntilHungry / 2;
 
             accumulator = entity.World.Rand.Next(updateSeconds * TPS);
-            prevPos = entity.ServerPos.XYZ;
+            prevPos = entity.Pos.XYZ;
             listenerID = entity.World.RegisterGameTickListener(SlowServerTick, 12000);
             ApplyNutritionEffects();
         }
@@ -473,7 +473,7 @@ namespace Genelib {
                     }
                     else {
                         if (player == null || !player.InventoryManager.TryGiveItemstack(nutriProps.EatenStack.ResolvedItemstack.Clone(), true)) {
-                            entity.World.SpawnItemEntity(nutriProps.EatenStack.ResolvedItemstack.Clone(), fedBy.SidedPos.XYZ);
+                            entity.World.SpawnItemEntity(nutriProps.EatenStack.ResolvedItemstack.Clone(), fedBy.Pos.XYZ);
                         }
                     }
                 }
@@ -548,7 +548,7 @@ namespace Genelib {
                 float updatesPerDay = 48 * 60 / updateSeconds;
                 float baseHungerRate = AdjustedMaxSaturation * 2 / updatesPerDay / DaysUntilHungry;
 
-                Vec3d currentPos = entity.ServerPos.XYZ;
+                Vec3d currentPos = entity.Pos.XYZ;
                 double distance = currentPos.DistanceTo(prevPos) / updates;
                 distance = Math.Max(0, distance + currentPos.Y - prevPos.Y); // Climbing/falling adjustment
                 // Riding a boat or train shouldn't make the animal hungrier

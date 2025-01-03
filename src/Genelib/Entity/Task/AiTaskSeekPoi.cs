@@ -59,7 +59,7 @@ namespace Genelib {
             }
 
             Vec3d pos = target.Position;
-            double distance = pos.HorizontalSquareDistanceTo(entity.ServerPos.X, entity.ServerPos.Z);
+            double distance = pos.HorizontalSquareDistanceTo(entity.Pos.X, entity.Pos.Z);
 
             pathTraverser.CurrentTarget.X = pos.X;
             pathTraverser.CurrentTarget.Y = pos.Y;

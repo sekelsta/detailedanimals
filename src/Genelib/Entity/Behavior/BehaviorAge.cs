@@ -214,14 +214,13 @@ namespace Genelib {
             Cuboidf collisionBox = adultType.SpawnCollisionBox;
 
             // Delay adult spawning if we're colliding
-            if (entity.World.CollisionTester.IsColliding(entity.World.BlockAccessor, collisionBox, entity.ServerPos.XYZ, false)) {
+            if (entity.World.CollisionTester.IsColliding(entity.World.BlockAccessor, collisionBox, entity.Pos.XYZ, false)) {
                 callbackID = entity.World.RegisterCallback(CheckGrowth, 3000);
                 return;
             }
 
             Entity adult = entity.World.ClassRegistry.CreateEntity(adultType);
-            adult.ServerPos.SetFrom(entity.ServerPos);
-            adult.Pos.SetFrom(adult.ServerPos);
+            adult.Pos.SetFrom(entity.Pos);
 
             CopyAttributesTo(adult);
             adult.Attributes.SetString("origin", "growth");

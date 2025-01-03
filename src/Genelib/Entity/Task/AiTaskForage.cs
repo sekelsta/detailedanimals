@@ -75,7 +75,7 @@ namespace Genelib {
                 if (hungerBehavior.StartedWeaning()) {
                     // Eat loose items
                     entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
-                        entity.ServerPos.XYZ, looseItemSearchDistance, searchItems, EnumEntitySearchType.Inanimate);
+                        entity.Pos.XYZ, looseItemSearchDistance, searchItems, EnumEntitySearchType.Inanimate);
                     if (target != null) {
                         currentEatAnimation = eatLooseItemsAnimation ?? eatAnimation;
                         return true;
@@ -163,15 +163,15 @@ namespace Genelib {
 
         protected void SeekMilk() {
             entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
-                entity.ServerPos.XYZ, motherSearchDistance, searchMother, EnumEntitySearchType.Creatures);
+                entity.Pos.XYZ, motherSearchDistance, searchMother, EnumEntitySearchType.Creatures);
             if (target == null && !hungerBehavior.StartedWeaning() && nurseFromEntities != null) {
                 entity.Api.ModLoader.GetModSystem<EntityPartitioning>().WalkEntities(
-                    entity.ServerPos.XYZ, motherSearchDistance, searchFoster, EnumEntitySearchType.Creatures);
+                    entity.Pos.XYZ, motherSearchDistance, searchFoster, EnumEntitySearchType.Creatures);
             }
         }
 
         protected void SeekFood() {
-            target = pointsOfInterest.GetNearestPoi(entity.ServerPos.XYZ, 48, IsValidFoodPOI) as IAnimalFoodSource;
+            target = pointsOfInterest.GetNearestPoi(entity.Pos.XYZ, 48, IsValidFoodPOI) as IAnimalFoodSource;
             if (target != null) {
                 return;
             }
@@ -223,7 +223,7 @@ namespace Genelib {
             }
 
             if (target is LooseItemFoodSource foodSource) {
-                entity.World.SpawnCubeParticles(entity.ServerPos.XYZ, foodSource.ItemStack, 0.25f, 1, 0.25f + 0.5f * (float)entity.World.Rand.NextDouble());
+                entity.World.SpawnCubeParticles(entity.Pos.XYZ, foodSource.ItemStack, 0.25f, 1, 0.25f + 0.5f * (float)entity.World.Rand.NextDouble());
             }
 
             if (timeSinceTargetReached > eatTime * 0.75f && !soundPlayed) {

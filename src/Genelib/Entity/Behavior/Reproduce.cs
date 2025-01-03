@@ -380,7 +380,7 @@ namespace Genelib {
             SynchedTotalDaysCooldownUntil = TotalDays + CooldownDays;
             TreeAttribute[] litterData = Litter?.value;
             foreach (TreeAttribute childData in litterData) {
-                Entity spawn = SpawnNewborn(entity.World, entity.ServerPos, entity, nextGeneration, childData);
+                Entity spawn = SpawnNewborn(entity.World, entity.Pos, entity, nextGeneration, childData);
             }
             SetNotPregnant();
         }
@@ -393,12 +393,12 @@ namespace Genelib {
                     + spawnCode.ToString() + ", but no such entity was found.");
             }
             Entity spawn = world.ClassRegistry.CreateEntity(spawnType);
-            spawn.ServerPos.SetFrom(pos);
-            spawn.ServerPos.Yaw = world.Rand.NextSingle() * GameMath.TWOPI;
+            spawn.Pos.SetFrom(pos);
+            spawn.Pos.Yaw = world.Rand.NextSingle() * GameMath.TWOPI;
             Random random = world.Rand;
-            spawn.ServerPos.Motion.X += (random.NextDouble() - 0.5f) / 20f;
-            spawn.ServerPos.Motion.Z += (random.NextDouble() - 0.5f) / 20f;
-            spawn.Pos.SetFrom(spawn.ServerPos);
+            spawn.Pos.Motion.X += (random.NextDouble() - 0.5f) / 20f;
+            spawn.Pos.Motion.Z += (random.NextDouble() - 0.5f) / 20f;
+            spawn.Pos.SetFrom(spawn.Pos);
             spawn.Attributes.SetString("origin", "reproduction");
             spawn.WatchedAttributes.SetInt("generation", nextGeneration);
             spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("fatherId"));
@@ -486,7 +486,7 @@ namespace Genelib {
         }
 
         protected virtual Entity GetSire() {
-            Entity[] entities = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, SireSearchRange, SireSearchRange,
+            Entity[] entities = entity.World.GetEntitiesAround(entity.Pos.XYZ, SireSearchRange, SireSearchRange,
                 (e) => {
                     foreach (AssetLocation sire in SireCodes) {
                         if (e.WildCardMatch(sire) && EntityCanMate(e)) {
@@ -501,14 +501,14 @@ namespace Genelib {
             }
             Entity best = entities[0];
             bool closeRelative = entity.IsCloseRelative(best);
-            float distance = entity.ServerPos.SquareDistanceTo(best.ServerPos);
+            float distance = entity.Pos.SquareDistanceTo(best.Pos);
             for (int i = 1; i < entities.Length; ++i) {
                 if (closeRelative && !entity.IsCloseRelative(entities[i])) {
                     best = entities[i];
                     closeRelative = false;
                     continue;
                 }
-                float currentDistance = entity.ServerPos.SquareDistanceTo(entities[i].ServerPos);
+                float currentDistance = entity.Pos.SquareDistanceTo(entities[i].Pos);
                 if (distance > currentDistance) {
                     best = entities[i];
                     distance = currentDistance;

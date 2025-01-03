@@ -39,7 +39,7 @@ namespace Genelib {
 
         public static GrassFoodSource SearchNear(Entity entity) {
             double dist = entity.SelectionBox.XSize / 2;
-            BlockPos blockPos = entity.ServerPos.HorizontalAheadCopy(dist).XYZ.AsBlockPos;
+            BlockPos blockPos = entity.Pos.HorizontalAheadCopy(dist).XYZ.AsBlockPos;
             BlockPos columnSearchPos = blockPos.Copy();
             for (int i = 8; i >= -8; --i) {
                 columnSearchPos.Y = blockPos.Y + i;

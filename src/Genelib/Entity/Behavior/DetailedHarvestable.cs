@@ -109,7 +109,7 @@ namespace Genelib {
                 }
             }
 
-            foreach (ItemStack stack in entity.GetDrops(entity.World, entity.ServerPos.AsBlockPos, byPlayer)) {
+            foreach (ItemStack stack in entity.GetDrops(entity.World, entity.Pos.AsBlockPos, byPlayer)) {
                 drops.Add(stack);
             }
 
@@ -126,7 +126,7 @@ namespace Genelib {
             entity.WatchedAttributes.MarkPathDirty("harvestableInv");
 
             if (entity.World.Side == EnumAppSide.Server) {
-                entity.World.BlockAccessor.GetChunkAtBlockPos(entity.ServerPos.AsBlockPos).MarkModified();
+                entity.World.BlockAccessor.GetChunkAtBlockPos(entity.Pos.AsBlockPos).MarkModified();
             }
         }
 

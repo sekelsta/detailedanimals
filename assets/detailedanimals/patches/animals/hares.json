@@ -146,7 +146,7 @@
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/client/behaviors/4",
+        path: "/client/behaviors/5",
         value: { code: "genelib.harvestable" },
         side: "server"
     },
@@ -225,15 +225,15 @@
 
     {
         file: "game:entities/land/hare-female.json",
-        op: "add",
-        path: "/client/behaviors/-",
+        op: "replace",
+        path: "/client/behaviors/4",
         value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
         file: "game:entities/land/hare-female.json",
-        op: "add",
-        path: "/server/behaviors/-",
+        op: "replace",
+        path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
             sireCodes: ["game:hare-male-*"],

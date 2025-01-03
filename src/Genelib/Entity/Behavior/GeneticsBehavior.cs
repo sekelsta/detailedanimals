@@ -62,7 +62,7 @@ namespace Genelib {
                 bool heterogametic = GenomeType.SexDetermination.Heterogametic(entity.IsMale());
                 AlleleFrequencies frequencies = null;
                 if (onFirstSpawn) {
-                    BlockPos blockPos = entity.ServerPos.AsBlockPos;
+                    BlockPos blockPos = entity.Pos.AsBlockPos;
                     ClimateCondition climate = entity.Api.World.BlockAccessor.GetClimateAt(blockPos);
                     frequencies = GenomeType.ChooseInitializer(initializers, climate, blockPos.Y, random)
                         ?? defaultFrequencies;

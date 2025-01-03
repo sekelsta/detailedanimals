@@ -56,7 +56,7 @@ namespace Genelib {
             }
 
             int searchRadius = 42;
-            target = pointsOfInterest.GetWeightedNearestPoi(entity.ServerPos.XYZ, searchRadius, IsValidNest) as IAnimalNest;
+            target = pointsOfInterest.GetWeightedNearestPoi(entity.Pos.XYZ, searchRadius, IsValidNest) as IAnimalNest;
 
             if (target == null) {
                 target = CreateGroundNest();
@@ -73,7 +73,7 @@ namespace Genelib {
                         + nestCode + " but no such block was found.");
             }
 
-            BlockPos pos = entity.ServerPos.XYZ.AsBlockPos;
+            BlockPos pos = entity.Pos.XYZ.AsBlockPos;
             IBlockAccessor blockAccess = entity.World.BlockAccessor;
             if (blockAccess.GetBlock(pos, BlockLayersAccess.Fluid).IsLiquid()
                     || !blockAccess.GetBlock(pos).IsReplacableBy(block)) {
@@ -220,12 +220,12 @@ namespace Genelib {
             if (sound != null) {
                 if (soundStartMs > 0) {
                     entity.World.RegisterCallback((dt) => {
-                        entity.World.PlaySoundAt(sound, entity.ServerPos.X, entity.ServerPos.Y, entity.ServerPos.Z, null, true, soundRange);
+                        entity.World.PlaySoundAt(sound, entity.Pos.X, entity.Pos.Y, entity.Pos.Z, null, true, soundRange);
                         lastSoundTotalMs = entity.World.ElapsedMilliseconds;
                     }, soundStartMs);
                 }
                 else {
-                    entity.World.PlaySoundAt(sound, entity.ServerPos.X, entity.ServerPos.Y, entity.ServerPos.Z, null, true, soundRange);
+                    entity.World.PlaySoundAt(sound, entity.Pos.X, entity.Pos.Y, entity.Pos.Z, null, true, soundRange);
                     lastSoundTotalMs = entity.World.ElapsedMilliseconds;
                 }
             }
