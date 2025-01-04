@@ -65,7 +65,7 @@
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
-                "*-baby": [ "game:moose-{gender}-adult" ],
+                "*-baby": [ "game:deer-moose-{gender}-adult" ],
             },
             monthsToGrow: 6.0,
             startAgeMonthsByType: {
