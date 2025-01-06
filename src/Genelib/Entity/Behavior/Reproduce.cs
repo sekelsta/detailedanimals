@@ -393,12 +393,12 @@ namespace Genelib {
                     + spawnCode.ToString() + ", but no such entity was found.");
             }
             Entity spawn = world.ClassRegistry.CreateEntity(spawnType);
-            spawn.Pos.SetFrom(pos);
-            spawn.Pos.Yaw = world.Rand.NextSingle() * GameMath.TWOPI;
+            spawn.ServerPos.SetFrom(pos);
+            spawn.ServerPos.Yaw = world.Rand.NextSingle() * GameMath.TWOPI;
             Random random = world.Rand;
-            spawn.Pos.Motion.X += (random.NextDouble() - 0.5f) / 20f;
-            spawn.Pos.Motion.Z += (random.NextDouble() - 0.5f) / 20f;
-            spawn.Pos.SetFrom(spawn.Pos);
+            spawn.ServerPos.Motion.X += (random.NextDouble() - 0.5f) / 20f;
+            spawn.ServerPos.Motion.Z += (random.NextDouble() - 0.5f) / 20f;
+            spawn.Pos.SetFrom(spawn.ServerPos);
             spawn.Attributes.SetString("origin", "reproduction");
             spawn.WatchedAttributes.SetInt("generation", nextGeneration);
             spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("fatherId"));

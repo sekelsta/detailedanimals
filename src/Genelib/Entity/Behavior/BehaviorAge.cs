@@ -220,6 +220,7 @@ namespace Genelib {
             }
 
             Entity adult = entity.World.ClassRegistry.CreateEntity(adultType);
+            adult.ServerPos.SetFrom(entity.Pos);
             adult.Pos.SetFrom(entity.Pos);
 
             CopyAttributesTo(adult);
