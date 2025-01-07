@@ -19,6 +19,28 @@ namespace Genelib.Extensions {
             return name;
         }
 
+        public static void SetFoster(this Entity entity, Entity foster) {
+            if (foster == null) {
+                // No clear reason why we'd want to remove it so just do nothing
+                return;
+            }
+
+            long fosterId = foster.UniqueID();
+            entity.WatchedAttributes.SetLong("fosterId", fosterId);
+            long motherId = entity.WatchedAttributes.GetLong("motherId", -1);
+            string prefix = "foster";
+            if (motherId == fosterId) {
+                prefix = "mother";
+                entity.WatchedAttributes.RemoveAttribute("fosterName");
+                entity.WatchedAttributes.RemoveAttribute("fosterKey");
+            }
+            string motherName = foster.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
+            if (motherName != null && motherName != "") {
+                entity.WatchedAttributes.SetString(prefix+"Name", motherName);
+            }
+            entity.WatchedAttributes.SetString(prefix+"Key", foster.Code.Domain + ":item-creature-" + foster.Code.Path);
+        }
+
         public static bool IsMale(this Entity entity) {
             // Sometimes property attributes are null, so need to check
             if (entity.Properties.Attributes == null) {

@@ -309,8 +309,20 @@ namespace Genelib {
                     child.AddToTree(childGeneticsTree);
                 }
                 litterData.value[i].SetString("code", offspringCode.ToString());
+
                 litterData.value[i].SetLong("motherId", entity.UniqueID());
+                string motherName = entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
+                if (motherName != null && motherName != "") {
+                    litterData.value[i].SetString("motherName", motherName);
+                }
+                litterData.value[i].SetString("motherKey", entity.Code.Domain + ":item-creature-" + entity.Code.Path);
+
                 litterData.value[i].SetLong("fatherId", sire.UniqueID());
+                string fatherName = sire.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
+                if (fatherName != null && fatherName != "") {
+                    litterData.value[i].SetString("fatherName", fatherName);
+                }
+                litterData.value[i].SetString("fatherKey", sire.Code.Domain + ":item-creature-" + sire.Code.Path);
             }
             Litter = litterData;
         }
@@ -401,11 +413,14 @@ namespace Genelib {
             spawn.Pos.SetFrom(spawn.ServerPos);
             spawn.Attributes.SetString("origin", "reproduction");
             spawn.WatchedAttributes.SetInt("generation", nextGeneration);
+            // Alternately, call childData.RemoveAttribute("code"), then copy over all remaining attributes
             spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("fatherId"));
+            spawn.WatchedAttributes.SetString("fatherName", childData.GetString("fatherName"));
+            spawn.WatchedAttributes.SetString("fatherKey", childData.GetString("fatherKey"));
             spawn.WatchedAttributes.SetLong("motherId", childData.GetLong("motherId"));
-            if (foster != null) {
-                spawn.WatchedAttributes.SetLong("fosterId", foster.UniqueID());
-            }
+            spawn.WatchedAttributes.SetString("motherName", childData.GetString("motherName"));
+            spawn.WatchedAttributes.SetString("motherKey", childData.GetString("motherKey"));
+            spawn.SetFoster(foster);
             if (childData.HasAttribute("genetics")) {
                 spawn.WatchedAttributes.SetAttribute("genetics", childData.GetTreeAttribute("genetics"));
             }

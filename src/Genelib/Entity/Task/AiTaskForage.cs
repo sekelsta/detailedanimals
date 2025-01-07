@@ -150,11 +150,11 @@ namespace Genelib {
             return true;
         }
 
-        private bool searchFoster(Entity entity) {
+        private bool searchFoster(Entity foster) {
             foreach (string nurseFrom in nurseFromEntities) {
-                if (entity.WildCardMatch(AssetLocation.Create(nurseFrom, this.entity.Code.Domain))) {
-                    target = new NursingMilkSource(entity);
-                    this.entity.WatchedAttributes.SetLong("fosterId", entity.UniqueID());
+                if (foster.WildCardMatch(AssetLocation.Create(nurseFrom, entity.Code.Domain))) {
+                    target = new NursingMilkSource(foster);
+                    entity.SetFoster(foster);
                     return false;
                 }
             }
