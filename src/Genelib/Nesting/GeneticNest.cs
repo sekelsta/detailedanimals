@@ -20,6 +20,7 @@ namespace Genelib {
         public InventoryGeneric inventory;
 
         protected bool WasOccupied = false;
+        protected bool IsOccupiedClientside = false;
         protected long LastOccupier = -1;
         protected double LastUpdateHours = -1;
 
@@ -52,10 +53,14 @@ namespace Genelib {
         }
 
         public void SetOccupier(Entity entity) {
+            if (occupier == entity) {
+                return;
+            }
             occupier = entity;
             if (entity != null) {
                 LastOccupier = entity.UniqueID();
             }
+            MarkDirty();
         }
 
         public bool ContainsRot() {
@@ -169,15 +174,16 @@ namespace Genelib {
 
             decayHours = Block.Attributes?["decayHours"]?.AsDouble(0) ?? 0;
 
-            (container as NestContainer).PerishRate = Block.Attributes["perishRate"]?.AsFloat(1) ?? 1;
+            (container as NestContainer).PerishRate = Block.Attributes?["perishRate"]?.AsFloat(1) ?? 1;
             if (LastUpdateHours == -1) {
                 LastUpdateHours = Api.World.Calendar.TotalHours;
             }
 
-            string[] suitable = Block.Attributes["suitableFor"]?.AsArray<string>();
+            string[] suitable = Block.Attributes?["suitableFor"]?.AsArray<string>();
             suitableFor = suitable.Select(name => AssetLocation.Create(name, Block.Code.Domain)).ToArray();
 
             if (api.Side == EnumAppSide.Server) {
+                IsOccupiedClientside = false;
                 api.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
                 RegisterGameTickListener(SlowTick, 12000);
                 SlowTick(0);
@@ -210,12 +216,14 @@ namespace Genelib {
             tree.SetDouble("decayStartHours", DecayStartHours);
             tree.SetBool("wasOccupied", WasOccupied);
             tree.SetLong("lastOccupier", LastOccupier);
+            tree.SetBool("isOccupied", occupier != null && occupier.Alive);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
             WasOccupied = tree.GetBool("wasOccupied");
             LastUpdateHours = tree.GetDouble("lastUpdateHours");
             DecayStartHours = tree.GetDouble("decayStartHours");
+            IsOccupiedClientside = tree.GetBool("isOccupied");
 
             TreeAttribute invTree = (TreeAttribute) tree["inventory"];
             if (inventory == null) {
@@ -295,7 +303,6 @@ namespace Genelib {
             if (!Permenant) {
                 if ((anyEggs && !anyRot) || DecayStartHours > Api.World.Calendar.TotalHours) {
                     DecayStartHours = Api.World.Calendar.TotalHours;
-                    MarkDirty();
                 }
                 else {
                     if (DecayStartHours + decayHours < Api.World.Calendar.TotalHours) {
@@ -306,6 +313,7 @@ namespace Genelib {
 
             LastUpdateHours = Api.World.Calendar.TotalHours;
             WasOccupied = Occupied();
+            MarkDirty();
         }
 
         public bool CanHoldItem(ItemStack stack) {
@@ -407,11 +415,22 @@ namespace Genelib {
                 }
             }
             if (anyEggs) {
-                if (anyFertile && !WasOccupied && Full() && !anyRot) {
-                    info.AppendLine(Lang.Get("A broody hen is needed!"));
-                }
-                else if (!anyFertile) {
+                if (!anyFertile) {
                     info.AppendLine(Lang.Get("No eggs are fertilized"));
+                }
+                else if (Full() && !anyRot) {
+                    if (!IsOccupiedClientside && !WasOccupied) {
+                        info.AppendLine(Lang.Get("A broody hen is needed!"));
+                    }
+                    else if (!WasOccupied) {
+                        info.AppendLine(Lang.Get("genelib:blockinfo-nestbox-eggs-warming"));
+                    }
+                    else if (!IsOccupiedClientside) {
+                        info.AppendLine(Lang.Get("genelib:blockinfo-nestbox-eggs-cooling"));
+                    }
+                    else {
+                        info.AppendLine(Lang.Get("genelib:blockinfo-nestbox-eggs-incubating"));
+                    }
                 }
             }
             if (anyRot) {
