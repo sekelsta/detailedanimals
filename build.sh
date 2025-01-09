@@ -11,6 +11,11 @@ if [[ -n $null_textured_shapes ]]; then
     echo -e "${null_textured_shapes}${NC}"
 fi
 
+bitconverter=$(grep -rl BitConverter src/Genelib/AnimalDatabase.cs)
+if [[ -n $bitconverter ]]; then
+    echo -e "${RED}Warning: avoid using BitConverter in file save/load because endianness depends on machine architecture${NC}"
+fi
+
 python3 texsrc/cook.py
 cp assets/detailedanimals/lang/es-419.json assets/detailedanimals/lang/es-es.json
 cp assets/genelib/lang/es-419.json assets/genelib/lang/es-es.json
