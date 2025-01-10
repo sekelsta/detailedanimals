@@ -543,14 +543,14 @@ namespace Genelib {
             }
             multiplyTree = entity.WatchedAttributes.GetTreeAttribute("multiply");
             if (IsPregnant && !LaysEggs) {
+                int passed = (int)Math.Round(TotalDays - TotalDaysPregnancyStart);
+                int expected = (int)Math.Round(GestationDays);
+                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-pregnancy", passed, expected));
                 if (InEarlyPregnancy) {
                     infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-earlypregnancy"));
                 }
                 else if (TotalDays > TotalDaysPregnancyStart + GestationDays * 2.0 / 3.0) {
                     infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-latepregnancy"));
-                }
-                else {
-                    infotext.AppendLine(Lang.Get("Is pregnant"));
                 }
                 return;
             }
