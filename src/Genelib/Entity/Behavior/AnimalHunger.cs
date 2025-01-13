@@ -363,6 +363,9 @@ namespace Genelib {
                 return;
             }
 
+            IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
+            entity.World.Api.Logger.Audit(byPlayer?.PlayerName + " fed " + itemstack.Collectible?.Code + " to " + entity.Code + " ID " + entity.EntityId + " at " + entity.Pos.XYZ.AsBlockPos);
+
             bool consumeItem = true;
             EntityBehavior tameable = entity.GetBehavior("tameable");
             if (tameable != null) {
