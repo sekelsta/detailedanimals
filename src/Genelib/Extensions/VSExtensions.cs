@@ -69,5 +69,12 @@ namespace Genelib.Extensions {
             }
             return null;
         }
+
+        public static void CopyIfPresent(this TreeAttribute to, string key, TreeAttribute from) {
+            IAttribute attribute = from.GetAttribute(key);
+            if (attribute != null) {
+                to.SetAttribute(key, attribute);
+            }
+        }
     }
 }

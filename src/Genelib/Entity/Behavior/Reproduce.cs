@@ -415,15 +415,13 @@ namespace Genelib {
             spawn.WatchedAttributes.SetInt("generation", nextGeneration);
             // Alternately, call childData.RemoveAttribute("code"), then copy over all remaining attributes
             spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("fatherId"));
-            spawn.WatchedAttributes.SetString("fatherName", childData.GetString("fatherName"));
-            spawn.WatchedAttributes.SetString("fatherKey", childData.GetString("fatherKey"));
+            spawn.WatchedAttributes.CopyIfPresent("fatherName", childData);
+            spawn.WatchedAttributes.CopyIfPresent("fatherKey", childData);
             spawn.WatchedAttributes.SetLong("motherId", childData.GetLong("motherId"));
-            spawn.WatchedAttributes.SetString("motherName", childData.GetString("motherName"));
-            spawn.WatchedAttributes.SetString("motherKey", childData.GetString("motherKey"));
+            spawn.WatchedAttributes.CopyIfPresent("motherName", childData);
+            spawn.WatchedAttributes.CopyIfPresent("motherKey", childData);
             spawn.SetFoster(foster);
-            if (childData.HasAttribute("genetics")) {
-                spawn.WatchedAttributes.SetAttribute("genetics", childData.GetTreeAttribute("genetics"));
-            }
+            spawn.WatchedAttributes.CopyIfPresent("genetics", childData);
             spawn.WatchedAttributes.SetDouble("birthTotalDays", world.Calendar.TotalDays);
 
             world.SpawnEntity(spawn);

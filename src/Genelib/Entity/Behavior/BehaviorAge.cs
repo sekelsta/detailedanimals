@@ -236,8 +236,11 @@ namespace Genelib {
             adult.WatchedAttributes.SetInt("generation", entity.WatchedAttributes.GetInt("generation", 0));
             double birth = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
             adult.WatchedAttributes.SetDouble("birthTotalDays", birth); // Used for antler growth
-            CopyAttributeIfPresent(adult, "hunger");
-            CopyAttributeIfPresent(adult, "animalWeight");
+            adult.WatchedAttributes.CopyIfPresent("hunger", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("fedByPlayer", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("animalWeight", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("bodyCondition", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("ownedby", entity.WatchedAttributes);
 
             bool keepTexture = adult.WatchedAttributes.HasAttribute("textureIndex") 
                 && entity.Properties.Client?.FirstTexture?.Alternates != null 
@@ -248,27 +251,29 @@ namespace Genelib {
                 adult.WatchedAttributes.SetInt("textureIndex", entity.WatchedAttributes.GetInt("textureIndex", 0));
             }
 
-            CopyAttributeIfPresent(adult, "nametag");
-            CopyAttributeIfPresent(adult, "genetics");
-            CopyAttributeIfPresent(adult, "motherId");
-            CopyAttributeIfPresent(adult, "fatherId");
-            CopyAttributeIfPresent(adult, "preventBreeding");
+            adult.WatchedAttributes.CopyIfPresent("nametag", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("genetics", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("motherId", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("motherName", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("motherKey", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("fatherId", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("fatherName", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("fatherKey", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("fosterId", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("fosterName", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("fosterKey", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("preventBreeding", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("neutered", entity.WatchedAttributes);
 
             adult.WatchedAttributes.SetLong("UID", entity.UniqueID());
 
             // PetAI compat
-            CopyAttributeIfPresent(adult, "domesticationstatus");
+            adult.WatchedAttributes.CopyIfPresent("domesticationstatus", entity.WatchedAttributes);
         }
 
         protected virtual void CopyAttributesAfterSpawning(Entity adult) {
             // This no longer does anything, consider removing it
             // TODO: Consider copying over equipment
-        }
-
-        protected void CopyAttributeIfPresent(Entity adult, string key) {
-            if (entity.WatchedAttributes.HasAttribute(key)) {
-                adult.WatchedAttributes.SetAttribute(key, entity.WatchedAttributes.GetAttribute(key));
-            }
         }
 
         protected void UnregisterCallback() {
