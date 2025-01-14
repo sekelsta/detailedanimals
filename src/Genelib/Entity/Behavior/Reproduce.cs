@@ -39,15 +39,6 @@ namespace Genelib {
         public CollectibleObject[] EggTypes;
         public bool LaysEggs => EggTypes != null;
 
-        public double SynchedTotalDaysCooldownUntil
-        {
-            get { return multiplyTree.GetDouble("totalDaysCooldownUntil"); }
-            set {
-                multiplyTree.SetDouble("totalDaysCooldownUntil", value);
-                entity.WatchedAttributes.MarkPathDirty("multiply");
-            }
-        }
-
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
             set {
@@ -224,7 +215,7 @@ namespace Genelib {
 
             if (IsPregnant && Litter == null) {
                 IsPregnant = false;
-                SynchedTotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
+                TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
             }
             listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000);
         }
@@ -266,15 +257,15 @@ namespace Genelib {
                 return;
             }
 
-            if (SynchedTotalDaysCooldownUntil + DaysInHeat < TotalDays) {
-                SynchedTotalDaysCooldownUntil += EstrousCycleDays;
+            if (TotalDaysCooldownUntil + DaysInHeat < TotalDays) {
+                TotalDaysCooldownUntil += EstrousCycleDays;
             }
-            if (SynchedTotalDaysCooldownUntil > TotalDays) {
+            if (TotalDaysCooldownUntil > TotalDays) {
                 return;
             }
 
             if (!isBreedingSeason()) {
-                SynchedTotalDaysCooldownUntil += entity.World.Calendar.DaysPerMonth;
+                TotalDaysCooldownUntil += entity.World.Calendar.DaysPerMonth;
                 return;
             }
 
@@ -348,7 +339,7 @@ namespace Genelib {
 
         // And on revival, if not pregnant, you do not progress towards becoming so
         public override void OnEntityRevive() {
-            SynchedTotalDaysCooldownUntil += (entity.World.Calendar.TotalHours - GrowthPausedSince) / 24.0;
+            TotalDaysCooldownUntil += (entity.World.Calendar.TotalHours - GrowthPausedSince) / 24.0;
         }
 
         protected void ProgressPregnancy() {
@@ -389,7 +380,7 @@ namespace Genelib {
         protected void GiveBirth() {
             int nextGeneration = NextGeneration();
             TotalDaysLastBirth = TotalDays;
-            SynchedTotalDaysCooldownUntil = TotalDays + CooldownDays;
+            TotalDaysCooldownUntil = TotalDays + CooldownDays;
             TreeAttribute[] litterData = Litter?.value;
             foreach (TreeAttribute childData in litterData) {
                 Entity spawn = SpawnNewborn(entity.World, entity.Pos, entity, nextGeneration, childData);
@@ -590,7 +581,7 @@ namespace Genelib {
                 return;
             }
 
-            double daysLeft = SynchedTotalDaysCooldownUntil - TotalDays;
+            double daysLeft = TotalDaysCooldownUntil - TotalDays;
             if (daysLeft <= 0) {
                 infotext.AppendLine(Lang.Get("game:Ready to mate"));
             }
