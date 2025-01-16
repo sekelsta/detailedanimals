@@ -1,6 +1,7 @@
 {
-    code: "egg-chicken",
+    code: "egg",
     variantgroups: [
+		{ code: "source", states: ["chicken" ] },
         { code: "size", states: [ "peewee", "small", "medium", "large", "jumbo" ] },
         { code: "state", states: [ "raw", "boiled", "blown", "pickled", "lime" ] },
     ],
@@ -43,6 +44,12 @@
             "*-lime": [ "egg", "rawegg" ],
             "*-pickled": [ "egg", "pickledegg" ],
         },
+        containedEggLitresByType: {
+            "*-jumbo-*": 0.2,
+            "*-large-*": 0.15,
+            "*-peewee-*": 0.05,
+            "*": 0.1,
+        },
         onDisplayTransform: {
             scaleByType: {
                 "*-peewee-*": 0.84,
@@ -64,6 +71,9 @@
         "*-medium-pickled": { saturation: 123, foodCategory: "Protein" },
         "*-large-pickled": { saturation: 140, foodCategory: "Protein" },
         "*-jumbo-pickled": { saturation: 168, foodCategory: "Protein" },
+    },
+    dropsByType: {
+        "*-broken": { type: "item", code: "aculinaryartillery:eggshell", quantity: { avg: 1 } },
     },
     maxstacksize: 32,
     materialDensity: 200,

@@ -19,5 +19,16 @@
         },
         dependsOn: [ { modid: "expandedfoods" } ],
         side: "server"
+    },
+    {
+        file: "detailedanimals:itemtypes/egg-chicken.json",
+        op: "add",
+        path: "/classByType",
+        value: {
+            "*-raw": "EggCrack",
+            "*-lime": "EggCrack",
+        },
+        dependsOn: [ { modid: "aculinaryartillery" } ],
+        side: "server"
     }
 ]
