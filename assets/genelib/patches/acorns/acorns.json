@@ -1,0 +1,9 @@
+[
+    {
+        file: "acorns:itemtypes/food/acorn-meal.json",
+        op: "add",
+        path: "/attributes/foodTags",
+        value: ["acorn"],
+        side: "server"
+    },
+]

@@ -403,21 +403,21 @@
         file: "game:entities/land/pig-wild-piglet.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["grass", "vegetable", "foliage", "hay", "meat"],
+        value: ["grass", "vegetable", "foliage", "hay", "meat", "acorn"],
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["grass", "vegetable", "foliage", "hay", "meat"],
+        value: ["grass", "vegetable", "foliage", "hay", "meat", "acorn"],
         side: "server"
     },
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["grass", "vegetable", "foliage", "hay", "meat"],
+        value: ["grass", "vegetable", "foliage", "hay", "meat", "acorn"],
         side: "server"
     },
     {

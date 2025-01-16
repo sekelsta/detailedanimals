@@ -296,6 +296,28 @@
         side: "server",
     },
     {
+        file: "game:itemtypes/resource/treeseed.json",
+        op: "addmerge",
+        path: "/attributesByType/*/foodTagsByType",
+        value: { "*-oak": [ "acorn" ], "*-walnut": ["walnut"] },
+        side: "server",
+    },
+    {
+        file: "game:itemtypes/resource/treeseed.json",
+        op: "addmerge",
+        path: "/attributesByType/*/satietyByType",
+        value: { "*-oak": 15 },
+        side: "server",
+    },
+    {
+        file: "game:itemtypes/resource/treeseed.json",
+        op: "replace",
+        path: "/attributesByType/*/satietyByType/*-oak",
+        value: 6,
+        side: "server",
+        dependsOn: [ { modid: "acorns" } ],
+    },
+    {
         "file": "game:itemtypes/resource/tuleroot.json",
         "op": "addmerge",
         "path": "/attributes/foodTags",

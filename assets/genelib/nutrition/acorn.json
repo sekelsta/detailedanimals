@@ -1,0 +1,11 @@
+{
+    tag: "acorn",
+    fiber: 0.15,
+    sugar: 0.08,
+    starch: 0.33,
+    fat: 0.35,
+    protein: 0.08,
+    water: 0.1,
+    minerals: 0.01,
+    priority: 1,
+}

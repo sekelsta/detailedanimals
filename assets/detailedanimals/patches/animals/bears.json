@@ -121,8 +121,8 @@
         value: {
             foodCategories: ["Protein", "Dairy", "Fruit", "Grain", "Vegetable"],
             foodTagsByType: {
-                "*-panda": ["meat", "egg", "vegetable", "lootableSweet", "sweetBerryBush", "foliage", "grass"],
-                "*": ["meat", "egg", "vegetable", "lootableSweet", "sweetBerryBush"],
+                "*-panda": ["meat", "egg", "vegetable", "lootableSweet", "sweetBerryBush", "acorn", "foliage", "grass"],
+                "*": ["meat", "egg", "vegetable", "lootableSweet", "sweetBerryBush", "acorn"],
             },
         },
         side: "server"

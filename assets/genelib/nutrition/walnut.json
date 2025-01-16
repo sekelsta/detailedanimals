@@ -1,0 +1,11 @@
+{
+    tag: "walnut",
+    fiber: 0.07,
+    sugar: 0.03,
+    starch: 0.03,
+    fat: 0.7,
+    protein: 0.16,
+    water: 0.05,
+    minerals: 0.01,
+    priority: 1,
+}

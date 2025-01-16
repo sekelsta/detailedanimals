@@ -190,7 +190,7 @@
         file: "game:entities/land/hooved/moose.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["grass", "vegetable", "foliage", "hay", "fruitmash", "sheepfeed", "toughstem"],
+        value: ["grass", "vegetable", "foliage", "hay", "fruitmash", "sheepfeed", "toughstem", "acorn"],
         side: "server"
     },
     {
