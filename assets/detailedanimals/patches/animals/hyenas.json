@@ -20,7 +20,6 @@
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 60, weightDimorphism: -0.03 },
-        op: "add",
         side: "server"
     },
     {
@@ -28,7 +27,6 @@
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 60, weightDimorphism: -0.03 },
-        op: "add",
         side: "server"
     },
     {
@@ -36,7 +34,6 @@
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 60, weightDimorphism: -0.03 },
-        op: "add",
         side: "server"
     },
     {
