@@ -40,28 +40,34 @@
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:redmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 20, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-small", 
-                    category: "pelt",
-                    quantity: { avg: 2, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 7, var: 0 } 
-                }
-            ]
-        },
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-piglet.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops",
+        value: [
+            {
+                type: "item", 
+                code: "game:redmeat-raw", 
+                category: "meat",
+                quantity: { avg: 20, var: 0 } 
+            },
+            {
+                type: "item", 
+                code: "game:hide-raw-small", 
+                category: "pelt",
+                quantity: { avg: 2, var: 0 } 
+            },
+            {
+                type: "item", 
+                code: "game:fat", 
+                category: "fat",
+                quantity: { avg: 7, var: 0 } 
+            }
+        ],
         side: "server"
     },
     {
@@ -74,28 +80,29 @@
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:redmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 20, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-medium", 
-                    category: "pelt",
-                    quantity: { avg: 1.2, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 7, var: 0 } 
-                }
-            ],
-        },
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantity",
+        value: { avg: 20, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 1.2, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantity",
+        value: { avg: 7, var: 0 },
         side: "server"
     },
     {
@@ -108,30 +115,33 @@
     {
         file: "game:entities/land/pig-wild-male.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:redmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 20, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-medium", 
-                    category: "pelt",
-                    quantity: { avg: 1.2, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 7, var: 0 } 
-                }
-            ],
-        },
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
         side: "server"
     },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantity",
+        value: { avg: 20, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 1.2, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/pig-wild-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantity",
+        value: { avg: 7, var: 0 },
+        side: "server"
+    },
+
+
 
     {
         file: "game:entities/land/pig-wild-piglet.json",

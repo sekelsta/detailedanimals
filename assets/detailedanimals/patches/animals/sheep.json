@@ -26,28 +26,34 @@
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:redmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 21, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-small", 
-                    category: "pelt",
-                    quantity: { avg: 4.7, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 3.5, var: 0 },
-                }
-            ],
-        },
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-lamb.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops",
+        value: [
+            {
+                type: "item", 
+                code: "game:redmeat-raw", 
+                category: "meat",
+                quantity: { avg: 21, var: 0 } 
+            },
+            {
+                type: "item", 
+                code: "game:hide-raw-small", 
+                category: "pelt",
+                quantity: { avg: 4.7, var: 0 } 
+            },
+            {
+                type: "item", 
+                code: "game:fat", 
+                category: "fat",
+                quantity: { avg: 3.5, var: 0 },
+            }
+        ],
         side: "server"
     },
     {
@@ -60,28 +66,28 @@
     {
         file: "game:entities/land/sheep-bighorn-female.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:redmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 21, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-large", 
-                    category: "pelt",
-                    quantity: { avg: 1.6, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 3.5, var: 0 },
-                }
-            ],
-        },
+        path: "/server/behaviors/6/code",
+        value:"genelib.harvestable",
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantity",
+        value: { avg: 21, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 1.6, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantity",
+        value: { avg: 3.5, var: 0 },
         side: "server"
     },
     {
@@ -94,28 +100,28 @@
     {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:redmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 21, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-large", 
-                    category: "pelt",
-                    quantity: { avg: 1.6, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 3.5, var: 0 },
-                }
-            ],
-        },
+        path: "/server/behaviors/6/code",
+        value:"genelib.harvestable",
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantity",
+        value: { avg: 21, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 1.6, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/sheep-bighorn-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantity",
+        value: { avg: 3.5, var: 0 },
         side: "server"
     },
 

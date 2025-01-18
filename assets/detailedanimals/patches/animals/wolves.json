@@ -146,91 +146,96 @@
         value: { code: "genelib.harvestable" },
         side: "server"
     },
+
     {
         file: "game:entities/land/wolf-pup.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantity",
+        value: { avg: 9.6, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 1.4, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/-",
         value: {
-            code: "genelib.harvestable",
-            drops: [
-                {
-                    type: "item", 
-                    code: "game:bushmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 9.6, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-small", 
-                    category: "pelt",
-                    quantity: { avg: 2.8, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 1.6, var: 0 } 
-                }
-            ]
+            type: "item", 
+            code: "game:fat", 
+            category: "fat",
+            quantity: { avg: 1.6, var: 0 } 
         },
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-female.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: {
-            code: "genelib.harvestable",
-            drops: [
-                {
-                    type: "item", 
-                    code: "game:bushmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 9.6, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-medium", 
-                    category: "pelt",
-                    quantity: { avg: 1.4, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 1.6, var: 0 } 
-                }
-            ]
-        },
+        path: "/server/behaviors/6/drops/0/quantity",
+        value: { avg: 9.6, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 1.4, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantity",
+        value: { avg: 1.6, var: 0 },
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/wolf-male.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: {
-            code: "genelib.harvestable",
-            drops: [
-                {
-                    type: "item", 
-                    code: "game:bushmeat-raw", 
-                    category: "meat",
-                    quantity: { avg: 9.6, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-medium", 
-                    category: "pelt",
-                    quantity: { avg: 1.4, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantity: { avg: 1.6, var: 0 } 
-                }
-            ]
-        },
+        path: "/server/behaviors/6/drops/0/quantity",
+        value: { avg: 9.6, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 1.4, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantity",
+        value: { avg: 1.6, var: 0 },
         side: "server"
     },
 

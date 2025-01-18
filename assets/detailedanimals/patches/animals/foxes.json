@@ -114,38 +114,37 @@
     {
         file: "game:entities/land/fox.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantityByType",
         value: {
-            code: "genelib.harvestable",
-            drops: [
-                {
-                    type: "item", 
-                    code: "game:bushmeat-raw",
-                    category: "meat",
-                    quantityByType: {
-                        "*-red-*": { avg: 1.8, var: 0 },
-                        "*-arctic-*": { avg: 0.8, var: 0 } 
-                    },
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-small", 
-                    category: "pelt",
-                    quantityByType: {
-                        "*-red-*": { avg: 1, var: 0 },
-                        "*-arctic-*": { avg: 0.5, var: 0 } 
-                    },
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantityByType: {
-                        "*-red-*": { avg: 0.3, var: 0 },
-                        "*-arctic-*": { avg: 0.1, var: 0 } 
-                    },
-                }
-            ]
+            "*-red-*": { avg: 1.8, var: 0 },
+            "*-arctic-*": { avg: 0.8, var: 0 } 
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantityByType",
+        value: {
+            "*-red-*": { avg: 1, var: 0 },
+            "*-arctic-*": { avg: 0.5, var: 0 } 
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantityByType",
+        value: {
+            "*-red-*": { avg: 0.3, var: 0 },
+            "*-arctic-*": { avg: 0.1, var: 0 } 
         },
         side: "server"
     },

@@ -65,6 +65,7 @@ namespace Genelib {
             // Used by Butchering mod, also used by us now
             jsonDrops = new BlockDropItemStack[creatureDrops.Length];
             for (int i = 0; i < creatureDrops.Length; ++i) {
+                creatureDrops[i].Resolve(entity.World, "genelib.Harvestable ", entity.Code);
                 jsonDrops[i] = creatureDrops[i].WithAnimalWeight(AnimalWeight, healthyWeight);
             }
         }
@@ -80,7 +81,6 @@ namespace Genelib {
                 if (drop.Tool != null && (byPlayer == null || byPlayer.InventoryManager.ActiveTool != drop.Tool)) {
                     continue;
                 }
-                drop.Resolve(entity.World, "genelib.Harvestable ", entity.Code);
 
                 float multiplier = dropQuantityMultiplier * this.dropQuantityMultiplier;
                 if (drop.DropModbyStat != null) {

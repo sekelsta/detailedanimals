@@ -56,59 +56,73 @@
     {
         file: "game:entities/land/bear.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantityByType",
         value: {
-            code: "genelib.harvestable",
-            drops: [
-                {
-                    type: "item",
-                    code: "game:bushmeat-raw",
-                    category: "meat",
-                    quantityByType: {
-                        "*-black": { avg: 24, var: 1 },
-                        "*-brown": { avg: 59, var: 3 },
-                        "*-sun": { avg: 11, var: 0.5 },
-                        "*-panda": { avg: 27, var: 1 },
-                        "*-polar": { avg: 97, var: 5 },
-                    },
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-huge", 
-                    category: "pelt",
-                    quantityByType: {
-                        "*-black": { avg: 1, var: 0.1 },
-                        "*-brown": { avg: 1.9, var: 0.1 },
-                        "*-sun": { avg: 0, var: 0 },
-                        "*-panda": { avg: 1.1, var: 0.1 },
-                        "*-polar": { avg: 2.6, var: 0.1 },
-                    },
-                },
-                {
-                    type: "item", 
-                    code: "game:fat", 
-                    category: "fat",
-                    quantityByType: {
-                        "*-black": { avg: 6, var: 0.1 },
-                        "*-brown": { avg: 15, var: 0.2 },
-                        "*-sun": { avg: 2.8, var: 0.1 },
-                        "*-panda": { avg: 7, var: 0.1 },
-                        "*-polar": { avg: 24, var: 0.3 },
-                    },
-                },
-                {
-                    type: "item", 
-                    code: "game:hide-raw-large", 
-                    quantityByType: {
-                        "*-black": { avg: 0, var: 0 },
-                        "*-brown": { avg: 0, var: 0 },
-                        "*-sun": { avg: 1.3, var: 0.1 },
-                        "*-panda": { avg: 0, var: 0 },
-                        "*-polar": { avg: 0, var: 0 },
-                    },
-                },
-            ]
+            "*-black": { avg: 24, var: 1 },
+            "*-brown": { avg: 59, var: 3 },
+            "*-sun": { avg: 11, var: 0.5 },
+            "*-panda": { avg: 27, var: 1 },
+            "*-polar": { avg: 97, var: 5 },
         },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantityByType",
+        value: {
+            "*-black": { avg: 1, var: 0.1 },
+            "*-brown": { avg: 1.9, var: 0.1 },
+            "*-sun": { avg: 0, var: 0 },
+            "*-panda": { avg: 1.1, var: 0.1 },
+            "*-polar": { avg: 2.6, var: 0.1 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantityByType",
+        value: {
+            "*-black": { avg: 6, var: 0.1 },
+            "*-brown": { avg: 15, var: 0.2 },
+            "*-sun": { avg: 2.8, var: 0.1 },
+            "*-panda": { avg: 7, var: 0.1 },
+            "*-polar": { avg: 24, var: 0.3 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/-",
+        value: {
+            type: "item", 
+            code: "game:hide-raw-large", 
+            quantityByType: {
+                "*-black": { avg: 0, var: 0 },
+                "*-brown": { avg: 0, var: 0 },
+                "*-sun": { avg: 1.3, var: 0.1 },
+                "*-panda": { avg: 0, var: 0 },
+                "*-polar": { avg: 0, var: 0 },
+            },
+        },
+        dependsOn: [ { modid: "hideandfabric", invert: true } ],
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantityByType/*-sun",
+        value: { avg: 1.3, var: 0.1 },
+        dependsOn: [ { modid: "hideandfabric" } ],
         side: "server"
     },
 

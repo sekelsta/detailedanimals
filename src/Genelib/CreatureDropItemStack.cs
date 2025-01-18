@@ -1,17 +1,28 @@
 using System;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 
 namespace Genelib {
     public enum EnumDropCategory {
-        Other = 0,
+        Unknown = 0,
         Meat = 1,
         Pelt = 2,
-        Fat = 3
+        Fat = 3,
+        Constant = 4
     }
     public class CreatureDropItemStack : BlockDropItemStack {
-        public EnumDropCategory Category = EnumDropCategory.Other;
+        public EnumDropCategory Category = EnumDropCategory.Unknown;
 
         public BlockDropItemStack WithAnimalWeight(float animalWeight, float healthyWeight) {
+            if (Category == EnumDropCategory.Unknown) {
+                // Resolve() should have been called ahead of time
+                JsonObject jsonCategory = ResolvedItemstack?.Collectible?.Attributes?["productCategory"];
+                if (jsonCategory != null && jsonCategory.Exists) {
+                    string stringCategory = jsonCategory.AsString();
+                    Category = Enum.Parse<EnumDropCategory>(stringCategory, ignoreCase: true);
+                }
+            }
+
             // Set with the expectation that this will be multipled by AnimalWeight later
             float multiplier = 1 / animalWeight;
             if (Category == EnumDropCategory.Meat) {

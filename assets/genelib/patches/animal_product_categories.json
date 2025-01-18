@@ -1,0 +1,52 @@
+[
+    {
+        file: "game:itemtypes/food/bushmeat.json",
+        op: "add",
+        path: "/attributes/productCategory",
+        value: "meat",
+        side: "server",
+    },
+    {
+        file: "game:itemtypes/food/redmeat.json",
+        op: "add",
+        path: "/attributes/productCategory",
+        value: "meat",
+        side: "server",
+    },
+    {
+        file: "game:itemtypes/food/poultry.json",
+        op: "add",
+        path: "/attributes/productCategory",
+        value: "meat",
+        side: "server",
+    },
+    {
+        file: "game:itemtypes/food/fish.json",
+        op: "add",
+        path: "/attributes/productCategory",
+        value: "meat",
+        side: "server",
+    },
+    {
+        file: "game:itemtypes/resource/fat.json",
+        op: "add",
+        path: "/attributes/productCategory",
+        value: "fat",
+        side: "server",
+    },
+    {
+        file: "game:itemtypes/resource/hide.json",
+        op: "add",
+        path: "/attributes/productCategory",
+        value: "pelt",
+        side: "server",
+    },
+    {
+        file: "hidandfabric:itemtypes/resource/hide.json",
+        op: "add",
+        path: "/attributes/productCategory",
+        value: "pelt",
+        side: "server",
+        dependsOn: [ { modid: "hideandfabric" } ],
+    },
+]
