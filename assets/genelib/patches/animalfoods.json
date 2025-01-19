@@ -128,6 +128,13 @@
         side: "server",
     },
     {
+        file: "game:itemtypes/food/legume.json",
+        op: "add",
+        path: "/attributes/satiety",
+        value: 160,
+        side: "server",
+    },
+    {
         "file": "game:itemtypes/food/pickledlegume.json",
         "op": "addmerge",
         "path": "/attributes/foodTags",

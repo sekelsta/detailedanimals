@@ -270,21 +270,21 @@
         file: "game:entities/land/sheep-bighorn-female.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "toughstem", "acorn"],
+        value: ["vegetable", "foliage", "hay", "toughstem", "acorn", "peanut", "soybean"],
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-male.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "toughstem", "acorn"],
+        value: ["vegetable", "foliage", "hay", "toughstem", "acorn", "peanut", "soybean"],
         side: "server"
     },
     {
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "toughstem", "acorn"],
+        value: ["vegetable", "foliage", "hay", "toughstem", "acorn", "peanut", "soybean"],
         side: "server"
     },
     {

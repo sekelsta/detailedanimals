@@ -258,7 +258,7 @@
         file: "game:entities/land/raccoon-female.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "meat", "egg", "fruitmash", "acorn"],
+        value: ["vegetable", "meat", "egg", "fruitmash", "acorn", "soybean"],
         side: "server"
     },
     {
@@ -279,7 +279,7 @@
         file: "game:entities/land/raccoon-male.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "meat", "egg", "fruitmash", "acorn"],
+        value: ["vegetable", "meat", "egg", "fruitmash", "acorn", "soybean"],
         side: "server"
     },
     {
@@ -300,7 +300,7 @@
         file: "game:entities/land/raccoon-pup.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "meat", "egg", "fruitmash", "acorn"],
+        value: ["vegetable", "meat", "egg", "fruitmash", "acorn", "soybean"],
         side: "server"
     },
     {

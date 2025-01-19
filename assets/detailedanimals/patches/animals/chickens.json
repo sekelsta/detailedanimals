@@ -305,21 +305,21 @@
         file: "game:entities/land/chicken-hen.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: [ "grass", "vegetable", "foliage", "meat", "acorn" ],
+        value: [ "grass", "vegetable", "foliage", "meat", "acorn", "soybean" ],
         side: "server"
     },
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: [ "grass", "vegetable", "foliage", "meat", "acorn" ],
+        value: [ "grass", "vegetable", "foliage", "meat", "acorn", "soybean" ],
         side: "server"
     },
     {
         file: "game:entities/land/chicken-baby.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
-        value: [ "grass", "vegetable", "foliage", "meat", "acorn" ],
+        value: [ "grass", "vegetable", "foliage", "meat", "acorn", "soybean" ],
         side: "server"
     },
     {
