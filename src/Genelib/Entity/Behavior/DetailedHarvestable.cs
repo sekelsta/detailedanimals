@@ -67,6 +67,8 @@ namespace Genelib {
             for (int i = 0; i < creatureDrops.Length; ++i) {
                 creatureDrops[i].Resolve(entity.World, "genelib.Harvestable ", entity.Code);
                 jsonDrops[i] = creatureDrops[i].WithAnimalWeight(AnimalWeight, healthyWeight);
+                // Required for Butchering mod compat, otherwise JsonConvert.SerializeObject() throws an exception
+                jsonDrops[i].ResolvedItemstack = null;
             }
         }
 
@@ -81,6 +83,7 @@ namespace Genelib {
                 if (drop.Tool != null && (byPlayer == null || byPlayer.InventoryManager.ActiveTool != drop.Tool)) {
                     continue;
                 }
+                drop.Resolve(entity.World, "genelib.Harvestable ", entity.Code);
 
                 float multiplier = dropQuantityMultiplier * this.dropQuantityMultiplier;
                 if (drop.DropModbyStat != null) {
