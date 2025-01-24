@@ -102,42 +102,52 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantityByType",
+        value: { "*": { avg: 111, var: 0 } },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1",
         value: {
-            "code": "genelib.harvestable",
-            "drops": [
-                {
-                    "type": "item",
-                    "code": "game:redmeat-raw",
-                    category: "meat",
-                    quantity: { avg: 111, var: 10 }
-                },
-                {
-                    "type": "item",
-                    "code": "game:hide-raw-huge",
-                    category: "pelt",
-                    "quantityByType": {
-                        "*-adult": { avg: 2.9, var: 0.2 },
-                        "*-baby": { avg: 0, var: 0 }
-                    }
-                },
-                {
-                    "type": "item",
-                    "code": "game:hide-raw-large",
-                    category: "pelt",
-                    "quantityByType": {
-                        "*-baby": { avg: 4.8, var: 0.2 },
-                        "*-adult": { avg: 0, var: 0 }
-                    }
-                },
-                {
-                    "type": "item",
-                    "code": "game:fat",
-                    category: "fat",
-                    quantity: { avg: 18, var: 0.3 }
-                }
-            ]
+            "type": "item",
+            "code": "game:hide-raw-huge",
+            category: "pelt",
+            "quantityByType": {
+                "*-adult": { avg: 2.9, var: 0.2 },
+                "*-baby": { avg: 0, var: 0 }
+            }
         },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2",
+        value: {
+            "type": "item",
+            "code": "game:hide-raw-large",
+            category: "pelt",
+            "quantityByType": {
+                "*-baby": { avg: 4.8, var: 0.2 },
+                "*-adult": { avg: 0, var: 0 }
+            }
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/moose.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/3/quantityByType",
+        value: { "*": { avg: 18, var: 0.3 } },
         side: "server"
     },
 

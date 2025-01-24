@@ -82,17 +82,21 @@
     {
         file: "game:entities/land/chicken-baby.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:poultry-raw", 
-                    category: "meat",
-                    quantity: {
-                        "*":{ avg: 0.7, var: 0.1 } 
-                    }
-                },
-            ],
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/-",
+        value: {
+            type: "item", 
+            code: "game:poultry-raw", 
+            category: "meat",
+            quantity: {
+                "*":{ avg: 0.7, var: 0 } 
+            }
         },
         side: "server"
     },
@@ -106,22 +110,22 @@
     {
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
-        path: "/server/behaviors/5",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:poultry-raw", 
-                    category: "meat",
-                    quantity: { avg: 0.7, var: 0.1 }
-                },
-                {
-                    type: "item", 
-                    code: "game:feather", 
-                    category: "pelt",
-                    quantity: { avg: 12, var: 4 } 
-                }
-            ],
-        },
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/5/drops/0/quantityByType",
+        value: { "*": { avg: 0.7, var: 0 } },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "replace",
+        path: "/server/behaviors/5/drops/1/quantity",
+        value: { avg: 12, var: 4 },
         side: "server"
     },
     {
@@ -134,22 +138,22 @@
     {
         file: "game:entities/land/chicken-rooster.json",
         op: "replace",
-        path: "/server/behaviors/6",
-        value: { code: "genelib.harvestable", drops: [
-                {
-                    type: "item", 
-                    code: "game:poultry-raw", 
-                    category: "meat",
-                    quantity: { avg: 0.7, var: 0.1 }
-                },
-                {
-                    type: "item", 
-                    code: "game:feather", 
-                    category: "pelt",
-                    quantity: { avg: 12, var: 4 } 
-                }
-            ],
-        },
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantityByType",
+        value: { "*": { avg: 0.7, var: 0 } },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 12, var: 4 },
         side: "server"
     },
 

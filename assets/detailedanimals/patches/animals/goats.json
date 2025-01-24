@@ -135,101 +135,109 @@
     {
         file: "game:entities/land/hooved/goat.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantityByType",
         value: {
-            code: "genelib.harvestable",
-                "drops": [
-                    {
-                        "type": "item",
-                        "code": "game:redmeat-raw",
-                        category: "meat",
-                        "quantityByType": {
-                            "goat-ibexalp-*": { avg: 15, var: 1 },
-                            "goat-takingold-*": { avg: 54, var: 6 },
-                            "goat-markhor-*": { avg: 16, var: 1 },
-                            "goat-mountain-*": { avg: 37, var: 3 },
-                            "goat-muskox-*": { avg: 71, var: 7 },
-                            "goat-ibexnub-*": { avg: 12.5, var: 1 },
-                            "goat-turdag-*": { avg: 16, var: 1 },
-                            "goat-angora-*": { avg: 15, var: 1 },
-                            "goat-nubian-*": { avg: 15, var: 1 },
-                            "goat-sirohi-*": { avg: 15, var: 1 },
-                            "goat-valais-*": { avg: 15, var: 1 },
-                        }
-                    },
-                    {
-                        "type": "item",
-                        "code": "game:hide-raw-huge",
-                        category: "pelt",
-                        "quantityByType": {
-                            "goat-takingold-*-adult": { avg: 1.8, var: 0.1 },
-                            "goat-mountain-*-adult": { avg: 1, var: 0.1 },
-                            "goat-muskox-*-adult": { avg: 2.2, var: 0.2 },
-                            "*": { avg: 0, var: 0 },
-                        },
-                    },
-                    {
-                        "type": "item",
-                        "code": "game:hide-raw-large",
-                        category: "pelt",
-                        "quantityByType": {
-                            "goat-ibexalp-*-adult": { avg: 1.25, var: 0.1 },
-                            "goat-markhor-*-adult": { avg: 1.4, var: 0.1 },
-                            "goat-ibexnub-*-adult": { avg: 1.1, var: 0.1 },
-                            "goat-turdag-*-adult": { avg: 1.4, var: 0.1 },
-                            "goat-angora-*-adult": { avg: 1.1, var: 0.1 },
-                            "goat-nubian-*-adult": { avg: 1.1, var: 0.1 },
-                            "goat-sirohi-*-adult": { avg: 1.1, var: 0.1 },
-                            "goat-valais-*-adult": { avg: 1.1, var: 0.1 },
-                            "goat-takingold-*-baby": { avg: 3, var: 0.1 },
-                            "goat-muskox-*-baby": { avg: 3.6, var: 0.1 },
-                            "*": { avg: 0, var: 0 },
-                        },
-                    },
-                    {
-                        "type": "item",
-                        "code": "game:hide-raw-medium",
-                        category: "pelt",
-                        "quantityByType": {
-                            "goat-mountain-*-baby": { avg: 2.4, var: 0.1 },
-                            "goat-turdag-*-baby": { avg: 2, var: 0.1 },
-                            "*": { avg: 0, var: 0 },
-                        },
-                    },
-                    {
-                        "type": "item",
-                        "code": "game:hide-raw-small",
-                        category: "pelt",
-                        "quantityByType": {
-                            "goat-ibexalp-*-baby": { avg: 3.7, var: 0.1 },
-                            "goat-markhor-*-baby": { avg: 4, var: 0.1 },
-                            "goat-ibexnub-*-baby": { avg: 3.4, var: 0.1 },
-                            "goat-angora-*-baby": { avg: 3.8, var: 0.1 },
-                            "goat-nubian-*-baby": { avg: 3.8, var: 0.1 },
-                            "goat-sirohi-*-baby": { avg: 3.8, var: 0.1 },
-                            "goat-valais-*-baby": { avg: 3.8, var: 0.1 },
-                            "*": { avg: 0, var: 0 },
-                        },
-                    },
-                    {
-                        "type": "item",
-                        "code": "game:fat",
-                        category: "fat",
-                        "quantityByType": {
-                            "goat-ibexalp-*": { avg: 2.4, var: 0 },
-                            "goat-takingold-*": { avg: 9, var: 0.1 },
-                            "goat-markhor-*": { avg: 2.7, var: 0 },
-                            "goat-mountain-*": { avg: 3.6, var: 0 },
-                            "goat-muskox-*": { avg: 12, var: 0.2 },
-                            "goat-ibexnub-*": { avg: 2.1, var: 0 },
-                            "goat-turdag-*": { avg: 2.7, var: 0 },
-                            "goat-angora-*": { avg: 2.7, var: 0 },
-                            "goat-nubian-*": { avg: 2.7, var: 0 },
-                            "goat-sirohi-*": { avg: 2.7, var: 0 },
-                            "goat-valais-*": { avg: 2.7, var: 0 },
-                        }
-                    }
-                ]
+            "goat-ibexalp-*": { avg: 15, var: 1 },
+            "goat-takingold-*": { avg: 54, var: 6 },
+            "goat-markhor-*": { avg: 16, var: 1 },
+            "goat-mountain-*": { avg: 37, var: 3 },
+            "goat-muskox-*": { avg: 71, var: 7 },
+            "goat-ibexnub-*": { avg: 12.5, var: 1 },
+            "goat-turdag-*": { avg: 16, var: 1 },
+            "goat-angora-*": { avg: 15, var: 1 },
+            "goat-nubian-*": { avg: 15, var: 1 },
+            "goat-sirohi-*": { avg: 15, var: 1 },
+            "goat-valais-*": { avg: 15, var: 1 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantityByType",
+        value: {
+            "goat-ibexalp-*-adult": { avg: 1.25, var: 0.1 },
+            "goat-markhor-*-adult": { avg: 1.4, var: 0.1 },
+            "goat-ibexnub-*-adult": { avg: 1.1, var: 0.1 },
+            "goat-turdag-*-adult": { avg: 1.4, var: 0.1 },
+            "goat-angora-*-adult": { avg: 1.1, var: 0.1 },
+            "goat-nubian-*-adult": { avg: 1.1, var: 0.1 },
+            "goat-sirohi-*-adult": { avg: 1.1, var: 0.1 },
+            "goat-valais-*-adult": { avg: 1.1, var: 0.1 },
+            "goat-takingold-*-baby": { avg: 3, var: 0.1 },
+            "goat-muskox-*-baby": { avg: 3.6, var: 0.1 },
+            "*": { avg: 0, var: 0 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        // Add instead of replace due to https://github.com/anegostudios/VintageStory-Issues/issues/5094
+        op: "add",
+        path: "/server/behaviors/6/drops/2/quantityByType",
+        value: {
+            "goat-mountain-*-baby": { avg: 2.4, var: 0.1 },
+            "goat-turdag-*-baby": { avg: 2, var: 0.1 },
+            "*": { avg: 0, var: 0 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/3/quantityByType",
+        value: {
+            "goat-ibexalp-*-baby": { avg: 3.7, var: 0.1 },
+            "goat-markhor-*-baby": { avg: 4, var: 0.1 },
+            "goat-ibexnub-*-baby": { avg: 3.4, var: 0.1 },
+            "goat-angora-*-baby": { avg: 3.8, var: 0.1 },
+            "goat-nubian-*-baby": { avg: 3.8, var: 0.1 },
+            "goat-sirohi-*-baby": { avg: 3.8, var: 0.1 },
+            "goat-valais-*-baby": { avg: 3.8, var: 0.1 },
+            "*": { avg: 0, var: 0 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/4/quantityByType",
+        value: {
+            "goat-ibexalp-*": { avg: 2.4, var: 0 },
+            "goat-takingold-*": { avg: 9, var: 0.1 },
+            "goat-markhor-*": { avg: 2.7, var: 0 },
+            "goat-mountain-*": { avg: 3.6, var: 0 },
+            "goat-muskox-*": { avg: 12, var: 0.2 },
+            "goat-ibexnub-*": { avg: 2.1, var: 0 },
+            "goat-turdag-*": { avg: 2.7, var: 0 },
+            "goat-angora-*": { avg: 2.7, var: 0 },
+            "goat-nubian-*": { avg: 2.7, var: 0 },
+            "goat-sirohi-*": { avg: 2.7, var: 0 },
+            "goat-valais-*": { avg: 2.7, var: 0 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/-",
+        value: {
+            "type": "item",
+            "code": "game:hide-raw-huge",
+            category: "pelt",
+            "quantityByType": {
+                "goat-takingold-*-adult": { avg: 1.8, var: 0.1 },
+                "goat-mountain-*-adult": { avg: 1, var: 0.1 },
+                "goat-muskox-*-adult": { avg: 2.2, var: 0.2 },
+                "*": { avg: 0, var: 0 },
+            },
         },
         side: "server"
     },

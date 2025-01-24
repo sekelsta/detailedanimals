@@ -58,30 +58,34 @@
     {
         file: "game:entities/land/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantityByType/*-adult",
+        value: { avg: 71, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1",
         value: {
-                code: "genelib.harvestable",
-                drops: [
-                    {
-                        type: "item",
-                        code: "game:redmeat-raw",
-                        category: "meat",
-                        quantity: { avg: 71, var: 7 },
-                    },
-                    {
-                        type: "item",
-                        code: "game:hide-raw-huge",
-                        category: "pelt",
-                        quantity: { avg: 2.2, var: 0.1 },
-                    },
-                    {
-                        type: "item",
-                        code: "game:fat",
-                        category: "fat",
-                        quantityByType: { avg: 18, var: 0.1 },
-                    }
-                ]
-            },
+            type: "item",
+            code: "game:hide-raw-huge",
+            category: "pelt",
+            quantity: { avg: 2.2, var: 0 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/3/quantityByType/*-adult",
+        value: { avg: 18, var: 0 },
         side: "server"
     },
     {

@@ -117,109 +117,116 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/6/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantityByType",
         value: {
-                code: "genelib.harvestable",
-                drops: [
-                    {
-                        type: "item",
-                        code: "game:redmeat-raw",
-                        category: "meat",
-                        quantityByType: {
-                            "deer-caribou-*": { avg: 33, var: 3 },
-                            "deer-chital-*": { avg: 16, var: 2 },
-                            "deer-elk-*": { avg: 71, var: 7 },
-                            "deer-fallow-*": { avg: 15, var: 2 },
-                            "deer-guemal-*": { avg: 18, var: 2 },
-                            "deer-marsh-*": { avg: 24, var: 2 },
-                            "deer-pampas-*": { avg: 6.8, var: 1 },
-                            "deer-pudu-*": { avg: 1.8, var: 0.5 },
-                            "deer-redbrocket-*": { avg: 5.6, var: 2 },
-                            "deer-taruca-*": { avg: 14, var: 2 },
-                            "deer-water-*": { avg: 5, var: 1 },
-                            "deer-whitetail-*": { avg: 14, var: 2 },
-                        }
-                    },
-                    {
-                        type: "item",
-                        code: "game:hide-raw-huge",
-                        category: "pelt",
-                        quantityByType: {
-                            "*-baby": { avg: 0, var: 0 },
-                            "deer-caribou-*": { avg: 1.3, var: 0.1 },
-                            "deer-elk-*": { avg: 2.2, var: 0.1 },
-                            "deer-marsh-*": { avg: 1, var: 0.1 },
-                            "*": { avg: 0, var: 0 }
-                        }
-                    },
-                    {
-                        type: "item",
-                        code: "game:hide-raw-large",
-                        category: "pelt",
-                        quantityByType: {
-                            "deer-elk-*-baby": { avg: 5.4, var: 0.1 },
-                            "*-baby": { avg: 0, var: 0 },
-                            "deer-chital-*": { avg: 1.4, var: 0.1 },
-                            "deer-fallow-*": { avg: 1.3, var: 0.1 },
-                            "deer-guemal-*": { avg: 1.5, var: 0.1 },
-                            "deer-taruca-*": { avg: 1.2, var: 0.1 },
-                            "deer-whitetail-*": { avg: 1.2, var: 0.1 },
-                            "*": { avg: 0, var: 0 }
-                        }
-                    },
-                    {
-                        type: "item",
-                        code: "game:hide-raw-medium",
-                        category: "pelt",
-                        quantityByType: {
-                            "deer-caribou-*-baby": { avg: 6.5, var: 0.1 },
-                            "deer-marsh-*-baby": { avg: 5.2, var: 0.1 },
-                            "*-baby": { avg: 0, var: 0 },
-                            "deer-pampas-*": { avg: 1.1, var: 0.1 },
-                            "deer-redbrocket-*": { avg: 0.94, var: 0.1 },
-                            "deer-water-*": { avg: 0.92, var: 0.1 },
-                            "*": { avg: 0, var: 0 }
-                        }
-                    },
-                    {
-                        type: "item",
-                        code: "game:hide-raw-small",
-                        category: "pelt",
-                        quantityByType: {
-                            "deer-pudu-*-adult": { avg: 0.94, var: 0.1 },
-                            "*-adult": { avg: 0, var: 0 },
-                            "deer-chital-*": { avg: 4, var: 0.1 },
-                            "deer-fallow-*": { avg: 3.8, var: 0.1 },
-                            "deer-guemal-*": { avg: 4.3, var: 0.1 },
-                            "deer-pampas-*": { avg: 2.2, var: 0.1 },
-                            "deer-redbrocket-*": { avg: 2, var: 0.1 },
-                            "deer-taruca-*": { avg: 3.6, var: 0.1 },
-                            "deer-water-*": { avg: 1.8, var: 0.1 },
-                            "deer-whitetail-*": { avg: 3.7, var: 0.1 },
-                            "*": { avg: 0, var: 0 }
-                        }
-                    },
-                    {
-                        type: "item",
-                        code: "game:fat",
-                        category: "fat",
-                        quantityByType: {
-                            "deer-caribou-*": { avg: 5.6, var: 0.1 },
-                            "deer-chital-*": { avg: 2.7, var: 0.1 },
-                            "deer-elk-*": { avg: 12, var: 0.2 },
-                            "deer-fallow-*": { avg: 2.5, var: 0 },
-                            "deer-guemal-*": { avg: 3, var: 0 },
-                            "deer-marsh-*": { avg: 4, var: 0 },
-                            "deer-pampas-*": { avg: 1.1, var: 0 },
-                            "deer-pudu-*": { avg: 0.3, var: 0 },
-                            "deer-redbrocket-*": { avg: 0.9, var: 0 },
-                            "deer-taruca-*": { avg: 2.3, var: 0 },
-                            "deer-water-*": { avg: 0.8, var: 0 },
-                            "deer-whitetail-*": { avg: 2.4, var: 0 },
-                        }
-                    }
-                ]
-            },
+            "deer-caribou-*": { avg: 33, var: 3 },
+            "deer-chital-*": { avg: 16, var: 2 },
+            "deer-elk-*": { avg: 71, var: 7 },
+            "deer-fallow-*": { avg: 15, var: 2 },
+            "deer-guemal-*": { avg: 18, var: 2 },
+            "deer-marsh-*": { avg: 24, var: 2 },
+            "deer-pampas-*": { avg: 6.8, var: 1 },
+            "deer-pudu-*": { avg: 1.8, var: 0.5 },
+            "deer-redbrocket-*": { avg: 5.6, var: 2 },
+            "deer-taruca-*": { avg: 14, var: 2 },
+            "deer-water-*": { avg: 5, var: 1 },
+            "deer-whitetail-*": { avg: 14, var: 2 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity/avgByType",
+        value: {
+            "deer-elk-*-baby": 5.4,
+            "*-baby": 0,
+            "deer-chital-*": 1.4,
+            "deer-fallow-*": 1.3,
+            "deer-guemal-*": 1.5,
+            "deer-taruca-*": 1.2,
+            "deer-whitetail-*": 1.2,
+            "*": 0,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantityByType",
+        value: {
+            "deer-caribou-*-baby": { avg: 6.5, var: 0.1 },
+            "deer-marsh-*-baby": { avg: 5.2, var: 0.1 },
+            "*-baby": { avg: 0, var: 0 },
+            "deer-pampas-*": { avg: 1.1, var: 0.1 },
+            "deer-redbrocket-*": { avg: 0.94, var: 0.1 },
+            "deer-water-*": { avg: 0.92, var: 0.1 },
+            "*": { avg: 0, var: 0 }
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/3/quantity/avgByType",
+        value: {
+            "deer-pudu-*-adult": 0.94,
+            "*-adult": 0,
+            "deer-chital-*": 4,
+            "deer-fallow-*": 3.8,
+            "deer-guemal-*": 4.3,
+            "deer-pampas-*": 2.2,
+            "deer-redbrocket-*": 2,
+            "deer-taruca-*": 3.6,
+            "deer-water-*": 1.8,
+            "deer-whitetail-*": 3.7,
+            "*": 0,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/4/quantityByType",
+        value: {
+            "deer-caribou-*": { avg: 5.6, var: 0.1 },
+            "deer-chital-*": { avg: 2.7, var: 0.1 },
+            "deer-elk-*": { avg: 12, var: 0.2 },
+            "deer-fallow-*": { avg: 2.5, var: 0 },
+            "deer-guemal-*": { avg: 3, var: 0 },
+            "deer-marsh-*": { avg: 4, var: 0 },
+            "deer-pampas-*": { avg: 1.1, var: 0 },
+            "deer-pudu-*": { avg: 0.3, var: 0 },
+            "deer-redbrocket-*": { avg: 0.9, var: 0 },
+            "deer-taruca-*": { avg: 2.3, var: 0 },
+            "deer-water-*": { avg: 0.8, var: 0 },
+            "deer-whitetail-*": { avg: 2.4, var: 0 },
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/deer.json",
+        op: "add",
+        path: "/server/behaviors/6/drops/-",
+        value: {
+            type: "item",
+            code: "game:hide-raw-huge",
+            category: "pelt",
+            quantityByType: {
+                "*-baby": { avg: 0, var: 0 },
+                "deer-caribou-*": { avg: 1.3, var: 0.1 },
+                "deer-elk-*": { avg: 2.2, var: 0.1 },
+                "deer-marsh-*": { avg: 1, var: 0.1 },
+                "*": { avg: 0, var: 0 }
+            }
+        },
         side: "server"
     },
     {
