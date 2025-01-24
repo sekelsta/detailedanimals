@@ -36,6 +36,10 @@ namespace Genelib {
                 typeof(EntityBehaviorHealth).GetMethod("UpdateMaxHealth", BindingFlags.Instance | BindingFlags.Public),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("UpdateMaxHealth_Postfix", BindingFlags.Static | BindingFlags.Public)) 
             );
+            harmony.Patch(
+                typeof(ItemSlot).GetMethod("TakeOut", BindingFlags.Instance | BindingFlags.Public),
+                postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("ItemSlot_TakeOut_Postfix", BindingFlags.Static | BindingFlags.Public)) 
+            );
         }
 
         public static void UpdateMaxHealth_Postfix(EntityBehaviorHealth __instance) {
@@ -72,6 +76,13 @@ namespace Genelib {
             if (wasFullHealth) {
                 __instance.Health = __instance.MaxHealth;
             }
+        }
+
+        public static void ItemSlot_TakeOut_Postfix(ItemSlot __instance, ItemStack __result) {
+            if (__result == null || __intance.Itemstack == null) {
+                return;
+            }
+            // TODO
         }
     }
 }

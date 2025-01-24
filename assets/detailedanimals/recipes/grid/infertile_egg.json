@@ -1,0 +1,11 @@
+[
+	{
+		ingredientPattern: "E",
+		ingredients: {
+			"E": { type: "item", code: "detailedanimals:egg-chicken-*-raw", name: "eggsize" }
+		},
+		width: 1,
+		height: 1,
+		output: { type: "item", code: "detailedanimals:egg-chicken-{eggsize}-raw", quantity: 1  }
+	},
+]
