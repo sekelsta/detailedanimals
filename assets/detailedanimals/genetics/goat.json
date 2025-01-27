@@ -17,14 +17,14 @@
         },
         nubian: {
             autosomal: {
-                polled: { default: "horned", polled: 0.3 },
+                polled: { default: "horned", polled: 0.05 },
             },
             conditions: {
             }
         },
         sirohi: {
             autosomal: {
-                polled: { default: "horned", polled: 0.4 },
+                polled: { default: "horned", polled: 0.2 },
             },
             conditions: {
             }
