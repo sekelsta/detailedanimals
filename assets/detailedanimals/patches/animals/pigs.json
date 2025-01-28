@@ -265,7 +265,7 @@
             code: "genelib.reproduce",
             sireCodes: ["pig-wild-male"],
             offspringCodes: ["detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
-            gestationMonths: 4.5,
+            gestationMonths: 3.8,
             cooldownMonths: 4.0,
             lactationMonths: 3.5,
             estrousCycleMonths: 0.65,
