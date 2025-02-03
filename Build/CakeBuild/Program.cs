@@ -110,7 +110,7 @@ public sealed class PackageTask : FrostingTask<BuildContext>
         context.EnsureDirectoryExists("../Releases");
         context.CleanDirectory("../Releases");
         context.EnsureDirectoryExists($"../Releases/{context.Name}");
-        context.CopyFiles($"../../bin/{context.BuildConfiguration}/Mods/mod/publish/*", $"../Releases/{context.Name}");
+        context.CopyFiles($"../../bin/{context.BuildConfiguration}/publish/*", $"../Releases/{context.Name}");
         context.CopyDirectory($"../../assets", $"../Releases/{context.Name}/assets");
         context.CopyFile($"../../modinfo.json", $"../Releases/{context.Name}/modinfo.json");
         if (context.FileExists($"../../modicon.png"))
