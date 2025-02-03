@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Linq;
 
 using System;
+using System.Linq;
 using System.Text;
 
 using Vintagestory.API.Common;
@@ -32,6 +33,13 @@ namespace DetailedAnimals
             patchEntity(api, "game:entities/land/hyena-pup.json", "hyena", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""");
             patchEntity(api, "game:entities/land/gazelle.json", "gazelle", """[{ "code": "variants", "states": ["male-calf", "female-calf"] }]""");
             patchEntity(api, "game:entities/land/hare-baby.json", "hare", """[{ "code": "variants", "states": ["male-baby", "female-baby"] }]""");
+
+            if (api.ModLoader.Mods.Any((x) => x.Info.ModID == "moreanimals")) {
+                patchEntity(api, "moreanimals:entities/capercaillie-chick.json", "capercaillie", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""");
+                patchEntity(api, "moreanimals:entities/pheasant-chick.json", "pheasant", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""");
+                patchEntity(api, "moreanimals:entities/goldenpheasant-chick.json", "goldenpheasant", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""");
+                patchEntity(api, "moreanimals:entities/wildturkey-chick.json", "wildturkey", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""");
+            }
         }
 
         public override double ExecuteOrder() => 0.15;
