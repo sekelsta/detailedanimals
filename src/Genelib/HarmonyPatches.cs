@@ -34,20 +34,21 @@ namespace Genelib {
             );
             harmony.Patch(
                 typeof(EntityBehaviorHealth).GetMethod("UpdateMaxHealth", BindingFlags.Instance | BindingFlags.Public),
-                postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("UpdateMaxHealth_Postfix", BindingFlags.Static | BindingFlags.Public)) 
+                prefix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("UpdateMaxHealth_Prefix", BindingFlags.Static | BindingFlags.Public)) 
             );
         }
 
-        public static void UpdateMaxHealth_Postfix(EntityBehaviorHealth __instance) {
+        public static bool UpdateMaxHealth_Prefix(EntityBehaviorHealth __instance) {
             Entity entity = __instance.entity;
             if (entity.Api.Side != EnumAppSide.Server) {
-                return;
+                return true;
             }
             // Note this is called for everything with a health behavior, players, animals, monsters
-            float multiplier = (float)Math.Sqrt(entity.WeightModifierExceptCondition());
-            if (multiplier > 0.999 && multiplier < 1.001) {
-                return;
+            float weight = entity.WeightModifierExceptCondition();
+            if (weight > 0.999 && weight < 1.001) {
+                return true;
             }
+            float multiplier = (float)Math.Sqrt(weight);
 
             #pragma warning disable CS0618
             // Repeating the vanilla calculation because it seems when I read MaxHealth right after it's not always set to the result
@@ -72,6 +73,7 @@ namespace Genelib {
             if (wasFullHealth) {
                 __instance.Health = __instance.MaxHealth;
             }
+            return false;
         }
     }
 }
