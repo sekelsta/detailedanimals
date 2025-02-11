@@ -39,6 +39,10 @@ namespace Genelib {
             base.Initialize(properties, editedTypeAttributes);
             if (entity.World.Side == EnumAppSide.Server) {
                 creatureDrops = typeAttributes["drops"].AsObject<CreatureDropItemStack[]>();
+                if (creatureDrops == null) {
+                    entity.Api.Logger.Warning("genelib.detailedharvestable on " + entity.Code + " initialized with null or invalid creature drop list: " + typeAttributes["drops"]);
+                    creatureDrops = new CreatureDropItemStack[0];
+                }
             }
         }
 

@@ -110,7 +110,7 @@
     {
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
-        path: "/server/behaviors/6/code",
+        path: "/server/behaviors/5/code",
         value: "genelib.harvestable",
         side: "server"
     },
