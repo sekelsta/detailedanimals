@@ -173,14 +173,14 @@ namespace Genelib {
 
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
             if (hunger != null) {
-                double prevAnimalWeight = hunger.BodyCondition;
+                double prevAnimalWeight = entity.BodyCondition();
                 double currentWeight = prevAnimalWeight * prevGrowth;
                 double newAnimalWeight = currentWeight / expected;
                 float daysPerMonth = entity.World.Calendar.DaysPerMonth;
                 if (daysPerMonth < 30) {
                     newAnimalWeight = (newAnimalWeight * daysPerMonth + prevAnimalWeight * (30 - daysPerMonth)) / 30;
                 }
-                hunger.BodyCondition = newAnimalWeight;
+                entity.SetBodyCondition(newAnimalWeight);
                 hunger.ShiftWeight(prevAnimalWeight - newAnimalWeight);
             }
             entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(expected, 1/3f)));

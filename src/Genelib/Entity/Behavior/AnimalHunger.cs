@@ -59,17 +59,6 @@ namespace Genelib {
         // Approximate conversion between numbers used for player hunger and by troughs
         public const float TROUGH_SAT_PER_PLAYER_SAT = 1 / 50f;
 
-        public double BodyCondition {
-            get => entity.WatchedAttributes.TryGetDouble("bodyCondition") ?? entity.WatchedAttributes.GetFloat("bodyCondition");
-            set {
-                if (double.IsNaN(value)) {
-                    throw new ArgumentException("Cannot set body condition value to NaN");
-                }
-                entity.WatchedAttributes.SetDouble("bodyCondition", value);
-                entity.WatchedAttributes.SetFloat("animalWeight", (float)Math.Min(1.08, value));
-            }
-        }
-
         public float Saturation {
             get => hungerTree?.GetFloat("saturation") ?? 0;
             set {
@@ -92,7 +81,7 @@ namespace Genelib {
         public float AdjustedMaxSaturation {
             get => MaxSaturation 
                     * Math.Max(0.1f, entity.WatchedAttributes.GetFloat("growthWeightFraction", 1))
-                    * ((float)BodyCondition + 1) / 2;
+                    * ((float)entity.BodyCondition() + 1) / 2;
         }
 
         public float Fullness {
@@ -259,7 +248,7 @@ namespace Genelib {
         }
 
         public bool CanEat(ItemStack itemstack, FoodNutritionProperties nutriProps, NutritionData data) {
-            if (BodyCondition > 1.8) {
+            if (entity.BodyCondition() > 1.8) {
                 return false;
             }
             float fullness = Fullness;
@@ -324,8 +313,8 @@ namespace Genelib {
         public bool WantsEmergencyFood() {
             float fullness = Fullness;
             return fullness < STARVING
-                || (BodyCondition < 0.7 && fullness < HUNGRY) 
-                || (BodyCondition < 0.85 && fullness < VERY_HUNGRY);
+                || (entity.BodyCondition() < 0.7 && fullness < HUNGRY) 
+                || (entity.BodyCondition() < 0.85 && fullness < VERY_HUNGRY);
         }
 
         public bool CanDigestMilk() {
@@ -582,7 +571,7 @@ namespace Genelib {
         public double WeightShiftAmount() {
             float fullness = Fullness;
             double gain = fullness * fullness * fullness;
-            double recovery = 1 - BodyCondition;
+            double recovery = 1 - entity.BodyCondition();
             return (gain + recovery) / 2;
         }
 
@@ -594,7 +583,7 @@ namespace Genelib {
 
         public void ShiftWeight(double deltaWeight) {
             double inefficiency = deltaWeight > 0 ? 1.05 : 0.95;
-            BodyCondition = Math.Clamp(BodyCondition + deltaWeight, 0.5, 2.0);
+            entity.SetBodyCondition(Math.Clamp(entity.BodyCondition() + deltaWeight, 0.5, 2.0));
             double fractionOfOwnWeightEatenPerDay = 0.04;
             double totalSaturation = AdjustedMaxSaturation * 2;
             double deltaSat = deltaWeight * inefficiency / fractionOfOwnWeightEatenPerDay * totalSaturation / DaysUntilHungry;

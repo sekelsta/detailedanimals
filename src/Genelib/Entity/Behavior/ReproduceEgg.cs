@@ -50,7 +50,7 @@ namespace Genelib {
             if (!entity.Alive || entity.WatchedAttributes.GetBool("neutered", false)) {
                 return false;
             }
-            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
+            double animalWeight = entity.BodyCondition();
             if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
                 return false;
             }
@@ -79,13 +79,10 @@ namespace Genelib {
                 lessw = w;
             }
 
-            AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
-            if (hunger != null) {
-                float theRestOfTheWeight = entity.Properties.Attributes["adultWeightKg"].AsFloat() * entity.WeightModifierExceptCondition();
-                double prevTotalWeight = hunger.BodyCondition * theRestOfTheWeight;
-                double newTotalWeight = Math.Max(prevTotalWeight * 0.1f, prevTotalWeight - eggWeight);
-                hunger.BodyCondition = newTotalWeight / theRestOfTheWeight;
-            }
+            float theRestOfTheWeight = entity.Properties.Attributes["adultWeightKg"].AsFloat() * entity.WeightModifierExceptCondition();
+            double prevTotalWeight = entity.BodyCondition() * theRestOfTheWeight;
+            double newTotalWeight = Math.Max(prevTotalWeight * 0.1f, prevTotalWeight - eggWeight);
+            entity.SetBodyCondition(newTotalWeight / theRestOfTheWeight);
 
             ItemStack eggStack = new ItemStack(egg);
             TreeAttribute chick = PopChild();
@@ -107,7 +104,7 @@ namespace Genelib {
             if (entity.WatchedAttributes.GetBool("neutered", false)) {
                 return;
             }
-            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
+            double animalWeight = entity.BodyCondition();
             if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
                 infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight-eggs"));
                 return;

@@ -399,7 +399,7 @@ namespace Genelib {
             if (!entity.MatingAllowed()) {
                 return false;
             }
-            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
+            double animalWeight = entity.BodyCondition();
             if (animalWeight <= DetailedHarvestable.MALNOURISHED || animalWeight > DetailedHarvestable.FAT) {
                 return false;
             }
@@ -467,7 +467,7 @@ namespace Genelib {
             GetRemainingInfoText(infotext, animalWeight);
         }
 
-        protected void GetRemainingInfoText(StringBuilder infotext, float animalWeight) {
+        protected void GetRemainingInfoText(StringBuilder infotext, double animalWeight) {
             if (!entity.MatingAllowed()) {
                 return;
             }

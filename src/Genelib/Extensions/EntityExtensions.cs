@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
@@ -51,6 +52,18 @@ namespace Genelib.Extensions {
                 jo.Add("male", !entity.Code.Path.Contains("-female"));
             }
             return entity.Properties.Attributes["male"].AsBool();
+        }
+
+        public static double BodyCondition(this Entity entity) {
+            return entity.WatchedAttributes.TryGetDouble("bodyCondition") ?? entity.WatchedAttributes.GetFloat("bodyCondition");
+        }
+
+        public static void SetBodyCondition(this Entity entity, double value) {
+            if (double.IsNaN(value)) {
+                throw new ArgumentException("Cannot set body condition value to NaN");
+            }
+            entity.WatchedAttributes.SetDouble("bodyCondition", value);
+            entity.WatchedAttributes.SetFloat("animalWeight", (float)Math.Min(1.08, value));
         }
 
         public static float WeightModifierExceptCondition(this Entity entity) {

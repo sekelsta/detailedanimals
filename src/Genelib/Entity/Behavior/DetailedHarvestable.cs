@@ -49,14 +49,14 @@ namespace Genelib {
         public override void AfterInitialized(bool onFirstSpawn) {
             animalHunger = entity.GetBehavior<AnimalHunger>();
             if (onFirstSpawn) {
-                animalHunger.BodyCondition = 0.9
+                entity.SetBodyCondition(0.9
                     + 0.07 * entity.World.Rand.NextDouble()
-                    + 0.08 * entity.World.Rand.NextDouble();
+                    + 0.08 * entity.World.Rand.NextDouble());
                 LastWeightUpdateTotalHours = entity.World.Calendar.TotalHours;
             }
             else {
                 if (!entity.WatchedAttributes.HasAttribute("bodyCondition")) {
-                    animalHunger.BodyCondition = (AnimalWeight + 3) / 4;
+                    entity.SetBodyCondition((AnimalWeight + 3) / 4);
                 }
             }
         }
@@ -153,7 +153,7 @@ namespace Genelib {
             double[] conditionBoundaries = new double[] {SKIN_AND_BONES, MALNOURISHED, UNDERWEIGHT, LEAN, MODERATE, THICK, CHUBBY, FAT};
             int bodyScore = 1;
             foreach (double b in conditionBoundaries) {
-                if (animalHunger.BodyCondition > b) {
+                if (entity.BodyCondition() > b) {
                     bodyScore += 1;
                 }
                 else {
@@ -177,10 +177,10 @@ namespace Genelib {
             if (entity.Alive) {
                 double d = animalHunger.WeightShiftAmount();
                 if (d > 0.01) {
-                    if (animalHunger.BodyCondition > 1.06) {
+                    if (entity.BodyCondition() > 1.06) {
                         text += " <font color=\"#ee6933\">↑</font>";
                     }
-                    else if (animalHunger.BodyCondition <= UNDERWEIGHT) {
+                    else if (entity.BodyCondition() <= UNDERWEIGHT) {
                         text += " <font color=\"#65f68e\">↑</font>";
                     }
                     else {
@@ -188,10 +188,10 @@ namespace Genelib {
                     }
                 }
                 else if (d < -0.01) {
-                    if (animalHunger.BodyCondition < 0.94) {
+                    if (entity.BodyCondition() < 0.94) {
                         text += " <font color=\"#ee6933\">↓</font>";
                     }
-                    else if (animalHunger.BodyCondition >= THICK) {
+                    else if (entity.BodyCondition() >= THICK) {
                         text += " <font color=\"#65f68e\">↓</font>";
                     }
                     else {
