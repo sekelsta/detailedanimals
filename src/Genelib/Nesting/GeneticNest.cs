@@ -93,7 +93,7 @@ namespace Genelib {
                 return false;
             }
             ItemStack eggStack = null;
-            Reproduce reproduce = entity.GetBehavior<Reproduce>();
+            ReproduceEgg reproduce = entity.GetBehavior<ReproduceEgg>();
             if (reproduce != null) {
                 eggStack = reproduce.GiveEgg();
             }

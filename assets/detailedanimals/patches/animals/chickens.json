@@ -561,7 +561,7 @@
         file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "genelib.reproduce", enabledByType: { "chicken-hen": true, "chicken-henpoult": false } },
+        value: { code: "genelib.eggreproduce", enabledByType: { "chicken-hen": true, "chicken-henpoult": false } },
         side: "server"
     },
     {
@@ -569,7 +569,7 @@
         op: "replace",
         path: "/server/behaviors/7",
         value: {
-            code: "genelib.reproduce",
+            code: "genelib.eggreproduce",
             enabledByType: { "*-henpoult": false, "*": true },
             sireCodes: [ "game:chicken-rooster" ],
             offspringCodes: [ "detailedanimals:chicken-male-chick", "detailedanimals:chicken-female-chick" ],

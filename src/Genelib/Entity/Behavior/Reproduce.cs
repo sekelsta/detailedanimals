@@ -2,7 +2,6 @@ using Genelib.Extensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -20,7 +19,6 @@ namespace Genelib {
             LongDay
         }
         public const string Code = "genelib.reproduce";
-        private const float DEFAULT_WEIGHT = 0.04f;
 
         // TODO: rearrange to handle hybrids - e.g., offspringBySire
         protected AssetLocation[] SireCodes;
@@ -36,8 +34,6 @@ namespace Genelib {
         protected double litterAddChance = 0;
         protected int litterAddAttempts = 0;
         protected bool InducedOvulation = false;
-        public CollectibleObject[] EggTypes;
-        public bool LaysEggs => EggTypes != null;
 
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
@@ -98,26 +94,6 @@ namespace Genelib {
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             // Deliberately skip calling base.Initialize()
-
-            JsonItemStack[] eggs = entity.Properties.Attributes?["eggTypes"].AsArray<JsonItemStack>();
-            if (eggs != null) {
-                EggTypes = eggs.Select(
-                    (jsonEgg) => {
-                        if (jsonEgg.Resolve(entity.World, null, false)) {
-                            return jsonEgg.ResolvedItemstack.Collectible;
-                        }
-                        else {
-                            entity.Api.Logger.Warning("Failed to resolve egg " + jsonEgg.Type + " with code " + jsonEgg.Code + " for entity " + entity.Code);
-                            return null;
-                        }
-                    } 
-                ).Where(x => x != null).ToArray();
-
-                Array.Sort(EggTypes, (x, y) => 
-                    (x.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
-                    .CompareTo(y.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
-                );
-            }
 
             SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
             OffspringCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
@@ -220,7 +196,7 @@ namespace Genelib {
             listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000);
         }
 
-        private AssetLocation[] getAssetLocationsOrThrow(JsonObject attributes, string key) {
+        protected AssetLocation[] getAssetLocationsOrThrow(JsonObject attributes, string key) {
             string[] strings = null;
             if (attributes.KeyExists(key)) {
                 strings = attributes[key].AsArray<string>();
@@ -342,13 +318,7 @@ namespace Genelib {
             TotalDaysCooldownUntil += (entity.World.Calendar.TotalHours - GrowthPausedSince) / 24.0;
         }
 
-        protected void ProgressPregnancy() {
-            if (LaysEggs) {
-                if (TotalDays > TotalDaysPregnancyStart + GestationDays) {
-                    SetNotPregnant();
-                }
-                return;
-            }
+        protected virtual void ProgressPregnancy() {
             if (InEarlyPregnancy) {
                 if (TotalDays > TotalDaysPregnancyStart + GestationDays / 8.0) {
                     EntityBehaviorGenetics gb = entity.GetBehavior<EntityBehaviorGenetics>();
@@ -419,48 +389,6 @@ namespace Genelib {
             return spawn;
         }
 
-        // The resulting itemstack does not come with incubation data
-        public ItemStack GiveEgg() {
-            float eggWeight = 0.051f; // TODO: Make different chickens lay different sizes of egg
-
-            CollectibleObject egg = EggTypes[0];
-            float lessw;
-            for (int i = 1; i < EggTypes.Length; ++i) {
-                float w = EggTypes[i].Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT;
-                if (w == eggWeight) {
-                    egg = EggTypes[i];
-                    break;
-                }
-                else if (w > eggWeight) {
-                    lessw = EggTypes[i-1].Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT;
-                    float r = lessw + entity.World.Rand.NextSingle() * (w - lessw);
-                    egg = EggTypes[r > eggWeight ? i : i - 1];
-                    eggWeight = w;
-                    break;
-                }
-                lessw = w;
-            }
-
-            AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
-            if (hunger != null) {
-                float theRestOfTheWeight = entity.Properties.Attributes["adultWeightKg"].AsFloat() * entity.WeightModifierExceptCondition();
-                double prevTotalWeight = hunger.BodyCondition * theRestOfTheWeight;
-                double newTotalWeight = Math.Max(prevTotalWeight * 0.1f, prevTotalWeight - eggWeight);
-                hunger.BodyCondition = newTotalWeight / theRestOfTheWeight;
-            }
-
-            ItemStack eggStack = new ItemStack(egg);
-            TreeAttribute chick = PopChild();
-            if (chick == null) {
-                return eggStack;
-            }
-
-            chick.SetInt("generation", NextGeneration());
-            eggStack.Attributes["chick"] = chick;
-
-            return eggStack;
-        }
-
         public static bool EntityCanMate(Entity entity) {
             if (!entity.Alive) {
                 return false;
@@ -473,17 +401,6 @@ namespace Genelib {
             }
             float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
             if (animalWeight <= DetailedHarvestable.MALNOURISHED || animalWeight > DetailedHarvestable.FAT) {
-                return false;
-            }
-            return true;
-        }
-
-        public bool CanLayEgg() {
-            if (!entity.Alive || entity.WatchedAttributes.GetBool("neutered", false)) {
-                return false;
-            }
-            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
-            if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
                 return false;
             }
             return true;
@@ -531,7 +448,7 @@ namespace Genelib {
                 return;
             }
             multiplyTree = entity.WatchedAttributes.GetTreeAttribute("multiply");
-            if (IsPregnant && !LaysEggs) {
+            if (IsPregnant) {
                 int passed = (int)Math.Round(TotalDays - TotalDaysPregnancyStart);
                 int expected = (int)Math.Round(GestationDays);
                 infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-pregnancy", passed, expected));
@@ -547,18 +464,10 @@ namespace Genelib {
                 return;
             }
             float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
-            if (LaysEggs) {
-                if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
-                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight-eggs"));
-                    return;
-                }
-                if (IsPregnant) {
-                    string key = "genelib:infotext-reproduce-eggsfertile";
-                    string translated = Lang.AvailableLanguages[Lang.CurrentLocale].GetUnformatted(key);
-                    infotext.AppendLine((key != translated) ? translated : Lang.Get("game:Ready to lay"));
-                    return;
-                }
-            }
+            GetRemainingInfoText(infotext, animalWeight);
+        }
+
+        protected void GetRemainingInfoText(StringBuilder infotext, float animalWeight) {
             if (!entity.MatingAllowed()) {
                 return;
             }

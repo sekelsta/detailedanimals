@@ -10,7 +10,7 @@ using Genelib.Extensions;
 
 namespace Genelib {
     public class AiTaskLayEgg : AiTaskSeekPoi<IAnimalNest> {
-        protected Reproduce reproduce;
+        protected ReproduceEgg reproduce;
         protected AnimationMetaData sitAnimation;
         protected double sitEndHour;
         protected double sitSessionHours;
@@ -37,9 +37,9 @@ namespace Genelib {
         }
 
         public override void AfterInitialize() {
-            reproduce = entity.GetBehavior<Reproduce>();
+            reproduce = entity.GetBehavior<ReproduceEgg>();
             if (reproduce == null) {
-                throw new FormatException("No reproduce behavior found for " + entity.Code + " needed by AiTaskLayEgg");
+                throw new FormatException("No genelib.eggreproduce behavior found for " + entity.Code + " needed by AiTaskLayEgg");
             }
         }
 

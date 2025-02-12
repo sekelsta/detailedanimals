@@ -47,6 +47,7 @@ namespace Genelib
 
             api.RegisterEntityBehaviorClass(EntityBehaviorGenetics.Code, typeof(EntityBehaviorGenetics));
             api.RegisterEntityBehaviorClass(Reproduce.Code, typeof(Reproduce));
+            api.RegisterEntityBehaviorClass(ReproduceEgg.Code, typeof(ReproduceEgg));
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));
             api.RegisterEntityBehaviorClass(DetailedHarvestable.Code, typeof(DetailedHarvestable));
             api.RegisterEntityBehaviorClass(AnimalHunger.Code, typeof(AnimalHunger));
@@ -108,7 +109,7 @@ namespace Genelib
                         }
                         entityType.Attributes.Token["harvestableDrops"] = jsonObject["drops"].Token;
                     }
-                    else if (code == Reproduce.Code) {
+                    else if (code == Reproduce.Code || code == ReproduceEgg.Code) {
                         serverReproduce = jsonObject;
                     }
                     else if (code == AnimalHunger.Code) {
@@ -123,17 +124,19 @@ namespace Genelib
                             entityType.Attributes.Token["initialWeight"] = jsonObject["initialWeight"].Token;
                         }
                     }
-                    // Sync over reproduce and hunger setups so info displayed will be correct
-                    for (int i = 0; i < entityType.Client.BehaviorsAsJsonObj.Length; ++i) {
-                        JsonObject clientJson = entityType.Client.BehaviorsAsJsonObj[i];
-                        if (clientJson["code"].AsString() == Reproduce.Code && serverReproduce != null) {
-                            entityType.Client.BehaviorsAsJsonObj[i] = serverReproduce;
-                        }
-                        else if (clientJson["code"].AsString() == AnimalHunger.Code && serverHunger != null) {
-                            entityType.Client.BehaviorsAsJsonObj[i] = serverHunger;
-                        }
+                }
+                // Sync over reproduce and hunger setups so info displayed will be correct
+                for (int i = 0; i < entityType.Client.BehaviorsAsJsonObj.Length; ++i) {
+                    JsonObject clientJson = entityType.Client.BehaviorsAsJsonObj[i];
+                    string code = clientJson["code"].AsString();
+                    if ((code == Reproduce.Code || code == ReproduceEgg.Code) && serverReproduce != null) {
+                        entityType.Client.BehaviorsAsJsonObj[i] = serverReproduce;
+                    }
+                    else if (code == AnimalHunger.Code && serverHunger != null) {
+                        entityType.Client.BehaviorsAsJsonObj[i] = serverHunger;
                     }
                 }
+
                 // Also sanity check weight dimorphism
                 float weightDimorphism = entityType.Attributes?["weightDimorphism"].AsFloat(0) ?? 0;
                 if (weightDimorphism >= 1 || weightDimorphism <= -1) {
