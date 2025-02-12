@@ -4,6 +4,7 @@
         op: "add",
         path: "/attributes/foodTags",
         value: ["acorn"],
-        side: "server"
+        side: "server",
+        dependsOn: [ { modid: "acorns" } ],
     },
 ]
