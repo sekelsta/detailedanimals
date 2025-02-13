@@ -16,6 +16,7 @@ namespace Genelib {
         protected double incubationDays;
         protected bool incubationScalesWithMonthLength = true;
         protected double hoursPerEgg;
+        protected int failedSearchAttempts = 0;
 
         public double EggLaidHours {
             get => entity.WatchedAttributes.GetDouble("eggLaidHours");
@@ -54,7 +55,17 @@ namespace Genelib {
             target = pointsOfInterest.GetWeightedNearestPoi(entity.Pos.XYZ, searchRadius, IsValidNonfullNest) as IAnimalNest;
 
             if (target == null) {
-                target = CreateGroundNest();
+                if (failedSearchAttempts >= 1) {
+                    target = CreateGroundNest();
+                }
+                else {
+                    failedSearchAttempts += 1;
+                    cooldownUntilMs = entity.World.ElapsedMilliseconds + 45000 + entity.World.Rand.Next(30000);
+                }
+            }
+
+            if (target != null) {
+                failedSearchAttempts = 0;
             }
 
             return target != null;
