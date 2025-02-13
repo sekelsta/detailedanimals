@@ -591,11 +591,29 @@
         value: {
             code: "genelib.layegg",
             enabledByType: { "*-henpoult": false, "*": true },
+            priority: 1.37,
+            layTime: 5,
+            hoursPerEgg: 25,
+            incubationMonths: 0.7,
+            movespeed: 0.006,
+            animation: "Walk",
+            mincooldownHours: 1,
+            maxcooldownHours: 2,
+            sitAnimation: "Sit",
+            sound: "creature/chicken/hen-lay"
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/server/behaviors/11/aitasks/-",
+        value: {
+            code: "genelib.sitonnest",
+            enabledByType: { "*-henpoult": false, "*": true },
             priority: 1.36,
             layTime: 5,
             sitDays: 0.9,
-            hoursPerEgg: 25,
-            incubationMonths: 0.7,
             movespeed: 0.006,
             animation: "Walk",
             mincooldownHours: 1,
