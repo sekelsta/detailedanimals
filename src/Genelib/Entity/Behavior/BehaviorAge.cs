@@ -114,7 +114,7 @@ namespace Genelib {
                 double spawnAge = 0;
                 string origin = entity.Attributes.GetString("origin");
                 if (origin == "worldgen" || origin == "playerplaced") {
-                    spawnAge = entity.World.Rand.NextSingle() * HoursToGrow * (AdultEntityCode == null ? 4 : 1);
+                    spawnAge = entity.World.Rand.NextSingle() * HoursToGrow * (AdultEntityCode == null ? 2 : 1);
                 }
                 TimeSpawned = entity.World.Calendar.TotalHours - spawnAge;
             }
