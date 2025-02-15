@@ -6,6 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
+using Vintagestory.GameContent;
 
 namespace Genelib {
     public class ReproduceEgg : Reproduce {
@@ -13,6 +14,11 @@ namespace Genelib {
         private const float DEFAULT_WEIGHT = 0.04f;
 
         public CollectibleObject[] EggTypes;
+        protected AiTaskLayEgg layEggTask;
+        protected EntityBehaviorTaskAI taskAI;
+        // Used temporarily for holding data after Initialize() until AfterInitialized()
+        private Type taskType;
+        private JsonObject taskConfig;
 
         public ReproduceEgg(Entity entity) : base(entity) { }
 
@@ -38,6 +44,50 @@ namespace Genelib {
                     .CompareTo(y.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
                 );
             }
+
+            if (entity.Api.Side != EnumAppSide.Server) {
+                return;
+            }
+
+            taskConfig = attributes["layeggtask"];
+            string code = taskConfig["code"]?.AsString();
+            if (code == null) {
+                throw new FormatException(Code + " has layeggtask with null code for entity " + entity.Code);
+            }
+            if (!AiTaskRegistry.TaskTypes.TryGetValue(code, out taskType)) {
+                throw new FormatException(Code + " no class registered for layeggtask with code " + code + " for entity " + entity.Code);
+            }
+        }
+
+        public override void AfterInitialized(bool onFirstSpawn) {
+            base.AfterInitialized(onFirstSpawn);
+            if (entity.Api.Side != EnumAppSide.Server) {
+                return;
+            }
+
+            taskAI = entity.GetBehavior<EntityBehaviorTaskAI>();
+            if (taskAI == null) {
+                throw new FormatException("No taskai behavior found for " + entity.Code + " needed by " + Code);
+            }
+
+            EntityAgent entityAgent = entity as EntityAgent;
+            if (entityAgent == null) {
+                throw new FormatException(Code + " requires an EntityAgent");
+            }
+            try {
+                layEggTask = (AiTaskLayEgg)Activator.CreateInstance(taskType, entityAgent);
+            }
+            catch (Exception e) {
+                if (e.InnerException != null) {
+                    entity.Api.Logger.Error("Exception loading " + Code + " for " + entity.Code);
+                    entity.Api.Logger.Error(e.InnerException);
+                }
+                throw e;
+            }
+            layEggTask.LoadConfig(taskConfig, null);
+            taskConfig = null;
+            layEggTask.AfterInitialize();
+            taskAI.TaskManager.AddTask(layEggTask);
         }
 
         protected override void ProgressPregnancy() {
