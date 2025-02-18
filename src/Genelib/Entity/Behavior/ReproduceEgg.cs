@@ -6,6 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 namespace Genelib {
@@ -14,11 +15,25 @@ namespace Genelib {
         private const float DEFAULT_WEIGHT = 0.04f;
 
         public CollectibleObject[] EggTypes;
+        public double IncubationDays;
+        public bool IncubationScalesWithMonthLength = true;
+        public NatFloat HoursPerEgg;
+
         protected AiTaskLayEgg layEggTask;
         protected EntityBehaviorTaskAI taskAI;
         // Used temporarily for holding data after Initialize() until AfterInitialized()
         private Type taskType;
         private JsonObject taskConfig;
+
+        public double EggLaidHours {
+            get => entity.WatchedAttributes.GetDouble("eggLaidHours");
+            set => entity.WatchedAttributes.SetDouble("eggLaidHours", value);
+        }
+
+        public double NextEggHours {
+            get => entity.WatchedAttributes.GetDouble("nextEggHours");
+            set => entity.WatchedAttributes.SetDouble("nextEggHours", value);
+        }
 
         public ReproduceEgg(Entity entity) : base(entity) { }
 
@@ -44,6 +59,9 @@ namespace Genelib {
                     .CompareTo(y.Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT)
                 );
             }
+
+            IncubationDays = attributes["incubationMonths"].AsDouble(1) * entity.World.Calendar.DaysPerMonth;
+            HoursPerEgg = attributes["hoursPerEgg"].AsObject<NatFloat>();
 
             if (entity.Api.Side != EnumAppSide.Server) {
                 return;
@@ -100,15 +118,18 @@ namespace Genelib {
             if (!entity.Alive || entity.WatchedAttributes.GetBool("neutered", false)) {
                 return false;
             }
+            if (NextEggHours > entity.World.Calendar.TotalHours) {
+                return false;
+            }
             double animalWeight = entity.BodyCondition();
             if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
+                NextEggHours = entity.World.Calendar.TotalHours + HoursPerEgg.nextFloat(1, entity.World.Rand);
                 return false;
             }
             return true;
         }
 
-        // The resulting itemstack does not come with incubation data
-        public ItemStack GiveEgg() {
+        public ItemStack LayEgg() {
             float eggWeight = 0.051f; // TODO: Make different chickens lay different sizes of egg
 
             CollectibleObject egg = EggTypes[0];
@@ -139,9 +160,30 @@ namespace Genelib {
             if (chick == null) {
                 return eggStack;
             }
-
             chick.SetInt("generation", NextGeneration());
             eggStack.Attributes["chick"] = chick;
+
+            double incubationHoursTotal = IncubationDays * 24 * GenelibSystem.AnimalGrowthTime;
+            eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
+            eggStack.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
+            // If incubation length scales with month length, freshness should too
+            if (IncubationScalesWithMonthLength) {
+                TransitionState[] transitions = eggStack.Collectible?.UpdateAndGetTransitionStates(entity.World, new DummySlot(eggStack));
+                // Note calling UpdateAndGetTransitionStates may set the itemstack to null e.g. if it rotted with 50% conversion rate
+                if (transitions != null && eggStack.Collectible != null) {
+                    for (int i = 0; i < transitions.Length; ++i) {
+                        if (transitions[i].Props.Type == EnumTransitionType.Perish) {
+                            ITreeAttribute attr = (ITreeAttribute)eggStack.Attributes["transitionstate"];
+                            float[] freshHours = (attr["freshHours"] as FloatArrayAttribute).value;
+                            float adjusted = freshHours[i] * entity.World.Calendar.DaysPerMonth / 9f * GlobalConstants.PerishSpeedModifier;
+                            freshHours[i] = (float)Math.Max(adjusted, 6 * 24 + incubationHoursTotal);
+                        }
+                    }
+                }
+            }
+
+            EggLaidHours = entity.World.Calendar.TotalHours;
+            NextEggHours = entity.World.Calendar.TotalHours + HoursPerEgg.nextFloat(1, entity.World.Rand);
 
             return eggStack;
         }

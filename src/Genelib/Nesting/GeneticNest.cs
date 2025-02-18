@@ -95,7 +95,7 @@ namespace Genelib {
             ItemStack eggStack = null;
             ReproduceEgg reproduce = entity.GetBehavior<ReproduceEgg>();
             if (reproduce != null) {
-                eggStack = reproduce.GiveEgg();
+                eggStack = reproduce.LayEgg();
             }
             else {
                 JsonItemStack[] eggTypes = entity.Properties.Attributes?["eggTypes"].AsArray<JsonItemStack>();

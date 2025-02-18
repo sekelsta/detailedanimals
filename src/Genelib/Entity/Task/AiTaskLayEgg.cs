@@ -13,28 +13,13 @@ namespace Genelib {
         protected ReproduceEgg reproduce;
         protected bool laid = false;
         protected float layTime;
-        protected double incubationDays;
-        protected bool incubationScalesWithMonthLength = true;
-        protected NatFloat hoursPerEgg;
         protected int failedSearchAttempts = 0;
-
-        public double EggLaidHours {
-            get => entity.WatchedAttributes.GetDouble("eggLaidHours");
-            set => entity.WatchedAttributes.SetDouble("eggLaidHours", value);
-        }
-
-        public double NextEggHours {
-            get => entity.WatchedAttributes.GetDouble("nextEggHours");
-            set => entity.WatchedAttributes.SetDouble("nextEggHours", value);
-        }
 
         public AiTaskLayEgg(EntityAgent entity) : base(entity) { }
 
         public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
             base.LoadConfig(taskConfig, aiConfig);
             layTime = taskConfig["layTime"].AsFloat(1.5f);
-            incubationDays = taskConfig["incubationMonths"].AsDouble(1) * entity.World.Calendar.DaysPerMonth;
-            hoursPerEgg = taskConfig["hoursPerEgg"].AsObject<NatFloat>();
         }
 
         public override void AfterInitialize() {
@@ -48,11 +33,7 @@ namespace Genelib {
             if (!IsSearchTime()) {
                 return false;
             }
-            if (NextEggHours > entity.World.Calendar.TotalHours) {
-                return false;
-            }
             if (!reproduce.CanLayEgg()) {
-                NextEggHours = entity.World.Calendar.TotalHours + hoursPerEgg.nextFloat(1, entity.World.Rand);
                 return false;
             }
 
@@ -137,27 +118,7 @@ namespace Genelib {
                         PlaySound();
                         laid = true;
                         done = true;
-                        EggLaidHours = entity.World.Calendar.TotalHours;
-                        NextEggHours = entity.World.Calendar.TotalHours + hoursPerEgg.nextFloat(1, entity.World.Rand);
-                        ItemStack egg = reproduce.GiveEgg();
-                        double incubationHoursTotal = incubationDays * 24 * GenelibSystem.AnimalGrowthTime;
-                        egg.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
-                        egg.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
-                        // If incubation length scales with month length, freshness should too
-                        if (incubationScalesWithMonthLength) {
-                            TransitionState[] transitions = egg.Collectible?.UpdateAndGetTransitionStates(entity.World, new DummySlot(egg));
-                            // Note calling UpdateAndGetTransitionStates may set the itemstack to null e.g. if it rotted with 50% conversion rate
-                            if (transitions != null && egg.Collectible != null) {
-                                for (int i = 0; i < transitions.Length; ++i) {
-                                    if (transitions[i].Props.Type == EnumTransitionType.Perish) {
-                                        ITreeAttribute attr = (ITreeAttribute)egg.Attributes["transitionstate"];
-                                        float[] freshHours = (attr["freshHours"] as FloatArrayAttribute).value;
-                                        float adjusted = freshHours[i] * entity.World.Calendar.DaysPerMonth / 9f * GlobalConstants.PerishSpeedModifier;
-                                        freshHours[i] = (float)Math.Max(adjusted, 6 * 24 + incubationHoursTotal);
-                                    }
-                                }
-                            }
-                        }
+                        ItemStack egg = reproduce.LayEgg();
                         nest.AddEgg(entity, egg);
                     }
                     if (nest.CountEggs() == 0) {
@@ -166,12 +127,11 @@ namespace Genelib {
                 }
             }
             else if (timeSinceTargetReached >= layTime && !laid) {
-                if (target.TryAddEgg(entity, null, incubationDays)) {
+                if (target.TryAddEgg(entity, null, reproduce.IncubationDays)) {
                     PlaySound();
                     laid = true;
                     done = true;
-                    EggLaidHours = entity.World.Calendar.TotalHours;
-                    NextEggHours = entity.World.Calendar.TotalHours + hoursPerEgg.nextFloat(1, entity.World.Rand);
+                    reproduce.LayEgg();
                 }
             }
         }
