@@ -213,7 +213,7 @@ namespace Genelib {
 
         public override bool ShouldEat { get => true; }
 
-        protected void SlowTick(float dt) {
+        protected virtual void SlowTick(float dt) {
             if (!entity.World.Side.IsServer()) {
                 return;
             }

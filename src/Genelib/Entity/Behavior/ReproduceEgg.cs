@@ -20,6 +20,7 @@ namespace Genelib {
         public NatFloat HoursPerEgg;
 
         protected AiTaskLayEgg layEggTask;
+        protected bool layEggTaskActive = false;
         protected EntityBehaviorTaskAI taskAI;
         // Used temporarily for holding data after Initialize() until AfterInitialized()
         private Type taskType;
@@ -105,7 +106,29 @@ namespace Genelib {
             layEggTask.LoadConfig(taskConfig, null);
             taskConfig = null;
             layEggTask.AfterInitialize();
-            taskAI.TaskManager.AddTask(layEggTask);
+            if (CanLayEgg()) {
+                taskAI.TaskManager.AddTask(layEggTask);
+                layEggTaskActive = true;
+            }
+        }
+
+        protected override void SlowTick(float dt) {
+            if (!entity.World.Side.IsServer()) {
+                return;
+            }
+            base.SlowTick(dt);
+            if (CanLayEgg()) {
+                if (!layEggTaskActive) {
+                    taskAI.TaskManager.AddTask(layEggTask);
+                    layEggTaskActive = true;
+                }
+            }
+            else {
+                if (layEggTaskActive) {
+                    taskAI.TaskManager.RemoveTask(layEggTask);
+                    layEggTaskActive = false;
+                }
+            }
         }
 
         protected override void ProgressPregnancy() {
