@@ -306,6 +306,7 @@
         value: {
             code: "genelib.reproduce",
             enabledByType: { "*-female-adult": true, "*": false },
+            mateTaskPriority: 1.37,
             sireCodesByType: {
                 "*-elk-*": ["game:deer-{type}-male-adult", "game:tamedeer-{type}-male-adult", "game:tamedeer-albino{type}-male-adult"],
                 "*": ["game:deer-{type}-male-adult"],

@@ -230,6 +230,7 @@
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
+            mateTaskPriority: 1.37,
             sireCodes: ["sheep-bighorn-male"],
             offspringCodes: ["detailedanimals:sheep-bighorn-male-lamb", "detailedanimals:sheep-bighorn-female-lamb"],
             gestationMonths: 5.9,

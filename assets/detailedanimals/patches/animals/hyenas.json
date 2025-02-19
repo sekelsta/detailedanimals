@@ -230,6 +230,7 @@
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
+            mateTaskPriority: 1.37,
             sireCodes: ["game:hyena-male"],
             offspringCodes: ["detailedanimals:hyena-male-pup", "detailedanimals:hyena-female-pup"],
             gestationMonths: 2.05,

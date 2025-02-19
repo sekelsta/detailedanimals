@@ -170,11 +170,12 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
+            code: "genelib.reproduce",
             enabledByType: {
                 "*-female-adult": true,
                 "*": false,
             },
-            code: "genelib.reproduce",
+            mateTaskPriority: 1.37,
             sireCodes: ["game:deer-moose-male-adult"],
             offspringCodes: ["game:deer-moose-male-baby", "game:deer-moose-female-baby"],
             gestationMonths: 7.56,

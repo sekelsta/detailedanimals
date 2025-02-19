@@ -250,6 +250,7 @@
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
+            mateTaskPriority: 1.38,
             sireCodes: ["game:hare-male-*"],
             offspringCodes: ["detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
             gestationMonths: 1.35,

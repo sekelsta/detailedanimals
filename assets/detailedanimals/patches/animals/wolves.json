@@ -253,6 +253,7 @@
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
+            mateTaskPriority: 1.37,
             sireCodes: ["game:wolf-male"],
             offspringCodes: ["detailedanimals:wolf-male-pup", "detailedanimals:wolf-female-pup"],
             gestationMonths: 2.05,

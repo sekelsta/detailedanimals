@@ -260,6 +260,7 @@
         value: {
             code: "genelib.reproduce",
             enabledByType: { "*-female-adult": true, "*": false },
+            mateTaskPriority: 1.37,
             sireCodes: ["game:goat-{type}-male-adult"],
             offspringCodes: ["game:goat-{type}-male-baby", "game:goat-{type}-female-baby"],
             gestationMonthsByType: {
@@ -367,6 +368,13 @@
         op: "replace",
         path: "/server/behaviors/12/aitasks/11/code",
         value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "replace",
+        path: "/server/behaviors/12/aitasks/11/priority",
+        value: 1.38,
         side: "server"
     },
     {

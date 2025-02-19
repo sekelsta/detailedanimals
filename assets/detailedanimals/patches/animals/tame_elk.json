@@ -127,6 +127,7 @@
         value: {
             code: "genelib.reproduce",
             enabledByType: { "*-female-adult": true, "*": false },
+            mateTaskPriority: 1.37,
             sireCodes: ["game:deer-elk-male-adult", "game:tamedeer-elk-male-adult", "game:tamedeer-albinoelk-male-adult"],
             offspringCodes: ["game:deer-elk-male-baby", "game:deer-elk-female-baby"],
             gestationMonths: 8.05,

@@ -193,6 +193,7 @@
         value: {
             code: "genelib.reproduce",
             enabledByType: { "gazelle-female": true, "*": false },
+            mateTaskPriority: 1.34,
             sireCodes: ["game:gazelle-male"],
             offspringCodes: ["detailedanimals:gazelle-male-calf", "detailedanimals:gazelle-female-calf"],
             gestationMonths: 5.5,

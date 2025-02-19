@@ -34,6 +34,7 @@ namespace Genelib {
         protected double litterAddChance = 0;
         protected int litterAddAttempts = 0;
         protected bool InducedOvulation = false;
+        public float MateTaskPriority = 1.5f;
 
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
@@ -183,6 +184,10 @@ namespace Genelib {
                 litterAddAttempts = attributes["litterAddAttempts"].AsInt();
             }
 
+            if (attributes.KeyExists("mateTaskPriority")) {
+                MateTaskPriority = attributes["mateTaskPriority"].AsFloat();
+            }
+
             if (!entity.World.Side.IsServer()) {
                 // Do not add multiply tree client-side or it won't sync
                 return;
@@ -245,11 +250,38 @@ namespace Genelib {
                 return;
             }
 
+            EntityBehaviorTaskAI taskAi = entity.GetBehavior<EntityBehaviorTaskAI>();
+            if (taskAi == null) {
+                entity.Api.Logger.Warning(Code + ": Entity with code " + entity.Code + " has no task ai behavior and will be unable to breed");
+                return;
+            }
+            if (taskAi.TaskManager.ActiveTasksBySlot[0] is AiTaskMate) {
+                // Already trying
+                return;
+            }
+
             Entity sire = GetSire();
             if (sire == null) {
                 return;
             }
-            // TODO: Attempt to pathfind to the sire
+
+            AiTaskMate mateTask = new AiTaskMate((EntityAgent)entity, sire);
+            mateTask.SetPriority(MateTaskPriority);
+            taskAi.TaskManager.ExecuteTask(mateTask, 0);
+
+            EntityBehaviorTaskAI sireTaskAi = sire.GetBehavior<EntityBehaviorTaskAI>();
+            if (sireTaskAi == null) {
+                entity.Api.Logger.Warning(Code + ": Potential sire entity with code " + sire.Code + " has no task ai behavior, this may cause difficulty for breeding");
+                return;
+            }
+            if (!(sireTaskAi.TaskManager.ActiveTasksBySlot[0] is AiTaskMate)) {
+                AiTaskMate sireMateTask = new AiTaskMate((EntityAgent)sire, entity);
+                sireMateTask.SetPriority(MateTaskPriority);
+                sireTaskAi.TaskManager.ExecuteTask(sireMateTask, 0);
+            }
+        }
+
+        public void MateWith(Entity sire) {
             IsPregnant = true;
             InEarlyPregnancy = true;
             TotalDaysPregnancyStart = TotalDays;

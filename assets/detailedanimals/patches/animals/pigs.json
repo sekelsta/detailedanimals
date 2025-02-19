@@ -263,6 +263,7 @@
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
+            mateTaskPriority: 1.37,
             sireCodes: ["pig-wild-male"],
             offspringCodes: ["detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
             gestationMonths: 3.8,
