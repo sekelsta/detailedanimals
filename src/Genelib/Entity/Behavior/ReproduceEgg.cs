@@ -145,7 +145,9 @@ namespace Genelib {
                 return false;
             }
             double animalWeight = entity.BodyCondition();
-            if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
+            double lastBroody = entity.WatchedAttributes.GetDouble("lastBroodyHours", -1);
+            if (animalWeight <= DetailedHarvestable.UNDERWEIGHT 
+                    || lastBroody > entity.World.Calendar.TotalHours - 72) {
                 NextEggHours = entity.World.Calendar.TotalHours + HoursPerEgg.nextFloat(1, entity.World.Rand);
                 return false;
             }

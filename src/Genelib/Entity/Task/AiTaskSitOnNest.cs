@@ -88,7 +88,7 @@ namespace Genelib {
 
         protected override void OnArrival() {
             target.SetOccupier(entity);
-            
+            entity.WatchedAttributes.SetDouble("lastBroodyHours", entity.World.Calendar.TotalHours);
             if (sitAnimation != null) {
                 entity.AnimManager.StartAnimation(sitAnimation);
                 sitEndHour = entity.World.Calendar.TotalHours + sitSessionHours;

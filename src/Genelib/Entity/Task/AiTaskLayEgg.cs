@@ -106,6 +106,13 @@ namespace Genelib {
             return blockAccess.GetBlockEntity(pos) as IAnimalNest;
         }
 
+        protected override void OnArrival() {
+            target.SetOccupier(entity);
+            if (sitAnimation != null) {
+                entity.AnimManager.StartAnimation(sitAnimation);
+            }
+        }
+
         protected override void TickTargetReached() {
             GeneticNest nest = target as GeneticNest;
             if (nest != null) {
