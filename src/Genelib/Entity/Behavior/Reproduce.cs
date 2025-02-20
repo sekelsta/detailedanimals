@@ -13,11 +13,6 @@ using Vintagestory.GameContent;
 
 namespace Genelib {
     public class Reproduce : EntityBehaviorMultiply {
-        protected enum BreedingSeason {
-            Continuous,
-            ShortDay,
-            LongDay
-        }
         public const string Code = "genelib.reproduce";
 
         // TODO: rearrange to handle hybrids - e.g., offspringBySire
@@ -30,10 +25,15 @@ namespace Genelib {
         protected double LactationDays = 0;
         protected double EstrousCycleDays;
         protected double DaysInHeat;
-        protected BreedingSeason Season = BreedingSeason.Continuous;
         protected double litterAddChance = 0;
         protected int litterAddAttempts = 0;
+
         protected bool InducedOvulation = false;
+        protected bool SeasonalBreeding = false;
+        protected double BreedingSeasonPeak;
+        protected double BreedingSeasonBefore;
+        protected double BreedingSeasonAfter;
+
         public float MateTaskPriority = 1.5f;
 
         public bool InEarlyPregnancy {
@@ -169,20 +169,11 @@ namespace Genelib {
                 }
             }
 
-            if (attributes.KeyExists("breedingSeason")) {
-                string breedingSeason = attributes["breedingSeason"].AsString();
-                if (breedingSeason.Equals("longday")) {
-                    Season = BreedingSeason.LongDay;
-                }
-                else if (breedingSeason.Equals("shortday")) {
-                    Season = BreedingSeason.ShortDay;
-                }
-                else if (breedingSeason.Equals("continuous")) {
-                    Season = BreedingSeason.Continuous;
-                }
-                else {
-                    entity.World.Logger.Warning("Unable to parse breedingSeason value of \"" + breedingSeason + "\" for entity " + entity.Code);
-                }
+            if (attributes.KeyExists("breedingPeakMonth")) {
+                SeasonalBreeding = true;
+                BreedingSeasonPeak = attributes["breedingPeakMonth"].AsDouble() / 12;
+                BreedingSeasonBefore = attributes["breedingMonthsBefore"].AsDouble() / 12;
+                BreedingSeasonAfter = attributes["breedingMonthsAfter"].AsDouble() / 12;
             }
 
             if (attributes.KeyExists("litterAddChance")) {
@@ -262,7 +253,7 @@ namespace Genelib {
                 return;
             }
 
-            if (!isBreedingSeason()) {
+            if (!IsBreedingSeason()) {
                 TotalDaysCooldownUntil += entity.World.Calendar.DaysPerMonth;
                 return;
             }
@@ -345,18 +336,16 @@ namespace Genelib {
             Litter = litterData;
         }
 
-        private bool isBreedingSeason() {
-            if (Season == BreedingSeason.LongDay || Season == BreedingSeason.ShortDay) {
-                float season = entity.World.Calendar.GetSeasonRel(entity.Pos.AsBlockPos);
-                if (Season == BreedingSeason.ShortDay) {
-                    season = (season + 0.5f) % 1f;
-                }
-                float months = 12;
-                double vernal_equinox = 2.66 / months;
-                double summer_solstice = 5.66 / months;
-                return season >= vernal_equinox && season < summer_solstice;
+        public bool IsBreedingSeason() {
+            if (!SeasonalBreeding || BreedingSeasonBefore + BreedingSeasonAfter >= 1) {
+                return true;
             }
-            return true;
+            float season = entity.World.Calendar.GetSeasonRel(entity.Pos.AsBlockPos);
+            if (season > BreedingSeasonPeak) {
+                season -= 1;
+            }
+            double timeUntilPeak = BreedingSeasonPeak - season;
+            return timeUntilPeak < BreedingSeasonBefore || 1 - timeUntilPeak < BreedingSeasonAfter;
         }
 
         // If the animal dies, you lose the pregnancy even if you later revive it
@@ -531,11 +520,12 @@ namespace Genelib {
                 return;
             }
 
-            if (!isBreedingSeason()) {
-                if (Season == BreedingSeason.LongDay) {
+            if (!IsBreedingSeason()) {
+                double breedingStart = (BreedingSeasonPeak - BreedingSeasonBefore + 1) % 1;
+                if (breedingStart < 0.5) {
                     infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-longday"));
                 }
-                else if (Season == BreedingSeason.ShortDay) {
+                else {
                     infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-shortday"));
                 }
                 return;

@@ -276,7 +276,9 @@
             lactationMonths: 5,
             estrousCycleMonths: 0.7,
             daysInHeat: 3.0,
-            breedingSeason: "shortday",
+            breedingPeakMonth: 9.5,
+            breedingMonthsBefore: 2.0,
+            breedingMonthsAfter: 2.0,
             litterAddChanceByType: {
                 "goat-muskox-*": 0.001,
                 "goat-takingold-*": 0.001,

@@ -330,7 +330,9 @@
             lactationMonths: 6,
             estrousCycleMonths: 0.6,
             daysInHeat: 2.0,
-            breedingSeason: "shortday",
+            breedingPeakMonth: 9.0,
+            breedingMonthsBefore: 0.5,
+            breedingMonthsAfter: 0.5,
             litterAddChanceByType: {
                 "deer-caribou-*": 0.004,
                 "deer-elk-*": 0.004,

@@ -238,7 +238,6 @@
             lactationMonths: 18.0,
             estrousCycleMonths: 3.0,
             daysInHeat: 3.0,
-            breedingSeason: "continuous",
             litterAddChance: 0.21,
             litterAddAttempts: 3,
         },

@@ -273,8 +273,9 @@
             daysInHeat: 2.0,
             litterAddChance: 0.45,
             litterAddAttempts: 8,
-            "_comment": "TODO: Specifically between November and January",
-            breedingSeason: "shortday",
+            breedingPeakMonth: 11.5,
+            breedingMonthsBefore: 1.0,
+            breedingMonthsAfter: 1.0,
         },
         side: "server"
     },
