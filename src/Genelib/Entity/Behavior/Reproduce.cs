@@ -52,6 +52,14 @@ namespace Genelib {
             get => entity.World.Calendar.TotalHours / 24.0;
         }
 
+        protected double TotalDaysPregnancyEnd {
+            get => multiplyTree.GetDouble("totalDaysPregnancyEnd");
+            set {
+                multiplyTree.SetDouble("totalDaysPregnancyEnd", value);
+                entity.WatchedAttributes.MarkPathDirty("multiply");
+            }
+        }
+
         protected TreeArrayAttribute Litter {
             get => multiplyTree["litter"] as TreeArrayAttribute;
             set { 
@@ -194,9 +202,18 @@ namespace Genelib {
             }
             multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
 
-            if (IsPregnant && Litter == null) {
-                IsPregnant = false;
-                TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
+            if (IsPregnant) {
+                if (Litter == null) {
+                    IsPregnant = false;
+                    TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
+                }
+                else {
+                    double length = TotalDaysPregnancyEnd - TotalDaysPregnancyStart;
+                    if (length < 0.8 * GestationDays || length > 1.2 * GestationDays) {
+                        double rate = 1 + 0.08 * (entity.World.Rand.NextDouble() - 0.5); // Random from 0.96 to 1.04
+                        TotalDaysPregnancyEnd = TotalDaysPregnancyStart + rate * GestationDays;
+                    }
+                }
             }
             listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000);
         }
@@ -285,6 +302,8 @@ namespace Genelib {
             IsPregnant = true;
             InEarlyPregnancy = true;
             TotalDaysPregnancyStart = TotalDays;
+            double rate = 1 + 0.08 * (entity.World.Rand.NextDouble() - 0.5);
+            TotalDaysPregnancyEnd = TotalDaysPregnancyStart + rate * GestationDays;
             Genome sireGenome = sire.GetBehavior<EntityBehaviorGenetics>()?.Genome;
             Genome ourGenome = entity.GetBehavior<EntityBehaviorGenetics>()?.Genome;
 
@@ -374,7 +393,7 @@ namespace Genelib {
                 }
                 return;
             }
-            if (TotalDays > TotalDaysPregnancyStart + GestationDays) {
+            if (TotalDays > TotalDaysPregnancyEnd) {
                 GiveBirth();
             }
         }
