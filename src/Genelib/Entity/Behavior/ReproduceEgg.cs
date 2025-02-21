@@ -224,6 +224,15 @@ namespace Genelib {
                 return;
             }
             double animalWeight = entity.BodyCondition();
+            if (animalWeight <= DetailedHarvestable.MALNOURISHED) {
+                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight"));
+                return;
+            }
+            double lastBroody = entity.WatchedAttributes.GetDouble("lastBroodyHours", -1);
+            if (lastBroody > entity.World.Calendar.TotalHours - 72) {
+                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-broody"));
+                return;
+            }
             if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
                 infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight-eggs"));
                 return;
