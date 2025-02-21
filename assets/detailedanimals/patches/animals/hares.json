@@ -195,21 +195,21 @@
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/6/code",
+        path: "/server/behaviors/7/code",
         value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/0/quantity",
+        path: "/server/behaviors/7/drops/0/quantity",
         value: { avg: 1, var: 0 },
         side: "server"
     },
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/1/quantity",
+        path: "/server/behaviors/7/drops/1/quantity",
         value: { avg: 0.6, var: 0 },
         side: "server"
     },
@@ -247,7 +247,7 @@
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/8",
+        path: "/server/behaviors/9",
         value: {
             code: "genelib.reproduce",
             mateTaskPriority: 1.38,
@@ -430,35 +430,35 @@
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/3/code",
+        path: "/server/behaviors/11/aitasks/3/code",
         value: "genelib.forage",
         side: "server"
     },
     {
         file: "game:entities/land/hare-female.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/3/nurseFromEntities",
+        path: "/server/behaviors/11/aitasks/3/nurseFromEntities",
         value: ["game:hare-female-arctic", "game:hare-female-ashgrey", "game:hare-female-darkbrown", "game:hare-female-desert", "game:hare-female-gold", "game:hare-female-lightbrown", "game:hare-female-lightgrey", "game:hare-female-silver", "game:hare-female-smokegrey"],
         side: "server"
     },
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/3/mincooldownHours",
+        path: "/server/behaviors/11/aitasks/3/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/3/maxcooldownHours",
+        path: "/server/behaviors/11/aitasks/3/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/3/priority",
+        path: "/server/behaviors/11/aitasks/3/priority",
         value: 1.39,
         side: "server"
     },

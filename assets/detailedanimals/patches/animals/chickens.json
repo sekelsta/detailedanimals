@@ -27,48 +27,6 @@
         value: ["chicken-hen", "chicken-hen", "detailedanimals:chicken-female-chick", "detailedanimals:chicken-male-chick"],
         side: "server"
     },
-    {
-        file: "game:entities/land/fox.json",
-        op: "add",
-        path: "/server/behaviors/11/aitasks/4/entityCodes/-",
-        value: "chicken-*-chick",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/fox.json",
-        op: "add",
-        path: "/server/behaviors/11/aitasks/5/entityCodes/-",
-        value: "chicken-*-chick",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
-        op: "add",
-        path: "/server/behaviors/10/aitasks/0/entityCodes/-",
-        value: "chicken-*-chick",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
-        op: "add",
-        path: "/server/behaviors/10/aitasks/3/entityCodes/-",
-        value: "chicken-*-chick",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
-        op: "add",
-        path: "/server/behaviors/9/aitasks/0/entityCodes/-",
-        value: "chicken-*-chick",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
-        op: "add",
-        path: "/server/behaviors/9/aitasks/3/entityCodes/-",
-        value: "chicken-*-chick",
-        side: "server"
-    },
 
 
 

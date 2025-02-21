@@ -65,7 +65,7 @@
     {
         file: "game:entities/land/hyena-pup.json",
         op: "replace",
-        path: "/server/behaviors/8",
+        path: "/server/behaviors/9",
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
@@ -131,7 +131,7 @@
     {
         file: "game:entities/land/hyena-pup.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/7",
         value: {
             code: "genelib.harvestable",
             drops: [                
@@ -160,7 +160,7 @@
     {
         file: "game:entities/land/hyena-female.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/7",
         value: {
             code: "genelib.harvestable",
             drops: [                
@@ -189,7 +189,7 @@
     {
         file: "game:entities/land/hyena-male.json",
         op: "replace",
-        path: "/server/behaviors/6",
+        path: "/server/behaviors/7",
         value: {
             code: "genelib.harvestable",
             drops: [                
@@ -227,7 +227,7 @@
     {
         file: "game:entities/land/hyena-female.json",
         op: "replace",
-        path: "/server/behaviors/8",
+        path: "/server/behaviors/9",
         value: {
             code: "genelib.reproduce",
             mateTaskPriority: 1.37,
@@ -366,7 +366,7 @@
     {
         file: "game:entities/land/hyena-female.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/-",
+        path: "/server/behaviors/11/aitasks/-",
         value: {
             code: "genelib.forage",
             nurseFromEntities: "game:hyena-female",
@@ -382,7 +382,7 @@
     {
         file: "game:entities/land/hyena-male.json",
         op: "add",
-        path: "/server/behaviors/9/aitasks/-",
+        path: "/server/behaviors/10/aitasks/-",
         value: {
             code: "genelib.forage",
             nurseFromEntities: "game:hyena-female",
@@ -398,7 +398,7 @@
     {
         file: "game:entities/land/hyena-pup.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/-",
+        path: "/server/behaviors/11/aitasks/-",
         value: {
             code: "genelib.forage",
             nurseFromEntities: "game:hyena-female",

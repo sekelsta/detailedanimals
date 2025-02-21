@@ -468,4 +468,34 @@
         value: "detailedanimals:entity/wolf-adult",
         side: "server"
     },
+
+
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/0/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/server/behaviors/10/aitasks/3/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/0/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/3/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
 ]

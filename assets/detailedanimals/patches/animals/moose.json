@@ -2,14 +2,14 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/4/decayedBlockByType/*-adult",
+        path: "/server/behaviors/5/decayedBlockByType/*-adult",
         value: "carcass-large",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/4/decayedBlockByType/*",
+        path: "/server/behaviors/5/decayedBlockByType/*",
         value: "carcass-medium",
         side: "server"
     },
@@ -17,28 +17,28 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/11/beginGrowMonth",
+        path: "/server/behaviors/12/beginGrowMonth",
         value: 4.5,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/11/growDurationMonths",
+        path: "/server/behaviors/12/growDurationMonths",
         value: 5.5,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/11/grownDurationMonths",
+        path: "/server/behaviors/12/grownDurationMonths",
         value: 2.4,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/11/shedDurationMonths",
+        path: "/server/behaviors/12/shedDurationMonths",
         value: 1,
         side: "server"
     },
@@ -102,21 +102,21 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/6/code",
+        path: "/server/behaviors/7/code",
         value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/0/quantityByType",
+        path: "/server/behaviors/7/drops/0/quantityByType",
         value: { "*": { avg: 111, var: 0 } },
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/1",
+        path: "/server/behaviors/7/drops/1",
         value: {
             "type": "item",
             "code": "game:hide-raw-huge",
@@ -131,7 +131,7 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/2",
+        path: "/server/behaviors/7/drops/2",
         value: {
             "type": "item",
             "code": "game:hide-raw-large",
@@ -146,7 +146,7 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/3/quantityByType",
+        path: "/server/behaviors/7/drops/3/quantityByType",
         value: { "*": { avg: 18, var: 0.3 } },
         side: "server"
     },
@@ -247,42 +247,42 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/9/aitasks/11/code",
+        path: "/server/behaviors/10/aitasks/11/code",
         value: "genelib.forage",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "add",
-        path: "/server/behaviors/9/aitasks/11/nurseFromEntities",
+        path: "/server/behaviors/10/aitasks/11/nurseFromEntities",
         value: ["game:deer-{type}-female-adult"],
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/9/aitasks/11/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/11/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/9/aitasks/11/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/11/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/9/aitasks/11/priority",
+        path: "/server/behaviors/10/aitasks/11/priority",
         value: 1.39,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "add",
-        path: "/server/behaviors/9/aitasks/9/enabled",
+        path: "/server/behaviors/10/aitasks/9/enabled",
         value: false,
         side: "server"
     },

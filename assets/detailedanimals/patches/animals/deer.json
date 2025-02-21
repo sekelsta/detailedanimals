@@ -2,7 +2,7 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/12/enabledByType",
+        path: "/server/behaviors/13/enabledByType",
         value: {
             "*-male-adult": true,
             "deer-caribou-female-adult": true,
@@ -24,47 +24,47 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "add",
-        path: "/server/behaviors/12/variantsByType/deer-caribou-female-adult",
+        path: "/server/behaviors/13/variantsByType/deer-caribou-female-adult",
         value: ["01", "02", "03", "04", "05", "06", "07"],
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "remove",
-        path: "/server/behaviors/12/beginGrowMonth",
+        path: "/server/behaviors/13/beginGrowMonth",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "addmerge",
-        path: "/server/behaviors/12/beginGrowMonthByType",
+        path: "/server/behaviors/13/beginGrowMonthByType",
         value: { "deer-caribou-male-*": 6, "*": 7 },
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "remove",
-        path: "/server/behaviors/12/growDurationMonths",
+        path: "/server/behaviors/13/growDurationMonths",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "addmerge",
-        path: "/server/behaviors/12/growDurationMonthsByType",
+        path: "/server/behaviors/13/growDurationMonthsByType",
         value: { "deer-caribou-*": 4, "*": 3, },
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/12/grownDurationMonths",
+        path: "/server/behaviors/13/grownDurationMonths",
         value: 4,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/12/shedDurationMonths",
+        path: "/server/behaviors/13/shedDurationMonths",
         value: 0.9,
         side: "server"
     },
@@ -72,7 +72,7 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/8",
+        path: "/server/behaviors/9",
         value: {
             code: "genelib.age",
             monthsToGrowByType: {
@@ -117,14 +117,14 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/6/code",
+        path: "/server/behaviors/7/code",
         value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/0/quantityByType",
+        path: "/server/behaviors/7/drops/0/quantityByType",
         value: {
             "deer-caribou-*": { avg: 33, var: 3 },
             "deer-chital-*": { avg: 16, var: 2 },
@@ -144,7 +144,7 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/1/quantity/avgByType",
+        path: "/server/behaviors/7/drops/1/quantity/avgByType",
         value: {
             "deer-elk-*-baby": 5.4,
             "*-baby": 0,
@@ -160,7 +160,7 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/2/quantityByType",
+        path: "/server/behaviors/7/drops/2/quantityByType",
         value: {
             "deer-caribou-*-baby": { avg: 6.5, var: 0.1 },
             "deer-marsh-*-baby": { avg: 5.2, var: 0.1 },
@@ -175,7 +175,7 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/3/quantity/avgByType",
+        path: "/server/behaviors/7/drops/3/quantity/avgByType",
         value: {
             "deer-pudu-*-adult": 0.94,
             "*-adult": 0,
@@ -194,7 +194,7 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/4/quantityByType",
+        path: "/server/behaviors/7/drops/4/quantityByType",
         value: {
             "deer-caribou-*": { avg: 5.6, var: 0.1 },
             "deer-chital-*": { avg: 2.7, var: 0.1 },
@@ -214,7 +214,7 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "add",
-        path: "/server/behaviors/6/drops/-",
+        path: "/server/behaviors/7/drops/-",
         value: {
             type: "item",
             code: "game:hide-raw-huge",
@@ -401,42 +401,42 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/11/code",
+        path: "/server/behaviors/11/aitasks/11/code",
         value: "genelib.forage",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/11/nurseFromEntities",
+        path: "/server/behaviors/11/aitasks/11/nurseFromEntities",
         value: ["game:deer-{type}-female-adult"],
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/11/mincooldownHours",
+        path: "/server/behaviors/11/aitasks/11/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/11/maxcooldownHours",
+        path: "/server/behaviors/11/aitasks/11/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/11/priority",
+        path: "/server/behaviors/11/aitasks/11/priority",
         value: 1.39,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/9/enabled",
+        path: "/server/behaviors/11/aitasks/9/enabled",
         value: false,
         side: "server"
     },

@@ -28,13 +28,13 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealthByType",
+        path: "/server/behaviors/4/currenthealthByType",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealthByType",
+        path: "/server/behaviors/4/maxhealthByType",
         value: {
             "deer-caribou-*": 23,
             "deer-chital-*": 16,
@@ -70,13 +70,13 @@
     {
         file: "game:entities/land/hooved/goat.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealthByType",
+        path: "/server/behaviors/4/currenthealthByType",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/goat.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealthByType",
+        path: "/server/behaviors/4/maxhealthByType",
         value: {
             "goat-ibexnub-*": 20,
             "goat-markhor-*": 16,
@@ -91,13 +91,13 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealthByType",
+        path: "/server/behaviors/4/currenthealthByType",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealthByType",
+        path: "/server/behaviors/4/maxhealthByType",
         value: {
             "*": 42,
         },
@@ -106,13 +106,13 @@
     {
         file: "game:entities/land/fox.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealthByType",
+        path: "/server/behaviors/4/currenthealthByType",
         side: "server"
     },
     {
         file: "game:entities/land/fox.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealthByType",
+        path: "/server/behaviors/4/maxhealthByType",
         value: {
             "fox-*-red": 5,
             "fox-*-arctic": 4,
@@ -148,13 +148,13 @@
     {
         file: "game:entities/land/hare-female.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealth",
+        path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealth",
+        path: "/server/behaviors/4/maxhealth",
         value: 4,
         side: "server"
     },
@@ -174,39 +174,39 @@
     {
         file: "game:entities/land/hyena-male.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealth",
+        path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
         file: "game:entities/land/hyena-male.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealth",
+        path: "/server/behaviors/4/maxhealth",
         value: 15,
         side: "server"
     },
     {
         file: "game:entities/land/hyena-female.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealth",
+        path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
         file: "game:entities/land/hyena-female.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealth",
+        path: "/server/behaviors/4/maxhealth",
         value: 15,
         side: "server"
     },
     {
         file: "game:entities/land/hyena-pup.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealth",
+        path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
         file: "game:entities/land/hyena-pup.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealth",
+        path: "/server/behaviors/4/maxhealth",
         value: 15,
         side: "server"
     },

@@ -66,7 +66,7 @@
     {
         file: "game:entities/land/fox.json",
         op: "replace",
-        path: "/server/behaviors/9",
+        path: "/server/behaviors/10",
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
@@ -114,14 +114,14 @@
     {
         file: "game:entities/land/fox.json",
         op: "replace",
-        path: "/server/behaviors/6/code",
+        path: "/server/behaviors/7/code",
         value: "genelib.harvestable",
         side: "server"
     },
     {
         file: "game:entities/land/fox.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/0/quantityByType",
+        path: "/server/behaviors/7/drops/0/quantityByType",
         value: {
             "*-red-*": { avg: 1.8, var: 0 },
             "*-arctic-*": { avg: 0.8, var: 0 } 
@@ -131,7 +131,7 @@
     {
         file: "game:entities/land/fox.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/1/quantityByType",
+        path: "/server/behaviors/7/drops/1/quantityByType",
         value: {
             "*-red-*": { avg: 1, var: 0 },
             "*-arctic-*": { avg: 0.5, var: 0 } 
@@ -141,7 +141,7 @@
     {
         file: "game:entities/land/fox.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/2/quantityByType",
+        path: "/server/behaviors/7/drops/2/quantityByType",
         value: {
             "*-red-*": { avg: 0.3, var: 0 },
             "*-arctic-*": { avg: 0.1, var: 0 } 
@@ -161,7 +161,7 @@
     {
         file: "game:entities/land/fox.json",
         op: "replace",
-        path: "/server/behaviors/8",
+        path: "/server/behaviors/9",
         value: {
             code: "genelib.reproduce",
             enabledByType: { "fox-female-red": true, "fox-female-arctic": true, "*": false },
@@ -229,7 +229,7 @@
     {
         file: "game:entities/land/fox.json",
         op: "add",
-        path: "/server/behaviors/11/aitasks/-",
+        path: "/server/behaviors/12/aitasks/-",
         value: {
             code: "genelib.forage",
             nurseFromEntities: "game:fox-female-{type}",
@@ -241,6 +241,21 @@
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,
         },
+        side: "server"
+    },
+
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/server/behaviors/12/aitasks/4/entityCodes/-",
+        value: "chicken-*-chick",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/fox.json",
+        op: "add",
+        path: "/server/behaviors/12/aitasks/5/entityCodes/-",
+        value: "chicken-*-chick",
         side: "server"
     },
 ]
