@@ -131,88 +131,90 @@
     {
         file: "game:entities/land/hyena-pup.json",
         op: "replace",
-        path: "/server/behaviors/7",
+        path: "/server/behaviors/7/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "replace",
+        path: "/server/behaviors/7/drops/0/quantity",
+        value: { avg: 15, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "replace",
+        path: "/server/behaviors/7/drops/1/quantity",
+        value: { avg: 3.8, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-pup.json",
+        op: "add",
+        path: "/server/behaviors/7/drops/-",
         value: {
-            code: "genelib.harvestable",
-            drops: [                
-                {
-                    type: "item", 
-                    category: "meat",
-                    code: "game:bushmeat-raw", 
-                    quantity: { avg: 15, var: 1.5 } 
-                },
-                {
-                    type: "item", 
-                    category: "pelt",
-                    code: "game:hide-raw-small", 
-                    quantity: { avg: 3.8, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    category: "fat",
-                    code: "game:fat", 
-                    quantity: { avg: 2.5, var: 0 } 
-                }
-            ]
+            type: "item", 
+            category: "fat",
+            code: "game:fat", 
+            quantity: { avg: 2.5, var: 0 } 
         },
         side: "server"
     },
     {
         file: "game:entities/land/hyena-female.json",
         op: "replace",
-        path: "/server/behaviors/7",
-        value: {
-            code: "genelib.harvestable",
-            drops: [                
-                {
-                    type: "item", 
-                    category: "meat",
-                    code: "game:bushmeat-raw", 
-                    quantity: { avg: 15, var: 1.5 } 
-                },
-                {
-                    type: "item", 
-                    category: "pelt",
-                    code: "game:hide-raw-medium", 
-                    quantity: { avg: 1.3, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    category: "fat",
-                    code: "game:fat", 
-                    quantity: { avg: 2.5, var: 0 } 
-                }
-            ]
-        },
+        path: "/server/behaviors/7/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "replace",
+        path: "/server/behaviors/7/drops/0/quantity",
+        value: { avg: 15, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "replace",
+        path: "/server/behaviors/7/drops/1/quantity",
+        value: { avg: 1.3, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-female.json",
+        op: "replace",
+        path: "/server/behaviors/7/drops/2/quantity",
+        value: { avg: 2.5, var: 0 },
         side: "server"
     },
     {
         file: "game:entities/land/hyena-male.json",
         op: "replace",
-        path: "/server/behaviors/7",
-        value: {
-            code: "genelib.harvestable",
-            drops: [                
-                {
-                    type: "item", 
-                    category: "meat",
-                    code: "game:bushmeat-raw", 
-                    quantity: { avg: 15, var: 1.5 } 
-                },
-                {
-                    type: "item", 
-                    category: "pelt",
-                    code: "game:hide-raw-medium", 
-                    quantity: { avg: 1.3, var: 0 } 
-                },
-                {
-                    type: "item", 
-                    category: "fat",
-                    code: "game:fat", 
-                    quantity: { avg: 2.5, var: 0 } 
-                }
-            ]
-        },
+        path: "/server/behaviors/7/code",
+        value: "genelib.harvestable",
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "replace",
+        path: "/server/behaviors/7/drops/0/quantity",
+        value: { avg: 15, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "replace",
+        path: "/server/behaviors/7/drops/1/quantity",
+        value: { avg: 1.3, var: 0 },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hyena-male.json",
+        op: "replace",
+        path: "/server/behaviors/7/drops/2/quantity",
+        value: { avg: 2.5, var: 0 },
         side: "server"
     },
 
