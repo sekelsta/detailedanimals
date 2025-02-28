@@ -435,6 +435,10 @@ namespace Genelib {
             EntityAgent agent = entity as EntityAgent;
             ItemStack itemstack = slot.Itemstack;
 
+            if (consumeItem && itemstack.StackSize <= 0) {
+                return;
+            }
+
 
             // Based on Collectible.tryEatStop
             TransitionState state = itemstack.Collectible.UpdateAndGetTransitionState(entity.World, slot, EnumTransitionType.Perish);
