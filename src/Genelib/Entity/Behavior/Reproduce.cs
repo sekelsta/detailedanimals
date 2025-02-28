@@ -336,16 +336,19 @@ namespace Genelib {
             Litter = litterData;
         }
 
-        public bool IsBreedingSeason() {
+        public bool IsBreedingSeason(double season) {
             if (!SeasonalBreeding || BreedingSeasonBefore + BreedingSeasonAfter >= 1) {
                 return true;
             }
-            float season = entity.World.Calendar.GetSeasonRel(entity.Pos.AsBlockPos);
             if (season > BreedingSeasonPeak) {
                 season -= 1;
             }
             double timeUntilPeak = BreedingSeasonPeak - season;
             return timeUntilPeak < BreedingSeasonBefore || 1 - timeUntilPeak < BreedingSeasonAfter;
+        }
+
+        public bool IsBreedingSeason() {
+            return IsBreedingSeason(entity.World.Calendar.GetSeasonRel(entity.Pos.AsBlockPos));
         }
 
         // If the animal dies, you lose the pregnancy even if you later revive it
@@ -520,7 +523,10 @@ namespace Genelib {
                 return;
             }
 
-            if (!IsBreedingSeason()) {
+            double daysLeft = TotalDaysCooldownUntil - TotalDays;
+            IGameCalendar calendar = entity.World.Calendar;
+            double season = (calendar.GetSeasonRel(entity.Pos.AsBlockPos) + daysLeft / calendar.DaysPerMonth / 12) % 1;
+            if (!IsBreedingSeason(season)) {
                 double breedingStart = (BreedingSeasonPeak - BreedingSeasonBefore + 1) % 1;
                 if (breedingStart < 0.5) {
                     infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-longday"));
@@ -531,7 +537,6 @@ namespace Genelib {
                 return;
             }
 
-            double daysLeft = TotalDaysCooldownUntil - TotalDays;
             if (daysLeft <= 0) {
                 infotext.AppendLine(Lang.Get("game:Ready to mate"));
             }
