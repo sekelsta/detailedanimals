@@ -64,7 +64,7 @@ namespace Genelib {
             target = null;
             currentEatAnimation = eatAnimation;
 
-            float foodLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
+            double foodLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
             if (foodLevel < AnimalHunger.SOMEWHAT_HUNGRY) {
                 if (hungerBehavior.WantsMilk()) {
                     SeekMilk();

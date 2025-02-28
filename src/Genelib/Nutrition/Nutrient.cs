@@ -42,18 +42,18 @@ namespace Genelib {
             }
         }
 
-        public float ValueIfAdded(float added) {
-            float fill = (Level + added) / MaxSafe;
+        public double ValueIfAdded(double added) {
+            double fill = (Level + added) / MaxSafe;
             return 1 - fill * fill; // Allow negatives for more accurate decision-making
         }
 
-        public void Gain(float amount) {
-            Level = Math.Clamp(Level + amount, -2 * MaxSafe, 2 * MaxSafe);
+        public void Gain(double amount) {
+            Level = (float)Math.Clamp(Level + amount, -2 * MaxSafe, 2 * MaxSafe);
         }
 
-        public void Consume(float amount) {
+        public void Consume(double amount) {
             float adjustment = 1 + Math.Max(0, Level) / MaxSafe;
-            Level = Math.Clamp(Level - Usage * adjustment * amount, -2 * MaxSafe, 2 * MaxSafe);
+            Level = (float)Math.Clamp(Level - Usage * adjustment * amount, -2 * MaxSafe, 2 * MaxSafe);
         }
 
         public string Amount {

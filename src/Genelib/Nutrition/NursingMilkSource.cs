@@ -25,7 +25,7 @@ namespace Genelib {
             if (hunger == null) {
                 return 0;
             }
-            float satiety = AnimalHunger.FULL * hunger.AdjustedMaxSaturation - hunger.Saturation;
+            double satiety = AnimalHunger.FULL * hunger.AdjustedMaxSaturation - hunger.Saturation;
             if (satiety <= 0) {
                 return 0;
             }
