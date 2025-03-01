@@ -99,7 +99,6 @@ namespace Genelib
 
             foreach (EntityProperties entityType in api.World.EntityTypes) {
                 JsonObject serverReproduce = null;
-                JsonObject serverHunger = null;
                 foreach (JsonObject jsonObject in entityType.Server.BehaviorsAsJsonObj) {
                     string code = jsonObject["code"].AsString();
                     // Need to do the same thing as ModSystemSyncHarvestableDropsToClient
@@ -112,9 +111,6 @@ namespace Genelib
                     }
                     else if (code == Reproduce.Code || code == ReproduceEgg.Code) {
                         serverReproduce = jsonObject;
-                    }
-                    else if (code == AnimalHunger.Code) {
-                        serverHunger = jsonObject;
                     }
                     // Also pre-process some aging stuff
                     else if (code == BehaviorAge.Code) {
@@ -132,9 +128,6 @@ namespace Genelib
                     string code = clientJson["code"].AsString();
                     if ((code == Reproduce.Code || code == ReproduceEgg.Code) && serverReproduce != null) {
                         entityType.Client.BehaviorsAsJsonObj[i] = serverReproduce;
-                    }
-                    else if (code == AnimalHunger.Code && serverHunger != null) {
-                        entityType.Client.BehaviorsAsJsonObj[i] = serverHunger;
                     }
                 }
 

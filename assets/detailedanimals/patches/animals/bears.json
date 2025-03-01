@@ -143,27 +143,42 @@
     },
     {
         file: "game:entities/land/bear.json",
+        op: "addmerge",
+        path: "/behaviorConfigs",
+        value: { },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
+        op: "addmerge",
+        path: "/behaviorConfigs/genelib.hunger",
+        value: { 
+            monthsUntilWeaned: 10,
+            fiberByType: { "*-polar": 0.02, "*-panda": 0.6, "*": 0.18 },
+            sugarByType: { "*-polar": 0.03, "*-panda": 0.12, "*-sun": 0.3, "*": 0.18 },
+            fatByType: { "*-polar": 0.3, "*-panda": 0.05, "*-sun": 0.1, "*": 0.17 },
+            starchByType: { "*-polar": 0.03, "*-panda": 0.08, "*": 0.15 },
+            proteinByType: { "*-polar": 0.6, "*-panda": 0.13, "*": 0.3 },
+            water: 1.0,
+            minerals: 0.02,
+            mineralsMax: 0.1,
+            avoidFoodTags: [ "sour" ],
+            specialties: [ "bone" ],
+            fiberDigestionByType: {
+                "*-panda": 0.4,
+                "*": 0.1
+            },
+            grazeMethods: ["nibblegraze", "root"],
+            daysUntilHungry: 4,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/bear.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                monthsUntilWeaned: 10,
-                fiberByType: { "*-polar": 0.02, "*-panda": 0.6, "*": 0.18 },
-                sugarByType: { "*-polar": 0.03, "*-panda": 0.12, "*-sun": 0.3, "*": 0.18 },
-                fatByType: { "*-polar": 0.3, "*-panda": 0.05, "*-sun": 0.1, "*": 0.17 },
-                starchByType: { "*-polar": 0.03, "*-panda": 0.08, "*": 0.15 },
-                proteinByType: { "*-polar": 0.6, "*-panda": 0.13, "*": 0.3 },
-                water: 1.0,
-                minerals: 0.02,
-                mineralsMax: 0.1,
-                avoidFoodTags: [ "sour" ],
-                specialties: [ "bone" ],
-                fiberDigestionByType: {
-                    "*-panda": 0.4,
-                    "*": 0.1
-                },
-                grazeMethods: ["nibblegraze", "root"],
-                daysUntilHungry: 4,
             },
         side: "server"
     },

@@ -309,31 +309,45 @@
         side: "server"
     },
 
-
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "addmerge",
+        path: "/behaviorConfigs",
+        value: { },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/hooved/goat.json",
+        op: "addmerge",
+        path: "/behaviorConfigs/genelib.hunger",
+        value: { 
+            monthsUntilWeaned: 3.5,
+            fiber: 0.5,
+            sugar: 0.15,
+            fat: 0.04,
+            fatMax: 0.2,
+            starch: 0.15,
+            protein: 0.14,
+            proteinMax: 0.25,
+            water: 1.0,
+            minerals: 0.02,
+            mineralsMax: 0.1,
+            avoidFoodTags: [ "sour" ],
+            specialties: [ "toughplant" ],
+            fiberDigestion: 1.0,
+            grazeMethodsByType: {
+                "goat-muskox-*": ["graze"],
+                "*": ["nibblegraze"],
+            }
+        },
+        side: "server"
+    },
     {
         file: "game:entities/land/hooved/goat.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
                 code: "genelib.hunger",
-                monthsUntilWeaned: 3.5,
-                fiber: 0.5,
-                sugar: 0.15,
-                fat: 0.04,
-                fatMax: 0.2,
-                starch: 0.15,
-                protein: 0.14,
-                proteinMax: 0.25,
-                water: 1.0,
-                minerals: 0.02,
-                mineralsMax: 0.1,
-                avoidFoodTags: [ "sour" ],
-                specialties: [ "toughplant" ],
-                fiberDigestion: 1.0,
-                grazeMethodsByType: {
-                    "goat-muskox-*": ["graze"],
-                    "*": ["nibblegraze"],
-                }
         },
         side: "server"
     },
