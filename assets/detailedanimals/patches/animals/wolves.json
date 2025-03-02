@@ -128,35 +128,6 @@
     {
         file: "game:entities/land/wolf-pup.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-
-    {
-        file: "game:entities/land/wolf-pup.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
-        op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
         value: { avg: 9.6, var: 0 },
         side: "server"
@@ -180,14 +151,6 @@
         },
         side: "server"
     },
-
-    {
-        file: "game:entities/land/wolf-female.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
     {
         file: "game:entities/land/wolf-female.json",
         op: "replace",
@@ -207,14 +170,6 @@
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantity",
         value: { avg: 1.6, var: 0 },
-        side: "server"
-    },
-
-    {
-        file: "game:entities/land/wolf-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
         side: "server"
     },
     {

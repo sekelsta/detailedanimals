@@ -108,36 +108,8 @@
 
     {
         file: "game:entities/land/raccoon-pup.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-female.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-male.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-pup.json",
-        op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-pup.json",
-        op: "replace",
-        path: "/server/behaviors/7/drops",
+        op: "addeach",
+        path: "/server/behaviors/7/drops/-",
         value: [
             {
                 type: "item", 
@@ -163,13 +135,6 @@
     {
         file: "game:entities/land/raccoon-female.json",
         op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-female.json",
-        op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
         value: { avg: 2.1, var: 0 },
         side: "server"
@@ -186,13 +151,6 @@
         op: "replace",
         path: "/server/behaviors/7/drops/2/quantity",
         value: { avg: 0.4, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-male.json",
-        op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
         side: "server"
     },
     {

@@ -139,34 +139,6 @@
     {
         file: "game:entities/land/hare-baby.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-female.json",
-        op: "replace",
-        path: "/client/behaviors/5",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-male.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-baby.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-baby.json",
-        op: "replace",
         path: "/server/behaviors/6/drops",
         value: [
                 {
@@ -195,13 +167,6 @@
     {
         file: "game:entities/land/hare-female.json",
         op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-female.json",
-        op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
         value: { avg: 1, var: 0 },
         side: "server"
@@ -211,13 +176,6 @@
         op: "replace",
         path: "/server/behaviors/7/drops/1/quantity",
         value: { avg: 0.6, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
         side: "server"
     },
     {

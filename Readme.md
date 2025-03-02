@@ -64,10 +64,8 @@ Aside from EntityBehaviors, if you have any sex-linked genes you should also add
 
 Now, genelib.reproduce does not only make it so genes are passed down, but also changes the way that breeding depends on food in order to go with the nutrition system. So to make that work properly, also add:
 
-"genelib.hunger": Causes the animal to keep track of nutrition and get hungry over time. Custom loading code is used to make the json simpler, so if you include the data for it in behaviorConfigs, you do not actually need to add it to the list of client and server behaviors because the code will do that for you.
+"genelib.hunger": Causes the animal to keep track of nutrition and get hungry over time. You *must* include this in the behaviorConfigs. You then may leave it out of the regular client and server behavior lists, as custom loading code will add it in for you. Under the hood, this also triggers a replacement of "harvestable" with "genelib.harvestable".
 
 AI task "genelib.forage", which ensures foods eaten are processed by the nutrition system
-
-"genelib.harvestable" replacing "harvestable": Prevents default changes to animal weight, letting the nutrition system handle it instead. Needed server-side and client-side, with detailed info only specified server-side.
 
 For complete examples of how to set up genetics and other features Genelib offers, see Detailed Animals in this same repository.

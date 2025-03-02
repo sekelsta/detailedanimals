@@ -110,20 +110,6 @@
     {
         file: "game:entities/land/hooved/deer.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "replace",
         path: "/server/behaviors/7/drops/0/quantityByType",
         value: {
             "deer-caribou-*": { avg: 33, var: 3 },

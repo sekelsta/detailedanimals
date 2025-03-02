@@ -127,20 +127,6 @@
     {
         file: "game:entities/land/gazelle.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/gazelle.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/gazelle.json",
-        op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
         value: { avg: 5.9, var: 1 },
         side: "server"

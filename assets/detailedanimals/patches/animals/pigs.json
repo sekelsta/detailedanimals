@@ -33,20 +33,6 @@
     {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "replace",
         path: "/server/behaviors/6/drops",
         value: [
             {
@@ -73,20 +59,6 @@
     {
         file: "game:entities/land/pig-wild-female.json",
         op: "replace",
-        path: "/client/behaviors/5/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
         value: { avg: 20, var: 0 },
         side: "server"
@@ -103,20 +75,6 @@
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantity",
         value: { avg: 7, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/client/behaviors/4/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
         side: "server"
     },
     {

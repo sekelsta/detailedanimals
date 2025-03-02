@@ -49,20 +49,6 @@
     {
         file: "game:entities/land/bear.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/bear.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/bear.json",
-        op: "replace",
         path: "/server/behaviors/6/drops/0/quantityByType",
         value: {
             "*-black": { avg: 24, var: 1 },

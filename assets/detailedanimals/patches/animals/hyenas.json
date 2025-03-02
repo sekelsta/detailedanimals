@@ -110,34 +110,6 @@
     {
         file: "game:entities/land/hyena-pup.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-female.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-male.json",
-        op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-pup.json",
-        op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-pup.json",
-        op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
         value: { avg: 15, var: 0 },
         side: "server"
@@ -164,13 +136,6 @@
     {
         file: "game:entities/land/hyena-female.json",
         op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-female.json",
-        op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
         value: { avg: 15, var: 0 },
         side: "server"
@@ -187,13 +152,6 @@
         op: "replace",
         path: "/server/behaviors/7/drops/2/quantity",
         value: { avg: 2.5, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-male.json",
-        op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
         side: "server"
     },
     {

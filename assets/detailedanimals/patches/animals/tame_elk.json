@@ -51,20 +51,6 @@
     {
         file: "game:entities/land/hooved/elk-tamed.json",
         op: "replace",
-        path: "/client/behaviors/6",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/elk-tamed.json",
-        op: "replace",
-        path: "/server/behaviors/6/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/elk-tamed.json",
-        op: "replace",
         path: "/server/behaviors/6/drops/0/quantityByType/*-adult",
         value: { avg: 71, var: 0 },
         side: "server"

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using Genelib.Extensions;
+using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -86,10 +87,34 @@ namespace Genelib {
             if (commonConfigs == null || !commonConfigs.ContainsKey(AnimalHunger.Code)) {
                 return true;
             }
-            JsonObject[] oldBehaviors = behaviors;
-            behaviors = new JsonObject[oldBehaviors.Length + 1];
-            Array.Copy(oldBehaviors, behaviors, oldBehaviors.Length);
-            behaviors[behaviors.Length - 1] = JsonObject.FromJson("{code: \"" + AnimalHunger.Code + "\"}");
+            int hungerIndex = -1;
+            int harvestableIndex = -1;
+            for (int i = 0; i < behaviors.Length; ++i) {
+                string code = behaviors[i]["code"].AsString();
+                if (code == "harvestable") {
+                    harvestableIndex = i;
+                }
+                else if (code == AnimalHunger.Code) {
+                    hungerIndex = i;
+                }
+            }
+
+            if (harvestableIndex != -1) {
+                JObject harvestableJson = (JObject)(behaviors[harvestableIndex].Token);
+                harvestableJson.Property("code").Value = new JValue(DetailedHarvestable.Code);
+            }
+
+            if (hungerIndex == -1) {
+                JsonObject[] oldBehaviors = behaviors;
+                behaviors = new JsonObject[oldBehaviors.Length + 1];
+                Array.Copy(oldBehaviors, behaviors, oldBehaviors.Length);
+                behaviors[behaviors.Length - 1] = JsonObject.FromJson("{code: \"" + AnimalHunger.Code + "\"}");
+            }
+
+            commonConfigs.Remove("harvestable", out JsonObject harvestable);
+            if (harvestable != null) {
+                commonConfigs.Add(DetailedHarvestable.Code, harvestable);
+            }
 
             return true;
         }

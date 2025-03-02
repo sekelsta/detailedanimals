@@ -95,20 +95,6 @@
     {
         file: "game:entities/land/hooved/moose.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "genelib.harvestable" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/moose.json",
-        op: "replace",
-        path: "/server/behaviors/7/code",
-        value: "genelib.harvestable",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/moose.json",
-        op: "replace",
         path: "/server/behaviors/7/drops/0/quantityByType",
         value: { "*": { avg: 111, var: 0 } },
         side: "server"
