@@ -190,22 +190,6 @@
     },
     {
         file: "game:entities/land/hooved/elk-tamed.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/elk-tamed.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/elk-tamed.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/7/code",
         value: "genelib.forage",

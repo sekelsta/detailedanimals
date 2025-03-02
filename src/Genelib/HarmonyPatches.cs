@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using Genelib.Extensions;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
@@ -35,6 +37,10 @@ namespace Genelib {
             harmony.Patch(
                 typeof(EntityBehaviorHealth).GetMethod("UpdateMaxHealth", BindingFlags.Instance | BindingFlags.Public),
                 prefix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("UpdateMaxHealth_Prefix", BindingFlags.Static | BindingFlags.Public)) 
+            );
+            harmony.Patch(
+                typeof(EntitySidedProperties).GetConstructor(BindingFlags.Instance | BindingFlags.Public, new[] { typeof(JsonObject[]), typeof(Dictionary<string, JsonObject>)}),
+                prefix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("EntitySidedProperties_Ctor_Prefix", BindingFlags.Static | BindingFlags.Public)) 
             );
         }
 
@@ -74,6 +80,18 @@ namespace Genelib {
                 __instance.Health = __instance.MaxHealth;
             }
             return false;
+        }
+
+        public static bool EntitySidedProperties_Ctor_Prefix(EntitySidedProperties __instance, ref JsonObject[] behaviors, ref Dictionary<string, JsonObject> commonConfigs) {
+            if (commonConfigs == null || !commonConfigs.ContainsKey(AnimalHunger.Code)) {
+                return true;
+            }
+            JsonObject[] oldBehaviors = behaviors;
+            behaviors = new JsonObject[oldBehaviors.Length + 1];
+            Array.Copy(oldBehaviors, behaviors, oldBehaviors.Length);
+            behaviors[behaviors.Length - 1] = JsonObject.FromJson("{code: \"" + AnimalHunger.Code + "\"}");
+
+            return true;
         }
     }
 }

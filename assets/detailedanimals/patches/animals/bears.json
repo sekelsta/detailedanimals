@@ -176,22 +176,6 @@
     {
         file: "game:entities/land/bear.json",
         op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/bear.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/bear.json",
-        op: "add",
         path: "/server/behaviors/9/aitasks/-",
         value: {
             code: "genelib.forage",

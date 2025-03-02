@@ -399,54 +399,6 @@
     },
     {
         file: "game:entities/land/raccoon-female.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-male.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-pup.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-female.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-male.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-pup.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-female.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/4",
         value: {

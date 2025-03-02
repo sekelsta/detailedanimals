@@ -400,54 +400,6 @@
     },
     {
         file: "game:entities/land/sheep-bighorn-female.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-female.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: {  code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: {  code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-female.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/6/code",
         value: "genelib.forage",

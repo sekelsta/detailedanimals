@@ -394,54 +394,6 @@
     },
     {
         file: "game:entities/land/chicken-hen.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-rooster.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-baby.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-hen.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: {  code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-rooster.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: {  code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-baby.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-hen.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/3/code",
         value: "genelib.forage",

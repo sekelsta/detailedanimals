@@ -399,22 +399,6 @@
     },
     {
         file: "game:entities/land/hooved/deer.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/11/code",
         value: "genelib.forage",

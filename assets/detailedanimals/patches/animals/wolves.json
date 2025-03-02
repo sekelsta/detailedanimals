@@ -400,54 +400,6 @@
     },
     {
         file: "game:entities/land/wolf-female.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-                code: "genelib.hunger",
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.hunger" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/8",
         value: {
