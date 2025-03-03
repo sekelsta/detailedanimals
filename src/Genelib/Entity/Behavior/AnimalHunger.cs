@@ -386,7 +386,13 @@ namespace Genelib {
                 // Check again, as taming interaction may kill the entity and spawn a new, tame, one
                 return;
             }
-            Eat(slot, byEntity, data, nutriProps, consumeItem);
+            if (consumeItem) {
+                TakeItem(slot);
+            }
+            else {
+                Eat(slot, byEntity, data, nutriProps, consumeItem);
+            }
+            return;
         }
 
         public NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps) {
@@ -424,6 +430,12 @@ namespace Genelib {
                 satiety = nutriProps.Satiety;
             }
             return satiety * TROUGH_SAT_PER_PLAYER_SAT;
+        }
+
+        public void TakeItem(ItemSlot slot) {
+            // TODO: Put item in MouthInventory
+            // TODO: If hungry and current task is not forage, begin EatFromInventory AI task
+            Eat(slot);
         }
 
         public void TryEatFromInventory() {
