@@ -41,6 +41,8 @@ namespace Genelib {
         protected long listenerID;
         protected int accumulator;
         protected Vec3d prevPos;
+        protected AiTaskEatFromInventory eatTask;
+        protected EntityBehaviorTaskAI taskAI;
 
         private const int TPS = 30;
         private const int updateSeconds = 6;
@@ -138,6 +140,13 @@ namespace Genelib {
             if (entity.Api.Side == EnumAppSide.Client) {
                 return;
             }
+
+            JsonObject eatTaskConfig = typeAttributes["eatFromInventoryTask"];
+            if (eatTaskConfig != null) {
+                eatTask = new AiTaskEatFromInventory((EntityAgent)entity, this);
+                eatTask.LoadConfig(eatTaskConfig, null);
+            }
+
             // Do NOT create hunger tree on the client side, or it won't sync over the values
             hungerTree = entity.WatchedAttributes.GetOrAddTreeAttribute("hunger");
             MaxSaturation = entity.HealthyAdultWeightKg() * SaturationPerKgPerDay * DaysUntilHungry / 2;
@@ -151,6 +160,14 @@ namespace Genelib {
         public override void AfterInitialized(bool onFirstSpawn) {
             if (onFirstSpawn) {
                 LastUpdateHours = entity.World.Calendar.TotalHours;
+            }
+
+            if (entity.Api.Side != EnumAppSide.Server) {
+                return;
+            }
+            taskAI = entity.GetBehavior<EntityBehaviorTaskAI>();
+            if (taskAI == null) {
+                throw new FormatException(entity.Code + " has no task AI behavior needed by " + Code);
             }
         }
 
@@ -370,7 +387,6 @@ namespace Genelib {
                 return;
             }
             Eat(slot, byEntity, data, nutriProps, consumeItem);
-            return;
         }
 
         public NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps) {
@@ -408,6 +424,15 @@ namespace Genelib {
                 satiety = nutriProps.Satiety;
             }
             return satiety * TROUGH_SAT_PER_PLAYER_SAT;
+        }
+
+        public void TryEatFromInventory() {
+            if (eatTask == null) {
+                return;
+            }
+            if ((taskAI.TaskManager.ActiveTasksBySlot[eatTask.Slot] == null || taskAI.TaskManager.ActiveTasksBySlot[eatTask.Slot].Priority < eatTask.Priority) && eatTask.ShouldExecute()) {
+                taskAI.TaskManager.ExecuteTask(eatTask, eatTask.Slot);
+            }
         }
 
         public void Eat(ItemStack itemstack) {
@@ -570,6 +595,8 @@ namespace Genelib {
                 UpdateCondition(updateRateHours);
                 LastUpdateHours = currentHours;
                 ApplyNutritionEffects();
+
+                TryEatFromInventory();
             }
         }
 
