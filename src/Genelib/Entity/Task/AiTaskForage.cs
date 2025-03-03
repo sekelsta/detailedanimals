@@ -116,6 +116,7 @@ namespace Genelib {
             base.FinishExecute(cancelled);
             if (!cancelled) {
                 cooldownUntilTotalHours = entity.Api.World.Calendar.TotalHours + mincooldownHours + entity.World.Rand.NextDouble() * (maxcooldownHours - mincooldownHours);
+                hungerBehavior.TryEatFromInventory();
             }
 
             if (currentEatAnimation != null) {

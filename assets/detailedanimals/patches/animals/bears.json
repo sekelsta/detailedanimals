@@ -156,6 +156,12 @@
             },
             grazeMethods: ["nibblegraze", "root"],
             daysUntilHungry: 4,
+            eatFromInventoryTask: {
+                "_comment": "Bears are not small, but animal-eat sounds like getting hay out of a trough",
+                useSound: "creature/animal-eat-small",
+                priority: 1.36,
+                animation: "eat",
+            },
         },
         side: "server"
     },
