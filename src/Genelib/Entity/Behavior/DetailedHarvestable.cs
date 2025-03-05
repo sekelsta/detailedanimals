@@ -116,11 +116,14 @@ namespace Genelib {
                 }
             }
 
-            foreach (ItemStack stack in entity.GetDrops(entity.World, entity.Pos.AsBlockPos, byPlayer)) {
-                drops.Add(stack);
-            }
+            // Skip adding from entity.GetDrops because those things are spawned directly into the world already
 
-            // TODO: Make sure the player gets equipped items back
+            foreach (IHarvestableDrops iharvestable in entity.GetInterfaces<IHarvestableDrops>()) {
+                ItemStack[] moreDrops = iharvestable.GetHarvestableDrops(entity.World, entity.ServerPos.AsBlockPos, byPlayer);
+                if (moreDrops != null) {
+                    drops.AddRange(moreDrops);
+                }
+            }
 
             inv.AddSlots(drops.Count - inv.Count);
             for (int i = 0; i < drops.Count; ++i) {
