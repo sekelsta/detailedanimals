@@ -157,7 +157,9 @@ namespace Genelib {
 
         public override void OnEntityRevive() {
             TimeSpawned += entity.World.Calendar.TotalHours - GrowthPausedSince;
-            callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000));
+            entity.Api.Event.EnqueueMainThreadTask( () =>
+                callbackID = entity.World.RegisterCallback(CheckGrowth, (int)(secondsPerUpdate * 1000)), "register callback"
+            );
         }
 
         protected virtual void CheckGrowth(float dt) {
@@ -278,8 +280,10 @@ namespace Genelib {
 
         protected void UnregisterCallback() {
             if (callbackID != null) {
-                entity.World.UnregisterCallback((long)callbackID);
-                callbackID = null;
+                entity.Api.Event.EnqueueMainThreadTask( () => {
+                    entity.World.UnregisterCallback((long)callbackID);
+                    callbackID = null;
+                }, "unregister callback");
             }
         }
 

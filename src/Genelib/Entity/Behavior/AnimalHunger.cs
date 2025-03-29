@@ -153,7 +153,9 @@ namespace Genelib {
 
             accumulator = entity.World.Rand.Next(updateSeconds * TPS);
             prevPos = entity.Pos.XYZ;
-            listenerID = entity.World.RegisterGameTickListener(SlowServerTick, 12000);
+            entity.Api.Event.EnqueueMainThreadTask( () =>
+                listenerID = entity.World.RegisterGameTickListener(SlowServerTick, 12000), "register tick listener"
+            );
             ApplyNutritionEffects();
         }
 
@@ -173,7 +175,9 @@ namespace Genelib {
 
         public override void OnEntityDespawn(EntityDespawnData despawn) {
             base.OnEntityDespawn(despawn);
-            entity.World.UnregisterGameTickListener(listenerID);
+            entity.Api.Event.EnqueueMainThreadTask( () =>
+                entity.World.UnregisterGameTickListener(listenerID), "unregister tick listener"
+            );
         }
 
         public bool EatsGrassOrRoots() {

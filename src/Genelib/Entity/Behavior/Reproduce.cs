@@ -206,7 +206,9 @@ namespace Genelib {
                     }
                 }
             }
-            listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000);
+            entity.Api.Event.EnqueueMainThreadTask( () =>
+                listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000), "register tick listener"
+            );
         }
 
         protected AssetLocation[] getAssetLocationsOrThrow(JsonObject attributes, string key) {
@@ -483,7 +485,9 @@ namespace Genelib {
 
         public override void OnEntityDespawn(EntityDespawnData despawn) {
             base.OnEntityDespawn(despawn);
-            entity.World.UnregisterGameTickListener(listenerID);
+            entity.Api.Event.EnqueueMainThreadTask( () =>
+                entity.World.UnregisterGameTickListener(listenerID), "unregister tick listener"
+            );
         }
 
         public override void GetInfoText(StringBuilder infotext) {
