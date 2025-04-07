@@ -35,7 +35,9 @@ namespace Genelib {
             return countVitalityHomozygotes(genome) >= 4;
         }
 
-        void GeneInterpreter.Interpret(Genome genome, Entity entity) {
+        void GeneInterpreter.Interpret(EntityBehaviorGenetics genetics) {
+            Entity entity = genetics.entity;
+            Genome genome = genetics.Genome;
             int repeats = 0;
             for (int i = 0; i < NUM_DIVERSITY_GENES; ++i) {
                 if (genome.anonymous[2 * i] == genome.anonymous[2 * i + 1]) {

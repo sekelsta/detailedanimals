@@ -553,6 +553,27 @@
         value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
         side: "server"
     },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-baby.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
+        side: "server"
+    },
 
 
     {
@@ -589,19 +610,33 @@
     },
     {
         file: "game:entities/land/chicken-hen.json",
-        op: "replace",
+        op: "remove",
         path: "/client/texture",
-        value: { base: "detailedanimals:entity/chicken/hen-duckwing", 
-            alternates: [{ base: "detailedanimals:entity/chicken/adult-white"}, 
-            { base: "detailedanimals:entity/chicken/adult-black"}, 
-            { base: "detailedanimals:entity/chicken/hen-blue"},
-            { base: "detailedanimals:entity/chicken/hen-splash"},
-            { base: "detailedanimals:entity/chicken/hen-birchen"},
-            { base: "detailedanimals:entity/chicken/hen-birchen-blue"},
-            { base: "detailedanimals:entity/chicken/hen-birchen-splash"},
-            { base: "detailedanimals:entity/chicken/hen-duckwing-blue"},
-            { base: "detailedanimals:entity/chicken/hen-duckwing-splash"},
-            ] 
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-hen.json",
+        op: "add",
+        path: "/client/textures",
+        value: {
+                chicken: { base: "detailedanimals:entity/chicken/hen-duckwing", 
+                    alternates: [{ base: "detailedanimals:entity/chicken/adult-white"}, 
+                    { base: "detailedanimals:entity/chicken/adult-black"}, 
+                    { base: "detailedanimals:entity/chicken/hen-blue"},
+                    { base: "detailedanimals:entity/chicken/hen-splash"},
+                    { base: "detailedanimals:entity/chicken/hen-birchen"},
+                    { base: "detailedanimals:entity/chicken/hen-birchen-blue"},
+                    { base: "detailedanimals:entity/chicken/hen-birchen-splash"},
+                    { base: "detailedanimals:entity/chicken/hen-duckwing-blue"},
+                    { base: "detailedanimals:entity/chicken/hen-duckwing-splash"},
+                ]},
+                shanks: { base: "detailedanimals:entity/chicken/shanks/darkwhite",
+                    alternates: [{ base: "detailedanimals:entity/chicken/shanks/darkyellow"},
+                    { base: "detailedanimals:entity/chicken/shanks/black"},
+                    { base: "detailedanimals:entity/chicken/shanks/blackyellow"},
+                    { base: "detailedanimals:entity/chicken/shanks/white"},
+                    { base: "detailedanimals:entity/chicken/shanks/yellow"},
+                ]}
         },
         side: "server"
     },
@@ -614,19 +649,33 @@
     },
     {
         file: "game:entities/land/chicken-rooster.json",
-        op: "replace",
+        op: "remove",
         path: "/client/texture",
-        value: { base: "detailedanimals:entity/chicken/rooster-duckwing", 
-            alternates: [{ base: "detailedanimals:entity/chicken/adult-white"}, 
-            { base: "detailedanimals:entity/chicken/adult-black"}, 
-            { base: "detailedanimals:entity/chicken/rooster-blue"},
-            { base: "detailedanimals:entity/chicken/rooster-splash"},
-            { base: "detailedanimals:entity/chicken/rooster-birchen"},
-            { base: "detailedanimals:entity/chicken/rooster-birchen-blue"},
-            { base: "detailedanimals:entity/chicken/rooster-birchen-splash"},
-            { base: "detailedanimals:entity/chicken/rooster-duckwing-blue"},
-            { base: "detailedanimals:entity/chicken/rooster-duckwing-splash"},
-            ] 
+        side: "server"
+    },
+    {
+        file: "game:entities/land/chicken-rooster.json",
+        op: "add",
+        path: "/client/textures",
+        value: {
+                chicken: { base: "detailedanimals:entity/chicken/rooster-duckwing", 
+                    alternates: [{ base: "detailedanimals:entity/chicken/adult-white"}, 
+                    { base: "detailedanimals:entity/chicken/adult-black"}, 
+                    { base: "detailedanimals:entity/chicken/rooster-blue"},
+                    { base: "detailedanimals:entity/chicken/rooster-splash"},
+                    { base: "detailedanimals:entity/chicken/rooster-birchen"},
+                    { base: "detailedanimals:entity/chicken/rooster-birchen-blue"},
+                    { base: "detailedanimals:entity/chicken/rooster-birchen-splash"},
+                    { base: "detailedanimals:entity/chicken/rooster-duckwing-blue"},
+                    { base: "detailedanimals:entity/chicken/rooster-duckwing-splash"},
+                    ]},
+                shanks: { base: "detailedanimals:entity/chicken/shanks/darkwhite",
+                    alternates: [{ base: "detailedanimals:entity/chicken/shanks/darkyellow"},
+                    { base: "detailedanimals:entity/chicken/shanks/black"},
+                    { base: "detailedanimals:entity/chicken/shanks/blackyellow"},
+                    { base: "detailedanimals:entity/chicken/shanks/white"},
+                    { base: "detailedanimals:entity/chicken/shanks/yellow"},
+                ]}
         },
         side: "server"
     },

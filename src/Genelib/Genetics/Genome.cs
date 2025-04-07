@@ -284,6 +284,16 @@ namespace Genelib {
             return Homozygous(geneID, Type.Autosomal.AlleleID(geneID, allele));
         }
 
+        public bool HasXZ(string gene, string allele) {
+            int geneID = Type.XZ.GeneID(gene);
+            return HasXZ(geneID, Type.XZ.AlleleID(geneID, allele));
+        }
+
+        public bool HomozygousXZ(string gene, string allele) {
+            int geneID = Type.XZ.GeneID(gene);
+            return HomozygousXZ(geneID, Type.XZ.AlleleID(geneID, allele));
+        }
+
         public void SetNotHomozygous(string gene, string avoidAllele, AlleleFrequencies frequencies, string fallbackAllele) {
             int geneID = Type.Autosomal.GeneID(gene);
             byte avoidID = Type.Autosomal.AlleleID(geneID, avoidAllele);

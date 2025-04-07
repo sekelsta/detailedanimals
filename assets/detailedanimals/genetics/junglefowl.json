@@ -4,9 +4,11 @@
             { extension: ["duckwing", "black", "birchen", "brown", "buttercup", "wheaten"] },
             { tyrosinase: ["wildtype", "white"] },
             { bluesplash: ["wildtype", "bluesplash"] },
+            { whiteshanks: ["white", "yellow"] }, // W and w per Knox 1935 THE INHERITANCE OF SHANK COLOR IN CHICKENS
             //{ blue_egg: ["white", "blue_lueyang", "blue_dongxiang", "blue_aroucana"] },
         ],
         xz: [
+            { dermalmelanin: ["allowed", "inhibited"] },
             //{ chocolate: ["wildtype", "chocolate"] },
         ],
     },
@@ -27,6 +29,10 @@
                 extension: { default: "duckwing", black: 0.1, birchen: 0.2 },
                 tyrosinase: { default: "wildtype", white: 0.1 },
                 bluesplash: { default: "wildtype", bluesplash: 0.2 },
+                whiteshanks: { default: "white", yellow: 0.5 },
+            },
+            xz: {
+                dermalmelanin: { default: "allowed", inhibited: 0.5 },
             },
             conditions: {
             }
@@ -34,6 +40,7 @@
         deepforest: {
             autosomal: {
                 extension: { default: "duckwing", black: 0.1 },
+                whiteshanks: { default: "white", yellow: 0.5 },
             },
             conditions: {
                 minForest: 0.6

@@ -6,10 +6,12 @@ using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
     public class GoatGenetics : GeneInterpreter {
-        void GeneInterpreter.Interpret(Genome genome, Entity entity) {
+        void GeneInterpreter.Interpret(EntityBehaviorGenetics genetics) {
+            Entity entity = genetics.entity;
             if (entity.World.Side == EnumAppSide.Client) {
                 return;
             }
+            Genome genome = genetics.Genome;
             if (IsPolled(genome)) {
                 EntityBehaviorAntlerGrowth antlers = entity.GetBehavior<EntityBehaviorAntlerGrowth>();
                 antlers.Inventory[0].Itemstack = null;
