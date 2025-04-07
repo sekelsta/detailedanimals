@@ -11,7 +11,7 @@ using Vintagestory.GameContent;
 
 namespace Genelib {
     public class ReproduceEgg : Reproduce {
-        public const string Code = "genelib.eggreproduce";
+        new public const string Code = "genelib.eggreproduce";
         private const float DEFAULT_WEIGHT = 0.04f;
 
         public CollectibleObject[] EggTypes;
