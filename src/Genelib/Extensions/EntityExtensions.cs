@@ -55,7 +55,7 @@ namespace Genelib.Extensions {
         }
 
         public static double BodyCondition(this Entity entity) {
-            return entity.WatchedAttributes.TryGetDouble("bodyCondition") ?? entity.WatchedAttributes.GetFloat("bodyCondition");
+            return entity.WatchedAttributes.TryGetDouble("bodyCondition") ?? entity.WatchedAttributes.GetFloat("bodyCondition", 1);
         }
 
         public static void SetBodyCondition(this Entity entity, double value) {
