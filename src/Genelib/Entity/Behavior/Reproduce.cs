@@ -241,6 +241,10 @@ namespace Genelib {
         }
 
         protected void ConsiderMating() {
+            if (entity.World.Rand.NextSingle() < 0.8f) {
+                return;
+            }
+
             if (!EntityCanMate(this.entity)) {
                 return;
             }
