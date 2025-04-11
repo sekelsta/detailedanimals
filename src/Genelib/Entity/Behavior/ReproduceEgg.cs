@@ -26,6 +26,8 @@ namespace Genelib {
         private Type taskType;
         private JsonObject taskConfig;
 
+        private const float averageEggWeight = 0.051f; // TODO: Make different chickens lay different sizes of egg
+
         public double EggLaidHours {
             get => entity.WatchedAttributes.GetDouble("eggLaidHours");
             set => entity.WatchedAttributes.SetDouble("eggLaidHours", value);
@@ -34,6 +36,18 @@ namespace Genelib {
         public double NextEggHours {
             get => entity.WatchedAttributes.GetDouble("nextEggHours");
             set => entity.WatchedAttributes.SetDouble("nextEggHours", value);
+        }
+
+        public override double ExtraGrowthTarget {
+            get {
+                double next = NextEggHours;
+                double total = entity.World.Calendar.TotalHours;
+                return next > total && next < total + 26 ? averageEggWeight / entity.BaseWeight() : 0;
+            }
+        }
+
+        public override double ExtraGrowthTargetHour {
+            get => NextEggHours;
         }
 
         public ReproduceEgg(Entity entity) : base(entity) { }
@@ -157,17 +171,16 @@ namespace Genelib {
         }
 
         public ItemStack LayEgg() {
-            float eggWeight = 0.051f; // TODO: Make different chickens lay different sizes of egg
-
             CollectibleObject egg = EggTypes[0];
+            float eggWeight = averageEggWeight;
             float lessw;
             for (int i = 1; i < EggTypes.Length; ++i) {
                 float w = EggTypes[i].Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT;
-                if (w == eggWeight) {
+                if (w == averageEggWeight) {
                     egg = EggTypes[i];
                     break;
                 }
-                else if (w > eggWeight) {
+                else if (w > averageEggWeight) {
                     lessw = EggTypes[i-1].Attributes?["weightKg"].AsFloat(DEFAULT_WEIGHT) ?? DEFAULT_WEIGHT;
                     float r = lessw + entity.World.Rand.NextSingle() * (w - lessw);
                     egg = EggTypes[r > eggWeight ? i : i - 1];
@@ -177,10 +190,15 @@ namespace Genelib {
                 lessw = w;
             }
 
-            float theRestOfTheWeight = entity.Properties.Attributes["adultWeightKg"].AsFloat() * entity.WeightModifierExceptCondition();
-            double prevTotalWeight = entity.BodyCondition() * theRestOfTheWeight;
-            double newTotalWeight = Math.Max(prevTotalWeight * 0.1f, prevTotalWeight - eggWeight);
-            entity.SetBodyCondition(newTotalWeight / theRestOfTheWeight);
+            float adultWeightKg = entity.Properties.Attributes["adultWeightKg"].AsFloat();
+            double leftover = entity.ExtraGrowth() - eggWeight / adultWeightKg;
+            entity.SetExtraGrowth(Math.Max(0, leftover));
+            if (leftover < 0) {
+                float baseWeight = entity.BaseWeight();
+                double prevWeight = entity.BodyCondition() * baseWeight;
+                double newWeight = Math.Max(prevWeight * 0.1f, prevWeight + leftover);
+                entity.SetBodyCondition(newWeight / baseWeight);
+            }
 
             ItemStack eggStack = new ItemStack(egg);
             EggLaidHours = entity.World.Calendar.TotalHours;

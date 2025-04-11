@@ -43,6 +43,9 @@ namespace Genelib {
         protected Vec3d prevPos;
         protected AiTaskEatFromInventory eatTask;
         protected EntityBehaviorTaskAI taskAI;
+#nullable enable
+        protected Reproduce? reproduce;
+#nullable disable
 
         private const int TPS = 30;
         private const int updateSeconds = 6;
@@ -171,6 +174,8 @@ namespace Genelib {
             if (taskAI == null) {
                 throw new FormatException(entity.Code + " has no task AI behavior needed by " + Code);
             }
+
+            reproduce = entity.GetBehavior<Reproduce>();
         }
 
         public override void OnEntityDespawn(EntityDespawnData despawn) {
@@ -604,25 +609,55 @@ namespace Genelib {
             }
         }
 
-        public double WeightShiftAmount() {
-            double fullness = Fullness;
+        public double WeightShiftAmount(double fullness) {
             double gain = fullness * fullness * fullness;
             double recovery = 1 - entity.BodyCondition();
             return (gain + recovery) / 2;
         }
 
+        public double WeightShiftAmount() {
+            return WeightShiftAmount(Fullness);
+        }
+
+        // Become fatter or thinner
         public void UpdateCondition(float hours) {
-            // Become fatter or thinner
+            double extraGrowthTarget = reproduce?.ExtraGrowthTarget ?? 0;
+            double extraGrowthTargetHour = reproduce?.ExtraGrowthTargetHour ?? 0;
+
+            double numUpdatesUntilTarget = Math.Max(1, (extraGrowthTargetHour - entity.World.Calendar.TotalHours) * 120 / updateSeconds);
+            double extraGrowthNeeded = (extraGrowthTarget - entity.ExtraGrowth()) / numUpdatesUntilTarget;
+            if (extraGrowthNeeded != 0) {
+                double yearSpeed = 30 / entity.World.Calendar.DaysPerMonth;
+                extraGrowthNeeded = Math.Clamp(extraGrowthNeeded, -0.00003 * updateSeconds * yearSpeed, 0.00003 * updateSeconds * yearSpeed);
+                double satNeededForGrowth = SatietyForWeightChange(extraGrowthNeeded / yearSpeed);
+
+                double prevSaturation = Saturation;
+                double ceiling = Math.Max(0.8 * AdjustedMaxSaturation, prevSaturation);
+                double floor = Math.Min(-0.8 * AdjustedMaxSaturation, prevSaturation);
+                double nextSaturation = Math.Clamp(prevSaturation - satNeededForGrowth, floor, ceiling);
+                double satForGrowth = prevSaturation - nextSaturation; // Negate once now and again when consumed
+                if (satForGrowth != 0) {
+                    ConsumeSaturation(satForGrowth);
+                    entity.SetExtraGrowth(entity.ExtraGrowth() + extraGrowthNeeded * satForGrowth / satNeededForGrowth);
+                }
+            }
+
             double weightShiftRate = 0.5 * hours / 24 / 12.5;
             ShiftWeight(weightShiftRate * WeightShiftAmount());
         }
 
-        public void ShiftWeight(double deltaWeight) {
+        // In: Change in weight as a fraction of base weight
+        // Out: Resulting cost in satiety/saturation
+        public double SatietyForWeightChange(double deltaWeight) {
             double inefficiency = deltaWeight > 0 ? 1.05 : 0.95;
-            entity.SetBodyCondition(Math.Clamp(entity.BodyCondition() + deltaWeight, 0.5, 2.0));
             double fractionOfOwnWeightEatenPerDay = 0.04;
             double totalSaturation = AdjustedMaxSaturation * 2;
-            double deltaSat = deltaWeight * inefficiency / fractionOfOwnWeightEatenPerDay * totalSaturation / DaysUntilHungry;
+            return deltaWeight * inefficiency / fractionOfOwnWeightEatenPerDay * totalSaturation / DaysUntilHungry;
+        }
+
+        public void ShiftWeight(double deltaWeight) {
+            double deltaSat = SatietyForWeightChange(deltaWeight);
+            entity.SetBodyCondition(Math.Clamp(entity.BodyCondition() + deltaWeight, 0.5, 2.0));
             ConsumeSaturation(deltaSat);
             Fat.Consume(deltaSat / 4);
             if (deltaWeight > 0) {
@@ -632,7 +667,7 @@ namespace Genelib {
 
         public void ConsumeSaturation(double amount) {
             double prevSaturation = Saturation;
-            Saturation = Math.Clamp(Saturation - amount, -AdjustedMaxSaturation, AdjustedMaxSaturation);
+            Saturation = Math.Clamp(prevSaturation - amount, -AdjustedMaxSaturation, AdjustedMaxSaturation);
             double loss = (prevSaturation - Saturation) / AdjustedMaxSaturation;
             foreach (Nutrient nutrient in Nutrients) {
                 nutrient.Consume(loss);

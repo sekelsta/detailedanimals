@@ -51,7 +51,7 @@ namespace Genelib {
                 return true;
             }
             // Note this is called for everything with a health behavior, players, animals, monsters
-            float weight = entity.WeightModifierExceptCondition();
+            float weight = entity.BaseWeight();
             if (weight > 0.999 && weight < 1.001) {
                 return true;
             }

@@ -66,16 +66,28 @@ namespace Genelib.Extensions {
             entity.WatchedAttributes.SetFloat("animalWeight", (float)Math.Min(1.08, value));
         }
 
-        public static float WeightModifierExceptCondition(this Entity entity) {
+        public static double ExtraGrowth(this Entity entity) {
+            return entity.WatchedAttributes.GetDouble("extraGrowth", 0);
+        }
+
+        public static void SetExtraGrowth(this Entity entity, double value) {
+            if (double.IsNaN(value)) {
+                throw new ArgumentException("Cannot set extra growth value to NaN");
+            }
+            entity.WatchedAttributes.SetDouble("extraGrowth", value);
+        }
+
+        public static float BaseWeight(this Entity entity) {
             float weight = entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
             float dimorphism = entity.Properties.Attributes?["weightDimorphism"].AsFloat(0) ?? 0;
             weight *= entity.IsMale() ? 1 + dimorphism : 1 - dimorphism;
             return weight;
         }
 
-        public static float WeightModifier(this Entity entity) {
-            float weight = WeightModifierExceptCondition(entity);
+        public static double WeightModifier(this Entity entity) {
+            double weight = BaseWeight(entity);
             weight *= entity.WatchedAttributes.GetFloat("animalWeight", 1);
+            weight += entity.WatchedAttributes.GetDouble("extraGrowth", 0);
             return weight;
         }
 

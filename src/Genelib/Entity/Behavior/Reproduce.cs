@@ -36,6 +36,14 @@ namespace Genelib {
 
         public float MateTaskPriority = 1.5f;
 
+        public virtual double ExtraGrowthTarget {
+            get => 0;
+        }
+
+        public virtual double ExtraGrowthTargetHour {
+            get => 0;
+        }
+
         public bool InEarlyPregnancy {
             get => multiplyTree.GetBool("earlyPregnancy", true);
             set {

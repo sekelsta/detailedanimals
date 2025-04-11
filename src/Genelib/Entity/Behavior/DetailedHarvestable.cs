@@ -65,7 +65,7 @@ namespace Genelib {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
-            float healthyWeight = entity.WeightModifierExceptCondition();
+            float healthyWeight = entity.BaseWeight();
             // Used by Butchering mod, also used by us now
             jsonDrops = new BlockDropItemStack[creatureDrops.Length];
             for (int i = 0; i < creatureDrops.Length; ++i) {
