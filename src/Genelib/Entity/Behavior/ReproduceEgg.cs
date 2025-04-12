@@ -183,6 +183,9 @@ namespace Genelib {
             entity.SetBodyCondition(newTotalWeight / theRestOfTheWeight);
 
             ItemStack eggStack = new ItemStack(egg);
+            EggLaidHours = entity.World.Calendar.TotalHours;
+            NextEggHours = entity.World.Calendar.TotalHours + HoursPerEgg.nextFloat(1, entity.World.Rand);
+
             TreeAttribute chick = PopChild();
             if (chick == null) {
                 return eggStack;
@@ -208,9 +211,6 @@ namespace Genelib {
                     }
                 }
             }
-
-            EggLaidHours = entity.World.Calendar.TotalHours;
-            NextEggHours = entity.World.Calendar.TotalHours + HoursPerEgg.nextFloat(1, entity.World.Rand);
 
             return eggStack;
         }
