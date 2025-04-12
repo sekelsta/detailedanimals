@@ -32,7 +32,7 @@
                 whiteshanks: { default: "white", yellow: 0.5 },
             },
             xz: {
-                dermalmelanin: { default: "allowed", inhibited: 0.5 },
+                dermalmelanin: { default: "allowed", inhibited: 0.2 },
             },
             conditions: {
             }
