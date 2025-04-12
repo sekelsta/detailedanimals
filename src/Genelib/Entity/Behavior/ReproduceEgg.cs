@@ -101,7 +101,7 @@ namespace Genelib {
                     entity.Api.Logger.Error("Exception loading " + Code + " for " + entity.Code);
                     entity.Api.Logger.Error(e.InnerException);
                 }
-                throw e;
+                throw;
             }
             layEggTask.LoadConfig(taskConfig, null);
             taskConfig = null;
