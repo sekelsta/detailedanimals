@@ -626,9 +626,14 @@ namespace Genelib {
 
             double numUpdatesUntilTarget = Math.Max(1, (extraGrowthTargetHour - entity.World.Calendar.TotalHours) * 120 / updateSeconds);
             double extraGrowthNeeded = (extraGrowthTarget - entity.ExtraGrowth()) / numUpdatesUntilTarget;
-            if (extraGrowthNeeded != 0) {
-                double yearSpeed = 30 / entity.World.Calendar.DaysPerMonth;
-                extraGrowthNeeded = Math.Clamp(extraGrowthNeeded, -0.00003 * updateSeconds * yearSpeed, 0.00003 * updateSeconds * yearSpeed);
+            double yearSpeed = 30 / entity.World.Calendar.DaysPerMonth;
+            extraGrowthNeeded = Math.Clamp(extraGrowthNeeded, -0.00003 * updateSeconds * yearSpeed, 0.00003 * updateSeconds * yearSpeed);
+
+            if (extraGrowthNeeded < 0 && entity.BodyCondition() < DetailedHarvestable.LEAN) {
+                entity.SetBodyCondition(entity.BodyCondition() - extraGrowthNeeded);
+                entity.SetExtraGrowth(entity.ExtraGrowth() + extraGrowthNeeded);
+            }
+            else if (extraGrowthNeeded > 0) {
                 double satNeededForGrowth = SatietyForWeightChange(extraGrowthNeeded / yearSpeed);
 
                 double prevSaturation = Saturation;
@@ -659,8 +664,8 @@ namespace Genelib {
             double deltaSat = SatietyForWeightChange(deltaWeight);
             entity.SetBodyCondition(Math.Clamp(entity.BodyCondition() + deltaWeight, 0.5, 2.0));
             ConsumeSaturation(deltaSat);
-            Fat.Consume(deltaSat / 4);
             if (deltaWeight > 0) {
+                Fat.Consume(deltaSat / 4);
                 Protein.Consume(deltaSat / 4);
             }
         }
@@ -669,8 +674,10 @@ namespace Genelib {
             double prevSaturation = Saturation;
             Saturation = Math.Clamp(prevSaturation - amount, -AdjustedMaxSaturation, AdjustedMaxSaturation);
             double loss = (prevSaturation - Saturation) / AdjustedMaxSaturation;
-            foreach (Nutrient nutrient in Nutrients) {
-                nutrient.Consume(loss);
+            if (loss > 0) {
+                foreach (Nutrient nutrient in Nutrients) {
+                    nutrient.Consume(loss);
+                }
             }
             ApplyNutritionEffects();
         }
