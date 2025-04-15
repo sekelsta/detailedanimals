@@ -73,6 +73,9 @@ namespace Genelib {
 
             if (typeAttributes.KeyExists("initialWeight")) {
                 StartingWeight = typeAttributes["initialWeight"].AsFloat();
+                if (StartingWeight <= 0) {
+                    throw new Exception("Error initializing aging behavior. Initial weight for " + entity.Code + " must be strictly greater than 0. Found value: " + StartingWeight);
+                }
             }
 
             if (typeAttributes.KeyExists("finalWeight")) {
