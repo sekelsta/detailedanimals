@@ -37,7 +37,7 @@ namespace Genelib {
             get => entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
             set {
                 if (float.IsNaN(value)) {
-                    throw new ArgumentException("Cannot set growth weight fraction to NaN");
+                    throw new ArgumentException("Cannot set growth weight fraction to NaN. Entity code: " + entity.Code);
                 }
                 entity.WatchedAttributes.SetFloat("growthWeightFraction", value);
             }

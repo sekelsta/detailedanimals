@@ -68,7 +68,7 @@ namespace Genelib {
             get => hungerTree?.TryGetDouble("genelib.satiety") ?? hungerTree?.GetFloat("saturation") ?? 0;
             set {
                 if (double.IsNaN(value)) {
-                    throw new ArgumentException("Cannot set saturation value to NaN");
+                    throw new ArgumentException("Cannot set saturation value to NaN. Entity code: " + entity.Code);
                 }
                 hungerTree.SetDouble("genelib.satiety", value);
                 hungerTree.SetFloat("saturation", Math.Max(0, (int)value));
@@ -215,7 +215,7 @@ namespace Genelib {
             float fat_drops = 0.1f * fat;
 
             if (float.IsNaN(metabolic_efficiency)) {
-                throw new ArgumentException("Cannot set metabolic efficiency to NaN");
+                throw new ArgumentException("Cannot set metabolic efficiency to NaN. Entity code: " + entity.Code);
             }
             MetabolicEfficiency = metabolic_efficiency;
 

@@ -60,7 +60,7 @@ namespace Genelib.Extensions {
 
         public static void SetBodyCondition(this Entity entity, double value) {
             if (double.IsNaN(value)) {
-                throw new ArgumentException("Cannot set body condition value to NaN");
+                throw new ArgumentException("Cannot set body condition value to NaN. Entity code: " + entity.Code);
             }
             entity.WatchedAttributes.SetDouble("bodyCondition", value);
             entity.WatchedAttributes.SetFloat("animalWeight", (float)Math.Min(1.08, value));
@@ -72,7 +72,7 @@ namespace Genelib.Extensions {
 
         public static void SetExtraGrowth(this Entity entity, double value) {
             if (double.IsNaN(value)) {
-                throw new ArgumentException("Cannot set extra growth value to NaN");
+                throw new ArgumentException("Cannot set extra growth value to NaN. Entity code: " + entity.Code);
             }
             entity.WatchedAttributes.SetDouble("extraGrowth", value);
         }
