@@ -510,12 +510,12 @@ namespace Genelib {
             if (IsPregnant) {
                 int passed = (int)Math.Round(TotalDays - TotalDaysPregnancyStart);
                 int expected = (int)Math.Round(GestationDays);
-                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-pregnancy", passed, expected));
+                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-pregnancy", passed, expected));
                 if (InEarlyPregnancy) {
-                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-earlypregnancy"));
+                    infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-earlypregnancy"));
                 }
                 else if (TotalDays > TotalDaysPregnancyStart + GestationDays * 2.0 / 3.0) {
-                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-latepregnancy"));
+                    infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-latepregnancy"));
                 }
                 return;
             }
@@ -531,11 +531,11 @@ namespace Genelib {
                 return;
             }
             if (animalWeight <= DetailedHarvestable.MALNOURISHED) {
-                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight"));
+                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-underweight"));
                 return;
             }
             else if (animalWeight > DetailedHarvestable.FAT) {
-                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-overweight"));
+                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-overweight"));
                 return;
             }
 
@@ -545,10 +545,10 @@ namespace Genelib {
             if (!IsBreedingSeason(season)) {
                 double breedingStart = (BreedingSeasonPeak - BreedingSeasonBefore + 1) % 1;
                 if (breedingStart < 0.5) {
-                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-longday"));
+                    infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-longday"));
                 }
                 else {
-                    infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-shortday"));
+                    infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-shortday"));
                 }
                 return;
             }
@@ -557,7 +557,7 @@ namespace Genelib {
                 infotext.AppendLine(Lang.Get("game:Ready to mate"));
             }
             else if (daysLeft <= 4) {
-                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-waitdays" + Math.Ceiling(daysLeft).ToString()));
+                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-waitdays" + Math.Ceiling(daysLeft).ToString()));
             }
             else {
                 infotext.AppendLine(Lang.Get("game:Several days left before ready to mate"));

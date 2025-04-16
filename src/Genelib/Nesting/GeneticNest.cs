@@ -399,7 +399,7 @@ namespace Genelib {
                 if (chickData != null) {
                     string chickCode = chickData.GetString("code");
                     if (chickCode == null || chickCode == "") {
-                        info.AppendLine(" • " + Lang.Get("genelib:blockinfo-fertilitylost"));
+                        info.AppendLine(" • " + Lang.Get("detailedanimals:blockinfo-fertilitylost"));
                     }
                     else {
                         anyFertile = true;
@@ -423,18 +423,18 @@ namespace Genelib {
                         info.AppendLine(Lang.Get("A broody hen is needed!"));
                     }
                     else if (!WasOccupied) {
-                        info.AppendLine(Lang.Get("genelib:blockinfo-nestbox-eggs-warming"));
+                        info.AppendLine(Lang.Get("detailedanimals:blockinfo-nestbox-eggs-warming"));
                     }
                     else if (!IsOccupiedClientside) {
-                        info.AppendLine(Lang.Get("genelib:blockinfo-nestbox-eggs-cooling"));
+                        info.AppendLine(Lang.Get("detailedanimals:blockinfo-nestbox-eggs-cooling"));
                     }
                     else {
-                        info.AppendLine(Lang.Get("genelib:blockinfo-nestbox-eggs-incubating"));
+                        info.AppendLine(Lang.Get("detailedanimals:blockinfo-nestbox-eggs-incubating"));
                     }
                 }
             }
             if (anyRot) {
-                info.AppendLine(Lang.Get("genelib:blockinfo-nest-rotten"));
+                info.AppendLine(Lang.Get("detailedanimals:blockinfo-nest-rotten"));
                 return;
             }
             bool showSpecies = Block.Attributes?["showSuitableSpecies"]?.AsBool(true) ?? true;
@@ -449,7 +449,7 @@ namespace Genelib {
                         }
                     }
                 }
-                info.AppendLine(Lang.Get("genelib:blockinfo-suitable-nestbox", string.Join(", ", creatureNames)));
+                info.AppendLine(Lang.Get("detailedanimals:blockinfo-suitable-nestbox", string.Join(", ", creatureNames)));
             }
         }
 

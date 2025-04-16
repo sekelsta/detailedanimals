@@ -171,9 +171,9 @@ namespace Genelib {
             double weightPounds = weightKilograms * 2.20462;
 
             string unitsSuffix = GenelibSystem.Config.WeightSuffix();
-            string conditionKey = "genelib:infotext-bodycondition" + bodyScore.ToString();
+            string conditionKey = "detailedanimals:infotext-bodycondition" + bodyScore.ToString();
             string genderSuffix = entity.IsMale() ? "-male" : "-female";
-            string text = Lang.GetUnformatted("genelib:infotext-conditionweight" + unitsSuffix)
+            string text = Lang.GetUnformatted("detailedanimals:infotext-conditionweight" + unitsSuffix)
                 .Replace("{condition}", VSExtensions.GetLangOptionallySuffixed(conditionKey, genderSuffix))
                 .Replace("{pounds}", roundNicely(weightPounds))
                 .Replace("{kilograms}", roundNicely(weightKilograms));

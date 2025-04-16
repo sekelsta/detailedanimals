@@ -243,20 +243,20 @@ namespace Genelib {
             }
             double animalWeight = entity.BodyCondition();
             if (animalWeight <= DetailedHarvestable.MALNOURISHED) {
-                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight"));
+                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-underweight"));
                 return;
             }
             double lastBroody = entity.WatchedAttributes.GetDouble("lastBroodyHours", -1);
             if (lastBroody > entity.World.Calendar.TotalHours - 72) {
-                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-broody"));
+                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-broody"));
                 return;
             }
             if (animalWeight <= DetailedHarvestable.UNDERWEIGHT) {
-                infotext.AppendLine(Lang.Get("genelib:infotext-reproduce-underweight-eggs"));
+                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-underweight-eggs"));
                 return;
             }
             if (IsPregnant) {
-                string key = "genelib:infotext-reproduce-eggsfertile";
+                string key = "detailedanimals:infotext-reproduce-eggsfertile";
                 string translated = Lang.AvailableLanguages[Lang.CurrentLocale].GetUnformatted(key);
                 infotext.AppendLine((key != translated) ? translated : Lang.Get("game:Ready to lay"));
                 return;

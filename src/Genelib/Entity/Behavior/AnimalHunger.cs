@@ -375,7 +375,7 @@ namespace Genelib {
             }
             string avoidReason = AvoidReason(data, GetBaseSatiety(itemstack, nutriProps));
             if (avoidReason != null) {
-                messagePlayer("genelib:message-wrongnutrient-" + avoidReason, byEntity);
+                messagePlayer("detailedanimals:message-wrongnutrient-" + avoidReason, byEntity);
                 return;
             }
 
@@ -709,7 +709,7 @@ namespace Genelib {
             }
 
             string suffix = entity.IsMale() ? "-male" : "-female";
-            string text = VSExtensions.GetLangOptionallySuffixed("genelib:infotext-hunger" + hungerScore.ToString(), suffix);
+            string text = VSExtensions.GetLangOptionallySuffixed("detailedanimals:infotext-hunger" + hungerScore.ToString(), suffix);
             infotext.AppendLine(text);
         }
 

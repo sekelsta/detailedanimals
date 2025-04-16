@@ -18,10 +18,8 @@ python3 texsrc/cook.py
 postcook=$(($(date +%s%N)/1000000))
 
 cp assets/detailedanimals/lang/es-419.json assets/detailedanimals/lang/es-es.json
-cp assets/genelib/lang/es-419.json assets/genelib/lang/es-es.json
 dotnet run --project ./Build/CakeBuild/CakeBuild.csproj -- "$@"
 rm assets/detailedanimals/lang/es-es.json
-rm assets/genelib/lang/es-es.json
 rm -r bin/
 rm -r src/obj/
 rm "${VINTAGE_STORY_DEV}"/Mods/detailedanimals_*.zip

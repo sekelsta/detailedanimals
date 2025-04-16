@@ -30,8 +30,8 @@ namespace Genelib {
                 .WithFixedAlignmentOffset(-GuiStyle.DialogToScreenPadding, 0);
 
             GuiTab[] tabs = new GuiTab[] {
-                new GuiTab() { Name = Lang.Get("genelib:gui-animalinfo-tab-status"), DataInt = 0 },
-                new GuiTab() { Name = Lang.Get("genelib:gui-animalinfo-tab-info"), DataInt = 1 },
+                new GuiTab() { Name = Lang.Get("detailedanimals:gui-animalinfo-tab-status"), DataInt = 0 },
+                new GuiTab() { Name = Lang.Get("detailedanimals:gui-animalinfo-tab-info"), DataInt = 1 },
             };
             ElementBounds tabBounds = ElementBounds.Fixed(0, -24, width, 25);
             CairoFont tabFont = CairoFont.WhiteDetailText();
@@ -81,7 +81,7 @@ namespace Genelib {
             if (!animal.WatchedAttributes.GetBool("neutered", false)) {
                 if (animal.OwnedByOther((GenelibSystem.ClientAPI.World as ClientMain)?.Player)) {
                     if (!animal.MatingAllowed()) {
-                        SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-breedingprevented"), CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
+                        SingleComposer.AddStaticText(Lang.Get("detailedanimals:gui-animalinfo-breedingprevented"), CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
                         y += 25;
                     }
                     else {
@@ -90,7 +90,7 @@ namespace Genelib {
                     }
                 }
                 else {
-                    SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-preventbreeding"), CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, width, 25));
+                    SingleComposer.AddStaticText(Lang.Get("detailedanimals:gui-animalinfo-preventbreeding"), CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, width, 25));
                     SingleComposer.AddSwitch(OnPreventBreedingSet, ElementBounds.Fixed(width - 25, y - 5, 25, 25), "preventbreeding");
                     SingleComposer.GetSwitch("preventbreeding").SetValue(!animal.MatingAllowed());
                     y += 25;
@@ -106,10 +106,10 @@ namespace Genelib {
                         // Don't display these until the player has a way to feed them
                         continue;
                     }
-                    string n = Lang.Get("genelib:gui-animalinfo-amount-" + nutrient.Amount);
-                    string f = Lang.Get("genelib:gui-animalinfo-amount-f-" + nutrient.Amount);
-                    string m = Lang.Get("genelib:gui-animalinfo-amount-m-" + nutrient.Amount);
-                    string text = Lang.GetUnformatted("genelib:gui-animalinfo-nutrient-" + nutrient.Name)
+                    string n = Lang.Get("detailedanimals:gui-animalinfo-amount-" + nutrient.Amount);
+                    string f = Lang.Get("detailedanimals:gui-animalinfo-amount-f-" + nutrient.Amount);
+                    string m = Lang.Get("detailedanimals:gui-animalinfo-amount-m-" + nutrient.Amount);
+                    string text = Lang.GetUnformatted("detailedanimals:gui-animalinfo-nutrient-" + nutrient.Name)
                         .Replace("{n}", n).Replace("{m}", m).Replace("{f}", f);
                     SingleComposer.AddStaticText(text, CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, width, 25));
                     y += 20;
@@ -133,30 +133,30 @@ namespace Genelib {
                 double remainderDays = ageDays - (wholeYears * 12 + wholeMonths) * animal.World.Calendar.DaysPerMonth;
                 int wholeDays = (int) remainderDays;
 
-                string yearsKey = "genelib:gui-age-year" + wholeYears;
-                string stringYears = Lang.HasTranslation(yearsKey) ? Lang.Get(yearsKey) : Lang.Get("genelib:gui-age-year", wholeYears);
-                string monthsKey = "genelib:gui-age-month" + wholeMonths;
-                string stringMonths = Lang.HasTranslation(monthsKey) ? Lang.Get(monthsKey) : Lang.Get("genelib:gui-age-month", wholeMonths);
-                string daysKey = "genelib:gui-age-day" + wholeDays;
-                string stringDays = Lang.HasTranslation(daysKey) ? Lang.Get(daysKey) : Lang.Get("genelib:gui-age-day", wholeDays);
+                string yearsKey = "detailedanimals:gui-age-year" + wholeYears;
+                string stringYears = Lang.HasTranslation(yearsKey) ? Lang.Get(yearsKey) : Lang.Get("detailedanimals:gui-age-year", wholeYears);
+                string monthsKey = "detailedanimals:gui-age-month" + wholeMonths;
+                string stringMonths = Lang.HasTranslation(monthsKey) ? Lang.Get(monthsKey) : Lang.Get("detailedanimals:gui-age-month", wholeMonths);
+                string daysKey = "detailedanimals:gui-age-day" + wholeDays;
+                string stringDays = Lang.HasTranslation(daysKey) ? Lang.Get(daysKey) : Lang.Get("detailedanimals:gui-age-day", wholeDays);
 
                 string ageString = stringYears + " " + stringMonths + " " + stringDays;
-                string ageText = Lang.Get("genelib:gui-animalinfo-age", ageString);
+                string ageText = Lang.Get("detailedanimals:gui-animalinfo-age", ageString);
                 SingleComposer.AddStaticText(ageText, infoFont, ElementBounds.Fixed(0, y, width, 25));
                 y += 25;
             }
 
             string motherString = getParentName("mother");
             string fatherString = getParentName("father");
-            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-father", fatherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            SingleComposer.AddStaticText(Lang.Get("detailedanimals:gui-animalinfo-father", fatherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
             y += 25;
-            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-mother", motherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            SingleComposer.AddStaticText(Lang.Get("detailedanimals:gui-animalinfo-mother", motherString), infoFont, ElementBounds.Fixed(0, y, width, 25));
             y += 25;
             if (animal.WatchedAttributes.HasAttribute("fosterId")) {
                 long fosterId = animal.WatchedAttributes.GetLong("fosterId");
                 if (fosterId != animal.WatchedAttributes.GetLong("motherId", -1)) {
                     string fosterString = getParentName("foster"); // TO_OPTIMIZE: skip getting foster ID again
-                    SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-foster", fosterString), infoFont, ElementBounds.Fixed(0, y, width, 25));
+                    SingleComposer.AddStaticText(Lang.Get("detailedanimals:gui-animalinfo-foster", fosterString), infoFont, ElementBounds.Fixed(0, y, width, 25));
                     y += 25;
                 }
             }
@@ -165,15 +165,15 @@ namespace Genelib {
             if (geneticsTree != null && geneticsTree.HasAttribute("coi")) {
                 float coi = geneticsTree.GetFloat("coi");
                 if (coi >= 0.0395) {
-                    string coiText = Lang.Get("genelib:gui-animalinfo-inbreedingcoefficient", Math.Round(100 * coi));
+                    string coiText = Lang.Get("detailedanimals:gui-animalinfo-inbreedingcoefficient", Math.Round(100 * coi));
                     SingleComposer.AddStaticText(coiText, infoFont, ElementBounds.Fixed(0, y, width, 25));
-                    string desc = Lang.Get("genelib:gui-animalinfo-inbreedingcoefficient-desc");
+                    string desc = Lang.Get("detailedanimals:gui-animalinfo-inbreedingcoefficient-desc");
                     SingleComposer.AddAutoSizeHoverText(desc, CairoFont.WhiteDetailText(), 350, ElementBounds.Fixed(0, y, width, 25), "hoverCOI");
                     y += 25;
                 }
             }
 
-            SingleComposer.AddStaticText(Lang.Get("genelib:gui-animalinfo-note"), infoFont, ElementBounds.Fixed(0, y, width, 25));
+            SingleComposer.AddStaticText(Lang.Get("detailedanimals:gui-animalinfo-note"), infoFont, ElementBounds.Fixed(0, y, width, 25));
             y += 25;
             string note = animal.GetBehavior<BehaviorAnimalInfo>().Note;
             if (animal.OwnedByOther((GenelibSystem.ClientAPI.World as ClientMain)?.Player)) {
@@ -196,16 +196,16 @@ namespace Genelib {
                     return Lang.Get(animal.WatchedAttributes.GetString(parent+"Key"));
                 }
                 if (parent == "foster") {
-                    return Lang.Get("genelib:gui-animalinfo-unknownmother");
+                    return Lang.Get("detailedanimals:gui-animalinfo-unknownmother");
                 }
-                return Lang.Get("genelib:gui-animalinfo-unknown" + parent);
+                return Lang.Get("detailedanimals:gui-animalinfo-unknown" + parent);
             }
             else if (parent == "mother" && animal.WatchedAttributes.HasAttribute("fatherId")) {
                 // For a time (until 0.3.2?) there was a bug where only fathers not mothers were being recorded
-                return Lang.Get("genelib:gui-animalinfo-unknownmother");
+                return Lang.Get("detailedanimals:gui-animalinfo-unknownmother");
             }
             else {
-                return Lang.Get("genelib:gui-animalinfo-foundation");
+                return Lang.Get("detailedanimals:gui-animalinfo-foundation");
             }
         }
 

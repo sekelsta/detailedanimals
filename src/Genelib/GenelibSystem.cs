@@ -167,7 +167,7 @@ namespace Genelib
                 .RegisterMessageType<SetNoteMessage>()
                 .RegisterMessageType<ToggleBreedingMessage>();
 
-            api.Input.RegisterHotKey("genelib.info", Lang.Get("genelib:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
+            api.Input.RegisterHotKey("genelib.info", Lang.Get("detailedanimals:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
             api.Input.SetHotKeyHandler("genelib.info", ToggleAnimalInfoGUI);
         }
 
