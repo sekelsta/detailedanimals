@@ -404,13 +404,7 @@ namespace Genelib {
                     else {
                         anyFertile = true;
                         double hours = stack.Attributes.GetDouble("incubationHoursRemaining", 0.0);
-                        double days = hours / 24;
-                        if (days > 1) {
-                            info.AppendLine(" • " + Lang.Get("Incubation time remaining: {0:0.0} days", days));
-                        }
-                        else {
-                            info.AppendLine(" • " + Lang.Get("Incubation time remaining: {0:0.0} hours", hours));
-                        }
+                        info.AppendLine(" • " + Lang.Get("detailedanimals:infotext-incubationtime", VSExtensions.TranslateTimeFromHours(Api, hours)));
                     }
                 }
             }

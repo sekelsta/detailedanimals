@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -52,6 +53,39 @@ namespace Genelib.Extensions {
                 return Lang.Get(key);
             }
             return Lang.Get(key + suffix);
+        }
+
+        public static string TranslateTimeFromHours(ICoreAPI api, double hours) {
+            double days = hours / api.World.Calendar.HoursPerDay;
+            double months = days / api.World.Calendar.DaysPerMonth;
+            int wholeYears = (int) (months / 12);
+            int wholeMonths = (int) (months - wholeYears * 12);
+            double daysCounted = (wholeYears * 12 + wholeMonths) * api.World.Calendar.DaysPerMonth;
+            int wholeDays = (int) (days - daysCounted);
+            int wholeHours = (int) (hours - (daysCounted + wholeDays) * api.World.Calendar.HoursPerDay);
+
+            return TranslateTimeAmount(wholeYears, wholeMonths, wholeDays, wholeHours);
+        }
+
+        public static string TranslateTimeAmount(int years, int months, int days, int hours) {
+            StringBuilder time = new StringBuilder("");
+            if (years > 0) {
+                string yearsKey = "detailedanimals:time-year" + years;
+                time.Append((Lang.HasTranslation(yearsKey) ? Lang.Get(yearsKey) : Lang.Get("detailedanimals:time-year", years)) + " ");
+            }
+            if (months > 0) {
+                string monthsKey = "detailedanimals:time-month" + months;
+                time.Append((Lang.HasTranslation(monthsKey) ? Lang.Get(monthsKey) : Lang.Get("detailedanimals:time-month", months)) + " ");
+            }
+            if (years <= 0 && days > 0) {
+                string daysKey = "detailedanimals:time-day" + days;
+                time.Append((Lang.HasTranslation(daysKey) ? Lang.Get(daysKey) : Lang.Get("detailedanimals:time-day", days)) + " ");
+            }
+            if (years <= 0 && months <= 0 && hours > 0) {
+                string hoursKey = "detailedanimals:time-hour" + hours;
+                time.Append((Lang.HasTranslation(hoursKey) ? Lang.Get(hoursKey) : Lang.Get("detailedanimals:time-hour", hours)) + " ");
+            }
+            return time.ToString().TrimEnd();
         }
 
         public static AnimationMetaData TryGetAnimation(this JsonObject json, string key) {

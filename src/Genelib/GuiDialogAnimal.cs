@@ -125,23 +125,7 @@ namespace Genelib {
             if (animal.WatchedAttributes.HasAttribute("birthTotalDays")) {
                 double birthDate = animal.WatchedAttributes.GetDouble("birthTotalDays");
                 double ageDays = animal.World.Calendar.TotalDays - birthDate;
-                double ageMonths = ageDays / animal.World.Calendar.DaysPerMonth;
-                double ageYears = ageMonths / 12;
-                int wholeYears = (int) ageYears;
-                double remainderMonths = ageMonths - wholeYears * 12;
-                int wholeMonths = (int) remainderMonths;
-                double remainderDays = ageDays - (wholeYears * 12 + wholeMonths) * animal.World.Calendar.DaysPerMonth;
-                int wholeDays = (int) remainderDays;
-
-                string yearsKey = "detailedanimals:gui-age-year" + wholeYears;
-                string stringYears = Lang.HasTranslation(yearsKey) ? Lang.Get(yearsKey) : Lang.Get("detailedanimals:gui-age-year", wholeYears);
-                string monthsKey = "detailedanimals:gui-age-month" + wholeMonths;
-                string stringMonths = Lang.HasTranslation(monthsKey) ? Lang.Get(monthsKey) : Lang.Get("detailedanimals:gui-age-month", wholeMonths);
-                string daysKey = "detailedanimals:gui-age-day" + wholeDays;
-                string stringDays = Lang.HasTranslation(daysKey) ? Lang.Get(daysKey) : Lang.Get("detailedanimals:gui-age-day", wholeDays);
-
-                string ageString = stringYears + " " + stringMonths + " " + stringDays;
-                string ageText = Lang.Get("detailedanimals:gui-animalinfo-age", ageString);
+                string ageText = Lang.Get("detailedanimals:gui-animalinfo-age", VSExtensions.TranslateTimeFromHours(animal.Api, ageDays * 24));
                 SingleComposer.AddStaticText(ageText, infoFont, ElementBounds.Fixed(0, y, width, 25));
                 y += 25;
             }
