@@ -170,7 +170,7 @@ namespace Genelib {
             weightKilograms *= entity.WeightModifier();
             double weightPounds = weightKilograms * 2.20462;
 
-            string unitsSuffix = GenelibSystem.Config.WeightSuffix();
+            string unitsSuffix = AnimalConfig.Instance.WeightSuffix();
             string conditionKey = "detailedanimals:infotext-bodycondition" + bodyScore.ToString();
             string genderSuffix = entity.IsMale() ? "-male" : "-female";
             string text = Lang.GetUnformatted("detailedanimals:infotext-conditionweight" + unitsSuffix)

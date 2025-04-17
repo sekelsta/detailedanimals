@@ -1,7 +1,13 @@
 using System;
+using Vintagestory.API.Common;
 
 namespace Genelib {
-    public class GenelibConfig {
+    public class AnimalConfig {
+        public static AnimalConfig Instance = null;
+
+        public static double MutationRate = 0.00004;
+        public const double AnimalGrowthTime = 1.0;
+
         public string Units = "CUSTOMARY_METRIC";
 
         public float AnimalMeat = 1.0f;
@@ -35,6 +41,20 @@ namespace Genelib {
                 yearScale = GenelibSystem.API.World.Calendar.DaysPerMonth / 9;
             }
             return AnimalMeat * yearScale;
+        }
+
+        public static void Load(ICoreAPI api) {
+            try {
+                Instance = api.LoadModConfig<AnimalConfig>("genelib_config.json");
+            }
+            catch (Exception e) {
+                api.Logger.Error("Failed to load config file for Genelib: " + e);
+            }
+            if (Instance == null) {
+                Instance = new AnimalConfig();
+            }
+            Instance.MakeValid();
+            api.StoreModConfig(Instance, "genelib_config.json");
         }
     }
 }

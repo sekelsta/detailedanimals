@@ -21,12 +21,8 @@ namespace Genelib
 {
     public class GenelibSystem : ModSystem
     {
-        public static GenelibConfig Config = null;
         public static AssetCategory genetics = null;
         public static AssetCategory nutrition = null;
-
-        public static double MutationRate = 0.00004;
-        public static double AnimalGrowthTime = 1.0;
 
         internal static ICoreServerAPI ServerAPI { get; private set; }
         internal static ICoreClientAPI ClientAPI { get; private set; }
@@ -61,17 +57,7 @@ namespace Genelib
 
             GenomeType.RegisterInterpreter("Polygenes", new PolygeneInterpreter());
 
-            try {
-                Config = api.LoadModConfig<GenelibConfig>("genelib_config.json");
-            }
-            catch (Exception e) {
-                api.Logger.Error("Failed to load config file for Genelib: " + e);
-            }
-            if (Config == null) {
-                Config = new GenelibConfig();
-            }
-            Config.MakeValid();
-            api.StoreModConfig(Config, "genelib_config.json");
+            AnimalConfig.Load(api);
         }
 
         public override void AssetsLoaded(ICoreAPI api) {

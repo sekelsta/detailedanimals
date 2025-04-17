@@ -70,7 +70,7 @@ namespace Genelib {
                         frequencies = defaultFrequencies;
                     }
                     Genome = new Genome(frequencies, heterogametic, random);
-                    Genome.Mutate(GenelibSystem.MutationRate, random);
+                    Genome.Mutate(AnimalConfig.MutationRate, random);
                     foreach (GeneInterpreter interpreter in Genome.Type.Interpreters) {
                         interpreter.Finalize(Genome, frequencies, random);
                     }

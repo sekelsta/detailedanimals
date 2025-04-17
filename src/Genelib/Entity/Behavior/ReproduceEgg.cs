@@ -211,7 +211,7 @@ namespace Genelib {
             chick.SetInt("generation", NextGeneration());
             eggStack.Attributes["chick"] = chick;
 
-            double incubationHoursTotal = IncubationDays * 24 * GenelibSystem.AnimalGrowthTime;
+            double incubationHoursTotal = IncubationDays * 24 * AnimalConfig.AnimalGrowthTime;
             eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
             eggStack.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
             // If incubation length scales with month length, freshness should too

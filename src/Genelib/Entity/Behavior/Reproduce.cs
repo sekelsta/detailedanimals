@@ -124,7 +124,7 @@ namespace Genelib {
             else {
                 GestationDays = entity.World.Calendar.DaysPerMonth;
             }
-            GestationDays *= GenelibSystem.AnimalGrowthTime;
+            GestationDays *= AnimalConfig.AnimalGrowthTime;
 
             if (attributes.KeyExists("sireSearchRange")) {
                 SireSearchRange = attributes["sireSearchRange"].AsFloat();
@@ -139,14 +139,14 @@ namespace Genelib {
             else if (attributes.KeyExists("lactationDays")) {
                 LactationDays = attributes["lactationDays"].AsDouble();
             }
-            LactationDays *= GenelibSystem.AnimalGrowthTime;
+            LactationDays *= AnimalConfig.AnimalGrowthTime;
 
             if (attributes.KeyExists("breedingCooldownMonths")) {
                 CooldownDays = attributes["breedingCooldownMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth
-                    * GenelibSystem.AnimalGrowthTime;
+                    * AnimalConfig.AnimalGrowthTime;
             }
             else if (attributes.KeyExists("breedingCooldownDays")) {
-                CooldownDays = attributes["breedingCooldownDays"].AsDouble() * GenelibSystem.AnimalGrowthTime;
+                CooldownDays = attributes["breedingCooldownDays"].AsDouble() * AnimalConfig.AnimalGrowthTime;
             }
             else {
                 CooldownDays = LactationDays;
@@ -327,7 +327,7 @@ namespace Genelib {
                 if (ourGenome != null && sireGenome != null) {
                     bool heterogametic = ourGenome.Type.SexDetermination.Heterogametic(entity.IsMale());
                     Genome child = new Genome(ourGenome, sireGenome, heterogametic, entity.World.Rand);
-                    child.Mutate(GenelibSystem.MutationRate, entity.World.Rand);
+                    child.Mutate(AnimalConfig.MutationRate, entity.World.Rand);
                     TreeAttribute childGeneticsTree = (TreeAttribute) litterData.value[i].GetOrAddTreeAttribute("genetics");
                     child.AddToTree(childGeneticsTree);
                 }

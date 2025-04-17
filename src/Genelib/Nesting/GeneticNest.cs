@@ -120,7 +120,7 @@ namespace Genelib {
                 }
             }
             if (eggStack.Attributes.HasAttribute("chick")) {
-                double incubationHoursTotal = incubationDays * 24 * GenelibSystem.AnimalGrowthTime;
+                double incubationHoursTotal = incubationDays * 24 * AnimalConfig.AnimalGrowthTime;
                 eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
                 eggStack.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
             }

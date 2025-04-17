@@ -27,7 +27,7 @@ namespace Genelib {
             float multiplier = 1 / animalWeight;
             if (Category == EnumDropCategory.Meat) {
                 multiplier *= Math.Max(0, animalWeight - 0.3f) / 0.7f * healthyWeight;
-                multiplier *= GenelibSystem.Config.MeatMultiplier();
+                multiplier *= AnimalConfig.Instance.MeatMultiplier();
             }
             else if (Category == EnumDropCategory.Pelt) {
                 multiplier *= (float)Math.Pow(healthyWeight, 0.6667f) * (1 + animalWeight) / 2;
@@ -35,7 +35,7 @@ namespace Genelib {
             else if (Category == EnumDropCategory.Fat) {
                 float fatness = Math.Max(0, animalWeight - 0.8f) / 0.2f;
                 multiplier *= animalWeight * healthyWeight * fatness * fatness;
-                multiplier *= GenelibSystem.Config.MeatMultiplier();
+                multiplier *= AnimalConfig.Instance.MeatMultiplier();
             }
 
             BlockDropItemStack result = Clone();
