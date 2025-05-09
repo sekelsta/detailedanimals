@@ -13,6 +13,7 @@ using Vintagestory.Common;
 using Vintagestory.GameContent;
 using Vintagestory.API.Util;
 using Vintagestory.Client.NoObf;
+using Vintagestory.Server;
 
 using Genelib.Extensions;
 using Genelib.Network;

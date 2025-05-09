@@ -61,28 +61,18 @@ namespace Genelib {
         }
 
         private NameMapping parse(JsonObject json, string key) {
-            NameMapping mapping = new NameMapping();
             if (!json.KeyExists(key)) {
-                mapping.geneArray = new string[0];
-                return mapping;
+                return new NameMapping();
             }
             JsonObject[] genes = json[key].AsArray();
-            mapping.geneMap = new Dictionary<string, int>();
-            mapping.geneArray = new string[genes.Length];
-            mapping.alleleArrays = new string[genes.Length][];
-            mapping.alleleMaps = new Dictionary<string, byte>[genes.Length];
+            string[] geneArray = new string[genes.Length];
+            string[][] alleleArrays = new string[genes.Length][];
             for (int gene = 0; gene < genes.Length; ++gene) {
                 JProperty jp = ((JObject) genes[gene].Token).Properties().First();
-                string geneName = jp.Name;
-                mapping.geneMap[geneName] = gene;
-                mapping.geneArray[gene] = geneName;
-                mapping.alleleArrays[gene] = new JsonObject(jp.Value).AsArray<string>();
-                mapping.alleleMaps[gene] = new Dictionary<string, byte>();
-                for (byte allele = 0; allele < mapping.alleleArrays[gene].Length; ++allele) {
-                    mapping.alleleMaps[gene][mapping.alleleArrays[gene][allele]] = allele;
-                }
+                geneArray[gene] = jp.Name;
+                alleleArrays[gene] = new JsonObject(jp.Value).AsArray<string>();
             }
-            return mapping;
+            return new NameMapping(geneArray, alleleArrays);
         }
 
         public static void Load(IAsset asset) {
