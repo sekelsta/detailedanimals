@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 ﻿using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -13,6 +14,7 @@ using Vintagestory.Common;
 using Vintagestory.GameContent;
 using Vintagestory.API.Util;
 using Vintagestory.Client.NoObf;
+using Vintagestory.Server;
 
 using Genelib.Extensions;
 using Genelib.Network;
@@ -55,7 +57,7 @@ namespace Genelib
             AiTaskRegistry.Register("genelib.sitonnest", typeof (AiTaskSitOnNest));
             AiTaskRegistry.Register("genelib.layegg", typeof (AiTaskLayEgg));
 
-            GenomeType.RegisterInterpreter("Polygenes", new PolygeneInterpreter());
+            GenomeType.RegisterInterpreter(new PolygeneInterpreter());
 
             AnimalConfig.Load(api);
         }
@@ -141,6 +143,7 @@ namespace Genelib
         public override void StartServerSide(ICoreServerAPI api) {
             ServerAPI = api;
             api.Network.RegisterChannel("genelib")
+                .RegisterMessageType<GenomeTypesMessage>()
                 .RegisterMessageType<SetNameMessage>().SetMessageHandler<SetNameMessage>(OnSetNameMessageServer)
                 .RegisterMessageType<SetNoteMessage>().SetMessageHandler<SetNoteMessage>(OnSetNoteMessageServer)
                 .RegisterMessageType<ToggleBreedingMessage>().SetMessageHandler<ToggleBreedingMessage>(OnToggleBreedingMessageServer);
@@ -149,12 +152,48 @@ namespace Genelib
         public override void StartClientSide(ICoreClientAPI api) {
             ClientAPI = api;
             api.Network.RegisterChannel("genelib")
+                .RegisterMessageType<GenomeTypesMessage>().SetMessageHandler<GenomeTypesMessage>(GenomeType.OnAssetsRecievedClient)
                 .RegisterMessageType<SetNameMessage>()
                 .RegisterMessageType<SetNoteMessage>()
                 .RegisterMessageType<ToggleBreedingMessage>();
 
             api.Input.RegisterHotKey("genelib.info", Lang.Get("detailedanimals:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
             api.Input.SetHotKeyHandler("genelib.info", ToggleAnimalInfoGUI);
+
+            api.Event.LevelFinalize += WaitForGenomeAssets;
+        }
+
+        public static void SendServerAssets_Postfix(ServerMain __instance, IServerPlayer player) {
+            if (player?.ConnectionState == null) {
+                return;
+            }
+
+            if (__instance.Clients.TryGetValue(player.ClientId, out var connectedClient) && connectedClient.IsSinglePlayerClient) {
+                return;
+            }
+            GenomeTypesMessage message = new GenomeTypesMessage(GenomeType.loaded);
+
+            ServerAPI.Network.GetChannel("genelib").SendPacket<GenomeTypesMessage>(message, player);
+        }
+
+        public static void WaitForGenomeAssets() {
+            if (ClientAPI.IsSinglePlayer) {
+                GenomeType.assetsReceived = true;
+            }
+            for (int tries = 0; tries < 10; ++tries) {
+                for (int wait = 0; wait < 500; ++wait) {
+                    if (GenomeType.assetsReceived) {
+                        break;
+                    }
+                    Thread.Sleep(20);
+                }
+                if (!GenomeType.assetsReceived) {
+                    ClientAPI.Logger.Warning("Genelib: Waiting on genome type assets took more than 10 seconds!");
+                }
+            }
+            if (!GenomeType.assetsReceived) {
+                throw new Exception("Connection failed: Genome type assets arrival timed out");
+            }
         }
 
         public bool ToggleAnimalInfoGUI(KeyCombination keyConbination) {

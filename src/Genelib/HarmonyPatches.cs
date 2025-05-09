@@ -9,6 +9,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using Vintagestory.Server;
 
 namespace Genelib {
     public class HarmonyPatches {
@@ -42,6 +43,10 @@ namespace Genelib {
             harmony.Patch(
                 typeof(EntitySidedProperties).GetConstructor(BindingFlags.Instance | BindingFlags.Public, new[] { typeof(JsonObject[]), typeof(Dictionary<string, JsonObject>)}),
                 prefix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("EntitySidedProperties_Ctor_Prefix", BindingFlags.Static | BindingFlags.Public)) 
+            );
+            harmony.Patch(
+                typeof(ServerMain).GetMethod("SendServerAssets", BindingFlags.Instance | BindingFlags.Public),
+                postfix: new HarmonyMethod(typeof(GenelibSystem).GetMethod("SendServerAssets_Postfix", BindingFlags.Static | BindingFlags.Public)) 
             );
         }
 

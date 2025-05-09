@@ -210,11 +210,10 @@ namespace Genelib {
                         }
                     }
                 }
-                if (Type.Autosomal.geneMap.ContainsKey("KIT")) {
-                    int gene = Type.Autosomal.GeneID("KIT");
+                if (Type.Autosomal.TryGetGeneID("KIT", out int KIT)) {
                     for (int n = 0; n < 2; ++n) {
                         if (random.NextDouble() < 10 * p) {
-                            Autosomal(gene, n, (byte) random.Next(Type.Autosomal.AlleleCount(gene)));
+                            Autosomal(KIT, n, (byte) random.Next(Type.Autosomal.AlleleCount(KIT)));
                         }
                     }
                 }
