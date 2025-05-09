@@ -43,6 +43,10 @@ namespace Genelib {
                 typeof(EntitySidedProperties).GetConstructor(BindingFlags.Instance | BindingFlags.Public, new[] { typeof(JsonObject[]), typeof(Dictionary<string, JsonObject>)}),
                 prefix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("EntitySidedProperties_Ctor_Prefix", BindingFlags.Static | BindingFlags.Public)) 
             );
+            harmony.Patch(
+                typeof(ServerMain).GetMethod("SendServerAssets", BindingFlags.Instance | BindingFlags.NonPublic),
+                postfix: new HarmonyMethod(typeof(GenelibSystem).GetMethod("SendServerAssets_Postfix", BindingFlags.Static | BindingFlags.Public)) 
+            );
         }
 
         public static bool UpdateMaxHealth_Prefix(EntityBehaviorHealth __instance) {

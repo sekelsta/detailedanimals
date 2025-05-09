@@ -23,6 +23,7 @@ namespace Genelib
     {
         public static AssetCategory genetics = null;
         public static AssetCategory nutrition = null;
+        private static byte[] serverAssetsBuffer = null;
 
         internal static ICoreServerAPI ServerAPI { get; private set; }
         internal static ICoreClientAPI ClientAPI { get; private set; }
@@ -155,6 +156,24 @@ namespace Genelib
 
             api.Input.RegisterHotKey("genelib.info", Lang.Get("detailedanimals:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
             api.Input.SetHotKeyHandler("genelib.info", ToggleAnimalInfoGUI);
+        }
+
+        public static void SendServerAssets_Postfix(ServerMain __instance, IServerPlayer player) {
+            if (player?.ConnectionState == null) {
+                return;
+            }
+
+            if (serverAssetsBuffer == null) {
+                if (__instance.Clients.TryGetValue(player.ClientId, out var connectedClient) && connectedClient.IsSinglePlayerClient) {
+                    return;
+                }
+
+                // TODO: Set up assets packet
+                // TODO: Iterate over all genome types and add the data (minus breeds/spawns)
+            // TODO: Iterate over all nutrition datas and add them
+            }
+
+            __instance.SendArbitraryPacket(serverAssetsBuffer, player);
         }
 
         public bool ToggleAnimalInfoGUI(KeyCombination keyConbination) {
