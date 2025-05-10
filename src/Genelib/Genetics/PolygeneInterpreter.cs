@@ -8,6 +8,8 @@ namespace Genelib {
         private static readonly int NUM_VITALITY_GENES = 16;
         internal static readonly int NUM_POLYGENES = NUM_DIVERSITY_GENES + NUM_VITALITY_GENES;
 
+        public string Name => "Polygenes";
+
         void GeneInterpreter.Finalize(Genome genome, AlleleFrequencies frequencies, Random random) {
             for (int i = 2 * NUM_DIVERSITY_GENES; i < 2 * (NUM_DIVERSITY_GENES + NUM_VITALITY_GENES); ++i) {
                 if (random.NextSingle() < AnimalConfig.Instance.InbreedingResistance) {

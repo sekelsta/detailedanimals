@@ -5,6 +5,9 @@ using Vintagestory.API.Common.Entities;
 
 namespace Genelib {
     public interface GeneInterpreter {
+        string Name {
+            get;
+        }
         // Called on first spawn after genome is generated, but before it is set. Intended to modify the genome so
         // that the genes are suitable for a wild-spawned adult, such as by ensuring lethal alleles are not homozygous.
         // Not called when the gnome was created by reproduction

@@ -57,7 +57,7 @@ namespace Genelib
             AiTaskRegistry.Register("genelib.sitonnest", typeof (AiTaskSitOnNest));
             AiTaskRegistry.Register("genelib.layegg", typeof (AiTaskLayEgg));
 
-            GenomeType.RegisterInterpreter("Polygenes", new PolygeneInterpreter());
+            GenomeType.RegisterInterpreter(new PolygeneInterpreter());
 
             AnimalConfig.Load(api);
         }
@@ -170,8 +170,7 @@ namespace Genelib
                 }
 
                 // TODO: Set up assets packet
-                // TODO: Iterate over all genome types and add the data (minus breeds/spawns)
-            // TODO: Iterate over all nutrition datas and add them
+                // TODO: Iterate over all genome types and add the data
             }
 
             __instance.SendArbitraryPacket(serverAssetsBuffer, player);

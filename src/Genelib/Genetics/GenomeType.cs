@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using ProtoBuf;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -7,22 +8,31 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 
 namespace Genelib {
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     public class GenomeType {
-        private static volatile Dictionary<AssetLocation, GenomeType> loaded = new Dictionary<AssetLocation, GenomeType>();
+        internal static volatile Dictionary<AssetLocation, GenomeType> loaded = new Dictionary<AssetLocation, GenomeType>();
         private static Dictionary<string, GeneInterpreter> interpreterMap = new Dictionary<string, GeneInterpreter>();
 
-        public static void RegisterInterpreter(string name, GeneInterpreter interpreter) {
-            interpreterMap[name] = interpreter;
+        public static void RegisterInterpreter(GeneInterpreter interpreter) {
+            interpreterMap[interpreter.Name] = interpreter;
         }
 
+        [ProtoMember(1)]
         public NameMapping Autosomal { get; protected set; }
+        [ProtoMember(2)]
         public NameMapping XZ { get; protected set; }
+        [ProtoMember(3)]
         public NameMapping YW { get; protected set; }
+
+        // Not serialized, so make sure not to try accessing from client
         private Dictionary<string, GeneInitializer> initializers = new Dictionary<string, GeneInitializer>();
         public GeneInterpreter[] Interpreters { get; protected set; }
+        // TODO: Incorrect if polygene interpreter is registered in general but not on this genome type
         public int AnonymousGeneCount { get => interpreterMap.ContainsKey("Polygenes") ? PolygeneInterpreter.NUM_POLYGENES : 0; }
 
+        [ProtoMember(4)]
         public SexDetermination SexDetermination { get; protected set; } = SexDetermination.XY;
+
         private AlleleFrequencies defaultFrequencies;
         public AlleleFrequencies DefaultFrequencies {
             get {
@@ -35,7 +45,15 @@ namespace Genelib {
                 defaultFrequencies = value;
             }
         }
+
+        [ProtoMember(5)]
         public string Name { get; private set; }
+
+        [ProtoMember(6)]
+        public string[] InterpreterNames {
+            get => Interpreters.Select(x => x.Name).ToArray();
+            set => Interpreters = value.Select(x => interpreterMap[x]).ToArray();
+        }
 
         private GenomeType(string name, JsonObject attributes) {
             this.Name = name;

@@ -1,16 +1,14 @@
-using System.Collections.Generic;
 using ProtoBuf;
+using System.Collections.Generic;
 
 namespace Genelib {
     [ProtoContract]
     public struct NameMapping {
-        [ProtoIgnore]
         private Dictionary<string, int> geneMap;
         [ProtoMember(1)]
         private string[] geneArray;
         [ProtoMember(2)]
         private string[][] alleleArrays;
-        [ProtoIgnore]
         private Dictionary<string, byte>[] alleleMaps;
 
         public int GeneCount { get => geneArray.Length; }

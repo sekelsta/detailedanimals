@@ -6,6 +6,8 @@ using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
     public class GoatGenetics : GeneInterpreter {
+        public string Name => "Goat";
+
         void GeneInterpreter.Interpret(EntityBehaviorGenetics genetics) {
             Entity entity = genetics.entity;
             if (entity.World.Side == EnumAppSide.Client) {

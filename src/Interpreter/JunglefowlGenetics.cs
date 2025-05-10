@@ -83,6 +83,8 @@ namespace DetailedAnimals {
             return phenotype;
         }
 
+        public string Name => "Junglefowl";
+
         void GeneInterpreter.Interpret(EntityBehaviorGenetics genetics) {
 
         }
