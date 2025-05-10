@@ -9,8 +9,6 @@
 		"shanks": [8,8]
 	},
 	"textures": {
-		"chicken": "ome/tiffany/temp/chicken",
-		"shanks": "ome/tiffany/temp/shanks"
 	},
 	"elements": [
 		{
