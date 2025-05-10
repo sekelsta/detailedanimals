@@ -1,5 +1,6 @@
 using ProtoBuf;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Genelib {
     [ProtoContract]
@@ -7,9 +8,14 @@ namespace Genelib {
         private Dictionary<string, int> geneMap;
         [ProtoMember(1)]
         private string[] geneArray;
-        [ProtoMember(2)]
         private string[][] alleleArrays;
         private Dictionary<string, byte>[] alleleMaps;
+
+        [ProtoMember(2)]
+        private ProtoArrayString[] protoFriendlyAlleleArrays {
+            get => alleleArrays.Select(x => new ProtoArrayString() { array = x } ).ToArray();
+            set => alleleArrays = value.Select(x => x.array).ToArray();
+        }
 
         public int GeneCount { get => geneArray.Length; }
         public int AlleleCount(int gene) {
@@ -38,6 +44,7 @@ namespace Genelib {
 
         public NameMapping() {
             geneArray = new string[0];
+            alleleArrays = new string[0][];
         }
 
         public NameMapping(string[] geneArray, string[][] alleleArrays) {
@@ -58,5 +65,11 @@ namespace Genelib {
                 }
             }
         }
+    }
+
+    [ProtoContract]
+    public class ProtoArrayString {
+        [ProtoMember(1)]
+        public string[] array;
     }
 }

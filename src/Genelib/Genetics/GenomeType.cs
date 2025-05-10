@@ -8,8 +8,9 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 
 namespace Genelib {
-    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
+    [ProtoContract]
     public class GenomeType {
+        internal static bool assetsReceived = false;
         internal static volatile Dictionary<AssetLocation, GenomeType> loaded = new Dictionary<AssetLocation, GenomeType>();
         private static Dictionary<string, GeneInterpreter> interpreterMap = new Dictionary<string, GeneInterpreter>();
 
@@ -53,6 +54,13 @@ namespace Genelib {
         public string[] InterpreterNames {
             get => Interpreters.Select(x => x.Name).ToArray();
             set => Interpreters = value.Select(x => interpreterMap[x]).ToArray();
+        }
+
+        public GenomeType() {
+            Autosomal = new NameMapping();
+            XZ = new NameMapping();
+            YW = new NameMapping();
+            Interpreters = new GeneInterpreter[0];
         }
 
         private GenomeType(string name, JsonObject attributes) {
@@ -132,6 +140,13 @@ namespace Genelib {
             if (ini.CanSpawnAt(climate, y)) {
                 valid.Add(ini);
             }
+        }
+
+        internal static void OnAssetsRecievedClient(GenomeTypesMessage message) {
+            for (int i = 0; i < message.AssetLocations.Length; ++i) {
+                loaded[message.AssetLocations[i]] = message.GenomeTypes[i];
+            }
+            assetsReceived = true;
         }
     }
 }

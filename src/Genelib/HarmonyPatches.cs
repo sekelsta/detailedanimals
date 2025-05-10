@@ -45,7 +45,7 @@ namespace Genelib {
                 prefix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("EntitySidedProperties_Ctor_Prefix", BindingFlags.Static | BindingFlags.Public)) 
             );
             harmony.Patch(
-                typeof(ServerMain).GetMethod("SendServerAssets", BindingFlags.Instance | BindingFlags.NonPublic),
+                typeof(ServerMain).GetMethod("SendServerAssets", BindingFlags.Instance | BindingFlags.Public),
                 postfix: new HarmonyMethod(typeof(GenelibSystem).GetMethod("SendServerAssets_Postfix", BindingFlags.Static | BindingFlags.Public)) 
             );
         }
