@@ -1,6 +1,4 @@
 {
-    "genelib:block-nestbox": "Гнездо",
-    "genelib:block-nest-ground": "Гнездо на земле",
     "blockinfo-fertilitylost": "Не может быть оплодотворено.",
     "blockinfo-nest-rotten": "Нуждается в очисте от гнили",
     "blockinfo-nestbox-eggs-warming": "Яйца нагреваются",

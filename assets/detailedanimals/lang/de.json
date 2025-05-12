@@ -1,7 +1,5 @@
 {
     "//info": "Localization version: 1.2 (10.01.2024) - Mod Version 0.3.8 - Author: Brady_The",
-    "genelib:block-nestbox": "Legenest",
-    "genelib:block-nest-ground": "Bodennest",
     "blockinfo-fertilitylost": "Nicht mehr fruchtbar.",
     "blockinfo-nest-rotten": "Verfaultes muss entfernt werden.",
     "blockinfo-nestbox-eggs-warming": "Die Eier wärmen auf",

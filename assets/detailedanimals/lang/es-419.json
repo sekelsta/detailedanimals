@@ -1,6 +1,4 @@
 {
-    "genelib:block-nestbox": "Caja nido",
-    "genelib:block-nest-ground": "Nido en el suelo",
     "blockinfo-fertilitylost": "Ya no es fértil.",
     "blockinfo-nest-rotten": "Necesita limpiarse la putrefacción",
     "blockinfo-nestbox-eggs-warming": "Los huevos se están calentando",

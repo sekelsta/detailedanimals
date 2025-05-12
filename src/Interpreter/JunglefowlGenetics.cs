@@ -107,10 +107,10 @@ namespace DetailedAnimals {
                 ? entity.Properties.Client.Textures["shanks"].Baked.TextureSubId
                 : entity.Properties.Client.Textures["shanks"].Baked.BakedVariants[phenotype.Shanks].TextureSubId;
 
-            Size2i atlasSize = GenelibSystem.ClientAPI.EntityTextureAtlas.Size;
+            Size2i atlasSize = DetailedAnimalsModSystem.ClientAPI.EntityTextureAtlas.Size;
 
             handling = EnumHandling.PreventSubsequent;
-            return new DictionaryTextureSource() { Mapping = mapping, Atlas = GenelibSystem.ClientAPI.EntityTextureAtlas };
+            return new DictionaryTextureSource() { Mapping = mapping, Atlas = DetailedAnimalsModSystem.ClientAPI.EntityTextureAtlas };
         }
     }
 }

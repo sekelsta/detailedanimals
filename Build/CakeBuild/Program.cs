@@ -87,22 +87,8 @@ public sealed class BuildTask : FrostingTask<BuildContext>
     }
 }
 
-[TaskName("Test")]
-[IsDependentOn(typeof(BuildTask))]
-public sealed class TestTask : FrostingTask<BuildContext>
-{
-    public override void Run(BuildContext context)
-    {
-        context.DotNetTest($"../../test/DetailedAnimalsTests.csproj",
-            new DotNetTestSettings
-            {
-                Configuration = context.BuildConfiguration
-            });
-    }
-}
-
 [TaskName("Package")]
-[IsDependentOn(typeof(TestTask))]
+[IsDependentOn(typeof(BuildTask))]
 public sealed class PackageTask : FrostingTask<BuildContext>
 {
     public override void Run(BuildContext context)

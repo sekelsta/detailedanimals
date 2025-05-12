@@ -1,6 +1,4 @@
 {
-	"genelib:block-nestbox": "Pondoire",
-    "genelib:block-nest-ground": "Nid au sol",
     "blockinfo-fertilitylost": "N'est plus fertile.",
     "blockinfo-nest-rotten": "Besoin de nettoyer les pourritures",
     "blockinfo-suitable-nestbox": "Convient pour : {0}",

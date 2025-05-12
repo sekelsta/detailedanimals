@@ -1,6 +1,4 @@
 {
-    "genelib:block-nestbox": "Nestbox",
-    "genelib:block-nest-ground": "Ground nest",
     "blockinfo-fertilitylost": "No longer fertile.",
     "blockinfo-nest-rotten": "Needs rot cleaned out",
     "blockinfo-nestbox-eggs-warming": "Eggs are warming up",

@@ -43,6 +43,10 @@
         <HintPath>$(VINTAGE_STORY)/Lib/cairo-sharp.dll</HintPath>
         <Private>False</Private>
     </Reference>
+    <Reference Include="genelib">
+        <HintPath>../../genelib/Build/Releases/genelib/Genelib.dll</HintPath>
+        <Private>False</Private>
+    </Reference>
   </ItemGroup>
 
 </Project>
