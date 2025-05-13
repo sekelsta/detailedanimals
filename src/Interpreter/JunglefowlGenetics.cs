@@ -95,6 +95,7 @@ namespace DetailedAnimals {
 
             ChickenPhenotype phenotype = getPhenotype(genome);
             if (entity.Code.Path.EndsWith("-baby") || entity.Code.Path.EndsWith("-chick")) {
+                handling = EnumHandling.PreventSubsequent;
                 return (entity.Api as ICoreClientAPI).Tesselator.GetTextureSource(entity, null, phenotype.Body);
             }
 
