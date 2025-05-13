@@ -85,11 +85,64 @@ namespace DetailedAnimals {
 
         public string Name => "Junglefowl";
 
+        void GeneInterpreter.MatchPhenotype(EntityBehaviorGenetics genetics) {
+            Entity entity = genetics.entity;
+            Genome genome = genetics.Genome;
+            int texture = entity.WatchedAttributes.GetInt("textureIndex", 0);
+            if (entity.Code == "game:chicken-rooster") {
+                int blacktail = 1;
+                int black = 2;
+                int blue = 3;
+                if (texture == black || texture == blacktail || texture == blue) {
+                    genome.SetHomozygous("extension", "black");
+                }
+                if (texture == blue) {
+                    genome.SetAutosomal("bluesplash", 0, "bluesplash");
+                }
+                else if (texture == blacktail) {
+                    // Treat as splash for now
+                    genome.SetHomozygous("bluesplash", "bluesplash");
+                }
+            }
+            else if (entity.Code == "game:chicken-hen") {
+                int black = 0;
+                int blue = 1;
+                int white = 2;
+                int splash = 3;
+                int birchensplash = 7;
+                if (texture == white) {
+                    genome.SetHomozygous("tyrosinase", "white");
+                }
+                else if (texture == black || texture == blue || texture == splash) {
+                    genome.SetAutosomal("extension", 0, "black");
+                }
+                else if (texture == birchensplash) {
+                    genome.SetAutosomal("extension", 0, "birchen");
+                }
+                if (texture == blue) {
+                    genome.SetAutosomal("bluesplash", 0, "bluesplash");
+                }
+                else if (texture == splash || texture == birchensplash) {
+                    genome.SetHomozygous("bluesplash", "bluesplash");
+                }
+            }
+            else if (entity.Code == "game:chicken-baby") {
+                int blue = 2;
+                int black = 4;
+                if (texture == black || texture == blue) {
+                    genome.SetAutosomal("extension", 0, "black");
+                }
+                if (texture == blue) {
+                    genome.SetAutosomal("bluesplash", 0, "bluesplash");
+                }
+            }
+        }
+
         void GeneInterpreter.Interpret(EntityBehaviorGenetics genetics) {
 
         }
 
-        public ITexPositionSource GetTextureSource(EntityBehaviorGenetics genetics, ref EnumHandling handling) {
+        ITexPositionSource GeneInterpreter.GetTextureSource(EntityBehaviorGenetics genetics, ref EnumHandling handling) {
             Entity entity = genetics.entity;
             Genome genome = genetics.Genome;
 
