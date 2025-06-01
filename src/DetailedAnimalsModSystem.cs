@@ -13,7 +13,6 @@ using Vintagestory.Client.NoObf;
 using Vintagestory.Common;
 using Vintagestory.GameContent;
 
-using DetailedAnimals.Network;
 using Genelib;
 using Genelib.Extensions;
 
@@ -42,7 +41,6 @@ namespace DetailedAnimals
             api.RegisterEntityBehaviorClass(BehaviorAge.Code, typeof(BehaviorAge));
             api.RegisterEntityBehaviorClass(DetailedHarvestable.Code, typeof(DetailedHarvestable));
             api.RegisterEntityBehaviorClass(AnimalHunger.Code, typeof(AnimalHunger));
-            api.RegisterEntityBehaviorClass(BehaviorAnimalInfo.Code, typeof(BehaviorAnimalInfo));
 
             api.RegisterCollectibleBehaviorClass(TryFeedingAnimal.Code, typeof(TryFeedingAnimal));
 
@@ -56,6 +54,53 @@ namespace DetailedAnimals
             GenomeType.RegisterInterpreter(new GoatGenetics());
         }
 
+        public override void StartServerSide(ICoreServerAPI api) {
+            ServerAPI = api;
+        }
+
+        public override void StartClientSide(ICoreClientAPI api) {
+            ClientAPI = api;
+
+            GuiDialogAnimal.AddToStatusContents += AddHunger;
+            GuiDialogAnimal.AddPreInfoContents += AddAge;
+        }
+
+        private static void AddHunger(GuiDialogAnimal gui, ref int y) {
+            AnimalHunger hunger = gui.Animal.GetBehavior<AnimalHunger>();
+            if (hunger != null) {
+                y += 5;
+                gui.SingleComposer.AddStaticText(Lang.Get("playerinfo-nutrition"), CairoFont.WhiteSmallText().WithWeight(Cairo.FontWeight.Bold), ElementBounds.Fixed(0, y, gui.Width, 25));
+                y += 25;
+                foreach (Nutrient nutrient in hunger.Nutrients) {
+                    if (nutrient.Name == "water" || nutrient.Name == "minerals") {
+                        // Don't display these until the player has a way to feed them
+                        continue;
+                    }
+                    string n = Lang.Get("detailedanimals:gui-animalinfo-amount-" + nutrient.Amount);
+                    string f = Lang.Get("detailedanimals:gui-animalinfo-amount-f-" + nutrient.Amount);
+                    string m = Lang.Get("detailedanimals:gui-animalinfo-amount-m-" + nutrient.Amount);
+                    string text = Lang.GetUnformatted("detailedanimals:gui-animalinfo-nutrient-" + nutrient.Name)
+                        .Replace("{n}", n).Replace("{m}", m).Replace("{f}", f);
+                    gui.SingleComposer.AddStaticText(text, CairoFont.WhiteDetailText(), ElementBounds.Fixed(0, y, gui.Width, 25));
+                    y += 20;
+                }
+                y += 5;
+            }
+        }
+
+        private static void AddAge(GuiDialogAnimal gui, ref int y) {
+            BehaviorAge age = gui.Animal.GetBehavior<BehaviorAge>();
+            if (age == null) {
+                return;
+            }
+            if (gui.Animal.WatchedAttributes.HasAttribute("birthTotalDays")) {
+                double birthDate = gui.Animal.WatchedAttributes.GetDouble("birthTotalDays");
+                double ageDays = gui.Animal.World.Calendar.TotalDays - birthDate;
+                string ageText = Lang.Get("detailedanimals:gui-animalinfo-age", VSExtensions.TranslateTimeFromHours(gui.Animal.Api, ageDays * 24));
+                gui.SingleComposer.AddStaticText(ageText, CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, gui.Width, 25));
+                y += 25;
+            }
+        }
 
         public override void AssetsLoaded(ICoreAPI api) {
             LoadAssetType(api, nutrition.Code, (asset) => NutritionData.Load(asset), "nutrition datasets");
@@ -132,84 +177,6 @@ namespace DetailedAnimals
                     item.CollectibleBehaviors = item.CollectibleBehaviors.InsertAt<CollectibleBehavior>(new TryFeedingAnimal(item), 0);
                 }
             }
-        }
-
-        public override void StartServerSide(ICoreServerAPI api) {
-            ServerAPI = api;
-            api.Network.RegisterChannel("detailedanimals")
-                .RegisterMessageType<SetNameMessage>().SetMessageHandler<SetNameMessage>(OnSetNameMessageServer)
-                .RegisterMessageType<SetNoteMessage>().SetMessageHandler<SetNoteMessage>(OnSetNoteMessageServer)
-                .RegisterMessageType<ToggleBreedingMessage>().SetMessageHandler<ToggleBreedingMessage>(OnToggleBreedingMessageServer);
-        }
-
-        public override void StartClientSide(ICoreClientAPI api) {
-            ClientAPI = api;
-            api.Network.RegisterChannel("detailedanimals")
-                .RegisterMessageType<SetNameMessage>()
-                .RegisterMessageType<SetNoteMessage>()
-                .RegisterMessageType<ToggleBreedingMessage>();
-
-            api.Input.RegisterHotKey("detailedanimals.info", Lang.Get("detailedanimals:gui-hotkey-animalinfo"), GlKeys.N, type: HotkeyType.GUIOrOtherControls);
-            api.Input.SetHotKeyHandler("detailedanimals.info", ToggleAnimalInfoGUI);
-        }
-
-        public bool ToggleAnimalInfoGUI(KeyCombination keyConbination) {
-            foreach (GuiDialog dialog in ClientAPI.Gui.OpenedGuis) {
-                if (dialog is GuiDialogAnimal && dialog.IsOpened()) {
-                    dialog.TryClose();
-                    return true;
-                }
-            }
-
-            EntityPlayer player = (ClientAPI.World as ClientMain)?.EntityPlayer;
-            EntitySelection entitySelection = player?.EntitySelection;
-            EntityAgent agent = entitySelection?.Entity as EntityAgent;
-            if (agent == null 
-                    || !agent.Alive 
-                    || agent.GetBehavior<BehaviorAnimalInfo>() == null 
-                    || agent.Pos.SquareDistanceTo(player.Pos.XYZ) > 20 * 20) {
-                return false;
-            }
-            GuiDialogAnimal animalDialog = new GuiDialogAnimal(ClientAPI, agent);
-            animalDialog.TryOpen();
-            return true;
-        }
-
-        private void OnSetNameMessageServer(IServerPlayer fromPlayer, SetNameMessage message) {
-            Entity target = ServerAPI.World.GetEntityById(message.entityId);
-            EntityBehaviorNameTag nametag = target.GetBehavior<EntityBehaviorNameTag>();
-            if (nametag == null || target.OwnedByOther(fromPlayer)) {
-                return;
-            }
-            target.Api.Logger.Audit(fromPlayer.PlayerName + " changed name of " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos 
-                + " from " + nametag.DisplayName + " to " + message.name);
-            nametag.SetName(message.name);
-        }
-
-        private void OnSetNoteMessageServer(IServerPlayer fromPlayer, SetNoteMessage message) {
-            Entity target = ServerAPI.World.GetEntityById(message.entityId);
-            BehaviorAnimalInfo info = target.GetBehavior<BehaviorAnimalInfo>();
-            if (info == null || target.OwnedByOther(fromPlayer)) {
-                return;
-            }
-            target.Api.Logger.Audit(fromPlayer.PlayerName + " changed note of " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos 
-                + " from " + info.Note + " to " + message.note);
-            info.Note = message.note;
-        }
-
-        private void OnToggleBreedingMessageServer(IServerPlayer fromPlayer, ToggleBreedingMessage message) {
-            Entity target = ServerAPI.World.GetEntityById(message.entityId);
-            if (target.OwnedByOther(fromPlayer)) {
-                return;
-            }
-            ITreeAttribute domestication = target.WatchedAttributes.GetTreeAttribute("domesticationstatus");
-            if (domestication != null) {
-                domestication.SetBool("multiplyAllowed", !message.preventBreeding);
-            }
-            else {
-                target.WatchedAttributes.SetBool("preventBreeding", message.preventBreeding);
-            }
-            target.Api.Logger.Audit(fromPlayer.PlayerName + " set preventBreeding=" + message.preventBreeding + " for " + target.Code + " ID " + target.EntityId + " at " + target.Pos.XYZ.AsBlockPos);
         }
     }
 }
