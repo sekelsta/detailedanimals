@@ -228,23 +228,23 @@
 
     {
         file: "game:entities/land/hare-female.json",
-        op: "add",
+        op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
-        value: "Fruit",
+        value: ["Fruit", "Grain"],
         side: "server"
     },
     {
         file: "game:entities/land/hare-male.json",
-        op: "add",
+        op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
-        value: "Fruit",
+        value: ["Fruit", "Grain"],
         side: "server"
     },
     {
         file: "game:entities/land/hare-baby.json",
-        op: "add",
+        op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
-        value: "Fruit",
+        value: ["Fruit", "Grain"],
         side: "server"
     },
     {
