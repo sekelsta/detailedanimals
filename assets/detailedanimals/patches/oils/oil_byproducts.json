@@ -1,0 +1,10 @@
+[
+    {
+        file: "oils:itemtypes/seedmeal.json",
+        op: "addmerge",
+        path: "/attributes/foodTags",
+        value: [ "seedmeal" ],
+        side: "server",
+        dependsOn: [ { modid: "oils" } ],
+    },
+]

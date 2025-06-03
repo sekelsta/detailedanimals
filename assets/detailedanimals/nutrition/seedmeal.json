@@ -1,0 +1,11 @@
+{
+    tag: "seedmeal",
+    protein: 0.3,
+    fiber: 0.5,
+    sugar: 0.02,
+    starch: 0.02,
+    fat: 0.08,
+    minerals: 0.03,
+    water: 0.1,
+    source: "Calculated from flax grain with oil removed"
+}
