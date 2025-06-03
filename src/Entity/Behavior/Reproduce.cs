@@ -14,12 +14,11 @@ using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
-    public class Reproduce : EntityBehaviorMultiply {
-        public const string Code = "genelib.reproduce";
+    public class Reproduce : GeneticMultiply {
+        public new const string Code = "genelib.reproduce";
 
         // TODO: rearrange to handle hybrids - e.g., offspringBySire
         protected AssetLocation[] SireCodes;
-        protected AssetLocation[] OffspringCodes;
         protected float SireSearchRange;
         protected long listenerID;
         protected double CooldownDays;
@@ -70,14 +69,6 @@ namespace DetailedAnimals {
             }
         }
 
-        protected TreeArrayAttribute Litter {
-            get => multiplyTree["litter"] as TreeArrayAttribute;
-            set { 
-                multiplyTree["litter"] = value;
-                entity.WatchedAttributes.MarkPathDirty("multiply");
-            }
-        }
-
         public int NextGeneration() {
             int generation = entity.WatchedAttributes.GetInt("generation", 0);
             if (entity.WatchedAttributes.GetBool("fedByPlayer", false)) {
@@ -87,12 +78,6 @@ namespace DetailedAnimals {
         }
 
         public Reproduce(Entity entity) : base(entity) { }
-
-        public void SetNotPregnant() {
-            IsPregnant = false;
-            multiplyTree.RemoveAttribute("litter");
-            entity.WatchedAttributes.MarkPathDirty("multiply");
-        }
 
         // Pop as in stack push/pop
         public TreeAttribute PopChild() {
@@ -115,7 +100,7 @@ namespace DetailedAnimals {
             // Deliberately skip calling base.Initialize()
 
             SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
-            OffspringCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
+            spawnEntityCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
 
             if (attributes.KeyExists("gestationMonths")) {
                 GestationDays = attributes["gestationMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth;
@@ -221,6 +206,10 @@ namespace DetailedAnimals {
             );
         }
 
+        protected override void PopulateSpawnEntityCodes() {
+            // Do nothing, skip base class logic
+        }
+
         protected AssetLocation[] getAssetLocationsOrThrow(JsonObject attributes, string key) {
             string[] strings = null;
             if (attributes.KeyExists(key)) {
@@ -305,51 +294,23 @@ namespace DetailedAnimals {
             }
         }
 
-        public void MateWith(Entity sire) {
-            IsPregnant = true;
-            InEarlyPregnancy = true;
-            TotalDaysPregnancyStart = TotalDays;
-            double rate = 1 + 0.08 * (entity.World.Rand.NextDouble() - 0.5);
-            TotalDaysPregnancyEnd = TotalDaysPregnancyStart + rate * GestationDays;
-            Genome sireGenome = sire.GetBehavior<EntityBehaviorGenetics>()?.Genome;
-            Genome ourGenome = entity.GetBehavior<EntityBehaviorGenetics>()?.Genome;
-
+        public override int ChooseLitterSize() {
             int litterSize = 1;
             for (int i = 0; i < litterAddAttempts; ++i) {
                 if (entity.World.Rand.NextDouble() < litterAddChance) {
                     litterSize += 1;
                 }
             }
+            return litterSize;
+        }
 
-            TreeArrayAttribute litterData = new TreeArrayAttribute();
-            litterData.value = new TreeAttribute[litterSize];
-            for (int i = 0; i < litterSize; ++i) {
-                AssetLocation offspringCode = OffspringCodes[entity.World.Rand.Next(OffspringCodes.Length)];
-                litterData.value[i] = new TreeAttribute();
-                if (ourGenome != null && sireGenome != null) {
-                    bool heterogametic = ourGenome.Type.SexDetermination.Heterogametic(entity.IsMale());
-                    Genome child = new Genome(ourGenome, sireGenome, heterogametic, entity.World.Rand);
-                    child.Mutate(AnimalConfig.MutationRate, entity.World.Rand);
-                    TreeAttribute childGeneticsTree = (TreeAttribute) litterData.value[i].GetOrAddTreeAttribute("genetics");
-                    child.AddToTree(childGeneticsTree);
-                }
-                litterData.value[i].SetString("code", offspringCode.ToString());
+        public override void MateWith(Entity sire) {
+            InEarlyPregnancy = true;
+            TotalDaysPregnancyStart = TotalDays;
+            double rate = 1 + 0.08 * (entity.World.Rand.NextDouble() - 0.5);
+            TotalDaysPregnancyEnd = TotalDaysPregnancyStart + rate * GestationDays;
 
-                litterData.value[i].SetLong("motherId", entity.UniqueID());
-                string motherName = entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
-                if (motherName != null && motherName != "") {
-                    litterData.value[i].SetString("motherName", motherName);
-                }
-                litterData.value[i].SetString("motherKey", entity.Code.Domain + ":item-creature-" + entity.Code.Path);
-
-                litterData.value[i].SetLong("fatherId", sire.UniqueID());
-                string fatherName = sire.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
-                if (fatherName != null && fatherName != "") {
-                    litterData.value[i].SetString("fatherName", fatherName);
-                }
-                litterData.value[i].SetString("fatherKey", sire.Code.Domain + ":item-creature-" + sire.Code.Path);
-            }
-            Litter = litterData;
+            base.MateWith(sire);
         }
 
         public bool IsBreedingSeason(double season) {
@@ -417,37 +378,6 @@ namespace DetailedAnimals {
             SetNotPregnant();
         }
 
-        public static Entity SpawnNewborn(IWorldAccessor world, EntityPos pos, Entity foster, int nextGeneration, TreeAttribute childData) {
-            AssetLocation spawnCode = new AssetLocation(childData.GetString("code"));
-            EntityProperties spawnType = world.GetEntityType(spawnCode);
-            if (spawnType == null) {
-                throw new ArgumentException(foster?.Code.ToString() + " attempted to hatch or give birth to entity with code " 
-                    + spawnCode.ToString() + ", but no such entity was found.");
-            }
-            Entity spawn = world.ClassRegistry.CreateEntity(spawnType);
-            spawn.ServerPos.SetFrom(pos);
-            spawn.ServerPos.Yaw = world.Rand.NextSingle() * GameMath.TWOPI;
-            Random random = world.Rand;
-            spawn.ServerPos.Motion.X += (random.NextDouble() - 0.5f) / 20f;
-            spawn.ServerPos.Motion.Z += (random.NextDouble() - 0.5f) / 20f;
-            spawn.Pos.SetFrom(spawn.ServerPos);
-            spawn.Attributes.SetString("origin", "reproduction");
-            spawn.WatchedAttributes.SetInt("generation", nextGeneration);
-            // Alternately, call childData.RemoveAttribute("code"), then copy over all remaining attributes
-            spawn.WatchedAttributes.SetLong("fatherId", childData.GetLong("fatherId"));
-            spawn.WatchedAttributes.CopyIfPresent("fatherName", childData);
-            spawn.WatchedAttributes.CopyIfPresent("fatherKey", childData);
-            spawn.WatchedAttributes.SetLong("motherId", childData.GetLong("motherId"));
-            spawn.WatchedAttributes.CopyIfPresent("motherName", childData);
-            spawn.WatchedAttributes.CopyIfPresent("motherKey", childData);
-            spawn.SetFoster(foster);
-            spawn.WatchedAttributes.CopyIfPresent("genetics", childData);
-            spawn.WatchedAttributes.SetDouble("birthTotalDays", world.Calendar.TotalDays);
-
-            world.SpawnEntity(spawn);
-            return spawn;
-        }
-
         public static bool EntityCanMate(Entity entity) {
             if (!entity.Alive) {
                 return false;
@@ -476,25 +406,10 @@ namespace DetailedAnimals {
                     return false;
                 }
             );
-            if (entities == null || entities.Length == 0) {
-                return null;
+            if (entity.World.Rand.NextSingle() < 0.1f) {
+                return entities[entity.World.Rand.Next(entities.Length)];
             }
-            Entity best = entities[0];
-            bool closeRelative = entity.IsCloseRelative(best);
-            float distance = entity.Pos.SquareDistanceTo(best.Pos);
-            for (int i = 1; i < entities.Length; ++i) {
-                if (closeRelative && !entity.IsCloseRelative(entities[i])) {
-                    best = entities[i];
-                    closeRelative = false;
-                    continue;
-                }
-                float currentDistance = entity.Pos.SquareDistanceTo(entities[i].Pos);
-                if (distance > currentDistance) {
-                    best = entities[i];
-                    distance = currentDistance;
-                }
-            }
-            return best;
+            return ChooseAvoidingCloseRelatives(entity, entities);
         }
 
         public override void OnEntityDespawn(EntityDespawnData despawn) {

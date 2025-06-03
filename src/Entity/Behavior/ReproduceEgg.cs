@@ -151,7 +151,7 @@ namespace DetailedAnimals {
             }
         }
 
-        public bool CanLayEgg() {
+        public override bool CanLayEgg() {
             if (!entity.Alive || entity.WatchedAttributes.GetBool("neutered", false)) {
                 return false;
             }
@@ -170,7 +170,7 @@ namespace DetailedAnimals {
             return true;
         }
 
-        public ItemStack LayEgg() {
+        public override ItemStack LayEgg() {
             CollectibleObject egg = EggTypes[0];
             float eggWeight = averageEggWeight;
             float lessw;
