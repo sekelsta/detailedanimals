@@ -406,6 +406,9 @@ namespace DetailedAnimals {
                     return false;
                 }
             );
+            if (entities == null || entities.Length == 0) {
+                return null;
+            }
             if (entity.World.Rand.NextSingle() < 0.1f) {
                 return entities[entity.World.Rand.Next(entities.Length)];
             }
