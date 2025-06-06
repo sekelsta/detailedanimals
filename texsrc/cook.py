@@ -16,14 +16,11 @@ def mass_convert(func, srcdir, enddir):
         else:
             func(srcname, endname)
 
-def shade(shading, srcfile, outfile):
-    image = Image.open(srcfile)
-    pixels = image.load()
-    sh = shading.load()
-    for x in range(image.size[0]):
-        for y in range(image.size[1]):
+def shade(pixels, shading_pixels, width, height):
+    for x in range(width):
+        for y in range(height):
             r, g, b, a = pixels[x, y]
-            s = sh[x, y]
+            s = shading_pixels[x, y]
             fr = (r/255.0) ** 2.2
             fg = (g/255.0) ** 2.2
             fb = (b/255.0) ** 2.2
@@ -37,12 +34,80 @@ def shade(shading, srcfile, outfile):
             fg = fg * (1 - darkness) + (fg * fs) * darkness
             fb = fb * (1 - darkness) + (fb * fs) * darkness
             pixels[x, y] = (round(fr ** (1/2.2) * 255), round(fg ** (1/2.2) * 255), round(fb ** (1/2.2) * 255), a)
-    image.save(outfile)
 
+def blend_RGBA(base, layer, out, width, height):
+    for x in range(width):
+        for y in range(height):
+            r, g, b, a = base[x, y]
+            lr, lg, lb, la = layer[x, y]
+            la = la / 255.0
+            # Assume not premultiplied
+            fr = r * (1 - la) + lr * la
+            fg = g * (1 - la) + lg * la
+            fb = b * (1 - la) + lb * la
+            fa = a + la * (255 - a)
+            out[x, y] = (round(fr), round(fg), round(fb), round(fa))
+
+def mask(image, mask, width, height):
+    for x in range(width):
+        for y in range(height):
+            r, g, b, a = image[x, y]
+            ma = mask[x, y]
+            image[x, y] = (r, g, b, round(a * ma / 255.0))
+
+
+
+def convert(ground, pattern, common, shading, alpha, srcfile, outfile):
+    image = Image.open(srcfile)
+    pixels = image.load()
+    width = image.size[0]
+    height = image.size[1]
+    if pattern:
+        mask(pixels, pattern, width, height)
+    if ground:
+        blend_RGBA(ground, pixels, pixels, width, height)
+    blend_RGBA(pixels, common, pixels, width, height)
+    shade(pixels, shading, width, height)
+    mask(pixels, alpha, width, height)
+    image.save(outfile)
 
 source_dir = 'texsrc/chicken/'
 out_dir = 'assets/detailedanimals/textures/entity/chicken/'
 
 
-shading = Image.open(source_dir + 'shading.png').convert('L')
-mass_convert(lambda src, out: shade(shading, src, out), source_dir + 'unshaded/', out_dir)
+shading = Image.open(source_dir + 'adult-shading.png').convert('L')
+shading_pixels = shading.load()
+alpha = Image.open(source_dir + 'adult-alpha.png').convert('L')
+alpha_pixels = alpha.load()
+henground = Image.open(source_dir + 'color/hen-ground.png')
+henground_pixels = henground.load()
+roosterground = Image.open(source_dir + 'color/rooster-ground.png')
+roosterground_pixels = roosterground.load()
+common = Image.open(source_dir + 'adult-common.png')
+common_pixels = common.load()
+
+patterns = ["hen-birchen", "rooster-birchen", "hen-duckwing", "rooster-duckwing"]
+colors = ["adult-black", "hen-blue", "rooster-blue", "hen-splash", "rooster-splash", "adult-white"]
+
+# Self pattern
+for color in colors:
+    convert(None, None, common_pixels, shading_pixels, alpha_pixels, source_dir + "/color/" + color + ".png", out_dir + color + ".png")
+for pattern in patterns:
+    is_hen = pattern.startswith('hen-')
+    is_rooster = pattern.startswith('rooster-')
+    pattern_pixels = Image.open(source_dir + 'pattern/' + pattern + '.png').convert('L').load()
+    for color in colors:
+        if color == 'adult-white':
+            # Dominant white not in yet
+            continue
+        if (is_hen and color.startswith('rooster-')) or (is_rooster and color.startswith('hen-')):
+            continue
+        color_name = color.removeprefix('hen-').removeprefix('rooster-').removeprefix('adult-')
+        if color_name == 'black':
+            color_name = ''
+        else:
+            color_name = '-' + color_name
+        print(pattern, color, pattern + color_name)
+        ground = henground_pixels if is_hen else roosterground_pixels
+        convert(ground, pattern_pixels, common_pixels, shading_pixels, alpha_pixels, source_dir + "color/" + color + ".png", out_dir + pattern + color_name + ".png")
+
