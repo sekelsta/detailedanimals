@@ -52,6 +52,7 @@ namespace DetailedAnimals
 
             GenomeType.RegisterInterpreter(new JunglefowlGenetics());
             GenomeType.RegisterInterpreter(new GoatGenetics());
+            GenomeType.RegisterInterpreter(new CanineGenetics());
         }
 
         public override void StartServerSide(ICoreServerAPI api) {

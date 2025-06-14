@@ -225,6 +225,48 @@
         },
         side: "server"
     },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-female.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-male.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
+        side: "server"
+    },
+    {
+        file: "game:entities/land/wolf-pup.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
+        side: "server"
+    },
 
 
     {
