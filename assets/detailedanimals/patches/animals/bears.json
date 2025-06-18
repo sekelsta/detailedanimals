@@ -62,19 +62,6 @@
     {
         file: "game:entities/land/bear.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/1/quantityByType",
-        value: {
-            "*-black": { avg: 1, var: 0.1 },
-            "*-brown": { avg: 1.9, var: 0.1 },
-            "*-sun": { avg: 0, var: 0 },
-            "*-panda": { avg: 1.1, var: 0.1 },
-            "*-polar": { avg: 2.6, var: 0.1 },
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/bear.json",
-        op: "replace",
         path: "/server/behaviors/6/drops/2/quantityByType",
         value: {
             "*-black": { avg: 6, var: 0.1 },
@@ -83,32 +70,6 @@
             "*-panda": { avg: 7, var: 0.1 },
             "*-polar": { avg: 24, var: 0.3 },
         },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/bear.json",
-        op: "add",
-        path: "/server/behaviors/6/drops/-",
-        value: {
-            type: "item", 
-            code: "game:hide-raw-large", 
-            quantityByType: {
-                "*-black": { avg: 0, var: 0 },
-                "*-brown": { avg: 0, var: 0 },
-                "*-sun": { avg: 1.3, var: 0.1 },
-                "*-panda": { avg: 0, var: 0 },
-                "*-polar": { avg: 0, var: 0 },
-            },
-        },
-        dependsOn: [ { modid: "hideandfabric", invert: true } ],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/bear.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/1/quantityByType/*-sun",
-        value: { avg: 1.3, var: 0.1 },
-        dependsOn: [ { modid: "hideandfabric" } ],
         side: "server"
     },
 
