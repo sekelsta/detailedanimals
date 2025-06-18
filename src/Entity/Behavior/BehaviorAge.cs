@@ -87,7 +87,7 @@ namespace DetailedAnimals {
                 if (adultType == null) {
                     entity.World.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via genelib.age behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, AdultEntityCode);
                 }
-                if (adultType.Attributes?.KeyExists("initialWeight") == true) {
+                else if (adultType.Attributes?.KeyExists("initialWeight") == true) {
                     FinalWeight = adultType.Attributes["initialWeight"].AsFloat();
                 }
             }

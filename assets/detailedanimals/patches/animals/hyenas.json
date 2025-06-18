@@ -1,43 +1,27 @@
 [
     {
-        file: "game:entities/land/hyena-male.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hyena-baby.json",
+        op: "addmerge",
+        path: "/attributes",
+        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "replace",
-        path: "/server/spawnconditions/worldgen/companions",
-        value: ["game:hyena-female", "detailedanimals:hyena-male-pup", "detailedanimals:hyena-female-pup"],
+        path: "/client/texture/base",
+        value: "game:entity/animal/mammal/hyena/spotted-baby",
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/runtime/companions",
-        value: ["game:hyena-female", "detailedanimals:hyena-male-pup", "detailedanimals:hyena-female-pup"],
-        side: "server"
-    },
-
-
-    {
-        file: "game:entities/land/hyena-female.json",
-        op: "addmerge",
-        path: "/attributes",
-        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-male.json",
-        op: "addmerge",
-        path: "/attributes",
-        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-pup.json",
-        op: "addmerge",
-        path: "/attributes",
-        value: { adultWeightKg: 60, weightDimorphism: -0.03 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -50,28 +34,15 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-            code: "genelib.age",
-            monthsToGrow: 12.0,
-            startAgeMonths: 6.0,
-            initialWeight: 0.7,
-            finalWeight: 1.0,
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-pup.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
-                "*-female-*": [ "game:hyena-female" ],
-                "*-male-*": [ "game:hyena-male" ],
-                "*": [ "game:hyena-male", "game:hyena-female" ]
+                "*-female-*": [ "game:hyena-spotted-adult-female" ],
+                "*-male-*": [ "game:hyena-spotted-adult-male" ],
+                "*": [ "game:hyena-{type}-adult-{gender}" ]
             },
             monthsToGrow: 6.0,
             initialWeight: 0.025,
@@ -79,50 +50,44 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-pup.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-pup.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "replace",
         path: "/client/size",
         value: 2.5,
         side: "server"
     },
 
+
     {
-        file: "game:entities/land/hyena-pup.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
         value: { avg: 15, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-pup.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "replace",
         path: "/server/behaviors/7/drops/1/quantity",
         value: { avg: 3.8, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-pup.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "add",
         path: "/server/behaviors/7/drops/-",
         value: {
@@ -134,42 +99,21 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
         value: { avg: 15, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/1/quantity",
         value: { avg: 1.3, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-female.json",
-        op: "replace",
-        path: "/server/behaviors/7/drops/2/quantity",
-        value: { avg: 2.5, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-male.json",
-        op: "replace",
-        path: "/server/behaviors/7/drops/0/quantity",
-        value: { avg: 15, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-male.json",
-        op: "replace",
-        path: "/server/behaviors/7/drops/1/quantity",
-        value: { avg: 1.3, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-male.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/2/quantity",
         value: { avg: 2.5, var: 0 },
@@ -178,28 +122,29 @@
 
 
     {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: {
             code: "genelib.reproduce",
             mateTaskPriority: 1.37,
             sireCodes: ["game:hyena-male"],
-            spawnEntityCodes: [{"code": "detailedanimals:hyena-male-pup"}, {"code": "detailedanimals:hyena-female-pup"}],
+            spawnEntityCodes: [{"code": "game:hyena-spotted-baby-male"}, {"code": "game:hyena-spotted-baby-female"}],
+            litterAddChance: 0.21,
+            litterAddAttempts: 3,
             pregnancyMonths: 2.05,
-            cooldownMonths: 9.0,
+            multiplyCooldownMonthsMin: 8.8,
+            multiplyCooldownMonthsMax: 9.2,
             lactationMonths: 18.0,
             estrousCycleMonths: 3.0,
             daysInHeat: 3.0,
-            litterAddChance: 0.21,
-            litterAddAttempts: 3,
         },
         side: "server"
     },
@@ -207,58 +152,41 @@
 
 
     {
-        file: "game:entities/land/hyena-female.json",
-        op: "add",
+        file: "game:entities/animal/mammal/hyena-adult.json",
+        op: "replace",
         path: "/attributes/creatureDiet",
         value: {
             foodCategories: ["Protein", "Dairy", "Fruit"],
-            foodTags: ["meat", "egg", "bone", "rawhide"],
+            weightedFoodTags: [{ weight:2.0, code:"meat"}, { weight:1.5, code:"egg"}, { weight:0.2, code:"bone"}, { weight:0.3, code:"rawhide"}],
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
-        op: "add",
+        file: "game:entities/animal/mammal/hyena-baby.json",
+        op: "replace",
         path: "/attributes/creatureDiet",
         value: {
             foodCategories: ["Protein", "Dairy", "Fruit"],
-            foodTags: ["meat", "egg", "bone", "rawhide"],
+            weightedFoodTags: [{ weight:2.0, code:"meat"}, { weight:1.5, code:"egg"}, { weight:0.2, code:"bone"}, { weight:0.3, code:"rawhide"}],
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-pup.json",
-        op: "add",
-        path: "/attributes/creatureDiet",
-        value: {
-            foodCategories: ["Protein", "Dairy", "Fruit"],
-            foodTags: ["meat", "egg", "rawhide"],
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-pup.json",
-        op: "addmerge",
-        path: "/behaviorConfigs",
-        value: { },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -279,7 +207,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -300,30 +228,9 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-pup.json",
-        op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
-        value: { 
-            monthsUntilWeaned: 12,
-            fiber: 0.02,
-            sugar: 0.03,
-            fat: 0.2,
-            starch: 0.03,
-            protein: 0.7,
-            water: 1.0,
-            minerals: 0.02,
-            mineralsMax: 0.1,
-            avoidFoodTags: [ "sour" ],
-            specialties: [ "bone" ],
-            fiberDigestion: 0.0,
-            daysUntilHungry: 4,
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-female.json",
-        op: "add",
-        path: "/server/behaviors/11/aitasks/-",
+        file: "game:entities/animal/mammal/hyena-adult.json",
+        op: "replace",
+        path: "/server/behaviors/11/aitasks/7",
         value: {
             code: "genelib.forage",
             nurseFromEntities: "game:hyena-female",
@@ -337,25 +244,9 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
-        op: "add",
-        path: "/server/behaviors/10/aitasks/-",
-        value: {
-            code: "genelib.forage",
-            nurseFromEntities: "game:hyena-female",
-            eatSound: "creature/animal-eat1",
-            priority: 1.38,
-            eatTime: 1.5,
-            animation: "Walk",
-            mincooldownHours: 0.0,
-            maxcooldownHours: 0.05,
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-pup.json",
-        op: "add",
-        path: "/server/behaviors/11/aitasks/-",
+        file: "game:entities/animal/mammal/hyena-baby.json",
+        op: "replace",
+        path: "/server/behaviors/11/aitasks/5",
         value: {
             code: "genelib.forage",
             nurseFromEntities: "game:hyena-female",

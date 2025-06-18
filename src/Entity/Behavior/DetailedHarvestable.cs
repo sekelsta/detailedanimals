@@ -81,7 +81,17 @@ namespace DetailedAnimals {
             // Don't call base method. Don't reset AnimalWeight to 1.
         }
 
-        public void GenerateDrops(IPlayer byPlayer, float dropQuantityMultiplier) {
+        public new void GenerateDrops(IPlayer byPlayer) {
+            if (entity.World.Side == EnumAppSide.Client) return;
+
+            if (DropsGenerated) return;
+            DropsGenerated = true;
+
+            float dropQuantityMultiplier = 1;
+            if (entity.Properties.Attributes?["isMechanical"].AsBool() != true) {
+                dropQuantityMultiplier *= byPlayer.Entity.Stats.GetBlended("animalLootDropRate");
+            }
+
             List<ItemStack> drops = new List<ItemStack>();
             float animalWeight = AnimalWeight;
             foreach (BlockDropItemStack drop in jsonDrops) {
@@ -141,12 +151,12 @@ namespace DetailedAnimals {
             }
         }
 
-        public static bool generateDrops_Prefix(EntityBehaviorHarvestable __instance, IPlayer byPlayer, float dropQuantityMultiplier) {
+        public static bool generateDrops_Prefix(EntityBehaviorHarvestable __instance, IPlayer byPlayer) {
             if (!(__instance is DetailedHarvestable)) {
                 return true;
             }
             DetailedHarvestable instance = (DetailedHarvestable)__instance;
-            instance.GenerateDrops(byPlayer, dropQuantityMultiplier);
+            instance.GenerateDrops(byPlayer);
 
             return false;
         }

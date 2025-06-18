@@ -1,15 +1,14 @@
 [
     {
-        file: "game:entities/land/hooved/goat.json",
-        op: "replace",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
+        op: "remove",
         path: "/client/behaviors/8/enabledByType",
-        value: { "*-adult": true, "*": false },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
-        path: "/server/behaviors/15/variantsByType",
+        path: "/server/behaviors/14/variantsByType",
         value: {
             "goat-angora-female-*": ["01", "02", "03", "04", "05", "06", "07"],
             "goat-angora-*": ["01", "02", "03", "04", "05", "06", "07", "08", "09"],
@@ -36,7 +35,7 @@
 
 
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "add",
         path: "/attributes/adultWeightKgByType",
         value: {
@@ -55,7 +54,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "add",
         path: "/attributes/weightDimorphismByType",
         value: {
@@ -74,59 +73,35 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "replace",
         path: "/client/sizeByType",
         value: {
-            "*-adult": 1,
-            "goat-ibexalp-*": 2,
-            "goat-takingold-*": 2.5,
-            "goat-markhor-*": 1.9,
-            "goat-mountain-*": 2,
-            "goat-muskox-*": 2.9,
-            "goat-ibexnub-*": 1.5,
-            "goat-turdag-*": 2,
-            "goat-angora-*": 1.8,
-            "goat-nubian-*": 1.6,
-            "goat-sirohi-*": 1.8,
-            "goat-valais-*": 1.7,
+            "*": 1,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
-        op: "replace",
-        path: "/server/behaviors/11",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
+        op: "add",
+        path: "/server/behaviors/-",
         value: {
             code: "genelib.age",
-            adultEntityCodesByType: {
-                "*-male-baby": ["goat-{type}-male-adult"],
-                "*-female-baby": ["goat-{type}-female-adult"]
-            },
-            monthsToGrowByType: {
-                "*-baby": 10.0,
-                "*-adult": 26.0,
-            },
-            startAgeMonthsByType: {
-                "*-adult": 10.0,
-            },
-            initialWeightByType: {
-                "goat-mountain-*-baby": 0.02,
-                "*-baby": 0.04,
-                "*-adult": 0.6,
-            },
+            monthsToGrow: 26.0,
+            startAgeMonths: 10.0,
+            initialWeight: 0.6,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantityByType",
         value: {
@@ -145,56 +120,35 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/1/quantityByType",
         value: {
-            "goat-ibexalp-*-adult": { avg: 1.25, var: 0 },
-            "goat-markhor-*-adult": { avg: 1.4, var: 0 },
-            "goat-ibexnub-*-adult": { avg: 1.1, var: 0 },
-            "goat-turdag-*-adult": { avg: 1.4, var: 0 },
-            "goat-angora-*-adult": { avg: 1.1, var: 0 },
-            "goat-nubian-*-adult": { avg: 1.1, var: 0 },
-            "goat-sirohi-*-adult": { avg: 1.1, var: 0 },
-            "goat-valais-*-adult": { avg: 1.1, var: 0 },
-            "goat-takingold-*-baby": { avg: 3, var: 0 },
-            "goat-muskox-*-baby": { avg: 3.6, var: 0 },
+            "goat-ibexalp-*": { avg: 1.25, var: 0 },
+            "goat-markhor-*": { avg: 1.4, var: 0 },
+            "goat-ibexnub-*": { avg: 1.1, var: 0 },
+            "goat-turdag-*": { avg: 1.4, var: 0 },
+            "goat-angora-*": { avg: 1.1, var: 0 },
+            "goat-nubian-*": { avg: 1.1, var: 0 },
+            "goat-sirohi-*": { avg: 1.1, var: 0 },
+            "goat-valais-*": { avg: 1.1, var: 0 },
             "*": { avg: 0, var: 0 },
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
-        // Add instead of replace due to https://github.com/anegostudios/VintageStory-Issues/issues/5094
-        op: "add",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
+        op: "replace",
         path: "/server/behaviors/7/drops/2/quantityByType",
         value: {
-            "goat-mountain-*-baby": { avg: 2.4, var: 0 },
-            "goat-turdag-*-baby": { avg: 2, var: 0 },
             "*": { avg: 0, var: 0 },
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/3/quantityByType",
-        value: {
-            "goat-ibexalp-*-baby": { avg: 3.7, var: 0 },
-            "goat-markhor-*-baby": { avg: 4, var: 0 },
-            "goat-ibexnub-*-baby": { avg: 3.4, var: 0 },
-            "goat-angora-*-baby": { avg: 3.8, var: 0 },
-            "goat-nubian-*-baby": { avg: 3.8, var: 0 },
-            "goat-sirohi-*-baby": { avg: 3.8, var: 0 },
-            "goat-valais-*-baby": { avg: 3.8, var: 0 },
-            "*": { avg: 0, var: 0 },
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/goat.json",
-        op: "replace",
-        path: "/server/behaviors/7/drops/4/quantityByType",
         value: {
             "goat-ibexalp-*": { avg: 2.4, var: 0 },
             "goat-takingold-*": { avg: 9, var: 0.1 },
@@ -211,7 +165,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "add",
         path: "/server/behaviors/7/drops/-",
         value: {
@@ -219,9 +173,9 @@
             "code": "game:hide-raw-huge",
             category: "pelt",
             "quantityByType": {
-                "goat-takingold-*-adult": { avg: 1.8, var: 0 },
-                "goat-mountain-*-adult": { avg: 1, var: 0 },
-                "goat-muskox-*-adult": { avg: 2.2, var: 0 },
+                "goat-takingold-*": { avg: 1.8, var: 0 },
+                "goat-mountain-*": { avg: 1, var: 0 },
+                "goat-muskox-*": { avg: 2.2, var: 0 },
                 "*": { avg: 0, var: 0 },
             },
         },
@@ -230,22 +184,28 @@
 
 
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
         path: "/client/behaviors/5",
-        value: { code: "genelib.reproduce", enabledByType: { "*-female-adult": true, "*": false } },
+        value: { code: "genelib.reproduce", enabledByType: { "*-female": true, "*": false } },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: {
             code: "genelib.reproduce",
-            enabledByType: { "*-female-adult": true, "*": false },
+            enabledByType: { "*-female": true, "*": false },
             mateTaskPriority: 1.37,
-            sireCodes: ["game:goat-{type}-male-adult"],
-            spawnEntityCodes: [{"code": "game:goat-{type}-male-baby"}, {"code": "game:goat-{type}-female-baby"}],
+            sireCodes: ["game:goat-{type}-adult-male"],
+            spawnEntityCodes: [{"code": "game:goat-{type}-baby-male"}, {"code": "game:goat-{type}-baby-female"}],
+            litterAddChanceByType: {
+                "goat-muskox-*": 0.001,
+                "goat-takingold-*": 0.001,
+                "*": 0.01
+            },
+            litterAddAttempts: 2,
             pregnancyMonthsByType: {
                 "goat-ibexalp-*": 5.45,
                 "goat-takingold-*": 7,
@@ -255,24 +215,19 @@
                 "goat-turdag-*": 5.15,
                 "*": 5,
             },
-            cooldownMonths: 9.0,
+            multiplyCooldownMonthsMin: 8.8,
+            multiplyCooldownMonthsMax: 9.2,
             lactationMonths: 5,
             estrousCycleMonths: 0.7,
             daysInHeat: 3.0,
             breedingPeakMonth: 9.5,
             breedingMonthsBefore: 2.0,
             breedingMonthsAfter: 2.0,
-            litterAddChanceByType: {
-                "goat-muskox-*": 0.001,
-                "goat-takingold-*": 0.001,
-                "*": 0.01
-            },
-            litterAddAttempts: 2,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -293,14 +248,14 @@
     },
 
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -326,65 +281,65 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: ["Fruit", "Dairy"],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "fruitmash", "sheepfeed", "toughstem", "acorn", "peanut", "soybean"],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.6, code:"foliage"}, { weight:0.4, code:"hay"}, { weight:0.3, code:"toughstem"}, { weight:0.2, code:"acorn"}, { weight:0.3, code:"peanut"}],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
-        path: "/server/behaviors/13/aitasks/11/code",
+        path: "/server/behaviors/12/aitasks/12/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
-        path: "/server/behaviors/13/aitasks/11/priority",
+        path: "/server/behaviors/12/aitasks/12/priority",
         value: 1.38,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "add",
-        path: "/server/behaviors/13/aitasks/11/nurseFromEntities",
+        path: "/server/behaviors/12/aitasks/12/nurseFromEntities",
         value: ["game:goat-{type}-female-adult"],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
-        path: "/server/behaviors/13/aitasks/11/mincooldownHours",
+        path: "/server/behaviors/12/aitasks/12/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
-        path: "/server/behaviors/13/aitasks/11/maxcooldownHours",
+        path: "/server/behaviors/12/aitasks/12/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "add",
-        path: "/server/behaviors/13/aitasks/9/enabled",
+        path: "/server/behaviors/12/aitasks/10/enabled",
         value: false,
         side: "server"
     },

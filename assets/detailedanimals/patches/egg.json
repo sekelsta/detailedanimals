@@ -1,75 +1,10 @@
 [
     {
-        file: "game:itemtypes/food/egg.json",
-        op: "addmerge",
-        path: "/attributes/nestitemByType",
-        value: {
-            "*-raw": true,
-        },
-        side: "server",
-    },
-    {
         file: "moreanimals:itemtypes/egg.json",
         op: "addmerge",
         path: "/attributes/nestitemByType",
         value: {
             "*-raw": true,
-        },
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ],
-    },
-    {
-        file: "moreanimals:itemtypes/egg.json",
-        op: "add",
-        path: "/shape",
-        value: { base: "game:item/food/egg" },
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ],
-    },
-    {
-        file: "moreanimals:itemtypes/egg.json",
-        op: "add",
-        path: "/guiTransform",
-        value: {
-            translation: { x: 0, y: 0, z: 0 },
-            rotation: { x: -30, y: -20, z: 0 },
-            origin: { x: 0.49, y: 0.02, z: 0.5 },
-            scale: 5.95
-        },
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ],
-    },
-    {
-        file: "moreanimals:itemtypes/egg.json",
-        op: "add",
-        path: "/tpHandTransform",
-        value: {
-            translation: { x: -0.8, y: -0.25, z: -0.6 },
-            scale: 0.71
-        },
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ],
-    },
-    {
-        file: "moreanimals:itemtypes/egg.json",
-        op: "add",
-        path: "/fpHandTransform",
-        value: {
-            translation: { x: 0, y: -0.1, z: 0 },
-            rotation: { x: 180, y: 90, z: 22 }
-        },
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ],
-    },
-    {
-        file: "moreanimals:itemtypes/egg.json",
-        op: "add",
-        path: "/groundTransform",
-        value: {
-            translation: { x: 0, y: 0, z: 0 },
-            rotation: { x: 0, y: 0, z: 0 },
-            origin: { x: 0.5, y: 0, z: 0.5 },
-            scale: 5
         },
         side: "server",
         dependsOn: [ { modid: "moreanimals" } ],

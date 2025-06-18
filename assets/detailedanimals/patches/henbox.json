@@ -7,79 +7,10 @@
         side: "server",
     },
     {
-        file: "game:recipes/grid/henbox.json",
-        op: "replace",
-        path: "/enabled",
-        value: true,
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ]
-    },
-    {
-        file: "moreanimals:recipes/grid/nestbox.json",
+        file: "game:blocktypes/wood/henbox.json",
         op: "add",
-        path: "/enabled",
-        value: false,
+        path: "/drops",
+        value: [ { type: "block", code: "genelib:nestbox" } ],
         side: "server",
-        dependsOn: [ { modid: "moreanimals" } ]
-    },
-    {
-        file: "game:blocktypes/wood/henbox.json",
-        op: "replace",
-        path: "/dropsbytype/*-1egg/1/code",
-        value: "genelib:nestbox",
-        side: "server",
-    },
-    {
-        file: "game:blocktypes/wood/henbox.json",
-        op: "replace",
-        path: "/dropsbytype/*-2eggs/1/code",
-        value: "genelib:nestbox",
-        side: "server",
-    },
-    {
-        file: "game:blocktypes/wood/henbox.json",
-        op: "replace",
-        path: "/dropsbytype/*-3eggs/1/code",
-        value: "genelib:nestbox",
-        side: "server",
-    },
-    {
-        file: "game:blocktypes/wood/henbox.json",
-        op: "replace",
-        path: "/dropsbytype/*-empty/0/code",
-        value: "genelib:nestbox",
-        side: "server",
-    },
-    {
-        file: "moreanimals:blocktypes/nestbox.json",
-        op: "replace",
-        path: "/dropsbytype/*-1egg/0/code",
-        value: "genelib:nestbox",
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ]
-    },
-    {
-        file: "moreanimals:blocktypes/nestbox.json",
-        op: "replace",
-        path: "/dropsbytype/*-2eggs/0/code",
-        value: "genelib:nestbox",
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ]
-    },
-    {
-        file: "moreanimals:blocktypes/nestbox.json",
-        op: "replace",
-        path: "/dropsbytype/*-3eggs/0/code",
-        value: "genelib:nestbox",
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ]
-    },
-    {
-        file: "moreanimals:blocktypes/nestbox.json",
-        op: "replace",
-        path: "/dropsbytype/*-empty/0/code",
-        value: "genelib:nestbox",
-        side: "server",
-        dependsOn: [ { modid: "moreanimals" } ]
-    },
+    }
 ]

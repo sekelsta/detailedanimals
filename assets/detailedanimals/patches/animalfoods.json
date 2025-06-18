@@ -85,6 +85,12 @@
     },
     {
         "file": "game:itemtypes/food/egg.json",
+        "op": "remove",
+        "path": "/attributes/foodTags",
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/egg.json",
         "op": "add",
         "path": "/attributes/foodTagsByType",
         "value": {
@@ -305,21 +311,21 @@
     {
         file: "game:itemtypes/resource/treeseed.json",
         op: "addmerge",
-        path: "/attributesByType/*/foodTagsByType",
-        value: { "*-oak": [ "acorn" ], "*-walnut": ["walnut"] },
+        path: "/attributesByType/treeseed-oak",
+        value: { foodTags: [ "acorn" ], satiety: 15 },
         side: "server",
     },
     {
         file: "game:itemtypes/resource/treeseed.json",
         op: "addmerge",
-        path: "/attributesByType/*/satietyByType",
-        value: { "*-oak": 15 },
+        path: "/attributesByType/treeseed-walnut",
+        value: { foodTags: ["walnut"], satiety: 20 },
         side: "server",
     },
     {
         file: "game:itemtypes/resource/treeseed.json",
         op: "replace",
-        path: "/attributesByType/*/satietyByType/*-oak",
+        path: "/attributesByType/treeseed-oak/satiety",
         value: 6,
         side: "server",
         dependsOn: [ { modid: "acorns" } ],

@@ -1,38 +1,38 @@
 [
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealthByType",
         value: {
-            "*-black": 39,
-            "*-brown": 61,
-            "*-sun": 27,
-            "*-panda": 41,
-            "*-polar": 79
+            "bear-black-*": 39,
+            "bear-brown-*": 61,
+            "bear-sun-*": 27,
+            "bear-panda-*": 41,
+            "bear-polar-*": 79
         },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "remove",
         path: "/server/behaviors/3/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealth",
         value: 3,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "remove",
         path: "/server/behaviors/4/currenthealthByType",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "replace",
         path: "/server/behaviors/4/maxhealthByType",
         value: {
@@ -53,13 +53,40 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/deer-baby.json",
+        op: "remove",
+        path: "/server/behaviors/4/currenthealthByType",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/deer-baby.json",
+        op: "replace",
+        path: "/server/behaviors/4/maxhealthByType",
+        value: {
+            "deer-caribou-*": 23,
+            "deer-chital-*": 16,
+            "deer-elk-*": 34,
+            "deer-fallow-*": 15,
+            "deer-guemal-*": 17,
+            "deer-marsh-*": 19,
+            "deer-pampas-*": 10,
+            "deer-pudu-*": 5,
+            "deer-redbrocket-*": 9,
+            "deer-taruca-*": 15,
+            "deer-water-*": 9,
+            "deer-whitetailed-*": 15,
+            "*": 15,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "remove",
         path: "/behaviorConfigs/health/currenthealthByType",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
         path: "/behaviorConfigs/health/maxhealthByType",
         value: {
@@ -68,13 +95,13 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "remove",
         path: "/server/behaviors/4/currenthealthByType",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/goat.json",
+        file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
         path: "/server/behaviors/4/maxhealthByType",
         value: {
@@ -89,213 +116,248 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/goat-baby.json",
         op: "remove",
-        path: "/server/behaviors/4/currenthealthByType",
+        path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
-        op: "replace",
+        file: "game:entities/animal/mammal/hooved/goat-baby.json",
+        op: "remove",
+        path: "/server/behaviors/4/maxhealth",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/goat-baby.json",
+        op: "add",
         path: "/server/behaviors/4/maxhealthByType",
         value: {
-            "*": 42,
+            "goat-ibexnub-*": 20,
+            "goat-markhor-*": 16,
+            "goat-mountain-*": 19,
+            "goat-muskox-*": 34,
+            "goat-takingold-*": 29,
+            "goat-turdag-*": 16,
+            "*": 15,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "remove",
-        path: "/server/behaviors/4/currenthealthByType",
+        path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
+        path: "/server/behaviors/4/maxhealth",
+        value: 42,
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/moose-baby.json",
+        op: "remove",
+        path: "/server/behaviors/4/currenthealth",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/moose-baby.json",
+        op: "replace",
+        path: "/server/behaviors/4/maxhealth",
+        value: 42,
+        side: "server"
+    },
+
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "remove",
+        path: "/server/behaviors/4/currenthealth",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "remove",
+        path: "/server/behaviors/4/maxhealth",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "addmerge",
         path: "/server/behaviors/4/maxhealthByType",
         value: {
-            "fox-*-red": 5,
-            "fox-*-arctic": 4,
+            "fox-red-*": 5,
+            "fox-arctic-*": 4,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/gazelle.json",
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "remove",
+        path: "/server/behaviors/4/currenthealth",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "remove",
+        path: "/server/behaviors/4/maxhealth",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "addmerge",
+        path: "/server/behaviors/4/maxhealthByType",
+        value: {
+            "fox-red-*": 5,
+            "fox-arctic-*": 4,
+        },
+        side: "server"
+    },
+
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "remove",
         path: "/server/behaviors/3/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/gazelle.json",
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealth",
         value: 10,
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "remove",
         path: "/server/behaviors/3/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealth",
-        value: 4,
+        value: 10,
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-adult.json",
         op: "remove",
         path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-adult.json",
         op: "replace",
         path: "/server/behaviors/4/maxhealth",
         value: 4,
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "remove",
         path: "/server/behaviors/3/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealth",
         value: 4,
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "remove",
         path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-male.json",
+        file: "game:entities/animal/mammal/hyena-adult.json",
         op: "replace",
         path: "/server/behaviors/4/maxhealth",
         value: 15,
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "remove",
         path: "/server/behaviors/4/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-female.json",
+        file: "game:entities/animal/mammal/hyena-baby.json",
         op: "replace",
         path: "/server/behaviors/4/maxhealth",
         value: 15,
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-pup.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "remove",
-        path: "/server/behaviors/4/currenthealth",
+        path: "/server/behaviors/3/currenthealthByType",
         side: "server"
     },
     {
-        file: "game:entities/land/hyena-pup.json",
-        op: "replace",
-        path: "/server/behaviors/4/maxhealth",
-        value: 15,
+        file: "game:entities/animal/mammal/wolf-adult.json",
+        op: "remove",
+        path: "/server/behaviors/3/maxhealthByType",
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
+        op: "add",
+        path: "/server/behaviors/3/maxhealth",
+        value: 12,
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "remove",
         path: "/server/behaviors/3/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealth",
         value: 12,
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "remove",
         path: "/server/behaviors/3/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-female.json",
-        op: "replace",
-        path: "/server/behaviors/3/maxhealth",
-        value: 12,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
-        op: "remove",
-        path: "/server/behaviors/3/currenthealth",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
-        op: "replace",
-        path: "/server/behaviors/3/maxhealth",
-        value: 12,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "remove",
-        path: "/server/behaviors/3/currenthealth",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealth",
         value: 21,
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "remove",
-        path: "/server/behaviors/3/currenthealth",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
-        path: "/server/behaviors/3/maxhealth",
-        value: 21,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "remove",
         path: "/server/behaviors/2/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
         path: "/server/behaviors/2/maxhealth",
         value: 21,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "remove",
         path: "/server/behaviors/3/currenthealth",
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealth",
         value: 18,

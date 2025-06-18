@@ -44,16 +44,17 @@ namespace DetailedAnimals
 
             api.RegisterCollectibleBehaviorClass(TryFeedingAnimal.Code, typeof(TryFeedingAnimal));
 
-            AiTaskRegistry.Register("genelib.forage", typeof (AiTaskForage));
-            AiTaskRegistry.Register("genelib.sitonnest", typeof (AiTaskSitOnNest));
-            AiTaskRegistry.Register("genelib.layegg", typeof (AiTaskLayEgg));
-            AiTaskRegistry.Register("genelib.mate", typeof (AiTaskMate));
+            AiTaskRegistry.Register<AiTaskForage>("genelib.forage");
+            AiTaskRegistry.Register<AiTaskSitOnNest>("genelib.sitonnest");
+            AiTaskRegistry.Register<AiTaskLayEgg>("genelib.layegg");
 
             AnimalConfig.Load(api);
 
             GenomeType.RegisterInterpreter(new JunglefowlGenetics());
             GenomeType.RegisterInterpreter(new GoatGenetics());
             GenomeType.RegisterInterpreter(new CanineGenetics());
+
+            GenelibSystem.AutoadjustAnimalBehaviors = true;
         }
 
         public override void StartServerSide(ICoreServerAPI api) {

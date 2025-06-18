@@ -1,0 +1,192 @@
+[
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/attributes/adultWeightKg",
+        value: 23.75,
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/attributes/weightDimorphism",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 18.0,
+            startAgeMonths: 6.0,
+            initialWeight: 0.7,
+            finalWeight: 1.0,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/0/quantity",
+        value: { avg: 5.9, var: 1 },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/1/quantity",
+        value: { avg: 1, var: 0},
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "replace",
+        path: "/server/behaviors/6/drops/2/quantity",
+        value: { avg: 1, var: 0 },
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "genelib.reproduce", enabledByType: { "*-female": true, "*": false } },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.reproduce",
+            enabledByType: { "*-female": true, "*": false },
+            mateTaskPriority: 1.34,
+            sireCodes: ["game:gazelle-{type}-adult-male"],
+            spawnEntityCodes: [{"code": "game:gazelle-{type}-baby-male"}, {"code": "game:gazelle-{type}-baby-female"}],
+            pregnancyMonths: 5.5,
+            multiplyCooldownMonthsMin: 8.8,
+            multiplyCooldownMonthsMax: 9.2,
+            lactationMonths: 6,
+            estrousCycleMonths: 1.0,
+            daysInHeat: 2.0,
+            breedingPeakMonth: 1.0,
+            breedingMonthsBefore: 8.0,
+            breedingMonthsAfter: 8.0,
+            litterAddChance: 0.01,
+            litterAddAttempts: 1,
+        },
+        side: "server"
+    },
+
+
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/attributes/creatureDiet/foodCategories/-",
+        value: "Fruit",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [
+				{ weight: 0.5, code: "foliage" }, 
+				{ weight: 0.3, code: "hay" },
+				{ weight: 0.1, code: "toughstem" },
+				{ weight: 1, code: "acorn" },
+				{ weight: 0.2, code: "peanut" },
+				{ weight: 0.2, code: "soybean" }
+			],
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "replace",
+        path: "/attributes/creatureDiet/skipFoodTags",
+        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "addmerge",
+        path: "/behaviorConfigs",
+        value: { },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "addmerge",
+        path: "/behaviorConfigs/genelib.hunger",
+        value: { 
+            monthsUntilWeaned: 4,
+            fiber: 0.5,
+            sugar: 0.15,
+            fat: 0.04,
+            fatMax: 0.2,
+            starch: 0.15,
+            protein: 0.14,
+            water: 1.0,
+            minerals: 0.02,
+            mineralsMax: 0.1,
+            avoidFoodTags: [ "sour" ],
+            specialties: [ "toughplant" ],
+            fiberDigestion: 1.0,
+            grazeMethods: ["nibblegraze"],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/4/code",
+        value: "genelib.forage",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/4/nurseFromEntities",
+        value: ["game:gazelle-*-adult-female"],
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/4/mincooldownHours",
+        value: 0.0,
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/4/maxcooldownHours",
+        value: 0.05,
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/4/eatSound",
+        value: "game:creature/animal-eat-small",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
+        op: "add",
+        path: "/server/behaviors/9/aitasks/5/enabled",
+        value: false,
+        side: "server"
+    },
+]

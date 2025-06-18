@@ -110,7 +110,7 @@ namespace DetailedAnimals {
                 throw new FormatException(Code + " requires an EntityAgent");
             }
             try {
-                layEggTask = (AiTaskLayEgg)Activator.CreateInstance(taskType, entityAgent);
+                layEggTask = (AiTaskLayEgg)Activator.CreateInstance(taskType, entityAgent, taskConfig, null);
             }
             catch (Exception e) {
                 if (e.InnerException != null) {
@@ -119,7 +119,6 @@ namespace DetailedAnimals {
                 }
                 throw;
             }
-            layEggTask.LoadConfig(taskConfig, null);
             taskConfig = null;
             layEggTask.AfterInitialize();
             if (CanLayEgg()) {
@@ -159,7 +158,7 @@ namespace DetailedAnimals {
             if (animalWeight <= DetailedHarvestable.UNDERWEIGHT 
                     || lastBroody > entity.World.Calendar.TotalHours - 72
                     || !IsBreedingSeason()
-                    || TotalDaysCooldownUntil > TotalDays) {
+                    || TotalDaysCooldownUntil > entity.World.Calendar.TotalDays) {
                 NextEggHours = entity.World.Calendar.TotalHours + HoursPerEgg.nextFloat(1, entity.World.Rand);
                 return false;
             }

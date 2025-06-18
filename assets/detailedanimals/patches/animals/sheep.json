@@ -1,23 +1,13 @@
 [
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/spawnconditions/worldgen/companions",
-        value: ["sheep-bighorn-female", "sheep-bighorn-female", "detailedanimals:sheep-bighorn-female-lamb", "detailedanimals:sheep-bighorn-male-lamb"],
+        path: "/client/texture/base",
+        value: "game:entity/animal/mammal/hooved/sheep/bighorn-baby",
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/runtime/companions",
-        value: ["sheep-bighorn-female", "sheep-bighorn-female", "detailedanimals:sheep-bighorn-female-lamb", "detailedanimals:sheep-bighorn-male-lamb"],
-        side: "server"
-    },
-
-
-
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
         path: "/server/behaviors/6/drops",
         value: [
@@ -43,42 +33,21 @@
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
         value: { avg: 21, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/1/quantity",
         value: { avg: 1.6, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/2/quantity",
-        value: { avg: 3.5, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/0/quantity",
-        value: { avg: 21, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/1/quantity",
-        value: { avg: 1.6, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantity",
         value: { avg: 3.5, var: 0 },
@@ -87,23 +56,23 @@
 
 
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: { 
             code: "genelib.age",
             monthsToGrow: 12.0,
             adultEntityCodesByType: {
-                "*-male-*": ["game:sheep-bighorn-male"],
-                "*-female-*": ["game:sheep-bighorn-female"],
-                "*": ["game:sheep-bighorn-female", "game:sheep-bighorn-male"],
+                "*-male-*": ["game:sheep-bighorn-adult-male"],
+                "*-female-*": ["game:sheep-bighorn-adult-female"],
+                "*": ["game:sheep-{type}-adult-{gender}"],
             },
             initialWeight: 0.1,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: { 
@@ -115,61 +84,35 @@
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: { 
-            code: "genelib.age",
-            monthsToGrow: 48.0,
-            startAgeMonths: 12.0,
-            initialWeight: 0.7,
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 83, weightDimorphism: 0.14 },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 83, weightDimorphism: 0.14 },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
-        op: "addmerge",
-        path: "/attributes",
-        value: { adultWeightKg: 83, weightDimorphism: 0.14 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
         path: "/client/size",
         value: 1.8,
@@ -178,122 +121,95 @@
 
 
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
         value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
             mateTaskPriority: 1.37,
-            sireCodes: ["sheep-bighorn-male"],
-            spawnEntityCodes: [{"code": "detailedanimals:sheep-bighorn-male-lamb"}, {"code": "detailedanimals:sheep-bighorn-female-lamb"}],
+            sireCodes: ["sheep-bighorn-adult-male"],
+            spawnEntityCodes: [{"code": "game:sheep-bighorn-baby-male"}, {"code": "game:sheep-bighorn-baby-female"}],
+            litterAddChance: 0.01,
+            litterAddAttempts: 2,
             pregnancyMonths: 5.9,
-            cooldownMonths: 4.0,
+            multiplyCooldownMonthsMin: 3.9,
+            multiplyCooldownMonthsMax: 4.1,
             lactationMonths: 6.0,
             estrousCycleMonths: 0.93,
             daysInHeat: 2.0,
             breedingPeakMonth: 10.5,
             breedingMonthsBefore: 1.0,
             breedingMonthsAfter: 1.0,
-            litterAddChance: 0.01,
-            litterAddAttempts: 2,
         },
         side: "server"
     },
 
 
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: "Fruit",
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: "Fruit",
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/attributes/creatureDiet/foodCategories/-",
-        value: "Fruit",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "toughstem", "acorn", "peanut", "soybean"],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.6, code:"foliage"}, { weight:0.4, code:"hay"}, { weight:0.3, code:"toughstem"}, { weight:0.2, code:"acorn"}, { weight:0.3, code:"peanut"}],
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "toughstem", "acorn", "peanut", "soybean"],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.6, code:"foliage"}, { weight:0.4, code:"hay"}, { weight:0.3, code:"toughstem"}, { weight:0.2, code:"acorn"}, { weight:0.3, code:"peanut"}],
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "toughstem", "acorn", "peanut", "soybean"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "replace",
-        path: "/attributes/creatureDiet/skipFoodTags",
-        value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "addmerge",
-        path: "/behaviorConfigs",
-        value: { },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -315,7 +231,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -337,157 +253,93 @@
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
-        value: { 
-            monthsUntilWeaned: 6.0,
-            fiber: 0.52,
-            sugar: 0.14,
-            fat: 0.04,
-            fatMax: 0.2,
-            starch: 0.14,
-            protein: 0.14,
-            water: 1.0,
-            minerals: 0.02,
-            mineralsMax: 0.1,
-            avoidFoodTags: [ "sour" ],
-            specialties: [ "toughplant" ],
-            fiberDigestion: 1.0,
-            grazeMethods: ["graze", "nibblegraze"],
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/6/code",
+        path: "/server/behaviors/10/aitasks/7/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/6/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/7/mincooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/6/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/7/maxcooldownHours",
         value: 1,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/6/priority",
+        path: "/server/behaviors/10/aitasks/7/priority",
         value: 1.38,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/6/eatAnimationSpeed",
+        path: "/server/behaviors/10/aitasks/7/eatAnimationSpeed",
         value: 1.5,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/behaviors/9/aitasks/5/code",
+        path: "/server/behaviors/10/aitasks/5/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
-        path: "/server/behaviors/9/aitasks/5/mincooldownHours",
-        value: 0.05,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
-        path: "/server/behaviors/9/aitasks/5/maxcooldownHours",
-        value: 1,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
-        path: "/server/behaviors/9/aitasks/5/priority",
-        value: 1.38,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
-        path: "/server/behaviors/9/aitasks/5/eatAnimationSpeed",
-        value: 1.5,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "replace",
-        path: "/server/behaviors/10/aitasks/4/code",
-        value: "genelib.forage",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/server/behaviors/10/aitasks/6/nurseFromEntities",
+        path: "/server/behaviors/10/aitasks/5/nurseFromEntities",
         value: ["game:sheep-bighorn-female"],
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/4/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/5/mincooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/4/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/5/maxcooldownHours",
         value: 1,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/4/priority",
+        path: "/server/behaviors/10/aitasks/5/priority",
         value: 1.38,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/4/eatAnimationSpeed",
+        path: "/server/behaviors/10/aitasks/5/eatAnimationSpeed",
         value: 1.5,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-female.json",
+        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/7/enabled",
+        path: "/server/behaviors/10/aitasks/8/enabled",
         value: false,
         side: "server"
     },
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
+        file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
-        path: "/server/behaviors/9/aitasks/6/enabled",
-        value: false,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-lamb.json",
-        op: "add",
-        path: "/server/behaviors/10/aitasks/5/enabled",
+        path: "/server/behaviors/10/aitasks/6/enabled",
         value: false,
         side: "server"
     },
