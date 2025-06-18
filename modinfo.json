@@ -4,9 +4,9 @@
   "name": "Truth and Beauty: Detailed Animals",
   "description" : "Believable animal husbandry, behaviour, and genetics.",
   "authors": ["sekelsta"],
-  "version": "0.5.7",
+  "version": "0.6.0",
   "dependencies": { 
-	"game": "1.20.4",
+	"game": "1.21.0-pre.0",
 	"survival": "",
 	"genelib": "1.1.7",
   }
