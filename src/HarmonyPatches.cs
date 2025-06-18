@@ -18,7 +18,7 @@ namespace DetailedAnimals {
 
         public static void Patch() {
             harmony.Patch(
-                typeof(EntityBehaviorHarvestable).GetMethod("generateDrops", BindingFlags.Instance | BindingFlags.NonPublic),
+                typeof(EntityBehaviorHarvestable).GetMethod("GenerateDrops", BindingFlags.Instance | BindingFlags.Public),
                 prefix: new HarmonyMethod(typeof(DetailedHarvestable).GetMethod("generateDrops_Prefix", BindingFlags.Static | BindingFlags.Public)) 
             );
             harmony.Patch(
