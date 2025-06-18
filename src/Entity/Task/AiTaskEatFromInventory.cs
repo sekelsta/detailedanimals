@@ -7,17 +7,9 @@ using Vintagestory.GameContent;
 namespace DetailedAnimals {
     public class AiTaskEatFromInventory : AiTaskUseInventory {
         AnimalHunger hunger;
-        // Kept in sync with base.useTimeNow, which we cannot use due to being a private field
-        float ourUseTimeNow = 0;
-        float ourUseTime = 1;
 
         public AiTaskEatFromInventory(EntityAgent entity, AnimalHunger hunger) : base(entity) {
             this.hunger = hunger;
-        }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
-            base.LoadConfig(taskConfig, aiConfig);
-            ourUseTime = taskConfig["useTime"].AsFloat(1.5f);
         }
 
         public override bool ShouldExecute() {
@@ -43,14 +35,8 @@ namespace DetailedAnimals {
             return true;
         }
 
-        public override void StartExecute() {
-            base.StartExecute();
-            ourUseTimeNow = 0;
-        }
-
         public override bool ContinueExecute(float dt) {
-            ourUseTimeNow += dt;
-            if (ourUseTimeNow < ourUseTime) {
+            if (useTimeNow + dt < useTime) {
                 return base.ContinueExecute(dt);
             }
             hunger.Eat(entity.LeftHandItemSlot);
