@@ -165,8 +165,7 @@
     },
     {
         file: "game:entities/land/hooved/goat.json",
-        // Add instead of replace due to https://github.com/anegostudios/VintageStory-Issues/issues/5094
-        op: "add",
+        op: "replace",
         path: "/server/behaviors/7/drops/2/quantityByType",
         value: {
             "goat-mountain-*-baby": { avg: 2.4, var: 0 },
@@ -349,42 +348,42 @@
     {
         file: "game:entities/land/hooved/goat.json",
         op: "replace",
-        path: "/server/behaviors/13/aitasks/11/code",
+        path: "/server/behaviors/13/aitasks/12/code",
         value: "genelib.forage",
         side: "server"
     },
     {
         file: "game:entities/land/hooved/goat.json",
         op: "replace",
-        path: "/server/behaviors/13/aitasks/11/priority",
+        path: "/server/behaviors/13/aitasks/12/priority",
         value: 1.38,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/goat.json",
         op: "add",
-        path: "/server/behaviors/13/aitasks/11/nurseFromEntities",
+        path: "/server/behaviors/13/aitasks/12/nurseFromEntities",
         value: ["game:goat-{type}-female-adult"],
         side: "server"
     },
     {
         file: "game:entities/land/hooved/goat.json",
         op: "replace",
-        path: "/server/behaviors/13/aitasks/11/mincooldownHours",
+        path: "/server/behaviors/13/aitasks/12/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/goat.json",
         op: "replace",
-        path: "/server/behaviors/13/aitasks/11/maxcooldownHours",
+        path: "/server/behaviors/13/aitasks/12/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
         file: "game:entities/land/hooved/goat.json",
         op: "add",
-        path: "/server/behaviors/13/aitasks/9/enabled",
+        path: "/server/behaviors/13/aitasks/10/enabled",
         value: false,
         side: "server"
     },
