@@ -26,7 +26,7 @@
         path: "/server/spawnconditionsByType/*-rooster/runtime/companions",
         value: ["chicken-hen", "chicken-hen", "detailedanimals:chicken-female-chick", "detailedanimals:chicken-male-chick"],
         side: "server"
-    },,
+    },
     {
         file: "game:entities/land/chicken-adult.json",
         op: "replace",
