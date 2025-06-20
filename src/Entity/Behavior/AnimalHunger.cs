@@ -288,6 +288,17 @@ namespace DetailedAnimals {
                 return false;
             }
 
+
+            if (nutriProps != null) {
+                if (nutriProps.Health < 0) {
+                    return false;
+                }
+
+                if (nutriProps.Intoxication > 0) {
+                    return false;
+                }
+            }
+
             // Respect "skipFoodTags" and "specialties" even if animal is starving
             string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>() ?? new string[0];
             CreatureDiet diet = entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>();
