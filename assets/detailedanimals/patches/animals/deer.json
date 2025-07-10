@@ -297,8 +297,8 @@
                 "*-elk-*": ["game:deer-{type}-male-adult", "game:tamedeer-{type}-male-adult", "game:tamedeer-albino{type}-male-adult"],
                 "*": ["game:deer-{type}-male-adult"],
             },
-            offspringCodes: ["game:deer-{type}-male-baby", "game:deer-{type}-female-baby"],
-            gestationMonthsByType: {
+            spawnEntityCodes: [{"code": "game:deer-{type}-male-baby"}, {"code": "game:deer-{type}-female-baby"}],
+            pregnancyMonthsByType: {
                 "deer-caribou-*": 7.56,
                 "deer-chital-*": 7.17,
                 "deer-elk-*": 8.05,

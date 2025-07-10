@@ -50,7 +50,9 @@ namespace DetailedAnimals {
             get => NextEggHours;
         }
 
-        public ReproduceEgg(Entity entity) : base(entity) { }
+        public ReproduceEgg(Entity entity) : base(entity) { 
+            ViabilityCheckDelay = 2;
+        }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             base.Initialize(properties, attributes);
@@ -126,11 +128,11 @@ namespace DetailedAnimals {
             }
         }
 
-        protected override void SlowTick(float dt) {
+        protected override void CheckMultiply(float dt) {
             if (!entity.World.Side.IsServer()) {
                 return;
             }
-            base.SlowTick(dt);
+            base.CheckMultiply(dt);
             if (CanLayEgg()) {
                 if (!layEggTaskActive) {
                     taskAI.TaskManager.AddTask(layEggTask);
@@ -142,12 +144,6 @@ namespace DetailedAnimals {
                     taskAI.TaskManager.RemoveTask(layEggTask);
                     layEggTaskActive = false;
                 }
-            }
-        }
-
-        protected override void ProgressPregnancy() {
-            if (TotalDays > TotalDaysPregnancyStart + GestationDays) {
-                SetNotPregnant();
             }
         }
 
@@ -233,6 +229,10 @@ namespace DetailedAnimals {
             return eggStack;
         }
 
+        protected override void GiveBirth(float q) {
+            SetNotPregnant();
+        }
+
         public override void GetInfoText(StringBuilder infotext) {
             if (!entity.Alive) {
                 return;
@@ -261,7 +261,7 @@ namespace DetailedAnimals {
                 infotext.AppendLine((key != translated) ? translated : Lang.Get("game:Ready to lay"));
                 return;
             }
-            GetRemainingInfoText(infotext, animalWeight);
+            GetReadinessInfoText(infotext, animalWeight);
         }
 
     }

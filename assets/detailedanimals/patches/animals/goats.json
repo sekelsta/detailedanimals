@@ -245,8 +245,8 @@
             enabledByType: { "*-female-adult": true, "*": false },
             mateTaskPriority: 1.37,
             sireCodes: ["game:goat-{type}-male-adult"],
-            offspringCodes: ["game:goat-{type}-male-baby", "game:goat-{type}-female-baby"],
-            gestationMonthsByType: {
+            spawnEntityCodes: [{"code": "game:goat-{type}-male-baby"}, {"code": "game:goat-{type}-female-baby"}],
+            pregnancyMonthsByType: {
                 "goat-ibexalp-*": 5.45,
                 "goat-takingold-*": 7,
                 "goat-mountain-*": 5.85,

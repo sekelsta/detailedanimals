@@ -17,12 +17,6 @@ namespace DetailedAnimals {
     public class Reproduce : GeneticMultiply {
         public new const string Code = "genelib.reproduce";
 
-        // TODO: rearrange to handle hybrids - e.g., offspringBySire
-        protected AssetLocation[] SireCodes;
-        protected float SireSearchRange;
-        protected long listenerID;
-        protected double CooldownDays;
-        protected double GestationDays;
         protected double LactationDays = 0;
         protected double EstrousCycleDays;
         protected double DaysInHeat;
@@ -45,13 +39,6 @@ namespace DetailedAnimals {
             get => 0;
         }
 
-        public bool InEarlyPregnancy {
-            get => multiplyTree.GetBool("earlyPregnancy", true);
-            set {
-                multiplyTree.SetBool("earlyPregnancy", value);
-                entity.WatchedAttributes.MarkPathDirty("multiply");
-            }
-        }
         public double GrowthPausedSince {
             get => entity.WatchedAttributes.GetTreeAttribute("grow")?.GetDouble("growthPausedSince", -1) ?? entity.World.Calendar.TotalHours;
         }
@@ -59,14 +46,6 @@ namespace DetailedAnimals {
         // Calendar.TotalDays includes timelapse adjustment, Calendar.TotalHours does not
         public virtual double TotalDays {
             get => entity.World.Calendar.TotalHours / 24.0;
-        }
-
-        protected double TotalDaysPregnancyEnd {
-            get => multiplyTree.GetDouble("totalDaysPregnancyEnd");
-            set {
-                multiplyTree.SetDouble("totalDaysPregnancyEnd", value);
-                entity.WatchedAttributes.MarkPathDirty("multiply");
-            }
         }
 
         public int NextGeneration() {
@@ -97,28 +76,9 @@ namespace DetailedAnimals {
         }
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
-            // Deliberately skip calling base.Initialize()
+            base.Initialize(properties, attributes);
 
-            SireCodes = getAssetLocationsOrThrow(attributes, "sireCodes");
-            spawnEntityCodes = getAssetLocationsOrThrow(attributes, "offspringCodes");
-
-            if (attributes.KeyExists("gestationMonths")) {
-                GestationDays = attributes["gestationMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth;
-            }
-            else if (attributes.KeyExists("gestationDays")) {
-                GestationDays = attributes["gestationDays"].AsDouble();
-            }
-            else {
-                GestationDays = entity.World.Calendar.DaysPerMonth;
-            }
-            GestationDays *= AnimalConfig.AnimalGrowthTime;
-
-            if (attributes.KeyExists("sireSearchRange")) {
-                SireSearchRange = attributes["sireSearchRange"].AsFloat();
-            }
-            else {
-                SireSearchRange = 16;
-            }
+            PregnancyDays *= AnimalConfig.AnimalGrowthTime;
 
             if (attributes.KeyExists("lactationMonths")) {
                 LactationDays = attributes["lactationMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth;
@@ -127,21 +87,12 @@ namespace DetailedAnimals {
                 LactationDays = attributes["lactationDays"].AsDouble();
             }
             LactationDays *= AnimalConfig.AnimalGrowthTime;
-
-            if (attributes.KeyExists("breedingCooldownMonths")) {
-                CooldownDays = attributes["breedingCooldownMonths"].AsDouble() * entity.World.Calendar.DaysPerMonth
-                    * AnimalConfig.AnimalGrowthTime;
-            }
-            else if (attributes.KeyExists("breedingCooldownDays")) {
-                CooldownDays = attributes["breedingCooldownDays"].AsDouble() * AnimalConfig.AnimalGrowthTime;
-            }
-            else {
-                CooldownDays = LactationDays;
-            }
+            MultiplyCooldownDaysMin *= AnimalConfig.AnimalGrowthTime;
+            MultiplyCooldownDaysMax *= AnimalConfig.AnimalGrowthTime;
 
             InducedOvulation = attributes["inducedOvulation"].AsBool(false);
             if (InducedOvulation) {
-                EstrousCycleDays = CooldownDays;
+                EstrousCycleDays = MultiplyCooldownDaysMax;
                 DaysInHeat = EstrousCycleDays;
             }
             else {
@@ -188,94 +139,47 @@ namespace DetailedAnimals {
             }
             multiplyTree = entity.WatchedAttributes.GetOrAddTreeAttribute("multiply");
 
-            if (IsPregnant) {
-                if (Litter == null) {
-                    IsPregnant = false;
-                    TotalDaysCooldownUntil = TotalDays + entity.World.Rand.NextDouble() * EstrousCycleDays;
-                }
-                else {
-                    double length = TotalDaysPregnancyEnd - TotalDaysPregnancyStart;
-                    if (length < 0.8 * GestationDays || length > 1.2 * GestationDays) {
-                        double rate = 1 + 0.08 * (entity.World.Rand.NextDouble() - 0.5); // Random from 0.96 to 1.04
-                        TotalDaysPregnancyEnd = TotalDaysPregnancyStart + rate * GestationDays;
-                    }
-                }
-            }
-            entity.Api.Event.EnqueueMainThreadTask( () =>
-                listenerID = entity.World.RegisterGameTickListener(SlowTick, 24000), "register tick listener"
-            );
-        }
-
-        protected override void PopulateSpawnEntityCodes() {
-            // Do nothing, skip base class logic
-        }
-
-        protected AssetLocation[] getAssetLocationsOrThrow(JsonObject attributes, string key) {
-            string[] strings = null;
-            if (attributes.KeyExists(key)) {
-                strings = attributes[key].AsArray<string>();
-            }
-            else {
-                throw new FormatException("No " + key + " given for reproduce behavior of entity " + entity.Code);
-            }
-            AssetLocation[] ret = new AssetLocation[strings.Length];
-            for (int i = 0; i < strings.Length; ++i) {
-                ret[i] = AssetLocation.Create(strings[i], entity.Code.Domain);
-            }
-            return ret;
         }
 
         public override bool ShouldEat { get => true; }
 
-        protected virtual void SlowTick(float dt) {
-            if (!entity.World.Side.IsServer()) {
-                return;
-            }
-            if (IsPregnant) {
-                ProgressPregnancy();
-            }
-            else {
-                ConsiderMating();
-            }
-        }
-
-        protected void ConsiderMating() {
+        protected override bool TryGetPregnant() {
             if (entity.World.Rand.NextSingle() < 0.8f) {
-                return;
+                return false;
             }
 
             if (!EntityCanMate(this.entity)) {
-                return;
+                return false;
             }
             if (IsPregnant) {
-                return;
+                return false;
             }
 
             if (TotalDaysCooldownUntil + DaysInHeat < TotalDays) {
                 TotalDaysCooldownUntil += EstrousCycleDays;
             }
             if (TotalDaysCooldownUntil > TotalDays) {
-                return;
+                return false;
             }
 
             if (!IsBreedingSeason()) {
                 TotalDaysCooldownUntil += entity.World.Calendar.DaysPerMonth;
-                return;
+                return false;
             }
 
             EntityBehaviorTaskAI taskAi = entity.GetBehavior<EntityBehaviorTaskAI>();
             if (taskAi == null) {
                 entity.Api.Logger.Warning(Code + ": Entity with code " + entity.Code + " has no task ai behavior and will be unable to breed");
-                return;
+                return false;
             }
             if (taskAi.TaskManager.ActiveTasksBySlot[0] is AiTaskMate) {
                 // Already trying
-                return;
+                return false;
             }
 
-            Entity sire = GetSire();
+            Entity sire = GetRequiredEntityNearby();
             if (sire == null) {
-                return;
+                return false;
             }
 
             AiTaskMate mateTask = new AiTaskMate((EntityAgent)entity, sire);
@@ -285,13 +189,14 @@ namespace DetailedAnimals {
             EntityBehaviorTaskAI sireTaskAi = sire.GetBehavior<EntityBehaviorTaskAI>();
             if (sireTaskAi == null) {
                 entity.Api.Logger.Warning(Code + ": Potential sire entity with code " + sire.Code + " has no task ai behavior, this may cause difficulty for breeding");
-                return;
+                return false;
             }
             if (!(sireTaskAi.TaskManager.ActiveTasksBySlot[0] is AiTaskMate)) {
                 AiTaskMate sireMateTask = new AiTaskMate((EntityAgent)sire, entity);
                 sireMateTask.SetPriority(MateTaskPriority);
                 sireTaskAi.TaskManager.ExecuteTask(sireMateTask, 0);
             }
+            return false;
         }
 
         public override int ChooseLitterSize() {
@@ -302,15 +207,6 @@ namespace DetailedAnimals {
                 }
             }
             return litterSize;
-        }
-
-        public override void MateWith(Entity sire) {
-            InEarlyPregnancy = true;
-            TotalDaysPregnancyStart = TotalDays;
-            double rate = 1 + 0.08 * (entity.World.Rand.NextDouble() - 0.5);
-            TotalDaysPregnancyEnd = TotalDaysPregnancyStart + rate * GestationDays;
-
-            base.MateWith(sire);
         }
 
         public bool IsBreedingSeason(double season) {
@@ -338,56 +234,7 @@ namespace DetailedAnimals {
             TotalDaysCooldownUntil += (entity.World.Calendar.TotalHours - GrowthPausedSince) / 24.0;
         }
 
-        protected virtual void ProgressPregnancy() {
-            if (InEarlyPregnancy) {
-                if (TotalDays > TotalDaysPregnancyStart + GestationDays / 8.0) {
-                    EntityBehaviorGenetics gb = entity.GetBehavior<EntityBehaviorGenetics>();
-                    if (gb != null) {
-                        List<TreeAttribute> surviving = new List<TreeAttribute>();
-                        foreach (TreeAttribute childTree in Litter.value) {
-                            Genome childGenome = new Genome(gb.Genome.Type, childTree);
-                            if (!childGenome.EmbryonicLethal()) {
-                                surviving.Add(childTree);
-                            }
-                        }
-                        if (surviving.Count == 0) {
-                            SetNotPregnant();
-                        }
-                        else {
-                            Litter.value = surviving.ToArray();
-                            entity.WatchedAttributes.MarkPathDirty("multiply");
-                        }
-                    }
-                    InEarlyPregnancy = false;
-                }
-                return;
-            }
-            if (TotalDays > TotalDaysPregnancyEnd) {
-                GiveBirth();
-            }
-        }
-
-        protected void GiveBirth() {
-            int nextGeneration = NextGeneration();
-            TotalDaysLastBirth = TotalDays;
-            TotalDaysCooldownUntil = TotalDays + CooldownDays;
-            TreeAttribute[] litterData = Litter?.value;
-            foreach (TreeAttribute childData in litterData) {
-                Entity spawn = SpawnNewborn(entity.World, entity.Pos, entity, nextGeneration, childData);
-            }
-            SetNotPregnant();
-        }
-
-        public static bool EntityCanMate(Entity entity) {
-            if (!entity.Alive) {
-                return false;
-            }
-            if (entity.WatchedAttributes.GetBool("neutered", false)) {
-                return false;
-            }
-            if (!entity.MatingAllowed()) {
-                return false;
-            }
+        public virtual bool EntityHasEatenEnoughToMate(Entity entity) {
             double animalWeight = entity.BodyCondition();
             if (animalWeight <= DetailedHarvestable.MALNOURISHED || animalWeight > DetailedHarvestable.FAT) {
                 return false;
@@ -395,58 +242,7 @@ namespace DetailedAnimals {
             return true;
         }
 
-        protected virtual Entity GetSire() {
-            Entity[] entities = entity.World.GetEntitiesAround(entity.Pos.XYZ, SireSearchRange, SireSearchRange,
-                (e) => {
-                    foreach (AssetLocation sire in SireCodes) {
-                        if (e.WildCardMatch(sire) && EntityCanMate(e)) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            );
-            if (entities == null || entities.Length == 0) {
-                return null;
-            }
-            if (entity.World.Rand.NextSingle() < 0.1f) {
-                return entities[entity.World.Rand.Next(entities.Length)];
-            }
-            return ChooseAvoidingCloseRelatives(entity, entities);
-        }
-
-        public override void OnEntityDespawn(EntityDespawnData despawn) {
-            base.OnEntityDespawn(despawn);
-            entity.Api.Event.EnqueueMainThreadTask( () =>
-                entity.World.UnregisterGameTickListener(listenerID), "unregister tick listener"
-            );
-        }
-
-        public override void GetInfoText(StringBuilder infotext) {
-            if (!entity.Alive) {
-                return;
-            }
-            multiplyTree = entity.WatchedAttributes.GetTreeAttribute("multiply");
-            if (IsPregnant) {
-                int passed = (int)Math.Round(TotalDays - TotalDaysPregnancyStart);
-                int expected = (int)Math.Round(GestationDays);
-                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-pregnancy", passed, expected));
-                if (InEarlyPregnancy) {
-                    infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-earlypregnancy"));
-                }
-                else if (TotalDays > TotalDaysPregnancyStart + GestationDays * 2.0 / 3.0) {
-                    infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-latepregnancy"));
-                }
-                return;
-            }
-            if (entity.WatchedAttributes.GetBool("neutered", false)) {
-                return;
-            }
-            float animalWeight = entity.WatchedAttributes.GetFloat("animalWeight", 1);
-            GetRemainingInfoText(infotext, animalWeight);
-        }
-
-        protected void GetRemainingInfoText(StringBuilder infotext, double animalWeight) {
+        protected override void GetReadinessInfoText(StringBuilder infotext, double animalWeight) {
             if (!entity.MatingAllowed()) {
                 return;
             }
@@ -477,7 +273,7 @@ namespace DetailedAnimals {
                 infotext.AppendLine(Lang.Get("game:Ready to mate"));
             }
             else if (daysLeft <= 4) {
-                infotext.AppendLine(Lang.Get("detailedanimals:infotext-reproduce-waitdays" + Math.Ceiling(daysLeft).ToString()));
+                infotext.AppendLine(Lang.Get("genelib:infotext-multiply-waitdays" + Math.Ceiling(daysLeft).ToString()));
             }
             else {
                 infotext.AppendLine(Lang.Get("game:Several days left before ready to mate"));
