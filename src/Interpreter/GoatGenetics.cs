@@ -16,6 +16,7 @@ namespace DetailedAnimals {
             Genome genome = genetics.Genome;
             if (IsPolled(genome)) {
                 EntityBehaviorAntlerGrowth antlers = entity.GetBehavior<EntityBehaviorAntlerGrowth>();
+                if (antlers == null) return;
                 antlers.Inventory[0].Itemstack = null;
                 FieldInfo field = typeof(EntityBehaviorAntlerGrowth).GetField("growDurationMonths", BindingFlags.NonPublic | BindingFlags.Instance);
                 if (antlers != null && field != null) {
