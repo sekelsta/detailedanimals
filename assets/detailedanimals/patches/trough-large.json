@@ -1,8 +1,0 @@
-[
-	{
-        "op": "add",
-		"file": "game:blocktypes/wood/trough-large.json",
-        "path": "/attributes/unsuitableFor/-",
-        "value": "hare-*"     
-    },
-]
