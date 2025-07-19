@@ -110,7 +110,7 @@ namespace DetailedAnimals {
                 throw new FormatException(Code + " requires an EntityAgent");
             }
             try {
-                layEggTask = (AiTaskLayEgg)Activator.CreateInstance(taskType, entityAgent);
+                layEggTask = (AiTaskLayEgg)Activator.CreateInstance(taskType, taskConfig, null, entityAgent);
             }
             catch (Exception e) {
                 if (e.InnerException != null) {
@@ -119,7 +119,6 @@ namespace DetailedAnimals {
                 }
                 throw;
             }
-            layEggTask.LoadConfig(taskConfig, null);
             taskConfig = null;
             layEggTask.AfterInitialize();
             if (CanLayEgg()) {

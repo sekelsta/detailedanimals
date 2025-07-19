@@ -147,8 +147,7 @@ namespace DetailedAnimals {
 
             JsonObject eatTaskConfig = typeAttributes["eatFromInventoryTask"];
             if (eatTaskConfig != null) {
-                eatTask = new AiTaskEatFromInventory((EntityAgent)entity, this);
-                eatTask.LoadConfig(eatTaskConfig, null);
+                eatTask = new AiTaskEatFromInventory((EntityAgent)entity, eatTaskConfig, null, this);
             }
 
             // Do NOT create hunger tree on the client side, or it won't sync over the values

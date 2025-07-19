@@ -17,10 +17,7 @@ namespace DetailedAnimals {
         protected float layTime;
         protected int failedSearchAttempts = 0;
 
-        public AiTaskLayEgg(EntityAgent entity) : base(entity) { }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
-            base.LoadConfig(taskConfig, aiConfig);
+        public AiTaskLayEgg(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig)  : base(entity, taskConfig, aiConfig) {
             layTime = taskConfig["layTime"].AsFloat(1.5f);
         }
 
@@ -116,31 +113,22 @@ namespace DetailedAnimals {
         }
 
         protected override void TickTargetReached() {
+            BlockEntityHenBox henbox = target as BlockEntityHenBox;
             GeneticNest nest = target as GeneticNest;
-            if (nest != null) {
-                if (nest.Full()) {
-                    laid = true;
-                    return;
-                }
-                if (timeSinceTargetReached >= layTime) {
-                    if (!laid) {
-                        PlaySound();
-                        laid = true;
-                        done = true;
-                        ItemStack egg = reproduce.LayEgg();
-                        nest.AddEgg(entity, egg);
-                    }
-                    if (nest.CountEggs() == 0) {
-                        done = true;
-                    }
-                }
+            if (nest != null && nest.Full() || henbox != null && henbox.CountEggs() == 3) {
+                laid = true;
+                return;
             }
-            else if (timeSinceTargetReached >= layTime && !laid) {
-                if (target.TryAddEgg(entity, null, reproduce.IncubationDays)) {
+            if (timeSinceTargetReached >= layTime) {
+                if (!laid) {
                     PlaySound();
                     laid = true;
                     done = true;
-                    reproduce.LayEgg();
+                    ItemStack egg = reproduce.LayEgg();
+                    if (!henbox.TryAddEgg(egg)) throw new Exception("Hen box is full even though we just checked it wasn't full");
+                }
+                if (henbox?.CountEggs() == 0) {
+                    done = true;
                 }
             }
         }
