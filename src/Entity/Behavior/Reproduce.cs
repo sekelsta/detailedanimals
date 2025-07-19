@@ -234,7 +234,7 @@ namespace DetailedAnimals {
             TotalDaysCooldownUntil += (entity.World.Calendar.TotalHours - GrowthPausedSince) / 24.0;
         }
 
-        public virtual bool EntityHasEatenEnoughToMate(Entity entity) {
+        public override bool EntityHasEatenEnoughToMate(Entity entity) {
             double animalWeight = entity.BodyCondition();
             if (animalWeight <= DetailedHarvestable.MALNOURISHED || animalWeight > DetailedHarvestable.FAT) {
                 return false;

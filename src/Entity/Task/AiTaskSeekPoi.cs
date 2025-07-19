@@ -16,12 +16,8 @@ namespace DetailedAnimals {
         protected float timeSinceTargetReached;
         protected bool done = false;
 
-        public AiTaskSeekPoi(EntityAgent entity)  : base(entity) {
+        public AiTaskSeekPoi(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig)  : base(entity, taskConfig, aiConfig) {
             pointsOfInterest = entity.Api.ModLoader.GetModSystem<POIRegistry>();
-        }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
-            base.LoadConfig(taskConfig, aiConfig);
             moveSpeed = taskConfig["movespeed"].AsFloat(0.02f);
         }
 

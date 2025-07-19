@@ -8,7 +8,7 @@ namespace DetailedAnimals {
     public class AiTaskEatFromInventory : AiTaskUseInventory {
         AnimalHunger hunger;
 
-        public AiTaskEatFromInventory(EntityAgent entity, AnimalHunger hunger) : base(entity) {
+        public AiTaskEatFromInventory(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig, AnimalHunger hunger)  : base(entity, taskConfig, aiConfig) {
             this.hunger = hunger;
         }
 

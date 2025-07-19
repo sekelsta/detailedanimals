@@ -25,10 +25,7 @@ namespace DetailedAnimals {
         protected AssetLocation eatSound;
         protected float eatTime;
 
-        public AiTaskForage(EntityAgent entity) : base(entity) {  }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
-            base.LoadConfig(taskConfig, aiConfig);
+        public AiTaskForage(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig)  : base(entity, taskConfig, aiConfig) {
             lastSearchHours = entity.World.Calendar.TotalHours - searchRate * entity.World.Rand.NextSingle();
 
             Diet = entity.Properties.Attributes["creatureDiet"].AsObject<CreatureDiet>();

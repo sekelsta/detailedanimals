@@ -15,13 +15,12 @@ namespace DetailedAnimals {
         protected AnimationMetaData sitAnimation;
         protected double sitEndHour;
         protected double sitSessionHours;
+        protected string[] nestTypes = null;
 
-        public AiTaskSitOnNest(EntityAgent entity) : base(entity) { }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig) {
-            base.LoadConfig(taskConfig, aiConfig);
+        public AiTaskSitOnNest(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig)  : base(entity, taskConfig, aiConfig) {
             sitAnimation = taskConfig.TryGetAnimation("sitAnimation");
             sitSessionHours = taskConfig["sitDays"].AsFloat(1f) * entity.World.Calendar.HoursPerDay;
+            nestTypes = taskConfig["nestTypes"].AsArray<string>();
         }
 
         public override bool ShouldExecute() {
@@ -74,7 +73,7 @@ namespace DetailedAnimals {
             if (nest == null) {
                 return false;
             }
-            if (!nest.IsSuitableFor(entity) || !IsStillValidNest(nest)) {
+            if (!nest.IsSuitableFor(entity, nestTypes) || !IsStillValidNest(nest)) {
                 return false;
             }
             if (RecentlyFailedSeek(nest)) {

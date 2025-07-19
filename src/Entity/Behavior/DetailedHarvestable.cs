@@ -81,7 +81,7 @@ namespace DetailedAnimals {
             // Don't call base method. Don't reset AnimalWeight to 1.
         }
 
-        public void GenerateDrops(IPlayer byPlayer) {
+        public new void GenerateDrops(IPlayer byPlayer) {
             if (entity.World.Side == EnumAppSide.Client) return;
 
             if (DropsGenerated) return;
