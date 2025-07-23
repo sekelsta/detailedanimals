@@ -1,21 +1,5 @@
 [
     {
-        file: "game:entities/land/raccoon-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/worldgen/companions",
-        value: ["game:raccoon-female", "detailedanimals:raccoon-male-pup", "detailedanimals:raccoon-female-pup"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/raccoon-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/runtime/companions",
-        value: ["game:raccoon-female", "detailedanimals:raccoon-male-pup", "detailedanimals:raccoon-female-pup"],
-        side: "server"
-    },
-
-
-    {
         file: "game:entities/land/raccoon-female.json",
         op: "addmerge",
         path: "/attributes",
@@ -192,7 +176,7 @@
             code: "genelib.reproduce",
             mateTaskPriority: 1.37,
             sireCodes: ["game:raccoon-male"],
-            spawnEntityCodes: [{"code": "detailedanimals:raccoon-male-pup"}, {"code": "detailedanimals:raccoon-female-pup"}],
+            spawnEntityCodes: [{"code": "game:raccoon-common-baby-male"}, {"code": "game:raccoon-common-baby-female"}],
             pregnancyMonths: 2.2,
             cooldownMonths: 9.0,
             lactationMonths: 3.2,

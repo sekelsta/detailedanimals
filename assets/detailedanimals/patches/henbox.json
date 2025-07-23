@@ -10,7 +10,7 @@
         file: "game:blocktypes/wood/henbox.json",
         op: "add",
         path: "/drops",
-        value: ["genelib:nestbox"],
+        value: [ { type: "block", code: "genelib:nestbox" } ],
         side: "server",
     }
 ]

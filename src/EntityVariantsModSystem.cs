@@ -16,31 +16,31 @@ namespace DetailedAnimals
                 return;
             }
 
-            patchEntity(api, "game:entities/land/chicken-baby.json", "chicken", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""");
-            patchEntity(api, "game:entities/land/pig-wild-piglet.json", "pig-wild", """[{ "code": "variants", "states": ["male-piglet", "female-piglet"] }]""");
-            patchEntity(api, "game:entities/land/sheep-bighorn-lamb.json", "sheep-bighorn", """[{ "code": "variants", "states": ["male-lamb", "female-lamb"] }]""");
-            patchEntity(api, "game:entities/land/wolf-pup.json", "wolf", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""");
-            patchEntity(api, "game:entities/land/fox.json", "fox", """
+            patchEntity(api, "game:entities/animal/bird/chicken-baby.json", "chicken", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""", null);
+            patchEntity(api, "game:entities/animal/mammal/hooved/pig-baby.json", "pig-wild", """[{ "code": "variants", "states": ["male-piglet", "female-piglet"] }]""", "game:entity/animal/mammal/hooved/pig/eurasian/eurasian-baby");
+            patchEntity(api, "game:entities/animal/mammal/hooved/sheep-baby.json", "sheep-bighorn", """[{ "code": "variants", "states": ["male-lamb", "female-lamb"] }]""", "game:entity/animal/mammal/hooved/sheep/bighorn/bighorn-baby");
+            patchEntity(api, "game:entities/animal/mammal/wolf-baby.json", "wolf", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""", null);
+            patchEntity(api, "game:entities/animal/mammal/fox-baby.json", "fox", """
                 [
                     { "code": "gender", "states": ["male", "female"] },
                     { "code": "age", "states": ["pup"] },
                     { "code": "type", "states": ["red", "arctic"] },
                 ]
-            """
+            """, null
             );
-            patchEntity(api, "game:entities/land/raccoon-pup.json", "raccoon", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""");
-            patchEntity(api, "game:entities/land/hyena-pup.json", "hyena", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""");
-            patchEntity(api, "game:entities/land/gazelle.json", "gazelle", """[{ "code": "variants", "states": ["male-calf", "female-calf"] }]""");
-            patchEntity(api, "game:entities/land/hare-baby.json", "hare", """[{ "code": "variants", "states": ["male-baby", "female-baby"] }]""");
+            patchEntity(api, "game:entities/animal/mammal/raccoon-baby.json", "raccoon", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""", "game:entity/animal/mammal/raccoon/common-baby");
+            patchEntity(api, "game:entities/animal/mammal/hyena-baby.json", "hyena", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""", "game:entity/animal/mammal/hyena/spotted-baby");
+            patchEntity(api, "game:entities/animal/mammal/hooved/gazelle-baby.json", "gazelle", """[{ "code": "variants", "states": ["male-calf", "female-calf"] }]""", "game:entity/animal/mammal/hooved/gazelle/thomson/thomson-baby");
+            patchEntity(api, "game:entities/animal/mammal/hare-baby.json", "hare", """[{ "code": "variants", "states": ["male-baby", "female-baby"] }]""", null);
         }
 
         public override double ExecuteOrder() => 0.15;
 
-        private void fixAssetDomain(JValue jvalue, string domain) {
+        private void fixAssetDomain(JValue jvalue, string domain, string replacement = null) {
             if (jvalue == null) {
                 return;
             }
-            string loc = jvalue.Value<string>();
+            string loc = replacement ?? jvalue.Value<string>();
             AssetLocation asset = AssetLocation.Create(loc, domain);
             jvalue.Value = asset.ToString();
         }
@@ -76,7 +76,7 @@ namespace DetailedAnimals
             }
         }
 
-        private void patchEntity(ICoreAPI api, string path, string newCode, string variants) {
+        private void patchEntity(ICoreAPI api, string path, string newCode, string variants, string shape) {
             IAsset asset = api.Assets.Get(path);
             string domain = new AssetLocation(path).Domain;
             JToken token;
@@ -95,7 +95,7 @@ namespace DetailedAnimals
                 fixAssetDomain(token.Value<JObject>("attributes")?.Value<JValue>("killedByInfoText"), domain);
                 JObject jclient = token.Value<JObject>("client");
                 if (jclient != null) {
-                    fixAssetDomain(jclient.Value<JObject>("shape")?.Value<JValue>("base"), domain);
+                    fixAssetDomain(jclient.Value<JObject>("shape")?.Value<JValue>("base"), domain, shape);
                     JObject jtextures = jclient.Value<JObject>("texture");
                     fixTextures(jtextures, domain);
                     JObject jtexturesByType = jclient.Value<JObject>("textureByType");

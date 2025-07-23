@@ -1,22 +1,5 @@
 [
     {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/worldgen/companions",
-        value: ["sheep-bighorn-female", "sheep-bighorn-female", "detailedanimals:sheep-bighorn-female-lamb", "detailedanimals:sheep-bighorn-male-lamb"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/sheep-bighorn-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/runtime/companions",
-        value: ["sheep-bighorn-female", "sheep-bighorn-female", "detailedanimals:sheep-bighorn-female-lamb", "detailedanimals:sheep-bighorn-male-lamb"],
-        side: "server"
-    },
-
-
-
-    {
         file: "game:entities/land/sheep-bighorn-lamb.json",
         op: "replace",
         path: "/server/behaviors/6/drops",
@@ -192,7 +175,7 @@
             code: "genelib.reproduce",
             mateTaskPriority: 1.37,
             sireCodes: ["sheep-bighorn-male"],
-            spawnEntityCodes: [{"code": "detailedanimals:sheep-bighorn-male-lamb"}, {"code": "detailedanimals:sheep-bighorn-female-lamb"}],
+            spawnEntityCodes: [{"code": "game:sheep-bighorn-baby-male"}, {"code": "game:sheep-bighorn-baby-female"}],
             pregnancyMonths: 5.9,
             cooldownMonths: 4.0,
             lactationMonths: 6.0,

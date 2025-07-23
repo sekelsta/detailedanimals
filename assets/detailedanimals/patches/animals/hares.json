@@ -1,49 +1,5 @@
 [
     {
-        file: "game:entities/land/hare-male.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/*-arctic/worldgen/companions",
-        value: ["game:hare-female-arctic", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-male.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/*-arctic/runtime/companions",
-        value: ["game:hare-female-arctic", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-male.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/*-desert/worldgen/companions",
-        value: ["game:hare-female-desert", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-male.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/*-desert/runtime/companions",
-        value: ["game:hare-female-desert", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-male.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/*/worldgen/companions",
-        value: ["game:hare-female-{type}", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hare-male.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/*/runtime/companions",
-        value: ["game:hare-female-{type}", "detailedanimals:hare-male-baby", "detailedanimals:hare-female-baby"],
-        side: "server"
-    },
-
-
-    {
         file: "game:entities/land/hare-female.json",
         op: "addmerge",
         path: "/attributes",
@@ -210,7 +166,7 @@
             code: "genelib.reproduce",
             mateTaskPriority: 1.38,
             sireCodes: ["game:hare-male-*"],
-            spawnEntityCodes: [{"code": "detailedanimals:hare-male-baby"}, {"code": "detailedanimals:hare-female-baby"}],
+            spawnEntityCodes: [{"code": "game:hare-{type}-baby-male"}, {"code": "game:hare-{type}-baby-female"}],
             pregnancyMonths: 1.35,
             cooldownMonths: 1.0,
             lactationMonths: 1.5,

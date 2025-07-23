@@ -1,36 +1,5 @@
 [
     {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/worldgen/companions",
-        value: ["pig-wild-female", "pig-wild-female", "detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/runtime/companions",
-        value: ["pig-wild-female", "pig-wild-female", "detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/server/behaviors/8/states/4/entityCodes",
-        value: ["pig-wild-piglet", "detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
-        path: "/server/behaviors/9/states/4/entityCodes",
-        value: ["pig-wild-piglet", "detailedanimals:pig-wild-female-piglet", "detailedanimals:pig-wild-male-piglet"],
-        side: "server"
-    },
-
-
-
-    {
         file: "game:entities/land/pig-wild-piglet.json",
         op: "replace",
         path: "/server/behaviors/6/drops",
@@ -223,7 +192,7 @@
             code: "genelib.reproduce",
             mateTaskPriority: 1.37,
             sireCodes: ["pig-wild-male"],
-            spawnEntityCodes: [{"code": "detailedanimals:pig-wild-female-piglet"}, {"code": "detailedanimals:pig-wild-male-piglet"}],
+            spawnEntityCodes: [{"code": "game:pig-eurasian-baby-male"}, {"code": "game:pig-eurasian-baby-female"}],
             pregnancyMonths: 3.8,
             cooldownMonths: 4.0,
             lactationMonths: 3.5,

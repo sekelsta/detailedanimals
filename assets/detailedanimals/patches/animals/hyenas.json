@@ -1,21 +1,5 @@
 [
     {
-        file: "game:entities/land/hyena-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/worldgen/companions",
-        value: ["game:hyena-female", "detailedanimals:hyena-male-pup", "detailedanimals:hyena-female-pup"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hyena-male.json",
-        op: "replace",
-        path: "/server/spawnconditions/runtime/companions",
-        value: ["game:hyena-female", "detailedanimals:hyena-male-pup", "detailedanimals:hyena-female-pup"],
-        side: "server"
-    },
-
-
-    {
         file: "game:entities/land/hyena-female.json",
         op: "addmerge",
         path: "/attributes",
@@ -192,7 +176,7 @@
             code: "genelib.reproduce",
             mateTaskPriority: 1.37,
             sireCodes: ["game:hyena-male"],
-            spawnEntityCodes: [{"code": "detailedanimals:hyena-male-pup"}, {"code": "detailedanimals:hyena-female-pup"}],
+            spawnEntityCodes: [{"code": "game:hyena-spotted-baby-male"}, {"code": "game:hyena-spotted-baby-female"}],
             pregnancyMonths: 2.05,
             cooldownMonths: 9.0,
             lactationMonths: 18.0,

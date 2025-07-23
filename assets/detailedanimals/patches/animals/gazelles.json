@@ -1,38 +1,6 @@
 [
     {
         file: "game:entities/land/gazelle.json",
-        op: "remove",
-        path: "/client/shape",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/gazelle.json",
-        op: "add",
-        path: "/client/shapeByType",
-        value: {
-            "*-calf": { base: "game:entity/land/gazelle-calf" },
-            "*": { base: "game:entity/land/gazelle-{type}" },
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/gazelle.json",
-        op: "replace",
-        path: "/server/spawnconditions/worldgen/companions",
-        value: ["game:gazelle-female", "detailedanimals:gazelle-male-calf", "detailedanimals:gazelle-female-calf"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/gazelle.json",
-        op: "replace",
-        path: "/server/spawnconditions/runtime/companions",
-        value: ["game:gazelle-female", "detailedanimals:gazelle-male-calf", "detailedanimals:gazelle-female-calf"],
-        side: "server"
-    },
-
-
-    {
-        file: "game:entities/land/gazelle.json",
         op: "add",
         path: "/attributes/adultWeightKg",
         value: 23.75,
@@ -147,7 +115,7 @@
             enabledByType: { "gazelle-female": true, "*": false },
             mateTaskPriority: 1.34,
             sireCodes: ["game:gazelle-male"],
-            spawnEntityCodes: [{"code": "detailedanimals:gazelle-male-calf"}, {"code": "detailedanimals:gazelle-female-calf"}],
+            spawnEntityCodes: [{"code": "game:gazelle-baby-male"}, {"code": "game:gazelle-baby-female"}],
             pregnancyMonths: 5.5,
             cooldownMonths: 9.0,
             lactationMonths: 6,
