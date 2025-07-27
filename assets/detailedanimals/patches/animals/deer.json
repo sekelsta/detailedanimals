@@ -1,68 +1,68 @@
 [
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/13/enabledByType",
         value: {
-            "*-male-adult": true,
-            "deer-caribou-female-adult": true,
+            "*-adult-male": true,
+            "deer-caribou-adult-female": true,
             "*": false
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/client/behaviors/6/enabledByType",
         value: {
-            "*-male-adult": true,
-            "deer-caribou-female-adult": true,
+            "*-adult-male": true,
+            "deer-caribou-adult-female": true,
             "*": false
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
-        path: "/server/behaviors/13/variantsByType/deer-caribou-female-adult",
+        path: "/server/behaviors/13/variantsByType/deer-caribou-adult-female",
         value: ["01", "02", "03", "04", "05", "06", "07"],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "remove",
         path: "/server/behaviors/13/beginGrowMonth",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "addmerge",
         path: "/server/behaviors/13/beginGrowMonthByType",
         value: { "deer-caribou-male-*": 6, "*": 7 },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "remove",
         path: "/server/behaviors/13/growDurationMonths",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "addmerge",
         path: "/server/behaviors/13/growDurationMonthsByType",
         value: { "deer-caribou-*": 4, "*": 3, },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/13/grownDurationMonths",
         value: 4,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/13/shedDurationMonths",
         value: 0.9,
@@ -70,37 +70,37 @@
     },
 
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: {
             code: "genelib.age",
             monthsToGrowByType: {
-                "*-baby": 12.0,
-                "*-adult": 24.0,
+                "*-baby-*": 12.0,
+                "*-adult-*": 24.0,
             },
             startAgeMonthsByType: {
-                "*-adult": 12.0,
+                "*-adult-*": 12.0,
             },
             initialWeightByType: {
-                "*-elk-*-baby": 0.05,
-                "*-whitetailed-*-baby": 0.1,
-                "*-baby": 0.08,
+                "*-elk-baby": 0.05,
+                "*-whitetailed-baby": 0.1,
+                "*-baby-*": 0.08,
                 "*": 0.7,
             },
             finalWeightByType: {
-                "*-baby": 0.7,
+                "*-baby-*": 0.7,
                 "*-adult": 1.0,
             },
             adultEntityCodesByType: {
-                "*-male-baby": ["game:deer-{type}-male-adult"],
-                "*-female-baby": ["game:deer-{type}-female-adult"],
+                "*-baby-male": ["game:deer-{type}-adult-male"],
+                "*-baby-female": ["game:deer-{type}-adult-female"],
             },
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
@@ -108,7 +108,7 @@
     },
 
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantityByType",
         value: {
@@ -128,12 +128,12 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/7/drops/1/quantity/avgByType",
         value: {
-            "deer-elk-*-baby": 5.4,
-            "*-baby": 0,
+            "deer-elk-baby-*": 5.4,
+            "*-baby-*": 0,
             "deer-chital-*": 1.4,
             "deer-fallow-*": 1.3,
             "deer-guemal-*": 1.5,
@@ -144,13 +144,13 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/7/drops/2/quantityByType",
         value: {
-            "deer-caribou-*-baby": { avg: 6.5, var: 0.1 },
-            "deer-marsh-*-baby": { avg: 5.2, var: 0.1 },
-            "*-baby": { avg: 0, var: 0 },
+            "deer-caribou-baby-*": { avg: 6.5, var: 0.1 },
+            "deer-marsh-baby-*": { avg: 5.2, var: 0.1 },
+            "*-baby-*": { avg: 0, var: 0 },
             "deer-pampas-*": { avg: 1.1, var: 0.1 },
             "deer-redbrocket-*": { avg: 0.94, var: 0.1 },
             "deer-water-*": { avg: 0.92, var: 0.1 },
@@ -159,12 +159,12 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/7/drops/3/quantity/avgByType",
         value: {
-            "deer-pudu-*-adult": 0.94,
-            "*-adult": 0,
+            "deer-pudu-adult-*": 0.94,
+            "*-adult-*": 0,
             "deer-chital-*": 4,
             "deer-fallow-*": 3.8,
             "deer-guemal-*": 4.3,
@@ -178,7 +178,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/7/drops/4/quantityByType",
         value: {
@@ -198,7 +198,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/server/behaviors/7/drops/-",
         value: {
@@ -206,7 +206,7 @@
             code: "game:hide-raw-huge",
             category: "pelt",
             quantityByType: {
-                "*-baby": { avg: 0, var: 0 },
+                "*-baby-*": { avg: 0, var: 0 },
                 "deer-caribou-*": { avg: 1.3, var: 0.1 },
                 "deer-elk-*": { avg: 2.2, var: 0.1 },
                 "deer-marsh-*": { avg: 1, var: 0.1 },
@@ -216,7 +216,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/attributes/adultWeightKgByType",
         value: {
@@ -236,7 +236,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/attributes/weightDimorphismByType",
         value: {
@@ -256,11 +256,11 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/client/sizeByType",
         value: {
-            "*-adult": 1,
+            "*-adult-*": 1,
             "deer-caribou-*-baby": 1.7,
             "deer-chital-*-baby": 1.5,
             "deer-elk-*-baby": 2,
@@ -279,38 +279,38 @@
 
 
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "*-female-adult": true, "*": false } },
+        value: { code: "genelib.reproduce", enabledByType: { "*-adult-female": true, "*": false } },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
             code: "genelib.reproduce",
-            enabledByType: { "*-female-adult": true, "*": false },
+            enabledByType: { "*-adult-female": true, "*": false },
             mateTaskPriority: 1.37,
             sireCodesByType: {
-                "*-elk-*": ["game:deer-{type}-male-adult", "game:tamedeer-{type}-male-adult", "game:tamedeer-albino{type}-male-adult"],
-                "*": ["game:deer-{type}-male-adult"],
+                "*-elk-*": ["game:deer-{type}-adult-male", "game:tamedeer-{type}-adult-male", "game:tamedeer-albino{type}-adult-male"],
+                "*": ["game:deer-{type}-adult-male"],
             },
-            spawnEntityCodes: [{"code": "game:deer-{type}-male-baby"}, {"code": "game:deer-{type}-female-baby"}],
-            pregnancyMonthsByType: {
-                "deer-caribou-*": 7.56,
-                "deer-chital-*": 7.17,
-                "deer-elk-*": 8.05,
-                "deer-fallow-*": 8.05,
-                "deer-guemal-*": 7,
-                "deer-marsh-*": 8.22,
-                "deer-pampas-*": 7.2,
-                "deer-pudu-*": 7,
-                "deer-redbrocket-*": 7.23,
-                "deer-taruca-*": 7.23,
-                "deer-water-*": 6.25,
-                "deer-whitetail-*": 6.58,
+            spawnEntityCodes: [{"code": "game:deer-{type}-baby-male"}, {"code": "game:deer-{type}-baby-female"}],
+            pregnancyDaysByType: {
+                "deer-caribou-*": 68,
+                "deer-chital-*": 64.5,
+                "deer-elk-*": 72.5,
+                "deer-fallow-*": 63,
+                "deer-guemal-*": 74,
+                "deer-marsh-*": 65,
+                "deer-pampas-*": 65,
+                "deer-pudu-*": 63,
+                "deer-redbrocket-*": 65,
+                "deer-taruca-*": 65,
+                "deer-water-*": 56,
+                "deer-whitetail-*": 59,
             },
             cooldownMonths: 9.0,
             lactationMonths: 6,
@@ -331,35 +331,28 @@
 
 
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: "Fruit",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
         value: ["vegetable", "foliage", "hay", "fruitmash", "sheepfeed", "toughstem", "acorn", "peanut", "soybean"],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
-        op: "addmerge",
-        path: "/behaviorConfigs",
-        value: { },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: {
@@ -384,42 +377,42 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/11/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/11/nurseFromEntities",
-        value: ["game:deer-{type}-female-adult"],
+        value: ["game:deer-{type}-adult-female"],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/11/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/11/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/11/priority",
         value: 1.39,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/deer.json",
+        file: "game:entities/animal/mammal/hooved/deer.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/9/enabled",
         value: false,

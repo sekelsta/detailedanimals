@@ -1,27 +1,27 @@
 [
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 4, weightDimorphism: 0.05 },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 4, weightDimorphism: 0.05 },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 4, weightDimorphism: 0.05 },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -34,7 +34,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -47,7 +47,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "replace",
         path: "/server/behaviors/8",
         value: {
@@ -63,28 +63,28 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "add",
         path: "/client/size",
         value: 2,
@@ -93,7 +93,7 @@
 
 
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "replace",
         path: "/server/behaviors/6/drops",
         value: [
@@ -113,7 +113,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "replace",
         path: "/server/behaviors/6/drops/1/code",
         value: "hideandfabric:hide-small-hare-gold",
@@ -121,28 +121,28 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
         value: { avg: 1, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "replace",
         path: "/server/behaviors/7/drops/1/quantity",
         value: { avg: 0.6, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
         value: { avg: 1, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "replace",
         path: "/server/behaviors/6/drops/1/quantity",
         value: { avg: 0.6, var: 0 },
@@ -152,14 +152,14 @@
 
 
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "replace",
         path: "/client/behaviors/4",
         value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: {
@@ -167,13 +167,6 @@
             mateTaskPriority: 1.38,
             sireCodes: ["game:hare-male-*"],
             spawnEntityCodes: [{"code": "game:hare-{type}-baby-male"}, {"code": "game:hare-{type}-baby-female"}],
-            pregnancyMonths: 1.35,
-            cooldownMonths: 1.0,
-            lactationMonths: 1.5,
-            inducedOvulation: true,
-            breedingPeakMonth: 2.0,
-            breedingMonthsBefore: 1.5,
-            breedingMonthsAfter: 5.5,
             litterAddChance: 0.5,
             litterAddAttempts: 7,
         },
@@ -183,91 +176,91 @@
 
 
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: ["Fruit", "Grain"],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: ["Fruit", "Grain"],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: ["Fruit", "Grain"],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
         value: ["vegetable", "foliage", "hay", "fruitmash", "toughstem", "acorn", "peanut", "soybean"],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
         value: ["vegetable", "foliage", "hay", "fruitmash", "toughstem", "acorn", "peanut", "soybean"],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
         value: ["vegetable", "foliage", "hay", "fruitmash", "toughstem", "acorn", "peanut", "soybean"],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "add",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "add",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "add",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -291,7 +284,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -315,7 +308,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -339,35 +332,35 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/3/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/3/nurseFromEntities",
         value: ["game:hare-female-arctic", "game:hare-female-ashgrey", "game:hare-female-darkbrown", "game:hare-female-desert", "game:hare-female-gold", "game:hare-female-lightbrown", "game:hare-female-lightgrey", "game:hare-female-silver", "game:hare-female-smokegrey"],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/3/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/3/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/hare-female.json",
+        file: "game:entities/animal/mammal/hare-female.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/3/priority",
         value: 1.39,
@@ -375,35 +368,35 @@
     },
 
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "replace",
         path: "/server/behaviors/9/aitasks/3/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "add",
         path: "/server/behaviors/9/aitasks/3/nurseFromEntities",
         value: ["game:hare-female-arctic", "game:hare-female-ashgrey", "game:hare-female-darkbrown", "game:hare-female-desert", "game:hare-female-gold", "game:hare-female-lightbrown", "game:hare-female-lightgrey", "game:hare-female-silver", "game:hare-female-smokegrey"],
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "replace",
         path: "/server/behaviors/9/aitasks/3/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "replace",
         path: "/server/behaviors/9/aitasks/3/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/hare-male.json",
+        file: "game:entities/animal/mammal/hare-male.json",
         op: "replace",
         path: "/server/behaviors/9/aitasks/3/priority",
         value: 1.39,
@@ -411,7 +404,7 @@
     },
 
     {
-        file: "game:entities/land/hare-baby.json",
+        file: "game:entities/animal/mammal/hare-baby.json",
         op: "add",
         path: "/server/behaviors/9/aitasks/-",
         value: {
