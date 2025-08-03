@@ -1,27 +1,20 @@
 [
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 38.5, weightDimorphism: 0.1 },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 38.5, weightDimorphism: 0.1 },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
-        op: "addmerge",
-        path: "/attributes",
-        value: { adultWeightKg: 38.5, weightDimorphism: 0.1 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -33,27 +26,15 @@
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: {
-            code: "genelib.age",
-            monthsToGrow: 18.0,
-            startAgeMonths: 6.0,
-            initialWeight: 0.7,
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
-                "*-female-*": [ "game:wolf-female" ],
-                "*-male-*": [ "game:wolf-male" ],
-                "*": [ "game:wolf-male", "game:wolf-female" ]
+                "*-female-*": [ "game:wolf-eurasian-adult-female" ],
+                "*-male-*": [ "game:wolf-eurasian-adult-male" ],
+                "*": [ "game:wolf-{type}-adult-{gender}" ]
             },
             monthsToGrow: 6.0,
             initialWeight: 0.01,
@@ -61,28 +42,21 @@
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "replace",
         path: "/client/size",
         value: 2.2,
@@ -91,21 +65,21 @@
 
 
     {
-        file: "game:entities/land/wolf-pup.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
         value: { avg: 9.6, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "replace",
         path: "/server/behaviors/6/drops/1/quantity",
         value: { avg: 1.4, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "add",
         path: "/server/behaviors/6/drops/-",
         value: {
@@ -117,42 +91,21 @@
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
         value: { avg: 9.6, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/1/quantity",
         value: { avg: 1.4, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-female.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/2/quantity",
-        value: { avg: 1.6, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/0/quantity",
-        value: { avg: 9.6, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/1/quantity",
-        value: { avg: 1.4, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantity",
         value: { avg: 1.6, var: 0 },
@@ -161,72 +114,54 @@
 
 
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
+        path: "/server/behaviors/8/code",
+        value: "genelib.reproduce",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/wolf-adult.json",
+        op: "addmerge",
         path: "/server/behaviors/8",
         value: {
-            code: "genelib.reproduce",
             mateTaskPriority: 1.37,
-            sireCodes: ["game:wolf-male"],
-            spawnEntityCodes: [{"code": "game:wolf-eurasian-baby-male"}, {"code": "game:wolf-eurasian-baby-female"}],
-            pregnancyMonths: 2.05,
-            cooldownMonths: 4.0,
             lactationMonths: 3.0,
-            "_comment": "A six month seasonal estrous is effectively a twelve month estrous",
-            estrousCycleMonths: 6.0,
-            daysInHeat: 8.0,
-            breedingPeakMonth: 1.5,
-            breedingMonthsBefore: 1.0,
-            breedingMonthsAfter: 1.0,
             litterAddChance: 0.25,
-            litterAddAttempts: 14,
+            spawnQuantityMax: 14,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "add",
         path: "/server/behaviors/-",
         value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.genetics", genomeType: "detailedanimals:canine" },
@@ -235,70 +170,49 @@
 
 
     {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories",
         value: ["Protein", "Dairy", "Fruit"],
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories",
         value: ["Protein", "Dairy", "Fruit"],
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
-        op: "add",
-        path: "/attributes/creatureDiet/foodCategories",
-        value: ["Protein", "Dairy", "Fruit"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["egg", "bone", "rawhide"],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [ {weight: 0.1, code:"bone"}, {weight: 0.1, code:"rawhide"}],
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["egg", "bone", "rawhide"],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [ {weight: 0.0, code:"bone"}, {weight: 0.0, code:"rawhide"}],
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
-        op: "add",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: "egg",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
-        op: "addmerge",
-        path: "/behaviorConfigs",
-        value: { },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -319,7 +233,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -340,33 +254,12 @@
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-pup.json",
-        op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
-        value: { 
-            monthsUntilWeaned: 2.5,
-            fiber: 0.02,
-            sugar: 0.03,
-            fat: 0.2,
-            starch: 0.03,
-            protein: 0.7,
-            water: 1.0,
-            minerals: 0.02,
-            mineralsMax: 0.1,
-            avoidFoodTags: [ "sour" ],
-            specialties: [ "bone" ],
-            fiberDigestion: 0.0,
-            daysUntilHungry: 4,
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-female.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/8",
+        path: "/server/behaviors/11/aitasks/12",
         value: {
             code: "genelib.forage",
-            nurseFromEntities: "game:wolf-female",
+            nurseFromEntities: "game:wolf-eurasian-adult-female",
             eatSound: "creature/animal-eat1",
             priority: 1.38,
             eatTime: 1.5,
@@ -377,28 +270,12 @@
         side: "server"
     },
     {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-baby.json",
         op: "replace",
-        path: "/server/behaviors/9/aitasks/7",
+        path: "/server/behaviors/10/aitasks/5",
         value: {
             code: "genelib.forage",
-            nurseFromEntities: "game:wolf-female",
-            eatSound: "creature/animal-eat1",
-            priority: 1.38,
-            eatTime: 1.5,
-            animation: "Walk",
-            mincooldownHours: 0.0,
-            maxcooldownHours: 0.05,
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-pup.json",
-        op: "replace",
-        path: "/server/behaviors/10/aitasks/4",
-        value: {
-            code: "genelib.forage",
-            nurseFromEntities: "game:wolf-female",
+            nurseFromEntities: "game:wolf-eurasian-adult-female",
             eatSound: "creature/animal-eat-small",
             priority: 1.38,
             movespeed: 0.006,
@@ -414,14 +291,7 @@
 
 
     {
-        file: "game:entities/land/wolf-female.json",
-        op: "replace",
-        path: "/client/shape/base",
-        value: "detailedanimals:entity/wolf-adult",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/wolf-male.json",
+        file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
         path: "/client/shape/base",
         value: "detailedanimals:entity/wolf-adult",

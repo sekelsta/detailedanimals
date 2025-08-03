@@ -198,8 +198,9 @@
         path: "/server/behaviors/9",
         value: {
             mateTaskPriority: 1.34,
+            lactationMonths: 5,
+            spawnQuantityMax: 12,
             litterAddChance: 0.4,
-            litterAddAttempts: 12,
         },
         side: "server",
     },
