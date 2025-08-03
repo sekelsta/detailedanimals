@@ -1,112 +1,103 @@
 [
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-baby.json",
         op: "replace",
-        path: "/client/shapeByType",
-        value: {
-            "*-pup-*": { base: "game:entity/land/fox-pup" },
-            "*": { base: "game:entity/land/fox-{gender}" },
-        },
+        path: "/client/shape/base",
+        value: "game:entity/animal/mammal/fox/fox-baby",
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-baby.json",
         op: "replace",
-        path: "/client/textureByType",
-        value: {
-            "*-pup-*": { base: "game:entity/fox/{type}-pup" },
-            "*": { base: "game:entity/fox/{type}-{gender}" },
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/fox.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/fox-male-red/worldgen/companions",
-        value: ["game:fox-female-red", "detailedanimals:fox-male-pup-red", "detailedanimals:fox-female-pup-red"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/fox.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/fox-male-red/runtime/companions",
-        value: ["game:fox-female-red", "detailedanimals:fox-male-pup-red", "detailedanimals:fox-female-pup-red"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/fox.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/fox-male-arctic/worldgen/companions",
-        value: ["game:fox-female-arctic", "detailedanimals:fox-male-pup-arctic", "detailedanimals:fox-female-pup-arctic"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/fox.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/fox-male-arctic/runtime/companions",
-        value: ["game:fox-female-arctic", "detailedanimals:fox-male-pup-arctic", "detailedanimals:fox-female-pup-arctic"],
+        path: "/client/texture/base",
+        value: "game:entity/animal/mammal/fox/{type}-baby",
         side: "server"
     },
 
 
+
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/attributes/adultWeightKgByType",
         value: { "*-red": 7.4, "*-arctic": 3.2 },
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "add",
+        path: "/attributes/adultWeightKgByType",
+        value: { "*-red": 7.4, "*-arctic": 3.2 },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/attributes/weightDimorphism",
         value: 0.1,
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "add",
+        path: "/attributes/weightDimorphism",
+        value: 0.1,
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
         op: "replace",
-        path: "/server/behaviors/10",
+        path: "/server/behaviors/9",
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
                 "fox-female-pup-*": [ "game:fox-female-{type}" ],
                 "fox-male-pup-*": [ "game:fox-male-{type}" ],
-                "fox-pup-*": [ "game:fox-male-{type}", "game:fox-female-{type}" ]
+                "*": ["game:fox-{type}-adult-{gender}"]
             },
             monthsToGrow: 6.0,
-            startAgeMonthsByType: {
-                "*-pup": 0.0,
-                "*": 6.0,
-            },
-            initialWeightByType: {
-                "*-pup-*": 0.08,
-                "*": 0.7,
-            },
+            initialWeight: 0.08,
         },
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "genelib.age",
+            monthsToGrow: 6.0,
+            startAgeMonths: 6.0,
+            initialWeight: 0.7,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
-        path: "/client/sizeByType",
-        value: {
-            "*-pup-*": 1.6,
-            "*": 1
-        },
+        path: "/client/behaviors/-",
+        value: { code: "genelib.age" },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "add",
+        path: "/client/size",
+        value: 1.6,
         side: "server"
     },
 
+
     {
-        file: "game:entities/land/fox.json",
-        op: "replace",
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "add",
         path: "/server/behaviors/7/drops/0/quantityByType",
         value: {
             "*-red-*": { avg: 1.8, var: 0 },
@@ -115,8 +106,14 @@
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
-        op: "replace",
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "remove",
+        path: "/server/behaviors/7/drops/0/quantity",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "add",
         path: "/server/behaviors/7/drops/1/quantityByType",
         value: {
             "*-red-*": { avg: 1, var: 0 },
@@ -125,8 +122,14 @@
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
-        op: "replace",
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "remove",
+        path: "/server/behaviors/7/drops/1/quantity",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "add",
         path: "/server/behaviors/7/drops/2/quantityByType",
         value: {
             "*-red-*": { avg: 0.3, var: 0 },
@@ -134,18 +137,56 @@
         },
         side: "server"
     },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "remove",
+        path: "/server/behaviors/7/drops/2/quantity",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "addeach",
+        path: "/server/behaviors/7/drops",
+        value: [
+            {
+                type: "item", 
+                code: "bushmeat-raw", 
+                quantityByType: {
+                    "*-red-*": { avg: 1.8, var: 0 },
+                    "*-arctic-*": { avg: 0.8, var: 0 } 
+                }
+            },
+            {
+                type: "item", 
+                code: "hide-raw-small", 
+                quantityByType: {
+                    "*-red-*": { avg: 1, var: 0 },
+                    "*-arctic-*": { avg: 0.5, var: 0 } 
+                }
+            },
+            {
+                type: "item", 
+                code: "fat", 
+                quantityByType: {
+                    "*-red-*": { avg: 0.3, var: 0 },
+                    "*-arctic-*": { avg: 0.1, var: 0 } 
+                }
+            }
+        ],
+        side: "server"
+    },
 
 
 
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.reproduce", enabledByType: { "fox-female-red": true, "fox-female-arctic": true, "*": false } },
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: {
@@ -174,7 +215,7 @@
 
 
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/attributes/creatureDiet",
         value: {
@@ -184,14 +225,24 @@
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "add",
+        path: "/attributes/creatureDiet",
+        value: {
+            foodCategories: ["Protein", "Dairy", "Fruit", "Grain", "Vegetable"],
+            foodTags: ["meat", "vegetable", "egg"],
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -212,7 +263,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/fox.json",
+        file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/server/behaviors/12/aitasks/-",
         value: {
@@ -226,21 +277,6 @@
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,
         },
-        side: "server"
-    },
-
-    {
-        file: "game:entities/land/fox.json",
-        op: "add",
-        path: "/server/behaviors/12/aitasks/4/entityCodes/-",
-        value: "chicken-*-chick",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/fox.json",
-        op: "add",
-        path: "/server/behaviors/12/aitasks/5/entityCodes/-",
-        value: "chicken-*-chick",
         side: "server"
     },
 ]
