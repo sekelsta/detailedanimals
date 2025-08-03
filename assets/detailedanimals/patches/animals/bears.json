@@ -1,6 +1,6 @@
 [
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "add",
         path: "/attributes/adultWeightKgByType",
         value: {
@@ -13,7 +13,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "add",
         path: "/attributes/weightDimorphismByType",
         value: {
@@ -26,14 +26,14 @@
         side: "server"
     },
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -47,7 +47,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantityByType",
         value: {
@@ -60,7 +60,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantityByType",
         value: {
@@ -76,7 +76,7 @@
 
 
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "add",
         path: "/attributes/creatureDiet",
         value: {
@@ -89,14 +89,14 @@
         side: "server"
     },
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -127,7 +127,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/bear.json",
+        file: "game:entities/animal/mammal/bear-adult.json",
         op: "add",
         path: "/server/behaviors/9/aitasks/-",
         value: {
