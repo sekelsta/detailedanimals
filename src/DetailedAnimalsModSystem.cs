@@ -53,6 +53,8 @@ namespace DetailedAnimals
             GenomeType.RegisterInterpreter(new JunglefowlGenetics());
             GenomeType.RegisterInterpreter(new GoatGenetics());
             GenomeType.RegisterInterpreter(new CanineGenetics());
+
+            GenelibSystem.AddAnimalInfoBehavior = true;
         }
 
         public override void StartServerSide(ICoreServerAPI api) {
