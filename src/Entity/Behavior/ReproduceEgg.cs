@@ -158,7 +158,7 @@ namespace DetailedAnimals {
             if (animalWeight <= DetailedHarvestable.UNDERWEIGHT 
                     || lastBroody > entity.World.Calendar.TotalHours - 72
                     || !IsBreedingSeason()
-                    || TotalDaysCooldownUntil > TotalDays) {
+                    || TotalDaysCooldownUntil > entity.World.Calendar.TotalDays) {
                 NextEggHours = entity.World.Calendar.TotalHours + HoursPerEgg.nextFloat(1, entity.World.Rand);
                 return false;
             }
