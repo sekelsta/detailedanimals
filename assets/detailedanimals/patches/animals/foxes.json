@@ -145,7 +145,7 @@
     },
     {
         file: "game:entities/animal/mammal/fox-baby.json",
-        op: "addeach",
+        op: "addmerge",
         path: "/server/behaviors/7/drops",
         value: [
             {
@@ -182,34 +182,26 @@
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "fox-female-red": true, "fox-female-arctic": true, "*": false } },
+        value: { code: "genelib.reproduce", enabledByType: { "fox-*-female": true, "*": false } },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "replace",
+        path: "/server/behaviors/9/code",
+        value: "genelib.reproduce",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "addmerge",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.reproduce",
-            enabledByType: { "fox-female-red": true, "fox-female-arctic": true, "*": false },
             mateTaskPriority: 1.34,
-            sireCodes: ["game:fox-male-{type}"],
-            spawnEntityCodes: [{"code": "detailedanimals:fox-male-pup-{type}"}, {"code": "detailedanimals:fox-female-pup-{type}"}],
-            pregnancyMonths: 1.72,
-            cooldownMonths: 9.0,
-            lactationMonths: 5,
-            estrousCycleMonths: 0.9,
-            daysInHeat: 4.0,
-            breedingPeakMonthByType: {
-                "*-red": 1.6,
-                "*-arctic": 2.5,
-            },
-            breedingMonthsBefore: 0.5,
-            breedingMonthsAfter: 0.3,
             litterAddChance: 0.4,
             litterAddAttempts: 12,
         },
-        side: "server"
+        side: "server",
     },
 
 
@@ -217,25 +209,40 @@
     {
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
-        path: "/attributes/creatureDiet",
-        value: {
-            foodCategories: ["Protein", "Dairy", "Fruit", "Grain", "Vegetable"],
-            foodTags: ["meat", "vegetable", "egg"],
-        },
+        path: "/attributes/creatureDiet/foodCategories",
+        value: ["Protein", "Dairy", "Fruit", "Grain", "Vegetable"],
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/fox-baby.json",
         op: "add",
-        path: "/attributes/creatureDiet",
-        value: {
-            foodCategories: ["Protein", "Dairy", "Fruit", "Grain", "Vegetable"],
-            foodTags: ["meat", "vegetable", "egg"],
-        },
+        path: "/attributes/creatureDiet/foodCategories",
+        value: ["Protein", "Dairy", "Fruit", "Grain", "Vegetable"],
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/fox-adult.json",
+        op: "add",
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: { weight: 0.1, code: "vegetable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "add",
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: { weight: 0.1, code: "vegetable" },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-adult.json",
+        op: "addmerge",
+        path: "/behaviorConfigs",
+        value: { },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
@@ -263,12 +270,50 @@
         side: "server"
     },
     {
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "addmerge",
+        path: "/behaviorConfigs/genelib.hunger",
+        value: { 
+            monthsUntilWeaned: 4,
+            fiber: 0.1,
+            sugar: 0.08,
+            fat: 0.2,
+            starch: 0.1,
+            protein: 0.5,
+            water: 1.0,
+            minerals: 0.02,
+            mineralsMax: 0.1,
+            avoidFoodTags: [ "sour" ],
+            specialties: [ "bone" ],
+            fiberDigestion: 0.0,
+            daysUntilHungry: 3.2,
+        },
+        side: "server"
+    },
+    {
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/server/behaviors/12/aitasks/-",
         value: {
             code: "genelib.forage",
-            nurseFromEntities: "game:fox-female-{type}",
+            nurseFromEntities: "game:fox-{type}-adult-female",
+            priority: 1.35,
+            movespeed: 0.008,
+            animationSpeed: 2,
+            eatTime: 2,
+            animation: "Walk",
+            mincooldownHours: 0.0,
+            maxcooldownHours: 0.05,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "add",
+        path: "/server/behaviors/11/aitasks/-",
+        value: {
+            code: "genelib.forage",
+            nurseFromEntities: "game:fox-{type}-adult-female",
             priority: 1.35,
             movespeed: 0.008,
             animationSpeed: 2,
