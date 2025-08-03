@@ -85,6 +85,12 @@
     },
     {
         "file": "game:itemtypes/food/egg.json",
+        "op": "remove",
+        "path": "/attributes/foodTags",
+        side: "server",
+    },
+    {
+        "file": "game:itemtypes/food/egg.json",
         "op": "add",
         "path": "/attributes/foodTagsByType",
         "value": {
