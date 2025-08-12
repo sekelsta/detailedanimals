@@ -62,6 +62,19 @@
         value: 2.2,
         side: "server"
     },
+    // Convert entities from old format to new
+    {
+        file: "game:entities/animal/mammal/wolf-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "grow",
+            enabledByType: { "*-pup": true, "*": false },
+            hoursToGrow: 0.0,
+            adultEntityCodesByType: { "*-female-*": ["game:wolf-eurasian-baby-female"], "*-male-*": ["game:wolf-eurasian-baby-male"] } 
+        },
+        side: "server"
+    },
 
 
     {

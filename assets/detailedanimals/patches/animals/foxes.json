@@ -93,6 +93,19 @@
         value: 1.6,
         side: "server"
     },
+    // Convert entities from old format to new
+    {
+        file: "game:entities/animal/mammal/fox-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "grow",
+            enabledByType: { "fox-*-pup-*": true, "*": false },
+            hoursToGrow: 0.0,
+            adultEntityCodesByType: { "*-female-*": ["game:fox-{type}-baby-female"], "*-male-*": ["game:fox-{type}-baby-male"] } 
+        },
+        side: "server"
+    },
 
 
     {

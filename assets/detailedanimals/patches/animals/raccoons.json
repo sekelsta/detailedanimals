@@ -88,6 +88,19 @@
         value: 1.5,
         side: "server"
     },
+    // Convert entities from old format to new
+    {
+        file: "game:entities/animal/mammal/raccoon-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "grow",
+            enabledByType: { "*-pup": true, "*": false },
+            hoursToGrow: 0.0,
+            adultEntityCodesByType: { "*-female-*": ["game:raccoon-common-baby-female"], "*-male-*": ["game:raccoon-common-baby-male"] } 
+        },
+        side: "server"
+    },
 
 
     {

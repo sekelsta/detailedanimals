@@ -175,6 +175,19 @@
         value: 1.17,
         side: "server"
     },
+    // Convert entities from old format to new
+    {
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "grow",
+            enabledByType: { "*-piglet": true, "*": false },
+            hoursToGrow: 0.0,
+            adultEntityCodesByType: { "*-female-*": ["game:pig-eurasian-baby-female"], "*-male-*": ["game:pig-eurasian-baby-male"] } 
+        },
+        side: "server"
+    },
 
 
     {

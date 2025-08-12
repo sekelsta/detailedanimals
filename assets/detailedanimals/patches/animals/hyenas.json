@@ -90,6 +90,19 @@
         value: 2.5,
         side: "server"
     },
+    // Convert entities from old format to new
+    {
+        file: "game:entities/animal/mammal/hyena-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "grow",
+            enabledByType: { "*-pup": true, "*": false },
+            hoursToGrow: 0.0,
+            adultEntityCodesByType: { "*-female-*": ["game:hyena-spotted-baby-female"], "*-male-*": ["game:hyena-spotted-baby-male"] } 
+        },
+        side: "server"
+    },
 
     {
         file: "game:entities/land/hyena-pup.json",

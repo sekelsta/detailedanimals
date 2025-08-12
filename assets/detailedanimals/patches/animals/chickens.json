@@ -14,21 +14,21 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/attributes/maleByType",
         value: { "chicken-hen*": false, "*": true },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/spawnconditionsByType/*-rooster/runtime/companions",
         value: ["chicken-hen", "chicken-hen", "detailedanimals:chicken-female-chick", "detailedanimals:chicken-male-chick"],
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/spawnconditionsByType/*-rooster/worldgen/companions",
         value: ["chicken-hen", "chicken-hen", "detailedanimals:chicken-female-chick", "detailedanimals:chicken-male-chick"],
@@ -38,7 +38,7 @@
 
 
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
         path: "/server/behaviors/6/drops/-",
         value: {
@@ -52,14 +52,14 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/5/drops/0/quantityByType",
         value: { "*": { avg: 0.7, var: 0 } },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/5/drops/1/quantity",
         value: { avg: 12, var: 4 },
@@ -67,7 +67,7 @@
     },
 
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/7",
         value: { 
@@ -83,7 +83,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/8",
         value: { 
@@ -109,42 +109,42 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 2, weightDimorphism: 0.08 },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 2, weightDimorphism: 0.08 },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
         path: "/client/size",
         value: 2.0,
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "remove",
         path: "/client/sizeByType",
         side: "server"
@@ -159,7 +159,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: [ "Fruit", "Vegetable", "Protein", "Dairy" ],
@@ -173,42 +173,42 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodTags/-",
         value: [ "grass", "vegetable", "foliage", "meat", "acorn", "soybean" ],
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "addmerge",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "rawegg" ],
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "addmerge",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "rawegg" ],
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -230,7 +230,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -252,70 +252,70 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/8/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/8/eatAnimation",
         value: "Eat",
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/8/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/8/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/3/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
         path: "/server/behaviors/10/aitasks/3/eatAnimation",
         value: "Eat",
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/3/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/3/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/12/enabled",
         value: false,
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
         path: "/server/behaviors/10/aitasks/4/enabled",
         value: false,
@@ -324,7 +324,7 @@
 
 
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/attributes/eggTypes",
         value: [
@@ -337,14 +337,14 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
         value: { code: "genelib.eggreproduce", enabledByType: { "chicken-hen": true, "*": false } },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/7",
         value: {
@@ -381,7 +381,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/7",
         value: {
@@ -400,28 +400,28 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
         path: "/server/behaviors/-",
         value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.genetics", genomeType: "detailedanimals:junglefowl" },
@@ -430,14 +430,14 @@
 
 
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
         path: "/client/shape",
         value: { base: "detailedanimals:entity/chicken/chick" },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-baby.json",
+        file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
         path: "/client/texture",
         value: { base: "detailedanimals:entity/chicken/chick-duckwing", 
@@ -455,21 +455,21 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/client/shapeByType/chicken-hen*",
         value: { base: "detailedanimals:entity/chicken/hen" },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/client/shapeByType/*",
         value: { base: "detailedanimals:entity/chicken/rooster" },
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-adult.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "remove",
         path: "/client/textureByType",
         side: "server"

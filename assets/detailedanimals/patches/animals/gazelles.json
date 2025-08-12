@@ -57,6 +57,19 @@
         value: { "*-calf": 1.5, "*": 1 },
         side: "server"
     },
+    // Convert entities from old format to new
+    {
+        file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: {
+            code: "grow",
+            enabledByType: { "*-calf": true, "*": false },
+            hoursToGrow: 0.0,
+            adultEntityCodesByType: { "*-female-*": ["game:gazelle-thomson-baby-female"], "*-male-*": ["game:gazelle-thomson-baby-male"] } 
+        },
+        side: "server"
+    },
 
     {
         file: "game:entities/land/gazelle.json",
