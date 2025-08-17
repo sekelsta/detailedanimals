@@ -1,19 +1,5 @@
 [
     {
-        file: "game:entities/land/chicken-rooster.json",
-        op: "replace",
-        path: "/server/spawnconditionsByType/*/worldgen/companions",
-        value: ["chicken-hen", "chicken-hen", "detailedanimals:chicken-female-chick", "detailedanimals:chicken-male-chick"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/chicken-rooster.json",
-        op: "add",
-        path: "/attributes/male",
-        value: true,
-        side: "server"
-    },
-    {
         file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/attributes/maleByType",
@@ -152,7 +138,7 @@
 
 
     {
-        file: "game:entities/land/chicken-rooster.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "addeach",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: [ "Fruit", "Vegetable", "Protein", "Dairy" ],
@@ -166,17 +152,17 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-rooster.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: [ "grass", "vegetable", "foliage", "meat", "acorn", "soybean" ],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.2, code:"foliage"}, { weight:0.2, code:"grass"}, { weight:0.8, code:"meat"}, { weight:0.8, code:"egg"}, { weight:0.2, code:"acorn"}, { weight:2.0, code:"peanut"}, { weight:1.5, code:"soybean"}, { weight:0.8, code:"tastyvegetable"}],
         side: "server"
     },
     {
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: [ "grass", "vegetable", "foliage", "meat", "acorn", "soybean" ],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.2, code:"foliage"}, { weight:0.2, code:"grass"}, { weight:0.8, code:"meat"}, { weight:0.8, code:"egg"}, { weight:0.2, code:"acorn"}, { weight:2.0, code:"peanut"}, { weight:1.5, code:"soybean"}, { weight:0.8, code:"tastyvegetable"}],
         side: "server"
     },
     {
@@ -282,28 +268,28 @@
     {
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/3/code",
+        path: "/server/behaviors/10/aitasks/2/code",
         value: "genelib.forage",
         side: "server"
     },
     {
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/3/eatAnimation",
+        path: "/server/behaviors/10/aitasks/2/eatAnimation",
         value: "Eat",
         side: "server"
     },
     {
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/3/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/2/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/3/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/2/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
@@ -317,7 +303,7 @@
     {
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/4/enabled",
+        path: "/server/behaviors/10/aitasks/5/enabled",
         value: false,
         side: "server"
     },
@@ -475,7 +461,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/chicken-hen.json",
+        file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/client/texturesByType",
         value: {

@@ -325,8 +325,8 @@
     {
         file: "game:entities/land/hooved/goat.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "fruitmash", "sheepfeed", "toughstem", "acorn", "peanut", "soybean"],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.6, code:"foliage"}, { weight:0.4, code:"hay"}, { weight:0.3, code:"toughstem"}, { weight:0.2, code:"acorn"}, { weight:0.3, code:"peanut"}],
         side: "server"
     },
     {
