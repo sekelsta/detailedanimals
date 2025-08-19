@@ -1,6 +1,13 @@
 [
     {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
+        op: "replace",
+        path: "/client/texture/base",
+        value: "game:entity/animal/mammal/hooved/pig/eurasian-baby",
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
         path: "/server/behaviors/6/drops",
         value: [
@@ -26,42 +33,21 @@
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
         value: { avg: 20, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/1/quantity",
         value: { avg: 1.2, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/2/quantity",
-        value: { avg: 7, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/0/quantity",
-        value: { avg: 20, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "replace",
-        path: "/server/behaviors/6/drops/1/quantity",
-        value: { avg: 1.2, var: 0 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantity",
         value: { avg: 7, var: 0 },
@@ -71,23 +57,23 @@
 
 
     {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
         path: "/server/behaviors/9",
         value: { 
             code: "genelib.age",
             monthsToGrow: 9.0,
             adultEntityCodesByType: {
-                "*-male-*": ["game:pig-wild-male"],
-                "*-female-*": ["game:pig-wild-female"],
-                "*": ["game:pig-wild-female", "game:pig-wild-male" ],
+                "*-male-*": ["game:pig-eurasian-adult-male"],
+                "*-female-*": ["game:pig-eurasian-adult-female"],
+                "*": ["pig-{type}-adult-{gender}"],
             },
             initialWeight: 0.005
         },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: { 
@@ -100,76 +86,42 @@
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "add",
-        path: "/server/behaviors/-",
-        value: { 
-            code: "genelib.age",
-            monthsToGrow: 51.0,
-            startAgeMonths: 9.0,
-            initialWeight: 0.36,
-            finalWeight: 1.0
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "add",
-        path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 112, weightDimorphism: 0.12 },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "addmerge",
         path: "/attributes",
         value: { adultWeightKg: 112, weightDimorphism: 0.12 },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "addmerge",
-        path: "/attributes",
-        value: { adultWeightKg: 112, weightDimorphism: 0.12 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
         path: "/client/size",
         value: 2.9,
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "add",
-        path: "/client/size",
-        value: 1.17,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "add",
         path: "/client/size",
         value: 1.17,
@@ -191,20 +143,20 @@
 
 
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
         value: { code: "genelib.reproduce" },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
             mateTaskPriority: 1.37,
-            sireCodes: ["pig-wild-male"],
+            sireCodes: ["pig-{type}-adult-male"],
             spawnEntityCodes: [{"code": "game:pig-eurasian-baby-male"}, {"code": "game:pig-eurasian-baby-female"}],
             litterAddChance: 0.45,
             litterAddAttempts: 8,
@@ -215,49 +167,35 @@
 
 
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: "Dairy",
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: "Dairy",
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "add",
-        path: "/attributes/creatureDiet/foodCategories/-",
-        value: "Dairy",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "addmerge",
-        path: "/behaviorConfigs",
-        value: { },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -278,28 +216,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
-        value: { 
-            monthsUntilWeaned: 2.5,
-            fiber: 0.18,
-            sugar: 0.12,
-            sugarMax: 0.4,
-            fat: 0.1,
-            fatMax: 0.4,
-            starch: 0.46,
-            protein: 0.16,
-            water: 1.0,
-            minerals: 0.02,
-            mineralsMax: 0.1,
-            fiberDigestion: 0.3,
-            grazeMethods: ["root"],
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -320,51 +237,37 @@
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava", "rawegg" ],
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava", "rawegg" ],
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.2, code:"foliage"}, { weight:0.2, code:"grass"}, { weight:0.8, code:"meat"}, { weight:0.8, code:"egg"}, { weight:0.2, code:"acorn"}, { weight:2.0, code:"peanut"}, { weight:1.5, code:"soybean"}, { weight:0.8, code:"tastyvegetable"}],
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
+        op: "addeach",
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.2, code:"foliage"}, { weight:0.2, code:"grass"}, { weight:0.8, code:"meat"}, { weight:0.8, code:"egg"}, { weight:0.2, code:"acorn"}, { weight:2.0, code:"peanut"}, { weight:1.5, code:"soybean"}, { weight:0.8, code:"tastyvegetable"}],
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
-        path: "/attributes/creatureDiet/skipFoodTags",
-        value: [ "riceCrop", "parsnipCrop", "onion", "cassava", "rawegg" ],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["grass", "vegetable", "foliage", "hay", "meat", "acorn", "soybean"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["grass", "vegetable", "foliage", "hay", "meat", "acorn", "soybean"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["grass", "vegetable", "foliage", "hay", "meat", "acorn", "soybean"],
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-female.json",
-        op: "replace",
-        path: "/server/behaviors/10/aitasks/6",
+        path: "/server/behaviors/10/aitasks/7",
         value: {
                 code: "genelib.forage",
                 movespeed: 0.004,
@@ -382,64 +285,37 @@
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-male.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
-        path: "/server/behaviors/9/aitasks/5",
-        value: {
-                code: "genelib.forage",
-                movespeed: 0.004,
-                priority: 1.38,
-                animationSpeed: 2,
-                animation: "Walk",
-                eatAnimation: "Eat",
-                eatSound: "creature/animal-eat2",
-                digAnimation: "Dig",
-                digAnimationSpeed: 1.5,
-                eatTime: 2,
-                mincooldownHours: 0.05,
-                maxcooldownHours: 1,
-            },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-piglet.json",
-        op: "replace",
-        path: "/server/behaviors/10/aitasks/1/code",
+        path: "/server/behaviors/10/aitasks/2/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/1/nurseFromEntities",
+        path: "/server/behaviors/10/aitasks/2/nurseFromEntities",
         value: ["game:pig-wild-female"],
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/1/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/2/mincooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-piglet.json",
+        file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/1/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/2/maxcooldownHours",
         value: 1,
         side: "server"
     },
     {
-        file: "game:entities/land/pig-wild-female.json",
+        file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/7/enabled",
-        value: false,
-        side: "server"
-    },
-    {
-        file: "game:entities/land/pig-wild-male.json",
-        op: "add",
-        path: "/server/behaviors/9/aitasks/6/enabled",
+        path: "/server/behaviors/10/aitasks/8/enabled",
         value: false,
         side: "server"
     },

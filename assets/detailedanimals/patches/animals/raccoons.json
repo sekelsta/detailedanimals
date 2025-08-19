@@ -32,9 +32,9 @@
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
-                "*-female-*": [ "game:raccoon-female" ],
-                "*-male-*": [ "game:raccoon-male" ],
-                "*": [ "game:raccoon-male", "game:raccoon-female" ]
+                "*-female-*": [ "game:raccoon-common-adult-female" ],
+                "*-male-*": [ "game:raccoon-common-adult-male" ],
+                "*": [ "raccoon-{type}-adult-{gender}" ]
             },
             monthsToGrow: 6.0,
             initialWeight: 0.08,
