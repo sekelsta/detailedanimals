@@ -47,6 +47,7 @@ namespace DetailedAnimals
             AiTaskRegistry.Register("genelib.forage", typeof (AiTaskForage));
             AiTaskRegistry.Register("genelib.sitonnest", typeof (AiTaskSitOnNest));
             AiTaskRegistry.Register("genelib.layegg", typeof (AiTaskLayEgg));
+            AiTaskRegistry.Register("genelib.mate", typeof (AiTaskMate));
 
             AnimalConfig.Load(api);
 
