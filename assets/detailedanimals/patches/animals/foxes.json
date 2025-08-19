@@ -51,8 +51,8 @@
         value: {
             code: "genelib.age",
             adultEntityCodesByType: {
-                "fox-female-pup-*": [ "game:fox-female-{type}" ],
-                "fox-male-pup-*": [ "game:fox-male-{type}" ],
+                "fox-female-pup-*": [ "game:fox-{type}-adult-female" ],
+                "fox-male-pup-*": [ "game:fox-{type}-adult-male" ],
                 "*": ["game:fox-{type}-adult-{gender}"]
             },
             monthsToGrow: 6.0,
