@@ -32,7 +32,11 @@
         path: "/server/behaviors/8",
         value: {
             code: "genelib.age",
-            adultEntityCodes: ["hare-{type}-adult-{gender}"],
+            adultEntityCodesByType: {
+                "*-female-baby": ["game:hare-european-adult-female"],
+                "*-male-baby": ["game:hare-european-adult-male"],
+                "*": ["game:hare-{type}-adult-{gender}"]
+            },
             monthsToGrow: 6.0,
             initialWeight: 0.03,
         },
