@@ -1,42 +1,35 @@
 [
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
-        path: "/server/behaviors/5/decayedBlockByType/*-adult",
+        path: "/server/behaviors/5/decayedBlock",
         value: "carcass-large",
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/moose.json",
-        op: "replace",
-        path: "/server/behaviors/5/decayedBlockByType/*",
-        value: "carcass-medium",
         side: "server"
     },
 
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/12/beginGrowMonth",
         value: 4.5,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/12/growDurationMonths",
         value: 5.5,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/12/grownDurationMonths",
         value: 2.4,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/12/shedDurationMonths",
         value: 1,
@@ -45,21 +38,21 @@
 
 
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/attributes/adultWeightKg",
         value: 442.5,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/attributes/weightDimorphism",
         value: 0.22,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -79,67 +72,42 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
-        op: "add",
-        path: "/client/sizeByType",
-        value: { "*-baby": 1.8, "*": 1 },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
-        path: "/server/behaviors/7/drops/0/quantityByType",
-        value: { "*": { avg: 111, var: 0 } },
+        path: "/server/behaviors/7/drops/0/quantity/avg",
+        value: 111,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/1",
         value: {
             "type": "item",
             "code": "game:hide-raw-huge",
             category: "pelt",
-            "quantityByType": {
-                "*-adult": { avg: 2.9, var: 0.2 },
-                "*-baby": { avg: 0, var: 0 }
-            }
+            quantity: { avg: 2.9, var: 0.2 },
         },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
-        path: "/server/behaviors/7/drops/2",
-        value: {
-            "type": "item",
-            "code": "game:hide-raw-large",
-            category: "pelt",
-            "quantityByType": {
-                "*-baby": { avg: 4.8, var: 0.2 },
-                "*-adult": { avg: 0, var: 0 }
-            }
-        },
-        side: "server"
-    },
-    {
-        file: "game:entities/land/hooved/moose.json",
-        op: "replace",
-        path: "/server/behaviors/7/drops/3/quantityByType",
-        value: { "*": { avg: 18, var: 0.3 } },
+        path: "/server/behaviors/7/drops/2/quantity/avg",
+        value: 18,
         side: "server"
     },
 
 
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/client/behaviors/-",
         value: {
@@ -152,7 +120,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -180,35 +148,35 @@
 
 
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: "Fruit",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["grass", "vegetable", "foliage", "hay", "fruitmash", "sheepfeed", "toughstem", "acorn", "peanut", "soybean"],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.6, code:"foliage"}, { weight:0.4, code:"hay"}, { weight:0.3, code:"toughstem"}, { weight:0.2, code:"acorn"}, { weight:0.3, code:"soybean"}],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs",
         value: { },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -230,44 +198,44 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/11/code",
+        path: "/server/behaviors/10/aitasks/6/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/11/nurseFromEntities",
+        path: "/server/behaviors/10/aitasks/6/nurseFromEntities",
         value: ["game:deer-{type}-female-adult"],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/11/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/6/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/11/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/6/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/11/priority",
+        path: "/server/behaviors/10/aitasks/6/priority",
         value: 1.39,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/moose.json",
+        file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/9/enabled",
+        path: "/server/behaviors/10/aitasks/7/enabled",
         value: false,
         side: "server"
     },

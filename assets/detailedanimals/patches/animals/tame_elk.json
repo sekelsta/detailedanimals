@@ -1,35 +1,35 @@
 [
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/12/beginGrowMonth",
+        path: "/behaviorConfigs/antlergrowth/beginGrowMonth",
         value: 7,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/12/growDurationMonths",
+        path: "/behaviorConfigs/antlergrowth/growDurationMonths",
         value: 3,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/12/grownDurationMonths",
+        path: "/behaviorConfigs/antlergrowth/grownDurationMonths",
         value: 4,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/12/shedDurationMonths",
+        path: "/behaviorConfigs/antlergrowth/shedDurationMonths",
         value: 0.9,
         side: "server"
     },
 
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
         path: "/server/behaviors/8",
         value: {
@@ -41,7 +41,7 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.age" },
@@ -49,16 +49,16 @@
     },
 
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/0/quantityByType/*-adult",
+        path: "/behaviorConfigs/harvestable/drops/0/quantityByType/*-adult",
         value: { avg: 71, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/1",
+        path: "/behaviorConfigs/harvestable/drops/1",
         value: {
             type: "item",
             code: "game:hide-raw-huge",
@@ -68,28 +68,28 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/6/drops/3/quantityByType/*-adult",
+        path: "/behaviorConfigs/harvestable/drops/3/quantityByType/*-adult",
         value: { avg: 18, var: 0 },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "add",
         path: "/attributes/adultWeightKg",
         value: 285,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "add",
         path: "/attributes/weightDimorphism",
         value: 0.19,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
         path: "/client/sizeByType",
         value: {
@@ -100,14 +100,14 @@
 
 
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "add",
         path: "/client/behaviors/-",
         value: { code: "genelib.reproduce", enabledByType: { "*-female-adult": true, "*": false } },
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "add",
         path: "/server/behaviors/-",
         value: {
@@ -132,28 +132,28 @@
 
 
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "add",
         path: "/attributes/creatureDiet/foodCategories/-",
         value: "Fruit",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "addeach",
-        path: "/attributes/creatureDiet/foodTags/-",
-        value: ["vegetable", "foliage", "hay", "fruitmash", "sheepfeed", "toughstem", "acorn", "peanut", "soybean"],
+        path: "/attributes/creatureDiet/weightedFoodTags/-",
+        value: [{ weight:0.6, code:"foliage"}, { weight:0.4, code:"hay"}, { weight:0.3, code:"toughstem"}, { weight:0.2, code:"acorn"}, { weight:0.3, code:"soybean"}],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
         path: "/attributes/creatureDiet/skipFoodTags",
         value: [ "riceCrop", "parsnipCrop", "onion", "cassava" ],
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "addmerge",
         path: "/behaviorConfigs/genelib.hunger",
         value: { 
@@ -175,37 +175,37 @@
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/7/code",
+        path: "/behaviorConfigs/taskai/aitasks/8/code",
         value: "genelib.forage",
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/7/mincooldownHours",
+        path: "/behaviorConfigs/taskai/aitasks/8/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/7/maxcooldownHours",
+        path: "/behaviorConfigs/taskai/aitasks/8/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/7/priority",
+        path: "/behaviorConfigs/taskai/aitasks/8/priority",
         value: 1.39,
         side: "server"
     },
     {
-        file: "game:entities/land/hooved/elk-tamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/8/enabled",
+        path: "/behaviorConfigs/taskai/aitasks/9/enabled",
         value: false,
         side: "server"
     },
