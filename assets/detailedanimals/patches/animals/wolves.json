@@ -130,7 +130,7 @@
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce" },
+        value: { code: "genelib.reproduce", enabledByType: { "*-female": true, "*": false } },
         side: "server"
     },
     {
@@ -146,7 +146,16 @@
         path: "/server/behaviors/8",
         value: {
             mateTaskPriority: 1.37,
+            pregnancyMonths: 2.05,
+            multiplyCooldownMonthsMin: 3.9,
+            multiplyCooldownMonthsMax: 4.1,
             lactationMonths: 3.0,
+            "_comment": "A six month seasonal estrous is effectively a twelve month estrous",
+            estrousCycleMonths: 6.0,
+            daysInHeat: 8.0,
+            breedingPeakMonth: 1.5,
+            breedingMonthsBefore: 1.0,
+            breedingMonthsAfter: 1.0,
             litterAddChance: 0.25,
             spawnQuantityMax: 14,
         },

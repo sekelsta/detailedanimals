@@ -28,7 +28,7 @@
         path: "/server/behaviors/-",
         value: {
             code: "genelib.age",
-            adultEntityCodes: [ "game:deer-moose-{gender}-adult" ],
+            adultEntityCodes: [ "game:deer-moose-adult-{gender}" ],
             monthsToGrow: 6.0,
             initialWeight: 0.06,
         },
