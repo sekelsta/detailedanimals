@@ -22,8 +22,8 @@ dotnet run --project ./Build/CakeBuild/CakeBuild.csproj -- "$@"
 rm assets/detailedanimals/lang/es-es.json
 rm -r bin/
 rm -r src/obj/
-rm "${VINTAGE_STORY_DEV}"/Mods/detailedanimals_*.zip
-cp Build/Releases/detailedanimals_*.zip "${VINTAGE_STORY_DEV}/Mods"
+rm "${VINTAGE_STORY}"/Mods/detailedanimals_*.zip
+cp Build/Releases/detailedanimals_*.zip "${VINTAGE_STORY}/Mods"
 
 endtime=$(($(date +%s%N)/1000000))
 cooktime=$(( postcook - precook ))
