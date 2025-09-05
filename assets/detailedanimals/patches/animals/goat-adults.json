@@ -206,6 +206,23 @@
                 "*": 0.01
             },
             litterAddAttempts: 2,
+            pregnancyMonthsByType: {
+                "goat-ibexalp-*": 5.45,
+                "goat-takingold-*": 7,
+                "goat-mountain-*": 5.85,
+                "goat-muskox-*": 8.5,
+                "goat-ibexnub-*": 5.25,
+                "goat-turdag-*": 5.15,
+                "*": 5,
+            },
+            multiplyCooldownMonthsMin: 8.8,
+            multiplyCooldownMonthsMax: 9.2,
+            lactationMonths: 5,
+            estrousCycleMonths: 0.7,
+            daysInHeat: 3.0,
+            breedingPeakMonth: 9.5,
+            breedingMonthsBefore: 2.0,
+            breedingMonthsAfter: 2.0,
         },
         side: "server"
     },

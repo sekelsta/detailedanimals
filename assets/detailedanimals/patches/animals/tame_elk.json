@@ -116,8 +116,11 @@
             mateTaskPriority: 1.37,
             sireCodes: ["game:deer-elk-male-adult", "game:tamedeer-elk-male-adult", "game:tamedeer-albinoelk-male-adult"],
             spawnEntityCodes: [{"code": "game:deer-elk-male-baby"}, {"code": "game:deer-elk-female-baby"}],
-            pregnancyMonths: 8.05,
-            cooldownMonths: 9.0,
+            pregnancyMonthsByType: {*
+                "*elk-*": 8.05,
+            },
+            multiplyCooldownMonthsMin: 8.8,
+            multiplyCooldownMonthsMax: 9.2,
             lactationMonths: 6,
             estrousCycleMonths: 0.6,
             daysInHeat: 2.0,
