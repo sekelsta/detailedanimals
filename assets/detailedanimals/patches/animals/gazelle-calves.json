@@ -141,42 +141,42 @@
     {
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/5/code",
+        path: "/server/behaviors/10/aitasks/4/code",
         value: "genelib.forage",
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/5/nurseFromEntities",
+        path: "/server/behaviors/10/aitasks/4/nurseFromEntities",
         value: ["game:gazelle-female"],
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/5/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/4/mincooldownHours",
         value: 0.0,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/5/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/4/maxcooldownHours",
         value: 0.05,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/5/eatSound",
+        path: "/server/behaviors/10/aitasks/4/eatSound",
         value: "game:creature/animal-eat-small",
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/6/enabled",
+        path: "/server/behaviors/10/aitasks/5/enabled",
         value: false,
         side: "server"
     },

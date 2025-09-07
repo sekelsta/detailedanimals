@@ -284,11 +284,11 @@
 
     {
         file: "game:entities/animal/mammal/hare-baby.json",
-        op: "add",
-        path: "/server/behaviors/9/aitasks/-",
+        op: "replace",
+        path: "/server/behaviors/9/aitasks/4",
         value: {
             code: "genelib.forage",
-        value: ["game:hare-arctic-adult-female", "game:hare-cape-adult-female", "game:hare-european-adult-female", "game:hare-indian-adult-female", "game:hare-jackblack-adult-female", "game:hare-scrub-adult-female"],
+            nurseFromEntities: ["game:hare-arctic-adult-female", "game:hare-cape-adult-female", "game:hare-european-adult-female", "game:hare-indian-adult-female", "game:hare-jackblack-adult-female", "game:hare-scrub-adult-female"],
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,
             priority: 1.39,
