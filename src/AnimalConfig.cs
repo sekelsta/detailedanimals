@@ -11,15 +11,20 @@ namespace DetailedAnimals {
         public string Units = "CUSTOMARY_METRIC";
 
         public float AnimalMeat = 1.0f;
-        public bool MeatScalesWithYearLength = true;
+        public bool MeatScalesWithYearLength = false;
 
         public float InbreedingResistance = 0.6f;
 
-        public int ConfigVersion = 0;
+        public int ConfigVersion = 1;
 
         public void MakeValid() {
             InbreedingResistance = Math.Clamp(InbreedingResistance, 0.05f, 0.9f);
             AnimalMeat = Math.Clamp(AnimalMeat, 0.01f, 100f);
+
+            if (ConfigVersion >= 0 && ConfigVersion < 1) {
+                ConfigVersion = 1;
+                MeatScalesWithYearLength = false;
+            }
         }
 
         public string WeightSuffix() {

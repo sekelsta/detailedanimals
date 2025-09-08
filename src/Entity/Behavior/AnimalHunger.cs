@@ -677,7 +677,7 @@ namespace DetailedAnimals {
 
         public void ShiftWeight(double deltaWeight) {
             double deltaSat = SatietyForWeightChange(deltaWeight);
-            entity.SetBodyCondition(Math.Clamp(entity.BodyCondition() + deltaWeight, 0.5, 2.0));
+            entity.SetBodyCondition(Math.Clamp(entity.BodyCondition() + deltaWeight, 0.85, 2.0)); // TODO: After making wild animals able to find food, replace 0.85 with 0.5
             ConsumeSaturation(deltaSat);
             if (deltaWeight > 0) {
                 Fat.Consume(deltaSat / 4);
