@@ -33,26 +33,26 @@ namespace DetailedAnimals {
             const int SHANK_YELLOW = 5;
 
             ChickenPhenotype phenotype;
-            bool shanksyellow = genome.Homozygous("whiteshanks", "yellow");
+            bool shanksyellow = genome.IsHomozygous("whiteshanks", "yellow");
 
-            if (genome.HasAutosomal("extension", "black")) {
+            if (genome.HasAllele("extension", "black")) {
                 phenotype.Shanks = shanksyellow ? SHANK_BLACKYELLOW : SHANK_BLACK;
-                if (genome.Homozygous("bluesplash", "bluesplash")) {
+                if (genome.IsHomozygous("bluesplash", "bluesplash")) {
                     phenotype.Body = splash;
                 }
-                else if (genome.HasAutosomal("bluesplash", "bluesplash")) {
+                else if (genome.HasAllele("bluesplash", "bluesplash")) {
                     phenotype.Body = blue;
                 }
                 else {
                     phenotype.Body = black;
                 }
             }
-            else if (genome.HasAutosomal("extension", "birchen")) {
+            else if (genome.HasAllele("extension", "birchen")) {
                 phenotype.Shanks = shanksyellow ? SHANK_BLACKYELLOW : SHANK_BLACK;
-                if (genome.Homozygous("bluesplash", "bluesplash")) {
+                if (genome.IsHomozygous("bluesplash", "bluesplash")) {
                     phenotype.Body = birchensplash;
                 }
-                else if (genome.HasAutosomal("bluesplash", "bluesplash")) {
+                else if (genome.HasAllele("bluesplash", "bluesplash")) {
                     phenotype.Body = birchenblue;
                 }
                 else {
@@ -62,10 +62,10 @@ namespace DetailedAnimals {
             else {
                 phenotype.Shanks = shanksyellow ? SHANK_DARKYELLOW : SHANK_DARKWHITE;
 
-                if (genome.Homozygous("bluesplash", "bluesplash")) {
+                if (genome.IsHomozygous("bluesplash", "bluesplash")) {
                     phenotype.Body = duckwingsplash;
                 }
-                else if (genome.HasAutosomal("bluesplash", "bluesplash")) {
+                else if (genome.HasAllele("bluesplash", "bluesplash")) {
                     phenotype.Body = duckwingblue;
                 }
                 else {
@@ -77,7 +77,7 @@ namespace DetailedAnimals {
                 phenotype.Shanks = shanksyellow ? SHANK_YELLOW : SHANK_WHITE;
             }
 
-            if (genome.Homozygous("tyrosinase", "white")) {
+            if (genome.IsHomozygous("tyrosinase", "white")) {
                 phenotype.Body = white;
             }
             return phenotype;

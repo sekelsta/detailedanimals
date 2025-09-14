@@ -11,6 +11,19 @@
             { dermalmelanin: ["allowed", "inhibited"] },
             //{ chocolate: ["wildtype", "chocolate"] },
         ],
+        anonymous: [
+            { "deleterious": 16 },
+        ],
+        bitwise: [
+            { "coi": 128 },
+            { "energy_major": 8 },
+            { "energy_minor": 8, },
+            { "energy_dominant": 8 },
+            { "energy_recessive": 8 },
+            { "fear": 16 },
+            { "anger": 16 },
+            { "love": 16 },
+        ],
     },
     interpreters: [ "Polygenes", "Junglefowl", ],
     sexdetermination: "zw",
@@ -33,6 +46,12 @@
             },
             xz: {
                 dermalmelanin: { default: "allowed", inhibited: 0.2 },
+            },
+            bitwise: {
+                energy_major: [0.2, 0.3, 0.4, 0.5, 0.5, 0.6, 0.7, 0.8],
+                energy_minor: 0.5,
+                energy_dominant: [0.2, 0.3, 0.4, 0.5, 0.5, 0.6, 0.7, 0.8],
+                energy_recessive: [0.2, 0.3, 0.4, 0.5, 0.5, 0.6, 0.7, 0.8],
             },
             conditions: {
             }
