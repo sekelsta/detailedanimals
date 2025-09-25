@@ -20,14 +20,14 @@
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/attributes/adultWeightKgByType",
-        value: { "*-red": 7.4, "*-arctic": 3.2 },
+        value: { "fox-red-*": 7.4, "fox-arctic-*": 3.2 },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/fox-baby.json",
         op: "add",
         path: "/attributes/adultWeightKgByType",
-        value: { "*-red": 7.4, "*-arctic": 3.2 },
+        value: { "fox-red-*": 7.4, "fox-arctic-*": 3.2 },
         side: "server"
     },
     {
@@ -182,7 +182,7 @@
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "fox-*-female": true, "*": false } },
+        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -197,6 +197,7 @@
         op: "addmerge",
         path: "/server/behaviors/9",
         value: {
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.34,
             spawnQuantityMax: 12,
             litterAddChance: 0.4,
@@ -207,8 +208,8 @@
             estrousCycleMonths: 0.9,
             daysInHeat: 4.0,
             breedingPeakMonthByType: {
-                "*-red": 1.6,
-                "*-arctic": 2.5,
+                "fox-red-*": 1.6,
+                "fox-arctic-*": 2.5,
             },
             breedingMonthsBefore: 0.5,
             breedingMonthsAfter: 0.3,

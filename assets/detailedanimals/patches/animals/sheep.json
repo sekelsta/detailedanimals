@@ -124,7 +124,7 @@
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "genelib.reproduce" },
+        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -133,6 +133,7 @@
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["sheep-bighorn-adult-male"],
             spawnEntityCodes: [{"code": "game:sheep-bighorn-baby-male"}, {"code": "game:sheep-bighorn-baby-female"}],

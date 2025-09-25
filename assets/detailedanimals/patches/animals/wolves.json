@@ -132,6 +132,7 @@
         op: "addmerge",
         path: "/server/behaviors/8",
         value: {
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             pregnancyMonths: 2.05,
             multiplyCooldownMonthsMin: 3.9,

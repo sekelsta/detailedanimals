@@ -125,7 +125,7 @@
         file: "game:entities/animal/mammal/hyena-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce" },
+        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -134,6 +134,7 @@
         path: "/server/behaviors/9",
         value: {
             code: "genelib.reproduce",
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["game:hyena-male"],
             spawnEntityCodes: [{"code": "game:hyena-spotted-baby-male"}, {"code": "game:hyena-spotted-baby-female"}],

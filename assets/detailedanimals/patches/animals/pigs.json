@@ -133,7 +133,7 @@
         file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "genelib.reproduce" },
+        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -142,6 +142,7 @@
         path: "/server/behaviors/8",
         value: {
             code: "genelib.reproduce",
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["pig-{type}-adult-male"],
             spawnEntityCodes: [{"code": "game:pig-eurasian-baby-male"}, {"code": "game:pig-eurasian-baby-female"}],

@@ -114,7 +114,7 @@
         file: "game:entities/animal/mammal/hare-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "genelib.reproduce" },
+        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -123,6 +123,7 @@
         path: "/server/behaviors/9",
         value: {
             code: "genelib.reproduce",
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.38,
             sireCodes: ["game:hare-*-adult-male"],
             spawnEntityCodes: [{"code": "game:hare-{type}-baby-male"}, {"code": "game:hare-{type}-baby-female"}],
