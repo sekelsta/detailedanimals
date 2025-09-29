@@ -18,7 +18,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 18.0,
             startAgeMonths: 6.0,
             initialWeight: 0.7,
@@ -30,7 +30,7 @@
         file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
 
@@ -61,7 +61,7 @@
         file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "*-male": false } },
+        value: { code: "reproduce", enabledByType: { "*-male": false } },
         side: "server"
     },
     {
@@ -69,7 +69,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.34,
             sireCodes: ["game:gazelle-{type}-adult-male"],
@@ -128,7 +128,7 @@
     {
         file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 4,
             fiber: 0.5,
@@ -151,7 +151,7 @@
         file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "replace",
         path: "/server/behaviors/9/aitasks/4/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {

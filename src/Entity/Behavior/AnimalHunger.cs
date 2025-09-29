@@ -18,7 +18,7 @@ using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
     public class AnimalHunger : EntityBehavior {
-        public const string Code = "genelib.hunger";
+        public const string Code = "animalhunger";
 
         public float weanedAgeDays = 0;
         protected internal ITreeAttribute hungerTree;

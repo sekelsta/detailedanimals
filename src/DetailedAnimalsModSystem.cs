@@ -44,9 +44,9 @@ namespace DetailedAnimals
 
             api.RegisterCollectibleBehaviorClass(TryFeedingAnimal.Code, typeof(TryFeedingAnimal));
 
-            AiTaskRegistry.Register<AiTaskForage>("genelib.forage");
-            AiTaskRegistry.Register<AiTaskSitOnNest>("genelib.sitonnest");
-            AiTaskRegistry.Register<AiTaskLayEgg>("genelib.layegg");
+            AiTaskRegistry.Register<AiTaskForage>("forage");
+            AiTaskRegistry.Register<AiTaskSitOnNest>("sitonnest");
+            AiTaskRegistry.Register<AiTaskLayEgg>("layegg");
 
             AnimalConfig.Load(api);
 

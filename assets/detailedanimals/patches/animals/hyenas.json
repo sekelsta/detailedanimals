@@ -25,7 +25,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 12.0,
             startAgeMonths: 6.0,
             initialWeight: 0.7,
@@ -38,7 +38,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             adultEntityCodesByType: {
                 "*-female-*": [ "game:hyena-spotted-adult-female" ],
                 "*-male-*": [ "game:hyena-spotted-adult-male" ],
@@ -53,14 +53,14 @@
         file: "game:entities/animal/mammal/hyena-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hyena-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -125,7 +125,7 @@
         file: "game:entities/animal/mammal/hyena-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
+        value: { code: "reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -133,7 +133,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["game:hyena-male"],
@@ -189,7 +189,7 @@
     {
         file: "game:entities/animal/mammal/hyena-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 12,
             fiber: 0.02,
@@ -210,7 +210,7 @@
     {
         file: "game:entities/animal/mammal/hyena-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 12,
             fiber: 0.02,
@@ -233,7 +233,7 @@
         op: "replace",
         path: "/server/behaviors/11/aitasks/7",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:hyena-female",
             eatSound: "creature/animal-eat1",
             priority: 1.38,
@@ -249,7 +249,7 @@
         op: "replace",
         path: "/server/behaviors/11/aitasks/5",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:hyena-female",
             eatSound: "creature/animal-eat-small",
             priority: 1.38,

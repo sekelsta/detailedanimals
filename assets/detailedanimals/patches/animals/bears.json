@@ -29,7 +29,7 @@
         file: "game:entities/animal/mammal/bear-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -37,7 +37,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             "_comment": "40% of adult weight at one year old, stays with mother about 2.5 years. Here is years 2.5-5.",
             startAgeMonths: 30,
             monthsToGrow: 30.0,
@@ -98,7 +98,7 @@
     {
         file: "game:entities/animal/mammal/bear-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 10,
             fiberByType: { "bear-polar-*": 0.02, "bear-panda-*": 0.6, "*": 0.18 },
@@ -131,7 +131,7 @@
         op: "add",
         path: "/server/behaviors/9/aitasks/-",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:bear-female-{type}",
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,

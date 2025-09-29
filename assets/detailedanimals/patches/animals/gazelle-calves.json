@@ -25,7 +25,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             adultEntityCodesByType: {
                 "*-female-calf": [ "game:gazelle-thomson-adult-female" ],
                 "*-male-calf": [ "game:gazelle-thomson-adult-male" ],
@@ -40,7 +40,7 @@
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -119,7 +119,7 @@
     {
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 4,
             fiber: 0.5,
@@ -142,7 +142,7 @@
         file: "game:entities/animal/mammal/hooved/gazelle-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/4/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {

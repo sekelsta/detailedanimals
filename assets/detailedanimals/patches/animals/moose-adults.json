@@ -56,7 +56,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             adultEntityCodesByType: {
                 "*-baby": [ "game:deer-moose-{gender}-adult" ],
             },
@@ -75,7 +75,7 @@
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -111,7 +111,7 @@
         op: "add",
         path: "/client/behaviors/-",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: {
                 "*-female-adult": true,
                 "*": false,
@@ -124,7 +124,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: {
                 "*-female-adult": true,
                 "*": false,
@@ -179,7 +179,7 @@
     {
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 4,
             fiber: 0.5,
@@ -202,7 +202,7 @@
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/6/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {

@@ -18,7 +18,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 6.0,
             startAgeMonths: 6.0,
             initialWeight: 0.7,
@@ -30,7 +30,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             adultEntityCodesByType: {
                 "*-female-*": [ "game:raccoon-common-adult-female" ],
                 "*-male-*": [ "game:raccoon-common-adult-male" ],
@@ -45,14 +45,14 @@
         file: "game:entities/animal/mammal/raccoon-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/raccoon-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -125,7 +125,7 @@
         file: "game:entities/animal/mammal/raccoon-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
+        value: { code: "reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -133,7 +133,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["game:raccoon-male"],
@@ -213,7 +213,7 @@
     {
         file: "game:entities/animal/mammal/raccoon-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 2.8,
             fiber: 0.2,
@@ -239,7 +239,7 @@
     {
         file: "game:entities/animal/mammal/raccoon-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 2.8,
             fiber: 0.2,
@@ -267,7 +267,7 @@
         op: "replace",
         path: "/server/behaviors/10/aitasks/4",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:raccoon-female",
             eatSound: "creature/animal-eat-small",
             priority: 1.38,
@@ -287,7 +287,7 @@
         op: "replace",
         path: "/server/behaviors/10/aitasks/2",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:raccoon-female",
             eatSound: "creature/animal-eat-small",
             priority: 1.38,

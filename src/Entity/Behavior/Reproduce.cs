@@ -15,7 +15,7 @@ using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
     public class Reproduce : GeneticMultiply {
-        public new const string Code = "genelib.reproduce";
+        public new const string Code = "reproduce";
 
         public virtual double ExtraGrowthTarget {
             get => 0;

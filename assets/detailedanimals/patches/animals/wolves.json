@@ -18,7 +18,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 18.0,
             startAgeMonths: 6.0,
             initialWeight: 0.7,
@@ -30,7 +30,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             adultEntityCodesByType: {
                 "*-female-*": [ "game:wolf-eurasian-adult-female" ],
                 "*-male-*": [ "game:wolf-eurasian-adult-male" ],
@@ -45,14 +45,14 @@
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/wolf-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -117,14 +117,14 @@
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "*-female": true, "*": false } },
+        value: { code: "reproduce", enabledByType: { "*-female": true, "*": false } },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
         path: "/server/behaviors/8/code",
-        value: "genelib.reproduce",
+        value: "reproduce",
         side: "server"
     },
     {
@@ -224,7 +224,7 @@
     {
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 2.5,
             fiber: 0.02,
@@ -245,7 +245,7 @@
     {
         file: "game:entities/animal/mammal/wolf-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 2.5,
             fiber: 0.02,
@@ -268,7 +268,7 @@
         op: "replace",
         path: "/server/behaviors/11/aitasks/12",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:wolf-eurasian-adult-female",
             eatSound: "creature/animal-eat1",
             priority: 1.38,
@@ -284,7 +284,7 @@
         op: "replace",
         path: "/server/behaviors/10/aitasks/5",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:wolf-eurasian-adult-female",
             eatSound: "creature/animal-eat-small",
             priority: 1.38,

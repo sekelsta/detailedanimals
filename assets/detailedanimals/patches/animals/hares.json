@@ -18,7 +18,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 6.0,
             startAgeMonths: 6.0,
             initialWeight: 0.7,
@@ -31,7 +31,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             adultEntityCodesByType: {
                 "*-female-baby": ["game:hare-european-adult-female"],
                 "*-male-baby": ["game:hare-european-adult-male"],
@@ -46,14 +46,14 @@
         file: "game:entities/animal/mammal/hare-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hare-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -114,7 +114,7 @@
         file: "game:entities/animal/mammal/hare-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
+        value: { code: "reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -122,7 +122,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.38,
             sireCodes: ["game:hare-*-adult-male"],
@@ -202,7 +202,7 @@
     {
         file: "game:entities/animal/mammal/hare-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 1.25,
             fiber: 0.5,
@@ -226,7 +226,7 @@
     {
         file: "game:entities/animal/mammal/hare-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 1.25,
             fiber: 0.5,
@@ -251,7 +251,7 @@
         file: "game:entities/animal/mammal/hare-adult.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/5/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {
@@ -288,7 +288,7 @@
         op: "replace",
         path: "/server/behaviors/9/aitasks/4",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: ["game:hare-arctic-adult-female", "game:hare-cape-adult-female", "game:hare-european-adult-female", "game:hare-indian-adult-female", "game:hare-jackblack-adult-female", "game:hare-scrub-adult-female"],
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,

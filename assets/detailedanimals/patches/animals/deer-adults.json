@@ -74,7 +74,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 24.0,
             startAgeMonths: 12.0,
             initialWeight: 0.7,
@@ -85,7 +85,7 @@
         file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
 
@@ -237,7 +237,7 @@
         file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "*-adult-female": true, "*": false } },
+        value: { code: "reproduce", enabledByType: { "*-adult-female": true, "*": false } },
         side: "server"
     },
     {
@@ -245,7 +245,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: { "*-adult-female": true, "*": false },
             mateTaskPriority: 1.37,
             sireCodesByType: {
@@ -324,7 +324,7 @@
     {
         file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: {
             monthsUntilWeaned: 4,
             fiber: 0.5,
@@ -350,7 +350,7 @@
         file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/12/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {

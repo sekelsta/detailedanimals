@@ -60,7 +60,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: { 
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 12.0,
             adultEntityCodesByType: {
                 "*-male-*": ["game:sheep-bighorn-adult-male"],
@@ -76,7 +76,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: { 
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 48.0,
             startAgeMonths: 12.0,
             initialWeight: 0.7,
@@ -87,14 +87,14 @@
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -124,7 +124,7 @@
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
+        value: { code: "reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -132,7 +132,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["sheep-bighorn-adult-male"],
@@ -212,7 +212,7 @@
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 6.0,
             fiber: 0.52,
@@ -234,7 +234,7 @@
     {
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 6.0,
             fiber: 0.52,
@@ -257,7 +257,7 @@
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/7/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {
@@ -292,7 +292,7 @@
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/5/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {

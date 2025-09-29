@@ -11,7 +11,7 @@ using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
     public class BehaviorAge : EntityBehavior {
-        public const string Code = "genelib.age";
+        public const string Code = "agegradually";
         private const float secondsPerUpdate = 24;
 
         private long? callbackID;
@@ -85,7 +85,7 @@ namespace DetailedAnimals {
             else if (AdultEntityCode != null) {
                 EntityProperties adultType = entity.World.GetEntityType(AdultEntityCode);
                 if (adultType == null) {
-                    entity.World.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via genelib.age behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, AdultEntityCode);
+                    entity.World.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via agegradually behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, AdultEntityCode);
                 }
                 else if (adultType.Attributes?.KeyExists("initialWeight") == true) {
                     FinalWeight = adultType.Attributes["initialWeight"].AsFloat();
@@ -213,7 +213,7 @@ namespace DetailedAnimals {
 
             EntityProperties adultType = entity.World.GetEntityType(code);
             if (adultType == null) {
-                entity.World.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via genelib.age behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, code);
+                entity.World.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via agegradually behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, code);
                 return;
             }
 

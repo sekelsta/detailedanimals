@@ -49,7 +49,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             adultEntityCodesByType: {
                 "fox-female-pup-*": [ "game:fox-{type}-adult-female" ],
                 "fox-male-pup-*": [ "game:fox-{type}-adult-male" ],
@@ -65,7 +65,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 6.0,
             startAgeMonths: 6.0,
             initialWeight: 0.7,
@@ -76,14 +76,14 @@
         file: "game:entities/animal/mammal/fox-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -182,14 +182,14 @@
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
+        value: { code: "reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "replace",
         path: "/server/behaviors/9/code",
-        value: "genelib.reproduce",
+        value: "reproduce",
         side: "server"
     },
     {
@@ -264,7 +264,7 @@
     {
         file: "game:entities/animal/mammal/fox-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 4,
             fiber: 0.1,
@@ -285,7 +285,7 @@
     {
         file: "game:entities/animal/mammal/fox-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 4,
             fiber: 0.1,
@@ -308,7 +308,7 @@
         op: "add",
         path: "/server/behaviors/12/aitasks/-",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:fox-{type}-adult-female",
             priority: 1.35,
             movespeed: 0.008,
@@ -325,7 +325,7 @@
         op: "add",
         path: "/server/behaviors/11/aitasks/-",
         value: {
-            code: "genelib.forage",
+            code: "forage",
             nurseFromEntities: "game:fox-{type}-adult-female",
             priority: 1.35,
             movespeed: 0.008,

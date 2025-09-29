@@ -57,7 +57,7 @@
         op: "replace",
         path: "/server/behaviors/7",
         value: { 
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 2.0,
             adultEntityCodesByType: {
                 "*-male-*": ["game:chicken-roosterpoult"],
@@ -73,7 +73,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: { 
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 2.7,
             startAgeMonthsByType: {
                 "poult": 2.0,
@@ -98,14 +98,14 @@
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
         file: "game:entities/animal/bird/chicken-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -196,7 +196,7 @@
     {
         file: "game:entities/animal/bird/chicken-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             fiber: 0.1,
             fiberMax: 0.5,
@@ -218,7 +218,7 @@
     {
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             fiber: 0.1,
             fiberMax: 0.5,
@@ -241,7 +241,7 @@
         file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/8/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {
@@ -269,7 +269,7 @@
         file: "game:entities/animal/bird/chicken-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/2/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {
@@ -326,7 +326,7 @@
         file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "genelib.eggreproduce", enabledByType: { "chicken-hen": true, "*": false } },
+        value: { code: "eggreproduce", enabledByType: { "chicken-hen": true, "*": false } },
         side: "server"
     },
     {
@@ -334,7 +334,7 @@
         op: "replace",
         path: "/server/behaviors/7",
         value: {
-            code: "genelib.eggreproduce",
+            code: "eggreproduce",
             enabledByType: { "chicken-hen": true, "*": false },
             mateTaskPriority: 1.29,
             sireCodes: [ "game:chicken-rooster" ],
@@ -353,7 +353,7 @@
             hoursPerEgg: { avg: 25, var: 2, dist: "narrowgaussian" },
             incubationMonths: 0.7,
             layeggtask: {
-                code: "genelib.layegg",
+                code: "layegg",
                 priority: 1.37,
                 layTime: 5,
                 movespeed: 0.006,
@@ -371,7 +371,7 @@
         op: "replace",
         path: "/server/behaviors/11/aitasks/7",
         value: {
-            code: "genelib.sitonnest",
+            code: "sitonnest",
             enabledByType: { "chicken-hen": true, "*": false },
             priority: 1.36,
             layTime: 5,

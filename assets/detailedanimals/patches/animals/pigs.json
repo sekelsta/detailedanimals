@@ -61,7 +61,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: { 
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 9.0,
             adultEntityCodesByType: {
                 "*-male-*": ["game:pig-eurasian-adult-male"],
@@ -77,7 +77,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: { 
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 51.0,
             startAgeMonths: 9.0,
             initialWeight: 0.36,
@@ -89,14 +89,14 @@
         file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -133,7 +133,7 @@
         file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/client/behaviors/4",
-        value: { code: "genelib.reproduce", enabledByType: { "*-male": false }, },
+        value: { code: "reproduce", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -141,7 +141,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-            code: "genelib.reproduce",
+            code: "reproduce",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["pig-{type}-adult-male"],
@@ -194,7 +194,7 @@
     {
         file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 2.5,
             fiber: 0.18,
@@ -215,7 +215,7 @@
     {
         file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 2.5,
             fiber: 0.18,
@@ -266,7 +266,7 @@
         op: "replace",
         path: "/server/behaviors/10/aitasks/7",
         value: {
-                code: "genelib.forage",
+                code: "forage",
                 movespeed: 0.004,
                 priority: 1.38,
                 animationSpeed: 2,
@@ -285,7 +285,7 @@
         file: "game:entities/animal/mammal/hooved/pig-baby.json",
         op: "replace",
         path: "/server/behaviors/10/aitasks/2/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {

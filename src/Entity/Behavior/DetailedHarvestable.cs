@@ -15,7 +15,7 @@ using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
     public class DetailedHarvestable : EntityBehaviorHarvestable {
-        public const string Code = "genelib.harvestable";
+        public const string Code = "detailedharvestable";
 
         // Maximum values of each condition
         public const double SKIN_AND_BONES = 1 - 0.3;
@@ -41,7 +41,7 @@ namespace DetailedAnimals {
             if (entity.World.Side == EnumAppSide.Server) {
                 creatureDrops = typeAttributes["drops"].AsObject<CreatureDropItemStack[]>();
                 if (creatureDrops == null) {
-                    entity.Api.Logger.Warning("genelib.detailedharvestable on " + entity.Code + " initialized with null or invalid creature drop list: " + typeAttributes["drops"]);
+                    entity.Api.Logger.Warning("detailedharvestable on " + entity.Code + " initialized with null or invalid creature drop list: " + typeAttributes["drops"]);
                     creatureDrops = new CreatureDropItemStack[0];
                 }
             }
@@ -70,7 +70,7 @@ namespace DetailedAnimals {
             // Used by Butchering mod, also used by us now
             jsonDrops = new BlockDropItemStack[creatureDrops.Length];
             for (int i = 0; i < creatureDrops.Length; ++i) {
-                creatureDrops[i].Resolve(entity.World, "genelib.Harvestable ", entity.Code);
+                creatureDrops[i].Resolve(entity.World, "DetailedHarvestable ", entity.Code);
                 jsonDrops[i] = creatureDrops[i].WithAnimalWeight(AnimalWeight, healthyWeight);
                 // Required for Butchering mod compat, otherwise JsonConvert.SerializeObject() throws an exception
                 jsonDrops[i].ResolvedItemstack = null;
@@ -98,7 +98,7 @@ namespace DetailedAnimals {
                 if (drop.Tool != null && (byPlayer == null || byPlayer.InventoryManager.ActiveTool != drop.Tool)) {
                     continue;
                 }
-                drop.Resolve(entity.World, "genelib.Harvestable ", entity.Code);
+                drop.Resolve(entity.World, "DetailedHarvestable ", entity.Code);
 
                 float multiplier = dropQuantityMultiplier * this.dropQuantityMultiplier;
                 if (drop.DropModbyStat != null) {

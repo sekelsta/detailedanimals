@@ -60,7 +60,7 @@
         file: "game:entities/animal/mammal/hooved/goat-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
     {
@@ -68,7 +68,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             adultEntityCodesByType: {
                 "*-male": ["goat-{type}-adult-male"],
                 "*-female": ["goat-{type}-adult-female"]
@@ -229,7 +229,7 @@
     {
         file: "game:entities/animal/mammal/hooved/goat-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: { 
             monthsUntilWeaned: 3.5,
             fiber: 0.5,
@@ -277,7 +277,7 @@
         file: "game:entities/animal/mammal/hooved/goat-baby.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/10/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {

@@ -4,7 +4,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "genelib.age",
+            code: "agegradually",
             monthsToGrow: 12.0,
             initialWeightByType: {
                 "*-elk-*": 0.05,
@@ -20,7 +20,7 @@
         file: "game:entities/animal/mammal/hooved/deer-baby.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "genelib.age" },
+        value: { code: "agegradually" },
         side: "server"
     },
 
@@ -209,7 +209,7 @@
     {
         file: "game:entities/animal/mammal/hooved/deer-baby.json",
         op: "addmerge",
-        path: "/behaviorConfigs/genelib.hunger",
+        path: "/behaviorConfigs/animalhunger",
         value: {
             monthsUntilWeaned: 4,
             fiber: 0.5,
@@ -235,7 +235,7 @@
         file: "game:entities/animal/mammal/hooved/deer-baby.json",
         op: "replace",
         path: "/server/behaviors/11/aitasks/11/code",
-        value: "genelib.forage",
+        value: "forage",
         side: "server"
     },
     {
