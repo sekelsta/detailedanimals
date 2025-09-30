@@ -123,15 +123,9 @@
     {
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
-        path: "/server/behaviors/8/code",
-        value: "reproduce",
-        side: "server"
-    },
-    {
-        file: "game:entities/animal/mammal/wolf-adult.json",
-        op: "addmerge",
         path: "/server/behaviors/8",
         value: {
+            code: "reproduce",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             pregnancyMonths: 2.05,
@@ -266,7 +260,7 @@
     {
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
-        path: "/server/behaviors/11/aitasks/12",
+        path: "/server/behaviors/10/aitasks/12",
         value: {
             code: "forage",
             nurseFromEntities: "game:wolf-eurasian-adult-female",
