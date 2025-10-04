@@ -354,6 +354,7 @@
             incubationMonths: 0.7,
             layeggtask: {
                 code: "layegg",
+                nestTypes: [ "ground" ],
                 priority: 1.37,
                 layTime: 5,
                 movespeed: 0.006,
@@ -373,6 +374,7 @@
         value: {
             code: "sitonnest",
             enabledByType: { "chicken-hen": true, "*": false },
+            nestTypes: [ "ground" ],
             priority: 1.36,
             layTime: 5,
             sitDays: 0.45,

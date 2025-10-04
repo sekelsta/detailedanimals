@@ -60,7 +60,7 @@ namespace DetailedAnimals {
             }
             BlockEntityHenBox henbox = poi as BlockEntityHenBox;
             if (henbox != null) {
-                return henbox.Block.LastCodePart() == "3eggs";
+                return henbox.CountEggs() == (henbox.Block.Attributes?["quantitySlots"]?.AsInt(1) ?? 1);
             }
             return false;
         }
