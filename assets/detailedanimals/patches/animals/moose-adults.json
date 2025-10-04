@@ -97,18 +97,11 @@
         side: "server"
     },
 
-
     {
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: {
-            code: "reproduce",
-            enabledByType: {
-                "*-female-adult": true,
-                "*": false,
-            },
-        },
+        value: { code: "genelib.multiply", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -116,26 +109,20 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "reproduce",
-            enabledByType: {
-                "*-female-adult": true,
-                "*": false,
-            },
+            code: "genelib.multiply",
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
-            sireCodes: ["game:deer-moose-male-adult"],
+            sireCodes: ["game:deer-moose-adult-male"],
             spawnEntityCodes: [{"code": "game:deer-moose-male-baby"}, {"code": "game:deer-moose-female-baby"}],
             spawnQuantityMin: 1,
             spawnQuantityMax: 3,
             litterAddChance: 0.1,
-            pregnancyMonths: 7.56,
-            multiplyCooldownMonthsMin: 8.8,
-            multiplyCooldownMonthsMax: 9.2,
-            lactationMonths: 6.0,
+            pregnancyDays: 45,
+            multiplyCooldownDaysMin: 53,
+            multiplyCooldownDaysMax: 55,
             estrousCycleMonths: 0.8,
             daysInHeat: 2.0,
-            breedingPeakMonth: 9.0,
-            breedingMonthsBefore: 0.5,
-            breedingMonthsAfter: 0.5,
+            lactationDays: 36,
         },
         side: "server"
     },
@@ -202,7 +189,7 @@
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/server/behaviors/10/aitasks/6/nurseFromEntities",
-        value: ["game:deer-{type}-female-adult"],
+        value: ["game:deer-{type}-adult-female"],
         side: "server"
     },
     {

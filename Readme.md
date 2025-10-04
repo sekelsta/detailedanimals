@@ -9,11 +9,9 @@ To add this mod's features to more animals, have them use these entity behaviors
 
 "agegradually" replacing "grow": Makes animals grow in size gradually with age. Main effects are serverside, and that is where you'll need to put info about how long it takes to grow up and such. Also add to the clientside to make animals visibly change size with growth, but there you don't need any data beyond the behavior code.
 
-"reproduce" replacing "multiply": This does all the same things that `genelib.multiply` does, plus it also works with the nutrition system. Again the main affects are serverside, that's where the data goes, and clientside you just need it to show the player the info text. (Note to self: In the future, this could be automatically added by code in place of genelib.multiply for any entity that has animalhunger.)
-
 If your entity lays eggs, add the AI task "layegg" which will make its eggs carry genetic information (provided they are laid into a genelib:nestbox). Also add a list of layable egg types to the entity's attributes (a list with only one item is fine), or it will default to chicken eggs. Make sure the egg perish time is longer than the incubation length or the eggs will rot before chicks can hatch.
 
-"animalhunger": Causes the animal to keep track of nutrition and get hungry over time. You *must* include this in the behaviorConfigs. You then may leave it out of the regular client and server behavior lists, as custom loading code will add it in for you. Under the hood, this also triggers a replacement of "harvestable" with "detailedharvestable".
+"animalhunger": Causes the animal to keep track of nutrition and get hungry over time. You *must* include this in the behaviorConfigs. You then may leave it out of the regular client and server behavior lists, as custom loading code will add it in for you. Under the hood, this also triggers a replacement of "harvestable" with "detailedharvestable" as well as "multiply" or "genelib.multiply" with "reproduce".
 
 AI task "forage", which ensures foods eaten are processed by the nutrition system
 

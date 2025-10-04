@@ -141,7 +141,7 @@
         file: "game:entities/animal/mammal/hooved/moose-baby.json",
         op: "add",
         path: "/server/behaviors/11/aitasks/5/nurseFromEntities",
-        value: ["game:deer-{type}-female-adult"],
+        value: ["game:deer-{type}-adult-female"],
         side: "server"
     },
     {

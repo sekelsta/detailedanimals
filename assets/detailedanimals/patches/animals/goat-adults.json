@@ -186,17 +186,10 @@
     {
         file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
-        path: "/client/behaviors/5",
-        value: { code: "reproduce", enabledByType: { "*-female": true, "*": false } },
-        side: "server"
-    },
-    {
-        file: "game:entities/animal/mammal/hooved/goat-adult.json",
-        op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "reproduce",
-            enabledByType: { "*-female": true, "*": false },
+            code: "genelib.multiply",
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["game:goat-{type}-adult-male"],
             spawnEntityCodes: [{"code": "game:goat-{type}-baby-male"}, {"code": "game:goat-{type}-baby-female"}],
@@ -207,23 +200,20 @@
                 "goat-takingold-*": 0.001,
                 "*": 0.01
             },
-            pregnancyMonthsByType: {
-                "goat-ibexalp-*": 5.45,
-                "goat-takingold-*": 7,
-                "goat-mountain-*": 5.85,
-                "goat-muskox-*": 8.5,
-                "goat-ibexnub-*": 5.25,
-                "goat-turdag-*": 5.15,
-                "*": 5,
+            pregnancyDaysByType: {
+                "goat-ibexalp-*": 33,
+                "goat-takingold-*": 42,
+                "goat-mountain-*": 35,
+                "goat-muskox-*": 51,
+                "goat-ibexnub-*": 32,
+                "goat-turdag-*": 31,
+                "*": 30,
             },
-            multiplyCooldownMonthsMin: 8.8,
-            multiplyCooldownMonthsMax: 9.2,
-            lactationMonths: 5,
+            multiplyCooldownDaysMin: 53,
+            multiplyCooldownDaysMax: 55,
             estrousCycleMonths: 0.7,
             daysInHeat: 3.0,
-            breedingPeakMonth: 9.5,
-            breedingMonthsBefore: 2.0,
-            breedingMonthsAfter: 2.0,
+            lactationDays: 30,
         },
         side: "server"
     },
@@ -320,7 +310,7 @@
         file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "add",
         path: "/server/behaviors/12/aitasks/12/nurseFromEntities",
-        value: ["game:goat-{type}-female-adult"],
+        value: ["game:goat-{type}-adult-female"],
         side: "server"
     },
     {

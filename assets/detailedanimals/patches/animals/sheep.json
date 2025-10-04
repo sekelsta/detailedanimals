@@ -123,16 +123,9 @@
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/client/behaviors/4",
-        value: { code: "reproduce", enabledByType: { "*-male": false }, },
-        side: "server"
-    },
-    {
-        file: "game:entities/animal/mammal/hooved/sheep-adult.json",
-        op: "replace",
         path: "/server/behaviors/8",
         value: {
-            code: "reproduce",
+            code: "genelib.multiply",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["sheep-bighorn-adult-male"],
@@ -140,15 +133,12 @@
             spawnQuantityMin: 1,
             spawnQuantityMax: 3,
             litterAddChance: 0.01,
-            pregnancyMonths: 5.9,
-            multiplyCooldownMonthsMin: 3.9,
-            multiplyCooldownMonthsMax: 4.1,
-            lactationMonths: 6.0,
+            pregnancyDays: 35,
+            multiplyCooldownDaysMin: 23,
+            multiplyCooldownDaysMax: 25,
             estrousCycleMonths: 0.93,
             daysInHeat: 2.0,
-            breedingPeakMonth: 10.5,
-            breedingMonthsBefore: 1.0,
-            breedingMonthsAfter: 1.0,
+            lactationDays: 36,
         },
         side: "server"
     },

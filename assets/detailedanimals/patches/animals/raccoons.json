@@ -120,12 +120,11 @@
     },
 
 
-
     {
         file: "game:entities/animal/mammal/raccoon-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "reproduce", enabledByType: { "*-male": false }, },
+        value: { code: "genelib.multiply", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -133,22 +132,19 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "reproduce",
+            code: "genelib.multiply",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["game:raccoon-male"],
             spawnEntityCodes: [{"code": "game:raccoon-common-baby-male"}, {"code": "game:raccoon-common-baby-female"}],
             litterAddChance: 0.4,
             litterAddAttempts: 6,
-            pregnancyMonths: 2.2,
-            multiplyCooldownMonthsMin: 3.2,
-            multiplyCooldownMonthsMax: 3.6,
-            lactationMonths: 3.2,
+            pregnancyDays: 13,
+            multiplyCooldownDaysMin: 19,
+            multiplyCooldownDaysMax: 21,
             estrousCycleMonths: 0.9,
             daysInHeat: 4.0,
-            breedingPeakMonth: 2.0,
-            breedingMonthsBefore: 1.5,
-            breedingMonthsAfter: 3.5,
+            lactationDays: 19,
         },
         side: "server"
     },
