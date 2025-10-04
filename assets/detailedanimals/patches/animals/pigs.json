@@ -15,7 +15,7 @@
                 type: "item", 
                 code: "game:redmeat-raw", 
                 category: "meat",
-                quantity: { avg: 20, var: 0 } 
+                quantity: { avg: 14, var: 0 } 
             },
             {
                 type: "item", 
@@ -27,7 +27,7 @@
                 type: "item", 
                 code: "game:fat", 
                 category: "fat",
-                quantity: { avg: 7, var: 0 } 
+                quantity: { avg: 5, var: 0 } 
             }
         ],
         side: "server"
@@ -36,7 +36,7 @@
         file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
-        value: { avg: 20, var: 0 },
+        value: { avg: 14, var: 0 },
         side: "server"
     },
     {
@@ -50,7 +50,7 @@
         file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantity",
-        value: { avg: 7, var: 0 },
+        value: { avg: 5.6, var: 0 },
         side: "server"
     },
 

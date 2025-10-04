@@ -51,11 +51,11 @@
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantityByType",
         value: {
-            "bear-black-*": { avg: 24, var: 1 },
-            "bear-brown-*": { avg: 59, var: 3 },
-            "bear-sun-*": { avg: 11, var: 0.5 },
-            "bear-panda-*": { avg: 27, var: 1 },
-            "bear-polar-*": { avg: 97, var: 5 },
+            "bear-black-*": { avg: 18, var: 1 },
+            "bear-brown-*": { avg: 44, var: 3 },
+            "bear-sun-*": { avg: 8.3, var: 0.5 },
+            "bear-panda-*": { avg: 20, var: 1 },
+            "bear-polar-*": { avg: 73, var: 5 },
         },
         side: "server"
     },
@@ -64,11 +64,11 @@
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantityByType",
         value: {
-            "bear-black-*": { avg: 6, var: 0.1 },
-            "bear-brown-*": { avg: 15, var: 0.2 },
-            "bear-sun-*": { avg: 2.8, var: 0.1 },
-            "bear-panda-*": { avg: 7, var: 0.1 },
-            "bear-polar-*": { avg: 24, var: 0.3 },
+            "bear-black-*": { avg: 5.3, var: 0.1 },
+            "bear-brown-*": { avg: 13, var: 0.2 },
+            "bear-sun-*": { avg: 2.5, var: 0.1 },
+            "bear-panda-*": { avg: 6, var: 0.1 },
+            "bear-polar-*": { avg: 22, var: 0.3 },
         },
         side: "server"
     },

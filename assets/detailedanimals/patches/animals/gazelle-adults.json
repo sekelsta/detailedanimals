@@ -38,14 +38,14 @@
         file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
-        value: { avg: 5.9, var: 1 },
+        value: { avg: 4.4, var: 1 },
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/1/quantity",
-        value: { avg: 1, var: 0},
+        value: { avg: 0.7, var: 0},
         side: "server"
     },
     {

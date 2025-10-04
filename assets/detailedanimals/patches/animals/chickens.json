@@ -32,7 +32,7 @@
             code: "game:poultry-raw", 
             category: "meat",
             quantity: {
-                "*":{ avg: 0.7, var: 0 } 
+                "*":{ avg: 0.9, var: 0 } 
             }
         },
         side: "server"
@@ -41,7 +41,7 @@
         file: "game:entities/animal/bird/chicken-adult.json",
         op: "replace",
         path: "/server/behaviors/5/drops/0/quantityByType",
-        value: { "*": { avg: 0.7, var: 0 } },
+        value: { "*": { avg: 0.9, var: 0 } },
         side: "server"
     },
     {

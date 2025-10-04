@@ -82,7 +82,7 @@
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantity/avg",
-        value: 111,
+        value: 83,
         side: "server"
     },
     {
@@ -101,7 +101,7 @@
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/2/quantity/avg",
-        value: 18,
+        value: 14,
         side: "server"
     },
 

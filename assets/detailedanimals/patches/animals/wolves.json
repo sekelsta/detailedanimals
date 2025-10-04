@@ -68,7 +68,7 @@
         file: "game:entities/animal/mammal/wolf-baby.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
-        value: { avg: 9.6, var: 0 },
+        value: { avg: 7.2, var: 0 },
         side: "server"
     },
     {
@@ -86,7 +86,7 @@
             type: "item", 
             code: "game:fat", 
             category: "fat",
-            quantity: { avg: 1.6, var: 0 } 
+            quantity: { avg: 1.2, var: 0 } 
         },
         side: "server"
     },
@@ -94,7 +94,7 @@
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/0/quantity",
-        value: { avg: 9.6, var: 0 },
+        value: { avg: 7.2, var: 0 },
         side: "server"
     },
     {
@@ -108,7 +108,7 @@
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "replace",
         path: "/server/behaviors/6/drops/2/quantity",
-        value: { avg: 1.6, var: 0 },
+        value: { avg: 1.2, var: 0 },
         side: "server"
     },
 

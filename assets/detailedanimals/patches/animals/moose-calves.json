@@ -52,7 +52,7 @@
         file: "game:entities/animal/mammal/hooved/moose-baby.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
-        value: { avg: 111, var: 0 },
+        value: { avg: 83, var: 0 },
         side: "server"
     },
     {
@@ -74,7 +74,7 @@
         value: {
 			type: "item",
 			code: "fat",
-			quantity: { avg: 18, var: 0 }
+			quantity: { avg: 14, var: 0 }
 		},
         side: "server"
     },

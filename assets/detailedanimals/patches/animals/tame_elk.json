@@ -52,7 +52,7 @@
         file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
         path: "/behaviorConfigs/harvestable/drops/0/quantityByType/*-adult",
-        value: { avg: 71, var: 0 },
+        value: { avg: 53, var: 0 },
         side: "server"
     },
     {
@@ -71,7 +71,7 @@
         file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "replace",
         path: "/behaviorConfigs/harvestable/drops/3/quantityByType/*-adult",
-        value: { avg: 18, var: 0 },
+        value: { avg: 9, var: 0 },
         side: "server"
     },
     {

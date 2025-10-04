@@ -76,7 +76,7 @@
         file: "game:entities/animal/mammal/hyena-baby.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
-        value: { avg: 15, var: 0 },
+        value: { avg: 11, var: 0 },
         side: "server"
     },
     {
@@ -94,7 +94,7 @@
             type: "item", 
             category: "fat",
             code: "game:fat", 
-            quantity: { avg: 2.5, var: 0 } 
+            quantity: { avg: 1.9, var: 0 } 
         },
         side: "server"
     },
@@ -102,7 +102,7 @@
         file: "game:entities/animal/mammal/hyena-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantity",
-        value: { avg: 15, var: 0 },
+        value: { avg: 11, var: 0 },
         side: "server"
     },
     {
@@ -116,7 +116,7 @@
         file: "game:entities/animal/mammal/hyena-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/2/quantity",
-        value: { avg: 2.5, var: 0 },
+        value: { avg: 1.9, var: 0 },
         side: "server"
     },
 
