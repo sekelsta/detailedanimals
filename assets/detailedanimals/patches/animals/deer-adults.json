@@ -289,12 +289,13 @@
             breedingPeakMonth: 9.0,
             breedingMonthsBefore: 0.5,
             breedingMonthsAfter: 0.5,
+            spawnQuantityMin: 1,
+            spawnQuantityMax: 3,
             litterAddChanceByType: {
                 "deer-caribou-*": 0.004,
                 "deer-elk-*": 0.004,
                 "*": 0.02
             },
-            litterAddAttempts: 2,
         },
         side: "server"
     },

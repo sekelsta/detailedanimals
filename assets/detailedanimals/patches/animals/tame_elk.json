@@ -127,8 +127,9 @@
             breedingPeakMonth: 9.0,
             breedingMonthsBefore: 0.5,
             breedingMonthsAfter: 0.5,
+            spawnQuantityMin: 1,
+            spawnQuantityMax: 3,
             litterAddChance: 0.004,
-            litterAddAttempts: 2,
         },
         side: "server"
     },

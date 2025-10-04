@@ -200,12 +200,13 @@
             mateTaskPriority: 1.37,
             sireCodes: ["game:goat-{type}-adult-male"],
             spawnEntityCodes: [{"code": "game:goat-{type}-baby-male"}, {"code": "game:goat-{type}-baby-female"}],
+            spawnQuantityMin: 1,
+            spawnQuantityMax: 3,
             litterAddChanceByType: {
                 "goat-muskox-*": 0.001,
                 "goat-takingold-*": 0.001,
                 "*": 0.01
             },
-            litterAddAttempts: 2,
             pregnancyMonthsByType: {
                 "goat-ibexalp-*": 5.45,
                 "goat-takingold-*": 7,
