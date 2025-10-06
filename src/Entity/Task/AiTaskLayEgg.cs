@@ -69,6 +69,10 @@ namespace DetailedAnimals {
             if (geneticNest != null) {
                 return !geneticNest.Full();
             }
+            BlockEntityHenBox henbox = poi as BlockEntityHenBox;
+            if (henbox != null) {
+                return henbox.CountEggs() < (henbox.Block.Attributes?["quantitySlots"]?.AsInt(1) ?? 1);
+            }
             return true;
         }
 
@@ -115,7 +119,11 @@ namespace DetailedAnimals {
         protected override void TickTargetReached() {
             BlockEntityHenBox henbox = target as BlockEntityHenBox;
             GeneticNest nest = target as GeneticNest;
-            if (nest != null && nest.Full() || henbox != null && henbox.CountEggs() == 3) {
+            if (nest != null && nest.Full()) {
+                laid = true;
+                return;
+            }
+            else if (henbox != null && henbox.CountEggs() == (henbox.Block.Attributes?["quantitySlots"]?.AsInt(1) ?? 1)) {
                 laid = true;
                 return;
             }

@@ -376,7 +376,6 @@
             enabledByType: { "chicken-hen": true, "*": false },
             nestTypes: [ "ground" ],
             priority: 1.36,
-            layTime: 5,
             sitDays: 0.45,
             movespeed: 0.006,
             animation: "Walk",
