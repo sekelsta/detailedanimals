@@ -1,5 +1,6 @@
 {
     code: "egg",
+    class: "ItemGeneticEgg",
     variantgroups: [
 		{ code: "source", states: ["chicken" ] },
         { code: "size", states: [ "peewee", "small", "medium", "large", "jumbo" ] },
