@@ -3,8 +3,8 @@
 		"allAngles": false,
 		"entityTextureMode": true
 	},
-	"textureWidth": 8,
-	"textureHeight": 8,
+	"textureWidth": 16,
+	"textureHeight": 16,
 	"textureSizes": {
 	},
 	"textures": {

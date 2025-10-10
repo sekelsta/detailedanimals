@@ -1,36 +1,21 @@
 {
     code: "egg-ceramic",
     variantgroups: [
-        { code: "type", states: [ "raw", "fired" ] },
-        { code: "color", states: [ "blue", "fire", "red" ] },
+        { code: "type", states: [ "fired" ] },
+        { code: "color", states: [ "blue", "fire", "black", "brown", "cream", "gray", "orange", "red", "tan" ] },
     ],
     behaviors: [
         { name: "GroundStorable", properties: { layout: 'Quadrants', collisionBox: { x1: 0, y1: 0, z1: 0, x2: 1, y2: 0.125, z2: 1 } } }
     ],
     shape: { base: "item/egg" },
-    textureByType: {
-        "*-raw-*": { base: "item/egg/greenware-{color}" },
-        "*-fired-*": { base: "item/egg/ceramic-{color}" },
-    },
+    texture: { base: "game:block/clay/hardened/{color}" },
     creativeinventory: { "general": ["*"], "items": ["*"] },
     attributes: {
         displaycaseable: true,
         shelvable: true,
         bookshelveable: true,
-        nestitemByType: {
-            "*-fired-*": true,
-        },
+        nestitem: true,
         eggShelfCheck: true,
-    },
-    combustiblePropsByType: {
-        "*-raw-*": {
-            meltingPoint: 600,
-            meltingDuration: 45,
-            smeltedRatio: 1,
-            smeltingType: "fire",
-            smeltedStack: { type: "item", code: "egg-ceramic-fired-{color}" },
-            requiresContainer: false
-        }
     },
     maxstacksize: 128,
     materialDensity: 200,
