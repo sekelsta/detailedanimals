@@ -7,6 +7,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
+using DetailedAnimals.Extensions;
 using Genelib.Extensions;
 
 namespace DetailedAnimals {
@@ -62,7 +63,10 @@ namespace DetailedAnimals {
             currentEatAnimation = eatAnimation;
 
             double foodLevel = hungerBehavior.Saturation / hungerBehavior.AdjustedMaxSaturation;
-            if (foodLevel < AnimalHunger.SOMEWHAT_HUNGRY) {
+            double bodyCondition = entity.BodyCondition();
+            bool isHungry = foodLevel < AnimalHunger.PECKISH
+                || (bodyCondition < DetailedHarvestable.UNDERWEIGHT && foodLevel < AnimalHunger.NOT_HUNGRY);
+            if (isHungry) {
                 if (hungerBehavior.WantsMilk()) {
                     SeekMilk();
                     if (target != null) {
@@ -87,7 +91,7 @@ namespace DetailedAnimals {
                     return true;
                 }
             }
-            if (foodLevel < AnimalHunger.SOMEWHAT_HUNGRY) {
+            if (isHungry) {
                 if (hungerBehavior.StartedWeaning()) {
                     SeekFood();
                     if (target != null) {

@@ -192,7 +192,7 @@ namespace DetailedAnimals {
                 double d = animalHunger.WeightShiftAmount();
                 if (d > 0.01) {
                     if (entity.BodyCondition() > 1.06) {
-                        text += " <font color=\"#ee6933\">↑</font>";
+                        text += " <font color=\"#cc2211\">↑</font>";
                     }
                     else if (entity.BodyCondition() <= UNDERWEIGHT) {
                         text += " <font color=\"#65f68e\">↑</font>";
@@ -203,7 +203,7 @@ namespace DetailedAnimals {
                 }
                 else if (d < -0.01) {
                     if (entity.BodyCondition() < 0.94) {
-                        text += " <font color=\"#ee6933\">↓</font>";
+                        text += " <font color=\"#cc2211\">↓</font>";
                     }
                     else if (entity.BodyCondition() >= THICK) {
                         text += " <font color=\"#65f68e\">↓</font>";

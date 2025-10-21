@@ -53,11 +53,9 @@ namespace DetailedAnimals {
 
         // Maximum values of each condition
         public const float STARVING = -0.9f;
-        public const float FAMISHED = -0.7f;
-        public const float VERY_HUNGRY = -0.4f;
-        public const float HUNGRY = -0.1f;
-        public const float SOMEWHAT_HUNGRY = 0.1f;
-        public const float PECKISH = 0.3f;
+        public const float FAMISHED = -0.5f;
+        public const float HUNGRY = -0.2f;
+        public const float PECKISH = 0.2f;
         public const float NOT_HUNGRY = 0.5f;
         public const float FULL = 0.8f;
         // No max for STUFFED
@@ -264,7 +262,7 @@ namespace DetailedAnimals {
             string worstName = null;
             foreach (Nutrient nutrient in Nutrients) {
                 double gain = nutrient.ValueIfAdded(satiety * data.Values[nutrient.Name]) - nutrient.Value;
-                if (gain > 0 || Fullness > SOMEWHAT_HUNGRY || data.Values[nutrient.Name] > nutrient.Usage ) {
+                if (gain > 0 || Fullness > PECKISH || data.Values[nutrient.Name] > nutrient.Usage ) {
                     sum += gain;
                     if (gain < worst) {
                         worst = gain;
@@ -273,7 +271,7 @@ namespace DetailedAnimals {
                 }
             }
             if (sum < 0 && 2 * sum < Fullness) {
-                return worstName;
+                return Fullness < PECKISH ? worstName : "food";
             }
             return null;
         }
@@ -356,7 +354,7 @@ namespace DetailedAnimals {
             double fullness = Fullness;
             return fullness < STARVING
                 || (entity.BodyCondition() < 0.7 && fullness < HUNGRY) 
-                || (entity.BodyCondition() < 0.85 && fullness < VERY_HUNGRY);
+                || (entity.BodyCondition() < 0.85 && fullness < FAMISHED);
         }
 
         public bool CanDigestMilk() {
@@ -711,7 +709,7 @@ namespace DetailedAnimals {
             if (hungerTree == null) {
                 return;
             }
-            double[] hungerBoundaries = new double[] { FULL, NOT_HUNGRY, PECKISH, SOMEWHAT_HUNGRY, HUNGRY, VERY_HUNGRY, FAMISHED, STARVING };
+            double[] hungerBoundaries = new double[] { FULL, NOT_HUNGRY, PECKISH, HUNGRY, FAMISHED, STARVING };
             int hungerScore = 0;
             double fullness = Fullness;
             foreach (double b in hungerBoundaries) {
@@ -725,7 +723,12 @@ namespace DetailedAnimals {
 
             string suffix = entity.IsMale() ? "-male" : "-female";
             string text = VSExtensions.GetLangOptionallySuffixed("detailedanimals:infotext-hunger" + hungerScore.ToString(), suffix);
-            infotext.AppendLine(text);
+            if (hungerScore == 0 || hungerScore >= 5) {
+                infotext.AppendLine($"<font color=\"#cc2211\">{text}</font>");
+            }
+            else {
+                infotext.AppendLine(text);
+            }
         }
 
         public override string PropertyName() => Code;
