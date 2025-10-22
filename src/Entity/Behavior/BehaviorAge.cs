@@ -1,10 +1,10 @@
-// Initially based on PetAI's BehaviorRaisable (MIT licensed), which is based on Vintage Story's BehaviorGrow
-
 using DetailedAnimals.Extensions;
 using Genelib.Extensions;
 using System;
+using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
@@ -22,7 +22,9 @@ namespace DetailedAnimals {
         protected double maxGrowth;
 
         public AssetLocation AdultEntityCode { get; protected set; }
+        public AssetLocation TameAdultEntityCode { get; protected set; }
         public double HoursToGrow { get; protected set; }
+        protected double PortionsEatenForTaming = -1;
 
         internal double TimeSpawned {
             get { return growTree.GetDouble("timeSpawned"); }
@@ -44,10 +46,14 @@ namespace DetailedAnimals {
             }
         }
 
+        public bool Tamed => entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0) > PortionsEatenForTaming;
+
         public BehaviorAge(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
             base.Initialize(properties, typeAttributes);
+
+            PortionsEatenForTaming = typeAttributes["portionsEatenForTaming"].AsDouble(PortionsEatenForTaming);
 
             if (entity.World.Side == EnumAppSide.Client) {
                 entity.WatchedAttributes.RegisterModifiedListener("renderScale", ClientUpdateScale);
@@ -71,6 +77,14 @@ namespace DetailedAnimals {
             else if (typeAttributes.KeyExists("adultEntityCode")) {
                 AdultEntityCode = new AssetLocation(typeAttributes["adultEntityCode"].AsString());
             }
+            if (typeAttributes.KeyExists("tameAdultEntityCodes")) {
+                string[] locations = typeAttributes["tameAdultEntityCodes"].AsArray<string>(new string[0]);
+                AdultEntityCode = new AssetLocation(locations[entity.EntityId % locations.Length]);
+            }
+            else if (typeAttributes.KeyExists("tameAdultEntityCode")) {
+                AdultEntityCode = new AssetLocation(typeAttributes["tameAdultEntityCode"].AsString());
+            }
+            TameAdultEntityCode ??= AdultEntityCode;
 
             if (typeAttributes.KeyExists("initialWeight")) {
                 StartingWeight = typeAttributes["initialWeight"].AsFloat();
@@ -207,6 +221,9 @@ namespace DetailedAnimals {
 
         protected virtual void AttemptBecomingAdult() {
             AssetLocation code = AdultEntityCode;
+            if (Tamed) {
+                code = TameAdultEntityCode;
+            }
             if (code == null) {
                 return;
             }
@@ -280,6 +297,28 @@ namespace DetailedAnimals {
         protected virtual void CopyAttributesAfterSpawning(Entity adult) {
             // This no longer does anything, consider removing it
             // TODO: Consider copying over equipment
+        }
+
+        public override void GetInfoText(StringBuilder infotext) {
+            base.GetInfoText(infotext);
+
+            if (PortionsEatenForTaming < 0) return;
+
+            string suffix = entity.IsMale() ? "-male" : "-female";
+            double satiety = entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0);
+            if (satiety > PortionsEatenForTaming) {
+                infotext.AppendLine(VSExtensions.GetLangOptionallySuffixed("detailedanimals:infotext-taming-completed", suffix));
+            }
+            else if (satiety > 0) {
+                string key = "detailedanimals:infotext-taming-progress";
+                int percent = (int)(100 * (satiety / PortionsEatenForTaming));
+                if (Lang.HasTranslation(key + suffix)) {
+                    infotext.AppendLine(Lang.Get(key + suffix, percent));
+                }
+                else {
+                    infotext.AppendLine(Lang.Get(key, percent));
+                }
+            }
         }
 
         protected void UnregisterCallback() {

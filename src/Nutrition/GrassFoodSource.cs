@@ -91,7 +91,7 @@ namespace DetailedAnimals {
             if (entity.World.Rand.NextSingle() <= hunger.EatRate) {
                 amount = GrazeMethods[grazeMethod](this, entity);
             }
-            hunger.Eat(nutrition, amount * hunger.EatRate);
+            hunger.Eat(nutrition, amount * hunger.EatRate, false);
             return 0;
         }
 

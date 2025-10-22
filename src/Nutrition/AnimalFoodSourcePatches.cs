@@ -20,9 +20,9 @@ namespace DetailedAnimals {
             if (hunger == null) {
                 return true;
             }
-            hunger.Eat(__instance.ItemStack);
+            EntityItem looseitem = (EntityItem)__instance.GetType().GetField("entity", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
+            hunger.Eat(__instance.ItemStack, looseitem.ByPlayerUid != null);
             if (__instance.ItemStack.StackSize <= 0) {
-                EntityItem looseitem = (EntityItem)__instance.GetType().GetField("entity", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
                 looseitem.Die();
             }
             __result = 0;
@@ -53,9 +53,8 @@ namespace DetailedAnimals {
                 return false;
             }
             for (int i = 0; i < config.QuantityPerFillLevel && !__instance.Inventory.Empty; ++i) {
-                hunger.Eat(__instance.Inventory[0]);
+                hunger.Eat(__instance.Inventory[0], true);
             }
-            entity.WatchedAttributes.SetBool("fedByPlayer", true);
             if (__instance.Inventory[0].Empty) {
                 contentCodeField.SetValue(__instance, "");
             }

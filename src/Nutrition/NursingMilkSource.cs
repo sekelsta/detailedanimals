@@ -29,7 +29,7 @@ namespace DetailedAnimals {
             if (satiety <= 0) {
                 return 0;
             }
-            hunger.Eat(nutrition, satiety);
+            hunger.Eat(nutrition, satiety, false);
             return 0;
         }
 

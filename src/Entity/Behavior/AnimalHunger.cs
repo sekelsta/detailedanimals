@@ -408,7 +408,7 @@ namespace DetailedAnimals {
                 // Check again, as taming interaction may kill the entity and spawn a new, tame, one
                 return;
             }
-            Eat(slot, byEntity, data, nutriProps, consumeItem);
+            Eat(slot, byEntity, false, data, nutriProps, consumeItem);
         }
 
         public NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps) {
@@ -457,18 +457,18 @@ namespace DetailedAnimals {
             }
         }
 
-        public void Eat(ItemStack itemstack) {
-            Eat(new DummySlot(itemstack));
+        public void Eat(ItemStack itemstack, bool fedByPlayer) {
+            Eat(new DummySlot(itemstack), fedByPlayer);
         }
 
-        public void Eat(ItemSlot slot) {
+        public void Eat(ItemSlot slot, bool fedByPlayer) {
             ItemStack itemstack = slot.Itemstack;
             FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
             string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>() ?? new string[0];
-            Eat(slot, null, GetNutritionData(itemstack, nutriProps, foodTags), nutriProps);
+            Eat(slot, null, fedByPlayer, GetNutritionData(itemstack, nutriProps, foodTags), nutriProps);
         }
 
-        public void Eat(ItemSlot slot, Entity fedBy, NutritionData data, FoodNutritionProperties nutriProps, bool consumeItem=true) {
+        public void Eat(ItemSlot slot, Entity fedBy, bool fedByPlayer, NutritionData data, FoodNutritionProperties nutriProps, bool consumeItem=true) {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
@@ -507,7 +507,7 @@ namespace DetailedAnimals {
 
             float satiety = GetBaseSatiety(itemstack, nutriProps);
             satiety *= satLossMul;
-            Eat(data, satiety);
+            Eat(data, satiety, fedByPlayer || player != null);
 
             if (consumeItem) {
                 slot.TakeOut(1);
@@ -526,10 +526,11 @@ namespace DetailedAnimals {
             }
         }
 
-        public void Eat(NutritionData data, double satiety) {
+        public void Eat(NutritionData data, double satiety, bool fedByPlayer) {
             if (data != null) {
                 satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);
             }
+
             double prevSaturation = Saturation;
             EntityAgent agent = entity as EntityAgent;
             agent?.ReceiveSaturation((float)satiety, data?.FoodCategory ?? EnumFoodCategory.NoNutrition);
@@ -538,6 +539,11 @@ namespace DetailedAnimals {
             double gain = (Saturation - prevSaturation) / maxsat;
             foreach (Nutrient nutrient in Nutrients) {
                 nutrient.Gain(gain * (data?.Values[nutrient.Name] ?? 0));
+            }
+
+            if (fedByPlayer) {
+                entity.WatchedAttributes.SetBool("fedByPlayer", true);
+                entity.WatchedAttributes.SetDouble("fedByPlayerTotalSatiety", gain + entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0));
             }
 
             ApplyNutritionEffects();

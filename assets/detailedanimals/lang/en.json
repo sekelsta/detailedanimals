@@ -41,6 +41,8 @@
     "infotext-reproduce-overweight": "Cannot breed while obese",
     "infotext-reproduce-longday": "Breeds during the spring",
     "infotext-reproduce-shortday": "Breeds during the fall",
+    "infotext-taming-progress": "{0}% tamed",
+    "infotext-taming-completed": "Tamed",
     "message-wrongnutrient-fiber": "{entity} doesn't want that much fiber right now",
     "message-wrongnutrient-starch": "{entity} doesn't want that much starch right now",
     "message-wrongnutrient-sugar": "{entity} doesn't want that much sugar right now",

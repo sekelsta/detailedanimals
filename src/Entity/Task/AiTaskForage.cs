@@ -237,7 +237,7 @@ namespace DetailedAnimals {
 
             if (timeSinceTargetReached >= eatTime) {
                 float saturation = target.ConsumeOnePortion(entity);
-                hungerBehavior.Eat(null, saturation);
+                hungerBehavior.Eat(null, saturation, false);
                 done = true;
             }
         }

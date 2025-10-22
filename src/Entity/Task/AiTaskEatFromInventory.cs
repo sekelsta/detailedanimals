@@ -39,7 +39,7 @@ namespace DetailedAnimals {
             if (useTimeNow + dt < useTime) {
                 return base.ContinueExecute(dt);
             }
-            hunger.Eat(entity.LeftHandItemSlot);
+            hunger.Eat(entity.LeftHandItemSlot, false); // TODO: Remember which player the item came from, and pass that info along
             return false;
         }
     }
