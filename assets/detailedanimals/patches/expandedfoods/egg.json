@@ -23,10 +23,23 @@
     {
         file: "detailedanimals:itemtypes/egg-chicken.json",
         op: "add",
-        path: "/classByType",
+        path: "/behaviorsByType",
         value: {
-            "*-raw": "EggCrack",
-            "*-lime": "EggCrack",
+            "@*-(raw|lime)": [
+                {
+                    name: "EggCrack",
+                    properties: {
+                        fullLiquidCode: "aculinaryartillery:eggyolkfullportion-{source}",
+                        eggYolkCode: "aculinaryartillery:eggyolk-{source}",
+                        containedEggLitresByType: {
+                            "*-jumbo-*": 0.2,
+                            "*-large-*": 0.15,
+                            "*-peewee-*": 0.05,
+                            "*": 0.1,
+                        },
+                    }
+                } 
+            ],
         },
         dependsOn: [ { modid: "aculinaryartillery" } ],
         side: "server"

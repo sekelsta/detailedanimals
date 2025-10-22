@@ -45,12 +45,6 @@
             "*-lime": [ "egg", "rawegg" ],
             "*-pickled": [ "egg", "pickledegg" ],
         },
-        containedEggLitresByType: {
-            "*-jumbo-*": 0.2,
-            "*-large-*": 0.15,
-            "*-peewee-*": 0.05,
-            "*": 0.1,
-        },
         onDisplayTransform: {
             scaleByType: {
                 "*-peewee-*": 0.84,
