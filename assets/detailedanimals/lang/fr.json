@@ -38,8 +38,6 @@
 	"infotext-reproduce-eggsfertile": "Pond des œufs fertiles", 
 	"infotext-reproduce-underweight": "Ne peut pas se reproduire en étant trop maigre",
     "infotext-reproduce-overweight": "Ne peut pas se reproduire en étant obèse",
-    "infotext-reproduce-longday": "Se reproduit au printemps",
-    "infotext-reproduce-shortday": "Se reproduit en automne",
     "message-wrongnutrient-fiber": "{entity} ne veut pas autant de fibres en ce moment",
     "message-wrongnutrient-starch": "{entity} ne veut pas autant d'amidon en ce moment",
     "message-wrongnutrient-sugar": "{entity} ne veut pas autant de sucre en ce moment",

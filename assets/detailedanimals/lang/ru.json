@@ -53,8 +53,6 @@
     "infotext-reproduce-underweight": "Не может размножаться из-за истощения",
     "infotext-reproduce-underweight-eggs": "Не может откладывать яйца при недостаточном весе",
     "infotext-reproduce-overweight": "Не может размножаться из-за ожирения",
-    "infotext-reproduce-longday": "Размножается весной",
-    "infotext-reproduce-shortday": "Размножается осенью",
     "message-wrongnutrient-fiber": "{entity} сейчас не нуждается в клетчатке",
     "message-wrongnutrient-starch": "{entity} сейчас не нуждается в крахмале",
     "message-wrongnutrient-sugar": "{entity} сейчас не нуждается в сахаре",

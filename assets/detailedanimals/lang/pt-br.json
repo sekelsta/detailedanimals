@@ -39,8 +39,6 @@
     "infotext-reproduce-underweight": "Não pode reproduzir enquando estiver magra",
     "infotext-reproduce-underweight-eggs": "Não pode por ovos enquando estiver magra",
     "infotext-reproduce-overweight": "Não pode reproduzir enquando estiver obesa",
-    "infotext-reproduce-longday": "Reproduz na primavera",
-    "infotext-reproduce-shortday": "Reproduz no outono",
     "message-wrongnutrient-fiber": "{entity} não quer tanta fibra por enquanto",
     "message-wrongnutrient-starch": "{entity} não quer tanto amido por enquanto",
     "message-wrongnutrient-sugar": "{entity} não quer tanto açucar por enquanto",

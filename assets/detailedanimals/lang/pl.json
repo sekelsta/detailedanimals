@@ -39,8 +39,6 @@
     "infotext-reproduce-underweight": "Nie może dojść do rozmnożenia z powodu niedowagi.",
     "infotext-reproduce-underweight-eggs": "Nie może dojść do złożenia jaj z powodu niedowagi.",
     "infotext-reproduce-overweight": "Nie może dojść do rozmnożenia z powodu otyłości.",
-    "infotext-reproduce-longday": "Rozmnaża się wiosną",
-    "infotext-reproduce-shortday": "Rozmnaża się jesienią",
     "message-wrongnutrient-fiber": "{entity} nie chce teraz tak dużo błonnika",
     "message-wrongnutrient-starch": "{entity} nie chce teraz tak dużo skrobi",
     "message-wrongnutrient-sugar": "{entity} nie chce teraz tak dużo cukru",

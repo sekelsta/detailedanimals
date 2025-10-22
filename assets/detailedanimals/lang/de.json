@@ -40,8 +40,6 @@
     "infotext-reproduce-underweight": "Kann sich aufgrund Untergewichts nicht fortpflanzen.",
     "infotext-reproduce-underweight-eggs": "Kann aufgrund Untergewicht keine Eier legen.",
     "infotext-reproduce-overweight": "Kann sich aufgrund Übergewichts nicht fortpflanzen.",
-    "infotext-reproduce-longday": "Brütet im Frühjahr.",
-    "infotext-reproduce-shortday": "Brütet im Herbst.",
     "message-wrongnutrient-fiber": "{entity} ist derzeit nicht an einer ballaststoffreichen Diät interessiert.",
     "message-wrongnutrient-starch": "{entity} ist derzeit nicht an einer stärkehaltigen Diät interessiert.",
     "message-wrongnutrient-sugar": "{entity} ist derzeit nicht an einer zuckerreichen Diät interessiert.",

@@ -39,8 +39,6 @@
     "infotext-reproduce-underweight": "Cannot breed while underweight",
     "infotext-reproduce-underweight-eggs": "Cannot lay eggs while underweight",
     "infotext-reproduce-overweight": "Cannot breed while obese",
-    "infotext-reproduce-longday": "Breeds during the spring",
-    "infotext-reproduce-shortday": "Breeds during the fall",
     "infotext-taming-progress": "{0}% tamed",
     "infotext-taming-completed": "No longer fears people.",
     "message-wrongnutrient-fiber": "{entity} doesn't want that much fiber right now",
