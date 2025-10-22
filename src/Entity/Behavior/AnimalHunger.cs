@@ -541,7 +541,7 @@ namespace DetailedAnimals {
                 nutrient.Gain(gain * (data?.Values[nutrient.Name] ?? 0));
             }
 
-            if (fedByPlayer) {
+            if (fedByPlayer && prevSaturation / maxsat <= NOT_HUNGRY) {
                 entity.WatchedAttributes.SetBool("fedByPlayer", true);
                 entity.WatchedAttributes.SetDouble("fedByPlayerTotalSatiety", gain + entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0));
             }

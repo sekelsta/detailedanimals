@@ -45,6 +45,10 @@ namespace DetailedAnimals {
                 typeof(EntitySidedProperties).GetConstructor(BindingFlags.Instance | BindingFlags.Public, new[] { typeof(JsonObject[]), typeof(Dictionary<string, JsonObject>)}),
                 prefix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("EntitySidedProperties_Ctor_Prefix", BindingFlags.Static | BindingFlags.Public)) 
             );
+            harmony.Patch(
+                typeof(AiTaskBaseTargetable).GetMethod("GetOwnGeneration", BindingFlags.Instance | BindingFlags.Public),
+                postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("AiTaskBaseTargetable_GetOwnGeneration_Postfix", BindingFlags.Static | BindingFlags.Public)) 
+            );
         }
 
         public static bool UpdateMaxHealth_Prefix(EntityBehaviorHealth __instance) {
@@ -119,6 +123,11 @@ namespace DetailedAnimals {
             }
 
             return true;
+        }
+
+        public static void AiTaskBaseTargetable_GetOwnGeneration_Postfix(AiTaskBaseTargetable __instance, ref int __result) {
+            double tamingProgress = __instance.entity.GetBehavior<BehaviorAge>()?.TamingProgress ?? 0;
+            __result += (int)Math.Floor(10 * tamingProgress);
         }
     }
 }

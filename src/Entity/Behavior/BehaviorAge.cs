@@ -46,7 +46,8 @@ namespace DetailedAnimals {
             }
         }
 
-        public bool Tamed => entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0) > PortionsEatenForTaming;
+        public bool Tamed => PortionsEatenForTaming >= 0 && entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0) >= PortionsEatenForTaming;
+        public double TamingProgress => PortionsEatenForTaming < 0 ? 0 : Math.Min(1, entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0) / PortionsEatenForTaming);
 
         public BehaviorAge(Entity entity) : base(entity) { }
 
@@ -79,10 +80,10 @@ namespace DetailedAnimals {
             }
             if (typeAttributes.KeyExists("tameAdultEntityCodes")) {
                 string[] locations = typeAttributes["tameAdultEntityCodes"].AsArray<string>(new string[0]);
-                AdultEntityCode = new AssetLocation(locations[entity.EntityId % locations.Length]);
+                TameAdultEntityCode = new AssetLocation(locations[entity.EntityId % locations.Length]);
             }
             else if (typeAttributes.KeyExists("tameAdultEntityCode")) {
-                AdultEntityCode = new AssetLocation(typeAttributes["tameAdultEntityCode"].AsString());
+                TameAdultEntityCode = new AssetLocation(typeAttributes["tameAdultEntityCode"].AsString());
             }
             TameAdultEntityCode ??= AdultEntityCode;
 
