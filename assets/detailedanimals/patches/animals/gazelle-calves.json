@@ -31,7 +31,7 @@
                 "*-male-calf": [ "game:gazelle-thomson-adult-male" ],
                 "*": ["gazelle-{type}-adult-{gender}"]
             },
-            monthsToGrow: 6.0,
+            monthsToGrow: 9.0,
             initialWeight: 0.1,
         },
         side: "server"

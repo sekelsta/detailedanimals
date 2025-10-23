@@ -24,12 +24,12 @@
     },
     {
         file: "game:entities/animal/mammal/hooved/moose-baby.json",
-        op: "add",
-        path: "/server/behaviors/-",
+        op: "replace",
+        path: "/server/behaviors/9",
         value: {
             code: "agegradually",
             adultEntityCodes: [ "game:deer-moose-adult-{gender}" ],
-            monthsToGrow: 6.0,
+            monthsToGrow: 12.0,
             initialWeight: 0.06,
         },
         side: "server"

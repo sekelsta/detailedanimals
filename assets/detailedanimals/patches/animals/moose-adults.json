@@ -57,17 +57,9 @@
         path: "/server/behaviors/-",
         value: {
             code: "agegradually",
-            adultEntityCodesByType: {
-                "*-baby": [ "game:deer-moose-{gender}-adult" ],
-            },
-            monthsToGrow: 6.0,
-            startAgeMonthsByType: {
-                "*-adult": 6.0,
-            },
-            initialWeightByType: {
-                "*-baby": 0.06,
-                "*-adult": 0.7,
-            },
+            monthsToGrow: 12.0,
+            startAgeMonths: 6.0,
+            initialWeight: 0.7,
         },
         side: "server"
     },

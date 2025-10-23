@@ -19,8 +19,8 @@
         path: "/server/behaviors/-",
         value: {
             code: "agegradually",
-            monthsToGrow: 18.0,
-            startAgeMonths: 6.0,
+            monthsToGrow: 15.0,
+            startAgeMonths: 9.0,
             initialWeight: 0.7,
             finalWeight: 1.0,
         },

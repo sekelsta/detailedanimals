@@ -19,8 +19,8 @@
         path: "/server/behaviors/-",
         value: {
             code: "agegradually",
-            monthsToGrow: 18.0,
-            startAgeMonths: 6.0,
+            monthsToGrow: 15.0,
+            startAgeMonths: 9.0,
             initialWeight: 0.7,
         },
         side: "server"
@@ -36,7 +36,7 @@
                 "*-male-*": [ "game:wolf-eurasian-adult-male" ],
                 "*": [ "game:wolf-{type}-adult-{gender}" ]
             },
-            monthsToGrow: 6.0,
+            monthsToGrow: 9.0,
             initialWeight: 0.01,
         },
         side: "server"
