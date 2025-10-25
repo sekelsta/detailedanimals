@@ -286,9 +286,6 @@
             lactationMonths: 6,
             estrousCycleMonths: 0.6,
             daysInHeat: 2.0,
-            breedingPeakMonth: 9.0,
-            breedingMonthsBefore: 0.5,
-            breedingMonthsAfter: 0.5,
             spawnQuantityMin: 1,
             spawnQuantityMax: 3,
             litterAddChanceByType: {

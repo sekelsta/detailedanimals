@@ -201,12 +201,6 @@
             lactationMonths: 5,
             estrousCycleMonths: 0.9,
             daysInHeat: 4.0,
-            breedingPeakMonthByType: {
-                "fox-red-*": 1.6,
-                "fox-arctic-*": 2.5,
-            },
-            breedingMonthsBefore: 0.5,
-            breedingMonthsAfter: 0.3,
         },
         side: "server",
     },

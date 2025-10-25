@@ -134,9 +134,6 @@
             multiplyCooldownMonthsMax: 1.1,
             lactationMonths: 1.5,
             inducedOvulation: true,
-            breedingPeakMonth: 2.0,
-            breedingMonthsBefore: 1.5,
-            breedingMonthsAfter: 5.5,
         },
         side: "server"
     },

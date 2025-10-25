@@ -221,9 +221,6 @@
             lactationMonths: 5,
             estrousCycleMonths: 0.7,
             daysInHeat: 3.0,
-            breedingPeakMonth: 9.5,
-            breedingMonthsBefore: 2.0,
-            breedingMonthsAfter: 2.0,
         },
         side: "server"
     },
