@@ -187,7 +187,7 @@
         file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",
         path: "/client/behaviors/5",
-        value: { code: "reproduce", enabledByType: { "*-female": true, "*": false } },
+        value: { code: "genelib.multiply", enabledByType: { "*-female": true, "*": false } },
         side: "server"
     },
     {
@@ -195,7 +195,7 @@
         op: "replace",
         path: "/server/behaviors/9",
         value: {
-            code: "reproduce",
+            code: "genelib.multiply",
             enabledByType: { "*-female": true, "*": false },
             mateTaskPriority: 1.37,
             sireCodes: ["game:goat-{type}-adult-male"],

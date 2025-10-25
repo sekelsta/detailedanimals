@@ -117,7 +117,7 @@
         file: "game:entities/animal/mammal/wolf-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "reproduce", enabledByType: { "*-female": true, "*": false } },
+        value: { code: "genelib.multiply", enabledByType: { "*-female": true, "*": false } },
         side: "server"
     },
     {
@@ -125,7 +125,7 @@
         op: "replace",
         path: "/server/behaviors/8",
         value: {
-            code: "reproduce",
+            code: "genelib.multiply",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             pregnancyMonths: 2.05,

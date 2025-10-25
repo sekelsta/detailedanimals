@@ -61,7 +61,7 @@
         file: "game:entities/animal/mammal/hooved/gazelle-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "reproduce", enabledByType: { "*-male": false } },
+        value: { code: "genelib.multiply", enabledByType: { "*-male": false } },
         side: "server"
     },
     {
@@ -69,7 +69,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "reproduce",
+            code: "genelib.multiply",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.34,
             sireCodes: ["game:gazelle-{type}-adult-male"],

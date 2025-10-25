@@ -237,7 +237,7 @@
         file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "reproduce", enabledByType: { "*-adult-female": true, "*": false } },
+        value: { code: "genelib.multiply", enabledByType: { "*-adult-female": true, "*": false } },
         side: "server"
     },
     {
@@ -245,7 +245,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "reproduce",
+            code: "genelib.multiply",
             enabledByType: { "*-adult-female": true, "*": false },
             mateTaskPriority: 1.37,
             sireCodesByType: {

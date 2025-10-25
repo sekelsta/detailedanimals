@@ -102,13 +102,7 @@
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: {
-            code: "reproduce",
-            enabledByType: {
-                "*-female-adult": true,
-                "*": false,
-            },
-        },
+        value: { code: "genelib.multiply", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -116,14 +110,11 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "reproduce",
-            enabledByType: {
-                "*-female-adult": true,
-                "*": false,
-            },
+            code: "genelib.multiply",
+            enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
-            sireCodes: ["game:deer-moose-male-adult"],
-            spawnEntityCodes: [{"code": "game:deer-moose-male-baby"}, {"code": "game:deer-moose-female-baby"}],
+            sireCodes: ["game:deer-moose-adult-male"],
+            spawnEntityCodes: [{"code": "game:deer-moose-baby-male"}, {"code": "game:deer-moose-baby-female"}],
             spawnQuantityMin: 1,
             spawnQuantityMax: 3,
             litterAddChance: 0.1,

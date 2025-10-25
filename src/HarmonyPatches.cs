@@ -93,12 +93,17 @@ namespace DetailedAnimals {
             if (commonConfigs == null || !commonConfigs.ContainsKey(AnimalHunger.Code)) {
                 return true;
             }
+
             int hungerIndex = -1;
             int harvestableIndex = -1;
+            int multiplyIndex = -1;
             for (int i = 0; i < behaviors.Length; ++i) {
                 string code = behaviors[i]["code"].AsString();
                 if (code == "harvestable") {
                     harvestableIndex = i;
+                }
+                else if (code == "multiply" || code == "genelib.multiply") {
+                    multiplyIndex = i;
                 }
                 else if (code == AnimalHunger.Code) {
                     hungerIndex = i;
@@ -108,6 +113,19 @@ namespace DetailedAnimals {
             if (harvestableIndex != -1) {
                 JObject harvestableJson = (JObject)(behaviors[harvestableIndex].Token);
                 harvestableJson.Property("code").Value = new JValue(DetailedHarvestable.Code);
+            }
+
+            if (multiplyIndex != -1) {
+                JObject multiplyJson = (JObject)(behaviors[multiplyIndex].Token);
+                multiplyJson.Property("code").Value = new JValue(Reproduce.Code);
+            }
+
+            if (commonConfigs.ContainsKey("genelib.multiply")) {
+                commonConfigs[Reproduce.Code] = commonConfigs["genelib.multiply"];
+            }
+            else if (commonConfigs.ContainsKey("multiply") && multiplyIndex != -1) {
+                // Don't copy over vanilla multiply config if the animal is already set up to use reproduce
+                commonConfigs[Reproduce.Code] = commonConfigs["multiply"];
             }
 
             if (hungerIndex == -1) {

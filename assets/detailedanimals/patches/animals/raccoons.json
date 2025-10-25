@@ -125,7 +125,7 @@
         file: "game:entities/animal/mammal/raccoon-adult.json",
         op: "add",
         path: "/client/behaviors/-",
-        value: { code: "reproduce", enabledByType: { "*-male": false }, },
+        value: { code: "genelib.multiply", enabledByType: { "*-male": false }, },
         side: "server"
     },
     {
@@ -133,7 +133,7 @@
         op: "add",
         path: "/server/behaviors/-",
         value: {
-            code: "reproduce",
+            code: "genelib.multiply",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
             sireCodes: ["game:raccoon-male"],
