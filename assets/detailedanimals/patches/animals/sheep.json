@@ -68,6 +68,8 @@
                 "*": ["game:sheep-{type}-adult-{gender}"],
             },
             initialWeight: 0.1,
+            portionsEatenForTaming: 10,
+            maxTameness: 0.9,
         },
         side: "server"
     },
@@ -80,6 +82,8 @@
             monthsToGrow: 48.0,
             startAgeMonths: 12.0,
             initialWeight: 0.7,
+            portionsEatenForTaming: 15,
+            maxTameness: 0.6,
         },
         side: "server"
     },

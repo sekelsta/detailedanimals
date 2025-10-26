@@ -29,15 +29,21 @@
     },
 
     {
-        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
-        op: "replace",
-        path: "/server/behaviors/8",
+        file: "game:entities/animal/mammal/hooved/elk-semitamed.json",
+        op: "addmerge",
+        path: "/behaviorConfigs/agegradually",
         value: {
-                code: "agegradually",
                 startAgeMonths: 24.0,
                 monthsToGrow: 12.0,
                 initialWeight: 0.9,
             },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
+        op: "replace",
+        path: "/server/behaviors/8",
+        value: { code: "agegradually" },
         side: "server"
     },
     {

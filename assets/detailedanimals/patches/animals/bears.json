@@ -43,6 +43,8 @@
             monthsToGrow: 30.0,
             initialWeight: 0.7,
             finalWeight: 1.0,
+            portionsEatenForTaming: 18,
+            maxTameness: 0.5,
         },
         side: "server"
     },

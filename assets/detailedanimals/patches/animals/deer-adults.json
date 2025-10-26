@@ -72,12 +72,23 @@
     {
         file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "add",
+        path: "/behaviorConfigs/agegradually",
+        value: {
+            portionsEatenForTaming: 18, 
+            maxTameness: 0.5,
+        },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/deer-adult.json",
+        op: "add",
         path: "/server/behaviors/-",
         value: {
             code: "agegradually",
             monthsToGrow: 24.0,
             startAgeMonths: 12.0,
             initialWeight: 0.7,
+            tameAdultEntityCodesByType: { "deer-elk-*": ["game:semitameddeer-{type}-{gender}-adult"]},
         },
         side: "server"
     },

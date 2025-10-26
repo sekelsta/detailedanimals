@@ -25,7 +25,6 @@ namespace DetailedAnimals {
         public AssetLocation TameAdultEntityCode { get; protected set; }
         public double HoursToGrow { get; protected set; }
         protected double PortionsEatenForTaming = -1;
-
         internal double TimeSpawned {
             get { return growTree.GetDouble("timeSpawned"); }
             set { growTree.SetDouble("timeSpawned", value); }
@@ -47,7 +46,8 @@ namespace DetailedAnimals {
         }
 
         public bool Tamed => PortionsEatenForTaming >= 0 && entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0) >= PortionsEatenForTaming;
-        public double TamingProgress => PortionsEatenForTaming < 0 ? 0 : Math.Min(1, entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0) / PortionsEatenForTaming);
+        public double TamingProgress => PortionsEatenForTaming < 0 ? 0 : Math.Min(MaxTameness, entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0) / PortionsEatenForTaming);
+        protected double MaxTameness => entity.WatchedAttributes.GetDouble("maxTameness", 1.0);
 
         public BehaviorAge(Entity entity) : base(entity) { }
 
@@ -137,6 +137,10 @@ namespace DetailedAnimals {
                 }
                 TimeSpawned = entity.World.Calendar.TotalHours - spawnAge;
             }
+            if (PortionsEatenForTaming >= 0 && entity.WatchedAttributes.TryGetDouble("maxTameness") == null) {
+                entity.WatchedAttributes.SetDouble("maxTameness", typeAttributes["maxTameness"].AsDouble(1.0));
+            }
+            entity.WatchedAttributes.RegisterModifiedListener("fedByPlayerTotalSatiety", TryBecomingTame);
 
             double birthDate = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
             double spawnDate = TimeSpawned / entity.World.Calendar.HoursPerDay;
@@ -220,6 +224,12 @@ namespace DetailedAnimals {
             entity.World.FrameProfiler.Mark("entity-checkgrowth");
         }
 
+        protected void TryBecomingTame() {
+            if (Tamed) {
+                AttemptBecomingAdult();
+            }
+        }
+
         protected virtual void AttemptBecomingAdult() {
             AssetLocation code = AdultEntityCode;
             if (Tamed) {
@@ -275,6 +285,7 @@ namespace DetailedAnimals {
                 adult.WatchedAttributes.SetInt("textureIndex", entity.WatchedAttributes.GetInt("textureIndex", 0));
             }
 
+            adult.WatchedAttributes.CopyIfPresent("multiply", entity.WatchedAttributes); // In case a female elk is tamed while pregnant
             adult.WatchedAttributes.CopyIfPresent("nametag", entity.WatchedAttributes);
             adult.WatchedAttributes.CopyIfPresent("genetics", entity.WatchedAttributes);
             adult.WatchedAttributes.CopyIfPresent("motherId", entity.WatchedAttributes);
@@ -288,6 +299,8 @@ namespace DetailedAnimals {
             adult.WatchedAttributes.CopyIfPresent("fosterKey", entity.WatchedAttributes);
             adult.WatchedAttributes.CopyIfPresent("preventBreeding", entity.WatchedAttributes);
             adult.WatchedAttributes.CopyIfPresent("neutered", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("maxTameness", entity.WatchedAttributes);
+            adult.WatchedAttributes.CopyIfPresent("fedByPlayerTotalSatiety", entity.WatchedAttributes);
 
             adult.WatchedAttributes.SetLong("UID", entity.UniqueID());
 
@@ -304,6 +317,8 @@ namespace DetailedAnimals {
             base.GetInfoText(infotext);
 
             if (PortionsEatenForTaming < 0) return;
+
+            if (MaxTameness < 1) return;
 
             string suffix = entity.IsMale() ? "-male" : "-female";
             double satiety = entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety", 0);

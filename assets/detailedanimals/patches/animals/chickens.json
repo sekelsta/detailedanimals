@@ -65,6 +65,8 @@
                 "*": ["game:chicken-henpoult", "game:chicken-roosterpoult"],
             },
             initialWeight: 0.0175,
+            portionsEatenForTaming: 6,
+            maxTameness: 0.9,
         },
         side: "server"
     },
@@ -91,6 +93,8 @@
                 "*-hen": 1.0,
                 "*-rooster": 1.0,
             },
+            portionsEatenForTaming: 9,
+            maxTameness: 0.5,
         },
         side: "server"
     },

@@ -68,7 +68,9 @@
                 "*-female-*": ["game:pig-eurasian-adult-female"],
                 "*": ["pig-{type}-adult-{gender}"],
             },
-            initialWeight: 0.005
+            initialWeight: 0.005,
+            portionsEatenForTaming: 8,
+            maxTameness: 0.9,
         },
         side: "server"
     },
@@ -81,7 +83,9 @@
             monthsToGrow: 51.0,
             startAgeMonths: 9.0,
             initialWeight: 0.36,
-            finalWeight: 1.0
+            finalWeight: 1.0,
+            portionsEatenForTaming: 12,
+            maxTameness: 0.6,
         },
         side: "server"
     },

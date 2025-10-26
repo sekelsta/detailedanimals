@@ -23,6 +23,8 @@
             startAgeMonths: 9.0,
             initialWeight: 0.7,
             finalWeight: 1.0,
+            portionsEatenForTaming: 21,
+            maxTameness: 0.5,
         },
         side: "server"
     },

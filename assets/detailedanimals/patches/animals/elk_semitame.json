@@ -1,0 +1,16 @@
+[
+    {
+        file: "game:entities/animal/mammal/hooved/elk-semitamed.json",
+        op: "add",
+        path: "/client/behaviors/-",
+        value: { code: "agegradually" },
+        side: "server"
+    },
+    {
+        file: "game:entities/animal/mammal/hooved/elk-semitamed.json",
+        op: "add",
+        path: "/server/behaviors/-",
+        value: { code: "agegradually" },
+        side: "server"
+    },
+]

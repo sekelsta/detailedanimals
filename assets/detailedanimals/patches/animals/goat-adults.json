@@ -97,6 +97,8 @@
             monthsToGrow: 26.0,
             startAgeMonths: 10.0,
             initialWeight: 0.6,
+            portionsEatenForTaming: 12,
+            maxTameness: 0.6,
         },
         side: "server"
     },

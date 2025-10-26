@@ -31,6 +31,8 @@
             adultEntityCodes: [ "game:deer-moose-adult-{gender}" ],
             monthsToGrow: 12.0,
             initialWeight: 0.06,
+            portionsEatenForTaming: 12,
+            maxTameness: 0.8,
         },
         side: "server"
     },
