@@ -1,4 +1,5 @@
 using DetailedAnimals.Extensions;
+using Genelib;
 using System;
 using System.Linq;
 using System.Text;
@@ -77,7 +78,7 @@ namespace DetailedAnimals {
                 );
             }
 
-            IncubationDays = attributes["incubationMonths"].AsDouble(1) * entity.World.Calendar.DaysPerMonth;
+            IncubationDays = attributes["incubationMonths"].AsDouble(1) * entity.World.Calendar.DaysPerMonth * GenelibConfig.EggIncubationTime;
             HoursPerEgg = attributes["hoursPerEgg"].AsObject<NatFloat>();
 
             if (entity.Api.Side != EnumAppSide.Server) {
@@ -206,7 +207,7 @@ namespace DetailedAnimals {
             chick.SetInt("generation", NextGeneration());
             eggStack.Attributes["chick"] = chick;
 
-            double incubationHoursTotal = IncubationDays * 24 * AnimalConfig.AnimalGrowthTime;
+            double incubationHoursTotal = IncubationDays * 24;
             eggStack.Attributes.SetDouble("incubationHoursRemaining", incubationHoursTotal);
             eggStack.Attributes.SetDouble("incubationHoursTotal", incubationHoursTotal);
             // If incubation length scales with month length, freshness should too

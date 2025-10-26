@@ -58,14 +58,9 @@ namespace DetailedAnimals {
 
         public override void Initialize(EntityProperties properties, JsonObject attributes) {
             base.Initialize(properties, attributes);
-            TryGetPregnantChance = 0.8;
+            TryGetPregnantChance = 0.2;
             PortionsEatenForMultiply = 0;
             MatingFoodCost = 0;
-
-            PregnancyDays *= AnimalConfig.AnimalGrowthTime;
-            LactationDays *= AnimalConfig.AnimalGrowthTime;
-            MultiplyCooldownDaysMin *= AnimalConfig.AnimalGrowthTime;
-            MultiplyCooldownDaysMax *= AnimalConfig.AnimalGrowthTime;
         }
 
         public override bool ShouldEat { get => true; }

@@ -5,9 +5,6 @@ namespace DetailedAnimals {
     public class AnimalConfig {
         public static AnimalConfig Instance = null;
 
-        public static double MutationRate = 0.00004;
-        public const double AnimalGrowthTime = 1.0;
-
         public string Units = "CUSTOMARY_METRIC";
 
         public float AnimalMeat = 1.0f;

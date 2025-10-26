@@ -8,6 +8,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 using DetailedAnimals.Extensions;
+using Genelib;
 using Genelib.Extensions;
 
 namespace DetailedAnimals {
@@ -154,7 +155,8 @@ namespace DetailedAnimals {
 
         private bool searchFoster(Entity foster) {
             foreach (string nurseFrom in nurseFromEntities) {
-                if (foster.WildCardMatch(AssetLocation.Create(nurseFrom, entity.Code.Domain))) {
+                if (foster.WildCardMatch(AssetLocation.Create(nurseFrom, entity.Code.Domain))
+                        && foster.GetBehavior<GeneticMultiply>()?.IsLactating() != false) {
                     target = new NursingMilkSource(foster);
                     entity.SetFoster(foster);
                     return false;

@@ -1,4 +1,5 @@
 using DetailedAnimals.Extensions;
+using Genelib;
 using Genelib.Extensions;
 using System;
 using System.Text;
@@ -63,13 +64,11 @@ namespace DetailedAnimals {
             }
 
             if (typeAttributes.KeyExists("monthsToGrow")) {
-                HoursToGrow = typeAttributes["monthsToGrow"].AsFloat() 
-                    * entity.World.Calendar.DaysPerMonth * entity.World.Calendar.HoursPerDay;
+                HoursToGrow = (float)GenelibConfig.AnimalMonthsToGameDays(typeAttributes["monthsToGrow"].AsDouble()) * entity.World.Calendar.HoursPerDay;
             }
             else {
                 HoursToGrow = typeAttributes["hoursToGrow"].AsFloat(96);
             }
-            HoursToGrow *= AnimalConfig.AnimalGrowthTime;
 
             if (typeAttributes.KeyExists("adultEntityCodes")) {
                 string[] locations = typeAttributes["adultEntityCodes"].AsArray<string>(new string[0]);
@@ -123,8 +122,8 @@ namespace DetailedAnimals {
 
             float maxDailyGrowth = typeAttributes["maxDailyGrowth"].AsFloat(1.1f);
             IGameCalendar calendar = entity.Api.World.Calendar;
-            float updatesPerDay = calendar.HoursPerDay * calendar.SpeedOfTime / calendar.CalendarSpeedMul / secondsPerUpdate;
-            updatesPerDay *= calendar.DaysPerMonth / 30;
+            double updatesPerDay = calendar.HoursPerDay * calendar.SpeedOfTime / calendar.CalendarSpeedMul / secondsPerUpdate;
+            updatesPerDay *= GenelibConfig.AnimalMonthsToGameDays(1) / 30;
             maxGrowth = Math.Exp(Math.Log(maxDailyGrowth) / updatesPerDay);
 
             growTree = entity.WatchedAttributes.GetTreeAttribute("grow");
@@ -144,7 +143,7 @@ namespace DetailedAnimals {
 
             double birthDate = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
             double spawnDate = TimeSpawned / entity.World.Calendar.HoursPerDay;
-            float startAgeDays = typeAttributes["startAgeMonths"].AsFloat(0) * entity.World.Calendar.DaysPerMonth;
+            double startAgeDays = GenelibConfig.AnimalMonthsToGameDays(typeAttributes["startAgeMonths"].AsDouble(0));
             if (birthDate > spawnDate - startAgeDays) {
                 entity.WatchedAttributes.SetDouble("birthTotalDays", spawnDate - startAgeDays);
             }
@@ -201,7 +200,7 @@ namespace DetailedAnimals {
                 double prevAnimalWeight = entity.BodyCondition();
                 double currentWeight = prevAnimalWeight * prevGrowth;
                 double newAnimalWeight = currentWeight / expected;
-                float daysPerMonth = entity.World.Calendar.DaysPerMonth;
+                double daysPerMonth = GenelibConfig.AnimalMonthsToGameDays(1);
                 if (daysPerMonth < 30) {
                     newAnimalWeight = (newAnimalWeight * daysPerMonth + prevAnimalWeight * (30 - daysPerMonth)) / 30;
                 }

@@ -99,7 +99,7 @@ namespace DetailedAnimals
             if (gui.Animal.WatchedAttributes.HasAttribute("birthTotalDays")) {
                 double birthDate = gui.Animal.WatchedAttributes.GetDouble("birthTotalDays");
                 double ageDays = gui.Animal.World.Calendar.TotalDays - birthDate;
-                string ageText = Lang.Get("detailedanimals:gui-animalinfo-age", VSExtensions.TranslateTimeFromHours(gui.Animal.Api, ageDays * 24));
+                string ageText = Lang.Get("detailedanimals:gui-animalinfo-age", VSExtensions.TranslateTimeFromHours(gui.Animal.Api, ageDays * 24 * GenelibConfig.AnimalYearSpeed));
                 gui.SingleComposer.AddStaticText(ageText, CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, gui.Width, 25));
                 y += 25;
             }
