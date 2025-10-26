@@ -8,6 +8,7 @@ See genelib's documentation if you are interested in adding genetics or seasonal
 To add this mod's features to more animals, have them use these entity behaviors and AI tasks:
 
 "agegradually" replacing "grow": Makes animals grow in size gradually with age. Main effects are serverside, and that is where you'll need to put info about how long it takes to grow up and such. Also add to the clientside to make animals visibly change size with growth, but there you don't need any data beyond the behavior code.
+This is also where taming logic comes from. Feeding progress is set by animalhunger, then is interpreted or acted upon by agegradually. The number of "Portions" is the amount of food needed to go from starving to stuffed that many times. For most species, a portion is 2.5 days' worth of food.
 
 If your entity lays eggs, add the AI task "layegg" which will make its eggs carry genetic information (provided they are laid into a genelib:nestbox). Also add a list of layable egg types to the entity's attributes (a list with only one item is fine), or it will default to chicken eggs. Make sure the egg perish time is longer than the incubation length or the eggs will rot before chicks can hatch.
 
