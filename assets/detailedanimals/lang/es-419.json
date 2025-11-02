@@ -21,6 +21,7 @@
     "gui-animalinfo-nutrient-protein": "Proteína: {f}",
     "gui-animalinfo-nutrient-water": "Agua: {f}",
     "gui-animalinfo-nutrient-minerals": "Sal: {f}",
+    "infotext-bond": "Vínculo ({playerName}): familiaridad {familiarity}%, opinión {opinion}",
     "infotext-bodycondition1": "Piel y huesos",
     "infotext-bodycondition2-male": "Desnutrido",
     "infotext-bodycondition3": "Bajo peso",
