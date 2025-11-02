@@ -36,6 +36,11 @@ namespace DetailedAnimals {
         }
 
         public override bool ContinueExecute(float dt) {
+            // Though base.ContinueExecute checks this, we check again to handle the edge case where it was dropped one tick before it was to be eaten
+            if (entity.LeftHandItemSlot == null || entity.LeftHandItemSlot.Empty) {
+                return false;
+            }
+
             if (useTimeNow + dt < useTime) {
                 return base.ContinueExecute(dt);
             }
