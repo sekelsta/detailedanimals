@@ -23,6 +23,7 @@ rm assets/detailedanimals/lang/es-es.json
 rm -r bin/
 rm -r src/obj/
 rm "${VINTAGE_STORY_DEV}"/Mods/detailedanimals_*.zip
+mkdir -p "${VINTAGE_STORY_DEV}/Mods"
 cp Build/Releases/detailedanimals_*.zip "${VINTAGE_STORY_DEV}/Mods"
 
 endtime=$(($(date +%s%N)/1000000))

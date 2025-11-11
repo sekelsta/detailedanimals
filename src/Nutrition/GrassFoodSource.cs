@@ -7,9 +7,9 @@ using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
     public class GrassFoodSource : IAnimalFoodSource {
-        private static string[] tallgrassArray = new string[] { "none", "eaten", "veryshort", "short", "mediumshort", "medium", "tall", "verytall" };
-        private static string[] grassArray = new string[] { "none", "verysparse", "sparse", "normal" };
-        private static string[] forestArray = new string[] { "0", "1", "2", "3", "4", "5", "6", "7" };
+        private static string[] tallgrassArray = [ "none", "eaten", "veryshort", "short", "mediumshort", "medium", "tall", "verytall" ];
+        private static string[] grassArray = [ "none", "verysparse", "sparse", "normal" ];
+        private static string[] forestArray = [ "0", "1", "2", "3", "4", "5", "6", "7" ];
         private static Dictionary<string, int> tallgrassDict = index(tallgrassArray);
         private static Dictionary<string, int> grassDict = index(grassArray);
         private static Dictionary<string, int> forestDict = index(forestArray);
@@ -37,25 +37,65 @@ namespace DetailedAnimals {
             this.tallgrassPos = soilPos.UpCopy();
         }
 
+        public static bool IsBetterGrass(Block first, Block second) {
+            Dictionary<string, int> dict = grassDict;
+            string[] array = grassArray;
+            string firstCoverage = first.Variant["grasscoverage"];
+            float firstDensity;
+            if (firstCoverage == null) {
+                firstCoverage = first.Variant["grass"];
+                firstDensity = forestDict[firstCoverage] / (forestArray.Length - 1);
+            }
+            else firstDensity = grassDict[firstCoverage] / (grassArray.Length - 1);
+            string secondCoverage = second.Variant["grasscoverage"];
+            float secondDensity;
+            if (secondCoverage == null) {
+                secondCoverage = second.Variant["grass"];
+                secondDensity = forestDict[secondCoverage] / (forestArray.Length - 1);
+            }
+            else secondDensity = grassDict[secondCoverage] / (grassArray.Length - 1);
+            return firstDensity > secondDensity;
+        }
+
         public static GrassFoodSource SearchNear(Entity entity) {
             double dist = entity.SelectionBox.XSize / 2;
             BlockPos blockPos = entity.Pos.HorizontalAheadCopy(dist).XYZ.AsBlockPos;
-            BlockPos columnSearchPos = blockPos.Copy();
+            GrassFoodSource grass = null;
+            int entityY = blockPos.Y;
+            Block block = null;
             for (int i = 8; i >= -8; --i) {
-                columnSearchPos.Y = blockPos.Y + i;
-                Block block = entity.World.BlockAccessor.GetBlock(columnSearchPos);
+                blockPos.Y = entityY + i;
+                block = entity.World.BlockAccessor.GetBlock(blockPos);
                 if (block.Id == 0) {
                     // Air
                     continue;
                 }
                 if (block.FirstCodePart() == "tallgrass") {
-                    return new GrassFoodSource(columnSearchPos.Down());
+                    grass = new GrassFoodSource(blockPos.DownCopy());
                 }
                 if (block.Variant["grass"] != null || block.Variant["grasscoverage"] != null) {
-                    return new GrassFoodSource(columnSearchPos);
+                    grass = new GrassFoodSource(blockPos.Copy());
+                    break;
                 }
             }
-            return new GrassFoodSource(blockPos);
+            int X = blockPos.X;
+            int Y = blockPos.Y;
+            int Z = blockPos.Z;
+            for (int x = X - 1; x <= X + 1; ++x) {
+                blockPos.X = x;
+                for (int y = Y - 1; y <= Y + 1; ++y) {
+                    blockPos.Y = y;
+                    for (int z = Z - 1; z <= Z + 1; ++z) {
+                        blockPos.Z = z;
+                        Block nextBlock = entity.World.BlockAccessor.GetBlock(blockPos);
+                        if (IsBetterGrass(nextBlock, block)) {
+                            grass = new GrassFoodSource(blockPos.Copy());
+                            block = nextBlock;
+                        }
+                    }
+                }
+            }
+            return grass ?? new GrassFoodSource(blockPos);
         }
 
         public Vec3d Position => tallgrassPos.ToVec3d();

@@ -76,7 +76,7 @@
         file: "game:entities/animal/mammal/hooved/moose-adult.json",
         op: "replace",
         path: "/server/behaviors/7/drops/0/quantity/avg",
-        value: 83,
+        value: 74,
         side: "server"
     },
     {
@@ -86,8 +86,7 @@
         value: {
             "type": "item",
             "code": "game:hide-raw-huge",
-            category: "pelt",
-            quantity: { avg: 2.9, var: 0.2 },
+            quantity: { avg: 1.9, var: 0.2 },
         },
         side: "server"
     },
