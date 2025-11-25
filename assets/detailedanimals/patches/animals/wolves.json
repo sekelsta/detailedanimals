@@ -292,14 +292,4 @@
         },
         side: "server"
     },
-
-
-
-    {
-        file: "game:entities/animal/mammal/wolf-adult.json",
-        op: "replace",
-        path: "/client/shape/base",
-        value: "detailedanimals:entity/wolf-adult",
-        side: "server"
-    },
 ]
