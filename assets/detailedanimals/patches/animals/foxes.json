@@ -196,6 +196,8 @@
         value: {
             code: "genelib.multiply",
             enabledByType: { "*-male": false },
+            sireCodes: [ "fox-{type}-adult-male" ],
+            spawnEntityCodes: [ { "code":"fox-{type}-baby-male" }, { "code": "fox-{type}-baby-female" } ],
             mateTaskPriority: 1.34,
             spawnQuantityMax: 12,
             litterAddChance: 0.4,

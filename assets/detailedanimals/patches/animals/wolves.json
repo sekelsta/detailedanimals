@@ -131,6 +131,8 @@
         value: {
             code: "genelib.multiply",
             enabledByType: { "*-male": false },
+            sireCodes: [ "wolf-{type}-adult-male" ],
+            spawnEntityCodes: [ { code: "wolf-{type}-baby-male" }, { code: "wolf-{type}-baby-female" } ],
             mateTaskPriority: 1.37,
             pregnancyMonths: 2.05,
             multiplyCooldownMonthsMin: 3.9,
