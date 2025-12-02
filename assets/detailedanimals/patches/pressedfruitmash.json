@@ -4,13 +4,15 @@
         "op": "replace",
         "path": "/transitionableProps/0/freshHours/avg",
         "value": 120,
-        side: "server",
+        "side": "Server",
+        "dependsOn": [ { "modId": "expandedfoods", "invert": true } ]
     },
     {
         "file": "game:itemtypes/resource/pressedmash.json",
         "op": "replace",
         "path": "/transitionableProps/0/transitionHours/avg",
         "value": 48,
-        side: "server",
-    },
+        "side": "Server",
+        "dependsOn": [ { "modId": "expandedfoods", "invert": true } ]
+    }
 ]
