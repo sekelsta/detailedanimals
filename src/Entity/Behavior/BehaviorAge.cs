@@ -92,6 +92,9 @@ namespace DetailedAnimals {
                     throw new Exception("Error initializing aging behavior. Initial weight for " + entity.Code + " must be strictly greater than 0. Found value: " + StartingWeight);
                 }
             }
+            else {
+                entity.Api.Logger.Warning("Entity " + entity.Code + " has no initial weight set. Defaulting to " + StartingWeight);
+            }
 
             if (typeAttributes.KeyExists("finalWeight")) {
                 FinalWeight = typeAttributes["finalWeight"].AsFloat();
@@ -99,7 +102,7 @@ namespace DetailedAnimals {
             else if (AdultEntityCode != null) {
                 EntityProperties adultType = entity.World.GetEntityType(AdultEntityCode);
                 if (adultType == null) {
-                    entity.World.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via agegradually behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, AdultEntityCode);
+                    entity.Api.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via agegradually behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, AdultEntityCode);
                 }
                 else if (adultType.Attributes?.KeyExists("initialWeight") == true) {
                     FinalWeight = adultType.Attributes["initialWeight"].AsFloat();
