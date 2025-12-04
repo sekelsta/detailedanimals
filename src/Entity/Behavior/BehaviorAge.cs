@@ -92,6 +92,9 @@ namespace DetailedAnimals {
                     throw new Exception("Error initializing aging behavior. Initial weight for " + entity.Code + " must be strictly greater than 0. Found value: " + StartingWeight);
                 }
             }
+            else {
+                entity.Logger.Warning("Entity " + entity.Code + " has no initial weight set. Defaulting to " + StartingWeight);
+            }
 
             if (typeAttributes.KeyExists("finalWeight")) {
                 FinalWeight = typeAttributes["finalWeight"].AsFloat();
