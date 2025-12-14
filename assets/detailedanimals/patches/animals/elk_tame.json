@@ -29,7 +29,7 @@
     },
 
     {
-        file: "game:entities/animal/mammal/hooved/elk-semitamed.json",
+        file: "game:entities/animal/mammal/hooved/elk-tamed.json",
         op: "addmerge",
         path: "/behaviorConfigs/agegradually",
         value: {
