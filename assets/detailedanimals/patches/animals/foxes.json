@@ -309,6 +309,7 @@
             animationSpeed: 2,
             eatTime: 2,
             animation: "Walk",
+            eatAnimation: "Idle",
             mincooldownHours: 0.0,
             maxcooldownHours: 0.05,
         },

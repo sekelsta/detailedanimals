@@ -274,7 +274,7 @@
                 animation: "Walk",
                 eatAnimation: "Eat",
                 eatSound: "creature/animal-eat2",
-                digAnimation: "Dig",
+                digAnimation: "Eat",
                 digAnimationSpeed: 1.5,
                 eatTime: 2,
                 mincooldownHours: 0.05,
