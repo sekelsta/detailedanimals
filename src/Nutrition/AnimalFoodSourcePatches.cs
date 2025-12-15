@@ -30,8 +30,11 @@ namespace DetailedAnimals {
         }
 
         public static bool Trough_IsSuitableFor_Prefix(BlockEntityTrough __instance, Entity entity, CreatureDiet diet, bool __result) {
-            if (__instance.Inventory.Empty) {
+            if (__instance.Inventory == null || __instance.Inventory.Empty) {
                 return true;
+            }
+            if (entity == null) {
+                return false;
             }
             if (entity.GetBehavior<AnimalHunger>()?.WantsFood(__instance.Inventory[0].Itemstack) == false) {
                 __result = false;
