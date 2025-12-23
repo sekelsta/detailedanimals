@@ -64,7 +64,9 @@ namespace DetailedAnimals
         public override void StartClientSide(ICoreClientAPI api) {
             ClientAPI = api;
 
+	    GuiDialogAnimal.AddToStatusContents -= AddHunger;
             GuiDialogAnimal.AddToStatusContents += AddHunger;
+	    GuiDialogAnimal.AddPreInfoContents -= AddAge;
             GuiDialogAnimal.AddPreInfoContents += AddAge;
         }
 
