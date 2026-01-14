@@ -250,7 +250,7 @@
         file: "game:entities/animal/mammal/hare-adult.json",
         op: "replace",
         path: "/server/behaviors/4/maxhealth",
-        value: 4,
+        value: 3.2,
         side: "server"
     },
     {
@@ -263,7 +263,7 @@
         file: "game:entities/animal/mammal/hare-baby.json",
         op: "replace",
         path: "/server/behaviors/3/maxhealth",
-        value: 4,
+        value: 3.2,
         side: "server"
     },
     {
