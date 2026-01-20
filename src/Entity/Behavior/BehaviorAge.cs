@@ -39,8 +39,8 @@ namespace DetailedAnimals {
         public float GrowthWeightFraction {
             get => entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
             set {
-                if (float.IsNaN(value)) {
-                    throw new ArgumentException("Cannot set growth weight fraction to NaN. Entity code: " + entity.Code);
+                if (float.IsNaN(value) || value == 0) {
+                    throw new ArgumentException("Cannot set growth weight fraction to " + value + ". Entity code: " + entity.Code);
                 }
                 entity.WatchedAttributes.SetFloat("growthWeightFraction", value);
             }
@@ -195,7 +195,7 @@ namespace DetailedAnimals {
             double age = entity.World.Calendar.TotalHours - TimeSpawned;
             double prevGrowth = GrowthWeightFraction;
             double expected = Math.Max(ExpectedWeight(age / HoursToGrow), prevGrowth);
-            expected = Math.Min(expected, maxGrowth * prevGrowth);
+            expected = Math.Min(expected, maxGrowth * prevGrowth + 0.0001);
             GrowthWeightFraction = (float)expected;
 
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
