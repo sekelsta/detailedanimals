@@ -207,6 +207,7 @@
             lactationMonths: 5,
             estrousCycleMonths: 0.9,
             daysInHeat: 4.0,
+            minAgeMonths: 10,
         },
         side: "server",
     },

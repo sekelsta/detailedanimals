@@ -61,9 +61,20 @@ namespace DetailedAnimals {
             TryGetPregnantChance = 0.2;
             PortionsEatenForMultiply = 0;
             MatingFoodCost = 0;
+
+            double minAgeDays = GenelibConfig.AnimalMonthsToGameDays(attributes["minAgeMonths"].AsFloat(0));
+            double birthDate = entity.WatchedAttributes.GetDouble("birthTotalDays", 0);
+            TotalDaysCooldownUntil = Math.Max(TotalDaysCooldownUntil, birthDate + minAgeDays);
         }
 
         public override bool ShouldEat { get => true; }
+
+        public override bool EntityCanMate(Entity entity) {
+            if (!base.EntityCanMate(entity)) {
+                return false;
+            }
+            return AnimalConfig.Instance.WildBreeding || entity.WatchedAttributes.GetBool("fedByPlayer") || entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety") > 0;
+        }
 
         // If the animal dies, you lose the pregnancy even if you later revive it
         public override void OnEntityDeath(DamageSource damageSource) {

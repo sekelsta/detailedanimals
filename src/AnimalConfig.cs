@@ -9,6 +9,7 @@ namespace DetailedAnimals {
 
         public float AnimalMeat = 1.0f;
         public bool MeatScalesWithYearLength = false;
+        public bool WildBreeding = true;
 
         public float InbreedingResistance = 0.6f;
 
