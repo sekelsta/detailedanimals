@@ -411,12 +411,12 @@ namespace DetailedAnimals {
             Eat(slot, byEntity, false, data, nutriProps, consumeItem);
         }
 
-        public NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps) {
+        public static NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps) {
             string[] foodTags = itemstack.Collectible.Attributes?["foodTags"].AsArray<string>() ?? new string[0];
             return GetNutritionData(itemstack, nutriProps, foodTags);
         }
 
-        public NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps, string[] foodTags) {
+        public static NutritionData GetNutritionData(ItemStack itemstack, FoodNutritionProperties nutriProps, string[] foodTags) {
             NutritionData data = null;
             foreach (string tag in foodTags) {
                 NutritionData tagData = NutritionData.Get(tag);

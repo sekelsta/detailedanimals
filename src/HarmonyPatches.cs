@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Cairo;
 using HarmonyLib;
 using Genelib.Extensions;
 using Newtonsoft.Json.Linq;
@@ -11,12 +12,18 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 using DetailedAnimals.Extensions;
+using Vintagestory.API.Client;
+using Vintagestory.API.Config;
+using Vintagestory.ServerMods;
 
 namespace DetailedAnimals {
     public class HarmonyPatches {
-        private static Harmony harmony = new Harmony("sekelsta.detailedanimals");
+        private static Harmony? harmony;
 
         public static void Patch() {
+            if (harmony != null) return;
+            harmony = new Harmony("sekelsta.detailedanimals");
+            
             harmony.Patch(
                 typeof(EntityBehaviorHarvestable).GetMethod("GenerateDrops", BindingFlags.Instance | BindingFlags.Public),
                 prefix: new HarmonyMethod(typeof(DetailedHarvestable).GetMethod("generateDrops_Prefix", BindingFlags.Static | BindingFlags.Public)) 
@@ -48,6 +55,10 @@ namespace DetailedAnimals {
             harmony.Patch(
                 typeof(AiTaskBaseTargetable).GetMethod("GetOwnGeneration", BindingFlags.Instance | BindingFlags.Public),
                 postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("AiTaskBaseTargetable_GetOwnGeneration_Postfix", BindingFlags.Static | BindingFlags.Public)) 
+            );
+            harmony.Patch(
+                typeof(CollectibleBehaviorHandbookTextAndExtraInfo).GetMethod("addIngredientForInfo", BindingFlags.Instance | BindingFlags.NonPublic),
+                postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod("addIngredientForInfo_Postfix", BindingFlags.Static | BindingFlags.Public)) 
             );
         }
 
@@ -146,6 +157,49 @@ namespace DetailedAnimals {
         public static void AiTaskBaseTargetable_GetOwnGeneration_Postfix(AiTaskBaseTargetable __instance, ref int __result) {
             double tamingProgress = __instance.entity.GetBehavior<BehaviorAge>()?.TamingProgress ?? 0;
             __result += (int)Math.Floor(10 * tamingProgress);
+        }
+        
+        public static void addIngredientForInfo_Postfix(ref bool __result, ICoreClientAPI capi, ActionConsumable<string> openDetailPageFor, ItemStack stack, List<RichTextComponentBase> components) {
+            __result = addNutritionInfo(capi, openDetailPageFor, stack , components, __result);
+        }
+
+        static bool addNutritionInfo(ICoreClientAPI capi, ActionConsumable<string> openDetailPageFor, ItemStack stack, List<RichTextComponentBase> components, bool haveText) {
+            FoodNutritionProperties nutriProps = stack.Collectible.GetNutritionProperties(capi.World, stack, null);
+            NutritionData data = AnimalHunger.GetNutritionData(stack, nutriProps);
+
+            if (data?.Values == null) return haveText;
+            
+            Dictionary<string, int> values = [];
+            double leftMargin = 0;
+            foreach ((string type, float value) in data.Values)
+            {
+                if (type is "water" or "minerals") continue;
+                
+                int numTicks = Math.Min(10, (int)Math.Round(value * 10, MidpointRounding.AwayFromZero));
+                if (numTicks <= 0) continue;
+                
+                string output = "• " + Lang.GetUnformatted("detailedanimals:gui-animalinfo-nutrient-" + type).Replace("{n}", "");
+                leftMargin = Math.Max(leftMargin, CairoFont.WhiteSmallText().GetTextExtents(output).Width);
+                values.Add(output, numTicks);
+            }
+            
+            if (values.Count <= 0) return haveText;
+            leftMargin += 10;
+            
+            CollectibleBehaviorHandbookTextAndExtraInfo.AddHeading(components, capi, "detailedanimals:handbook-nutritiontitle", ref haveText);
+            components.Add(new ClearFloatTextComponent(capi, 2));
+
+            foreach ((string name, int numTicks) in values)
+            {
+                string ticks = "";
+                for (int i = 0; i < numTicks; i++) ticks += "█";
+
+                components.Add(new RichTextComponent(capi, name, CairoFont.WhiteSmallText()) { PaddingLeft = 2, PaddingRight = CairoFont.WhiteSmallText().GetTextExtents(name).Width * -1 });
+                components.Add(new RichTextComponent(capi, ticks, CairoFont.WhiteSmallText()) { PaddingLeft = leftMargin });
+                components.Add(new ClearFloatTextComponent(capi, 4));
+            }
+
+            return haveText;
         }
     }
 }
