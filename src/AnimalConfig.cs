@@ -7,6 +7,7 @@ namespace DetailedAnimals {
 
         public string Units = "CUSTOMARY_METRIC";
 
+        public float AnimalHungerTime = 1.0f;
         public float AnimalMeat = 1.0f;
         public bool MeatScalesWithYearLength = false;
         public bool WildBreeding = true;

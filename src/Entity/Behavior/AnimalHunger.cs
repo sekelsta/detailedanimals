@@ -104,9 +104,8 @@ namespace DetailedAnimals {
         public AnimalHunger(Entity entity) : base(entity) { }
 
         public override void Initialize(EntityProperties properties, JsonObject typeAttributes) {
-            if (typeAttributes.KeyExists("daysUntilHungry")) {
-                DaysUntilHungry = typeAttributes["daysUntilHungry"].AsFloat();
-            }
+            DaysUntilHungry = typeAttributes["daysUntilHungry"].AsFloat(DaysUntilHungry) * AnimalConfig.Instance.AnimalHungerTime;
+
             if (typeAttributes.KeyExists("saturationPerKgPerDay")) {
                 SaturationPerKgPerDay = typeAttributes["saturationPerKgPerDay"].AsFloat() * TROUGH_SAT_PER_PLAYER_SAT;
             }
