@@ -73,7 +73,8 @@ namespace DetailedAnimals {
             if (!base.EntityCanMate(entity)) {
                 return false;
             }
-            return AnimalConfig.Instance.WildBreeding || entity.WatchedAttributes.GetBool("fedByPlayer") || entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety") > 0;
+            bool farmed = entity.WatchedAttributes.GetBool("fedByPlayer") || entity.WatchedAttributes.GetDouble("fedByPlayerTotalSatiety") > 0;
+            return farmed || (AnimalConfig.Instance.WildBreeding && (entity.GetBehavior<AnimalHunger>()?.Fullness ?? 1) > AnimalHunger.HUNGRY);
         }
 
         // If the animal dies, you lose the pregnancy even if you later revive it
