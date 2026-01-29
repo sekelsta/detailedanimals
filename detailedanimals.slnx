@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CakeBuild/CakeBuild.csproj" />
+  <Project Path="detailedanimals/detailedanimals.csproj" Id="e11c3fca-81b1-4fe4-8078-55791db705a8" />
+</Solution>
