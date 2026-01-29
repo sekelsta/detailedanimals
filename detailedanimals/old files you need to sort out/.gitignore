@@ -1,0 +1,7 @@
+bin/
+obj/
+src/obj/
+test/obj/
+Build/CakeBuild/bin/
+Build/CakeBuild/obj/
+Build/Releases/
