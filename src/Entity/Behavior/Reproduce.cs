@@ -64,7 +64,9 @@ namespace DetailedAnimals {
 
             double minAgeDays = GenelibConfig.AnimalMonthsToGameDays(attributes["minAgeMonths"].AsFloat(0));
             double birthDate = entity.WatchedAttributes.GetDouble("birthTotalDays", 0);
-            TotalDaysCooldownUntil = Math.Max(TotalDaysCooldownUntil, birthDate + minAgeDays);
+            if (entity.Api.Side == EnumAppSide.Server) {
+                TotalDaysCooldownUntil = Math.Max(TotalDaysCooldownUntil, birthDate + minAgeDays);
+            }
         }
 
         public override bool ShouldEat { get => true; }
