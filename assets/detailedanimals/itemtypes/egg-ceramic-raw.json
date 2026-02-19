@@ -17,22 +17,22 @@
         eggShelfCheck: true,
         beehiveKilnByType: {
             "*-blue": {
-				"0": { "type": "block", "code": "egg-ceramic-fired-cream" },
-				"1": { "type": "block", "code": "egg-ceramic-fired-gray" },
-				"2": { "type": "block", "code": "egg-ceramic-fired-blue" },
-				"3": { "type": "block", "code": "egg-ceramic-fired-black" }
+				"0": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-cream" },
+				"1": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-gray" },
+				"2": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-blue" },
+				"3": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-black" }
 			},
             "*-fire": {
-				"0": { "type": "block", "code": "egg-ceramic-fired-fire" },
-				"1": { "type": "block", "code": "egg-ceramic-fired-fire" },
-				"2": { "type": "block", "code": "egg-ceramic-fired-fire" },
-				"3": { "type": "block", "code": "egg-ceramic-fired-fire" }
+				"0": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-fire" },
+				"1": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-fire" },
+				"2": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-fire" },
+				"3": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-fire" }
 			},
             "*-red": {
-				"0": { "type": "block", "code": "egg-ceramic-fired-tan" },
-				"1": { "type": "block", "code": "egg-ceramic-fired-orange" },
-				"2": { "type": "block", "code": "egg-ceramic-fired-red" },
-				"3": { "type": "block", "code": "egg-ceramic-fired-brown" }
+				"0": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-tan" },
+				"1": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-orange" },
+				"2": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-red" },
+				"3": { "type": "block", "code": "detailedanimals:egg-ceramic-fired-brown" }
 			}
         }
     },
