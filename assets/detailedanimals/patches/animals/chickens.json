@@ -352,7 +352,7 @@
             multiplyCooldownMonthsMin: 1.25,
             multiplyCooldownMonthsMin: 1.75,
             "_comment2": "In egg layers, litter size is the number of fertile eggs that can be laid after a single mating.",
-            litterAddAttempts: 15,
+            spawnQuantityMax: 16,
             litterAddChance: 0.5,
             hoursPerEgg: { avg: 25, var: 2, dist: "narrowgaussian" },
             incubationMonths: 0.7,

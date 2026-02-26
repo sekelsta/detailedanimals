@@ -151,7 +151,7 @@
             sireCodes: ["pig-{type}-adult-male"],
             spawnEntityCodes: [{"code": "game:pig-eurasian-baby-male"}, {"code": "game:pig-eurasian-baby-female"}],
             litterAddChance: 0.45,
-            litterAddAttempts: 8,
+            spawnQuantityMax: 9,
             pregnancyMonths: 3.8,
             multiplyCooldownMonthsMin: 3.9,
             multiplyCooldownMonthsMax: 4.1,

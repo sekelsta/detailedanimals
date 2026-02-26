@@ -143,7 +143,7 @@
             sireCodes: ["game:hyena-male"],
             spawnEntityCodes: [{"code": "game:hyena-spotted-baby-male"}, {"code": "game:hyena-spotted-baby-female"}],
             litterAddChance: 0.21,
-            litterAddAttempts: 3,
+            spawnQuantityMax: 4,
             pregnancyMonths: 2.05,
             multiplyCooldownMonthsMin: 8.8,
             multiplyCooldownMonthsMax: 9.2,

@@ -132,7 +132,7 @@
             sireCodes: ["game:hare-*-adult-male"],
             spawnEntityCodes: [{"code": "game:hare-{type}-baby-male"}, {"code": "game:hare-{type}-baby-female"}],
             litterAddChance: 0.5,
-            litterAddAttempts: 7,
+            spawnQuantityMax: 8,
             pregnancyMonths: 1.35,
             multiplyCooldownMonthsMin: 0.9,
             multiplyCooldownMonthsMax: 1.1,

@@ -143,7 +143,7 @@
             sireCodes: ["game:raccoon-male"],
             spawnEntityCodes: [{"code": "game:raccoon-common-baby-male"}, {"code": "game:raccoon-common-baby-female"}],
             litterAddChance: 0.4,
-            litterAddAttempts: 6,
+            spawnQuantityMax: 7,
             pregnancyMonths: 2.2,
             multiplyCooldownMonthsMin: 3.2,
             multiplyCooldownMonthsMax: 3.6,
