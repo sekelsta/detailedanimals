@@ -156,8 +156,13 @@ namespace DetailedAnimals {
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
                 entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(GrowthWeightFraction, 1/3f)));
             }
+        }
 
-            callbackID = entity.World.RegisterCallback(CheckGrowth, entity.World.Rand.Next((int) secondsPerUpdate * 1000));
+        public override void AfterInitialized(bool onFirstSpawn) {
+            if (entity.World.Side == EnumAppSide.Server) {
+                // Need to make sure AnimalHunger is initialized before this runs
+                callbackID = entity.World.RegisterCallback(CheckGrowth, entity.World.Rand.Next((int) secondsPerUpdate * 1000));
+            }
         }
 
         public void ClientUpdateScale() {
