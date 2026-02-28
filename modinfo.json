@@ -5,7 +5,7 @@
   "description" : "Believable animal husbandry, behaviour, and genetics.",
   "authors": ["sekelsta"],
   "contributors": ["pizza2004", "Brady_The", "Flamby38", "Niexyk", "Zatin", "ИгОорКа"],
-  "version": "0.7.4",
+  "version": "0.7.5",
   "dependencies": { 
 	"game": "1.21.1",
 	"survival": "",
