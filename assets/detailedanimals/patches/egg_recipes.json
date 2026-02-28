@@ -3,7 +3,21 @@
         file: "game:recipes/cooking/scrambledeggs.json",
         op: "add",
         path: "/ingredients/0/validStacks/-",
-        value: { type: "item", code: "detailedanimals:egg-chicken-*-raw",  shapeElement: "bowl/egg/*", textureMapping: ["scrambledegg", "group7"] },
+        value: { type: "item", code: "detailedanimals:egg-chicken-*-raw",  shapeElement: "bowl/egg1/*", textureMapping: ["scrambledegg", "group7"] },
+        side: "server",
+    },
+    {
+        file: "game:recipes/cooking/scrambledeggs.json",
+        op: "add",
+        path: "/ingredients/1/validStacks/-",
+        value: { type: "item", code: "detailedanimals:egg-chicken-*-raw",  shapeElement: "bowl/egg2/*", textureMapping: ["scrambledegg", "group7"] },
+        side: "server",
+    },
+    {
+        file: "game:recipes/cooking/scrambledeggs.json",
+        op: "add",
+        path: "/ingredients/2/validStacks/-",
+        value: { type: "item", code: "detailedanimals:egg-chicken-*-raw",  shapeElement: "bowl/egg3/*", textureMapping: ["scrambledegg", "group7"] },
         side: "server",
     },
     {
