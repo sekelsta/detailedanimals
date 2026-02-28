@@ -168,6 +168,8 @@ namespace DetailedAnimals {
             NutritionData data = AnimalHunger.GetNutritionData(stack, nutriProps);
 
             if (data?.Values == null) return haveText;
+
+            int precision = 20;
             
             Dictionary<string, int> values = [];
             double leftMargin = 0;
@@ -175,7 +177,7 @@ namespace DetailedAnimals {
             {
                 if (type is "water" or "minerals") continue;
                 
-                int numTicks = Math.Min(10, (int)Math.Round(value * 10, MidpointRounding.AwayFromZero));
+                int numTicks = Math.Min(precision, (int)Math.Round(value * precision, MidpointRounding.AwayFromZero));
                 if (numTicks <= 0) continue;
                 
                 string output = "• " + Lang.GetUnformatted("detailedanimals:gui-animalinfo-nutrient-" + type).Replace("{n}", "");
