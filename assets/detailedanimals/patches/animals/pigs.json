@@ -220,6 +220,7 @@
         value: { 
             monthsUntilWeaned: 2.5,
             fiber: 0.18,
+            fiberMax: 0.3,
             sugar: 0.12,
             sugarMax: 0.4,
             fat: 0.1,

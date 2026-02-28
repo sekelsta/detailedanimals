@@ -250,11 +250,14 @@ namespace DetailedAnimals {
             if (Fullness < FAMISHED) {
                 return null;
             }
+            double fiberSatiety = satiety;
             if (data != null) {
                 satiety *= 1 - data.Values["fiber"] * (1 - FiberDigestion);
             }
             satiety = Math.Min(satiety, AdjustedMaxSaturation - Saturation);
+            fiberSatiety = Math.Min(fiberSatiety, AdjustedMaxSaturation - Saturation);
             satiety /= AdjustedMaxSaturation;
+            fiberSatiety /= AdjustedMaxSaturation;
             if (data == null) {
                 return null;
             }
@@ -262,7 +265,8 @@ namespace DetailedAnimals {
             double worst = 0;
             string worstName = null;
             foreach (Nutrient nutrient in Nutrients) {
-                double gain = nutrient.ValueIfAdded(satiety * data.Values[nutrient.Name]) - nutrient.Value;
+                double thisSatiety = nutrient.Name == "fiber" ? fiberSatiety : satiety;
+                double gain = nutrient.ValueIfAdded(thisSatiety * data.Values[nutrient.Name]) - nutrient.Value;
                 if (gain > 0 || Fullness > PECKISH || data.Values[nutrient.Name] > nutrient.Usage ) {
                     sum += gain;
                     if (gain < worst) {
