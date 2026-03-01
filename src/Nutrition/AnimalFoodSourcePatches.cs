@@ -1,4 +1,4 @@
-
+using System;
 using System.Linq;
 using System.Reflection;
 using Vintagestory.API.Common;
@@ -30,17 +30,19 @@ namespace DetailedAnimals {
         }
 
         public static bool Trough_IsSuitableFor_Prefix(BlockEntityTrough __instance, Entity entity, CreatureDiet diet, bool __result) {
-            if (__instance.Inventory == null || __instance.Inventory.Empty) {
+            ArgumentNullException.ThrowIfNull(__instance);
+            ArgumentNullException.ThrowIfNull(entity);
+            __result = false;
+            AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
+            if (hunger == null) {
+                // Fall back to base game logic
                 return true;
             }
-            if (entity == null) {
+            if (__instance.Inventory.Empty || __instance.Inventory[0].StackSize < 1) {
                 return false;
             }
-            if (entity.GetBehavior<AnimalHunger>()?.WantsFood(__instance.Inventory[0].Itemstack) == false) {
-                __result = false;
-                return false;
-            }
-            return true;
+            __result = hunger.WantsFood(__instance.Inventory[0].Itemstack);
+            return false;
         }
 
         public static bool Trough_ConsumeOnePortion_Prefix(BlockEntityTrough __instance, Entity entity, float __result) {

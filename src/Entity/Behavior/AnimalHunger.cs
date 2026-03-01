@@ -347,6 +347,8 @@ namespace DetailedAnimals {
         }
 
         public bool WantsFood(ItemStack itemstack) {
+            if (itemstack == null) return false;
+
             FoodNutritionProperties nutriProps = itemstack.Collectible.GetNutritionProperties(entity.World, itemstack, entity);
             NutritionData data = GetNutritionData(itemstack, nutriProps);
             if (!CanEat(itemstack, nutriProps, data)) {
