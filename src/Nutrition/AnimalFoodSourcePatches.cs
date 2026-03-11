@@ -7,7 +7,7 @@ using Vintagestory.GameContent;
 
 namespace DetailedAnimals {
     public class AnimalFoodSourcePatches {
-        public static bool LooseItem_IsSuitableFor_Prefix(LooseItemFoodSource __instance, Entity entity, CreatureDiet diet, bool __result) {
+        public static bool LooseItem_IsSuitableFor_Prefix(LooseItemFoodSource __instance, Entity entity, CreatureDiet diet, ref bool __result) {
             if (entity.GetBehavior<AnimalHunger>()?.WantsFood(__instance.ItemStack) == false) {
                 __result = false;
                 return false;
@@ -15,7 +15,7 @@ namespace DetailedAnimals {
             return true;
         }
 
-        public static bool LooseItem_ConsumeOnePortion_Prefix(LooseItemFoodSource __instance, Entity entity, float __result) {
+        public static bool LooseItem_ConsumeOnePortion_Prefix(LooseItemFoodSource __instance, Entity entity, ref float __result) {
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
             if (hunger == null) {
                 return true;
@@ -29,23 +29,24 @@ namespace DetailedAnimals {
             return false;
         }
 
-        public static bool Trough_IsSuitableFor_Prefix(BlockEntityTrough __instance, Entity entity, CreatureDiet diet, bool __result) {
+        public static bool Trough_IsSuitableFor_Prefix(BlockEntityTrough __instance, Entity entity, CreatureDiet diet, ref bool __result) {
             ArgumentNullException.ThrowIfNull(__instance);
             ArgumentNullException.ThrowIfNull(entity);
-            __result = false;
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
             if (hunger == null) {
                 // Fall back to base game logic
                 return true;
             }
+            ArgumentNullException.ThrowIfNull(__instance.Inventory);
             if (__instance.Inventory.Empty || __instance.Inventory[0].StackSize < 1) {
+                __result = false;
                 return false;
             }
             __result = hunger.WantsFood(__instance.Inventory[0].Itemstack);
             return false;
         }
 
-        public static bool Trough_ConsumeOnePortion_Prefix(BlockEntityTrough __instance, Entity entity, float __result) {
+        public static bool Trough_ConsumeOnePortion_Prefix(BlockEntityTrough __instance, Entity entity, ref float __result) {
             AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
             if (hunger == null) {
                 return true;
