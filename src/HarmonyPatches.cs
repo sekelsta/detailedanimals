@@ -18,12 +18,9 @@ using Vintagestory.ServerMods;
 
 namespace DetailedAnimals {
     public class HarmonyPatches {
-        private static Harmony? harmony;
+        internal static Harmony harmony = new Harmony("sekelsta.detailedanimals");
 
-        public static void Patch() {
-            if (harmony != null) return;
-            harmony = new Harmony("sekelsta.detailedanimals");
-            
+        public static void Patch() {            
             harmony.Patch(
                 typeof(EntityBehaviorHarvestable).GetMethod("GenerateDrops", BindingFlags.Instance | BindingFlags.Public),
                 prefix: new HarmonyMethod(typeof(DetailedHarvestable).GetMethod("generateDrops_Prefix", BindingFlags.Static | BindingFlags.Public)) 

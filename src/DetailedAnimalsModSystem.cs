@@ -68,6 +68,10 @@ namespace DetailedAnimals
             GuiDialogAnimal.AddPreInfoContents += AddAge;
         }
 
+        public override void Dispose() {
+            HarmonyPatches.harmony.UnpatchAll("sekelsta.detailedanimals");
+        }
+
         private static void AddHunger(GuiDialogAnimal gui, ref int y) {
             AnimalHunger hunger = gui.Animal.GetBehavior<AnimalHunger>();
             if (hunger != null) {
