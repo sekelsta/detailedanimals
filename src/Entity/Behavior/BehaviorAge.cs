@@ -23,7 +23,7 @@ namespace DetailedAnimals {
         protected double maxGrowth;
 
         public AssetLocation AdultEntityCode { get; protected set; }
-        public AssetLocation TameAdultEntityCode { get; protected set; }
+        public AssetLocation? TameAdultEntityCode { get; protected set; }
         public double HoursToGrow { get; protected set; }
         protected double PortionsEatenForTaming = -1;
         internal double TimeSpawned {
@@ -84,7 +84,6 @@ namespace DetailedAnimals {
             else if (typeAttributes.KeyExists("tameAdultEntityCode")) {
                 TameAdultEntityCode = new AssetLocation(typeAttributes["tameAdultEntityCode"].AsString());
             }
-            TameAdultEntityCode ??= AdultEntityCode;
 
             if (typeAttributes.KeyExists("initialWeight")) {
                 StartingWeight = typeAttributes["initialWeight"].AsFloat();
@@ -232,7 +231,7 @@ namespace DetailedAnimals {
         }
 
         protected void TryBecomingTame() {
-            if (Tamed) {
+            if (Tamed && TameAdultEntityCode != null) {
                 AttemptBecomingAdult();
             }
         }
@@ -240,7 +239,7 @@ namespace DetailedAnimals {
         protected virtual void AttemptBecomingAdult() {
             AssetLocation code = AdultEntityCode;
             if (Tamed) {
-                code = TameAdultEntityCode;
+                code = TameAdultEntityCode ?? AdultEntityCode;
             }
             if (code == null) {
                 return;
