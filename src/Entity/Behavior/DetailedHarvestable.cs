@@ -130,7 +130,7 @@ namespace DetailedAnimals {
             // Skip adding from entity.GetDrops because those things are spawned directly into the world already
 
             foreach (IHarvestableDrops iharvestable in entity.GetInterfaces<IHarvestableDrops>()) {
-                ItemStack[] moreDrops = iharvestable.GetHarvestableDrops(entity.World, entity.ServerPos.AsBlockPos, byPlayer);
+                ItemStack[] moreDrops = iharvestable.GetHarvestableDrops(entity.World, entity.Pos.AsBlockPos, byPlayer);
                 if (moreDrops != null) {
                     drops.AddRange(moreDrops);
                 }

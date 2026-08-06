@@ -15,7 +15,7 @@ namespace DetailedAnimals {
         public override bool ShouldExecute() {
             if (!(cooldownUntilMs <= entity.World.ElapsedMilliseconds
                     && cooldownUntilTotalHours <= entity.World.Calendar.TotalHours
-                    && PreconditionsSatisifed())) {
+                    && PreconditionsSatisfied())) {
                 return false;
             }
 
@@ -25,7 +25,7 @@ namespace DetailedAnimals {
 
             if (!hunger.CanEat(entity.LeftHandItemSlot.Itemstack)) {
                 if (entity.World.Rand.NextSingle() < 0.4f) {
-                    entity.World.SpawnItemEntity(entity.LeftHandItemSlot.TakeOutWhole(), entity.ServerPos.XYZ);
+                    entity.World.SpawnItemEntity(entity.LeftHandItemSlot.TakeOutWhole(), entity.Pos.XYZ);
                 }
                 else {
                     cooldownUntilTotalHours = entity.World.Calendar.TotalHours + 0.05f;

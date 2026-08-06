@@ -117,7 +117,7 @@ namespace DetailedAnimals {
         public override void FinishExecute(bool cancelled) {
             base.FinishExecute(cancelled);
             if (!cancelled) {
-                cooldownUntilTotalHours = entity.Api.World.Calendar.TotalHours + mincooldownHours + entity.World.Rand.NextDouble() * (maxcooldownHours - mincooldownHours);
+                cooldownUntilTotalHours = entity.Api.World.Calendar.TotalHours + MinCooldownHours + entity.World.Rand.NextDouble() * (MaxCooldownHours - MinCooldownHours);
                 hungerBehavior.TryEatFromInventory();
             }
 

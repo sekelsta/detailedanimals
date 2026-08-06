@@ -11,6 +11,12 @@
             { dermalmelanin: ["allowed", "inhibited"] },
             //{ chocolate: ["wildtype", "chocolate"] },
         ],
+        "anonymous": [
+            { "deleterious": 16 },
+        ],
+        "bitwise": [
+            { "coi": 256 },
+        ],
     },
     interpreters: [ "Polygenes", "Junglefowl", ],
     sexdetermination: "zw",

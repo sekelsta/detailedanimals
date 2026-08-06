@@ -29,7 +29,7 @@ namespace DetailedAnimals {
         }
 
         public static bool IsPolled(Genome genome) {
-            return genome.HasAutosomal("polled", "polled");
+            return genome.HasAllele("polled", "polled");
         }
     }
 }

@@ -21,7 +21,7 @@ namespace DetailedAnimals {
         }
 
         private static int getTextureIndex(Genome genome, Entity entity, int prevTexture) {
-            if (genome.HasAutosomal("K", "B")) {
+            if (genome.HasAllele("K", "B")) {
                 return 0;
             }
 

@@ -25,7 +25,7 @@ namespace DetailedAnimals {
             return lastSearchHours + searchRate <= entity.World.Calendar.TotalHours
                 && cooldownUntilMs <= entity.World.ElapsedMilliseconds
                 && cooldownUntilTotalHours <= entity.World.Calendar.TotalHours
-                && PreconditionsSatisifed();
+                && PreconditionsSatisfied();
         }
 
         protected bool RecentlyFailedSeek(T poi) {

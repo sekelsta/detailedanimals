@@ -5,6 +5,12 @@
         ],
         xz: [
         ],
+        "anonymous": [
+            { "deleterious": 16 },
+        ],
+        "bitwise": [
+            { "coi": 256 },
+        ],
     },
     interpreters: [ "Polygenes", "Canine", ],
     sexdetermination: "xy",

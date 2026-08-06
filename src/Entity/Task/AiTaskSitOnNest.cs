@@ -32,11 +32,11 @@ namespace DetailedAnimals {
             }
             double lastBroodyHours = entity.WatchedAttributes.GetDouble("lastBroodyHours");
             if (lastBroodyHours < entity.World.Calendar.TotalHours - 24 && entity.World.Rand.NextSingle() < 0.8) {
-                Cooldown();
+                ResetCooldown();
                 return false;
             }
             else if (lastBroodyHours < entity.World.Calendar.TotalHours - 48 && entity.World.Rand.NextSingle() < 0.9) {
-                Cooldown();
+                ResetCooldown();
                 return false;
             }
 
@@ -44,10 +44,6 @@ namespace DetailedAnimals {
             target = pointsOfInterest.GetWeightedNearestPoi(entity.Pos.XYZ, searchRadius, IsValidFullNest) as IAnimalNest;
 
             return target != null;
-        }
-
-        private void Cooldown() {
-            cooldownUntilTotalHours = entity.World.Calendar.TotalHours + mincooldownHours + entity.World.Rand.NextDouble() * (maxcooldownHours - mincooldownHours);
         }
 
         protected bool IsValidFullNest(IPointOfInterest poi) {

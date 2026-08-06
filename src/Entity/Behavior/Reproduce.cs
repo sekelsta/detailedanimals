@@ -71,7 +71,7 @@ namespace DetailedAnimals {
 
         public override bool ShouldEat { get => true; }
 
-        public override bool EntityCanMate(Entity entity) {
+        protected override bool EntityCanMate(Entity entity) {
             if (!base.EntityCanMate(entity)) {
                 return false;
             }

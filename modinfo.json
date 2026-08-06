@@ -5,10 +5,10 @@
   "description" : "Believable animal husbandry, behaviour, and genetics.",
   "authors": ["sekelsta"],
   "contributors": ["pizza2004", "Brady_The", "Flamby38", "Niexyk", "Zatin", "ИгОорКа"],
-  "version": "0.7.6",
+  "version": "0.8.0",
   "dependencies": { 
-	"game": "1.21.1",
+	"game": "1.22.0",
 	"survival": "",
-	"genelib": "2.1.4",
+	"genelib": "3.2.0",
   }
 }
