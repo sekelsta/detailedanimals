@@ -327,14 +327,17 @@
     {
         file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "remove",
-        path: "/server/behaviors/3/currenthealth",
+        path: "/server/behaviors/3/currenthealthByType",
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/pig-adult.json",
         op: "replace",
-        path: "/server/behaviors/3/maxhealth",
-        value: 21,
+        path: "/server/behaviors/3/maxhealthByType",
+        value: {
+		    "pig-eurasian-elder-*": 48,
+ 		   "*": 21
+		},
         side: "server"
     },
     {

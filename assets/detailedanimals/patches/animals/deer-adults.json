@@ -31,7 +31,7 @@
     {
         file: "game:entities/animal/mammal/hooved/deer-adult.json",
         op: "remove",
-        path: "/server/behaviors/12/beginGrowMonth",
+        path: "/server/behaviors/12/beginGrowMonthByType/*",
         side: "server"
     },
     {

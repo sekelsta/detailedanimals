@@ -120,20 +120,6 @@
         side: "server",
     },
     {
-        "file": "game:itemtypes/food/grain.json",
-        "op": "addmerge",
-        "path": "/attributesByType/*-flax/foodTags",
-        "value": ["flax"],
-        side: "server",
-    },
-    {
-        "file": "game:itemtypes/food/grain.json",
-        "op": "addmerge",
-        "path": "/attributesByType/*-rice/foodTags",
-        "value": ["rice"],
-        side: "server",
-    },
-    {
         file: "game:itemtypes/food/legume.json",
         op: "add",
         path: "/attributes/satiety",

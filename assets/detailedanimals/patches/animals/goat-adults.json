@@ -1,10 +1,5 @@
 [
-    {
-        file: "game:entities/animal/mammal/hooved/goat-adult.json",
-        op: "remove",
-        path: "/client/behaviors/8/enabledByType",
-        side: "server"
-    },
+
     {
         file: "game:entities/animal/mammal/hooved/goat-adult.json",
         op: "replace",

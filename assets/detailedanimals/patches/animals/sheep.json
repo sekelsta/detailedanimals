@@ -63,8 +63,8 @@
             code: "agegradually",
             monthsToGrow: 12.0,
             adultEntityCodesByType: {
-                "*-male-*": ["game:sheep-bighorn-adult-male"],
-                "*-female-*": ["game:sheep-bighorn-adult-female"],
+                "*-male-*": ["game:sheep-{type}-adult-male"],
+                "*-female-*": ["game:sheep-{type}-adult-female"],
                 "*": ["game:sheep-{type}-adult-{gender}"],
             },
             initialWeight: 0.1,
@@ -139,8 +139,8 @@
             code: "genelib.multiply",
             enabledByType: { "*-male": false },
             mateTaskPriority: 1.37,
-            sireCodes: ["sheep-bighorn-adult-male"],
-            spawnEntityCodes: [{"code": "game:sheep-bighorn-baby-male"}, {"code": "game:sheep-bighorn-baby-female"}],
+            sireCodes: ["sheep-{type}-adult-male"],
+            spawnEntityCodes: [{"code": "game:sheep-{type}-baby-male"}, {"code": "game:sheep-{type}-baby-female"}],
             spawnQuantityMin: 1,
             spawnQuantityMax: 3,
             litterAddChance: 0.01,
@@ -258,91 +258,91 @@
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/7/code",
+        path: "/server/behaviors/10/aitasks/12/code",
         value: "forage",
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/7/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/12/mincooldownHours",
         value: 0.05,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/7/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/12/maxcooldownHours",
         value: 1,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/7/priority",
+        path: "/server/behaviors/10/aitasks/12/priority",
         value: 1.38,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/7/eatAnimationSpeed",
+        path: "/server/behaviors/10/aitasks/12/eatAnimationSpeed",
         value: 1.5,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/5/code",
+        path: "/server/behaviors/10/aitasks/6/code",
         value: "forage",
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/5/nurseFromEntities",
-        value: ["game:sheep-bighorn-female"],
+        path: "/server/behaviors/10/aitasks/6/nurseFromEntities",
+        value: ["game:sheep-{type}-female"],
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/5/mincooldownHours",
+        path: "/server/behaviors/10/aitasks/6/mincooldownHours",
         value: 0.05,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/5/maxcooldownHours",
+        path: "/server/behaviors/10/aitasks/6/maxcooldownHours",
         value: 1,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "replace",
-        path: "/server/behaviors/10/aitasks/5/priority",
+        path: "/server/behaviors/10/aitasks/12/priority",
         value: 1.38,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/5/eatAnimationSpeed",
+        path: "/server/behaviors/10/aitasks/6/eatAnimationSpeed",
         value: 1.5,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-adult.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/8/enabled",
+        path: "/server/behaviors/10/aitasks/13/enabled",
         value: false,
         side: "server"
     },
     {
         file: "game:entities/animal/mammal/hooved/sheep-baby.json",
         op: "add",
-        path: "/server/behaviors/10/aitasks/6/enabled",
+        path: "/server/behaviors/10/aitasks/7/enabled",
         value: false,
         side: "server"
     },

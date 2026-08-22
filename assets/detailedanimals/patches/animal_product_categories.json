@@ -21,7 +21,7 @@
         side: "server",
     },
     {
-        file: "game:itemtypes/food/fish.json",
+        file: "game:itemtypes/food/fishfillet.json",
         op: "add",
         path: "/attributes/productCategory",
         value: "meat",
