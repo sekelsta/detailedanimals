@@ -4,7 +4,7 @@
   "name": "Truth and Beauty: Detailed Animals",
   "description" : "Believable animal husbandry, behaviour, and genetics.",
   "authors": ["sekelsta"],
-  "contributors": ["pizza2004", "Brady_The", "Flamby38", "Niexyk", "Zatin", "ИгОорКа"],
+  "contributors": ["pizza2004", "Brady_The", "Flamby38", "Niexyk", "Zatin", "ИгОорКа", "Protobean"],
   "version": "0.8.0",
   "dependencies": { 
 	"game": "1.22.0",

@@ -17,21 +17,6 @@ namespace DetailedAnimals
             }
 
             patchEntity(api, "game:entities/animal/bird/chicken-baby.json", "chicken", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""", null);
-            patchEntity(api, "game:entities/animal/mammal/hooved/pig-baby.json", "pig-wild", """[{ "code": "variants", "states": ["male-piglet", "female-piglet"] }]""", "game:entity/animal/mammal/hooved/pig/eurasian/eurasian-baby");
-            patchEntity(api, "game:entities/animal/mammal/hooved/sheep-baby.json", "sheep-bighorn", """[{ "code": "variants", "states": ["male-lamb", "female-lamb"] }]""", "game:entity/animal/mammal/hooved/sheep/bighorn/bighorn-baby");
-            patchEntity(api, "game:entities/animal/mammal/wolf-baby.json", "wolf", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""", null);
-            patchEntity(api, "game:entities/animal/mammal/fox-baby.json", "fox", """
-                [
-                    { "code": "gender", "states": ["male", "female"] },
-                    { "code": "age", "states": ["pup"] },
-                    { "code": "type", "states": ["red", "arctic"] },
-                ]
-            """, null
-            );
-            patchEntity(api, "game:entities/animal/mammal/raccoon-baby.json", "raccoon", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""", "game:entity/animal/mammal/raccoon/common-baby");
-            patchEntity(api, "game:entities/animal/mammal/hyena-baby.json", "hyena", """[{ "code": "variants", "states": ["male-pup", "female-pup"] }]""", "game:entity/animal/mammal/hyena/spotted-baby");
-            patchEntity(api, "game:entities/animal/mammal/hooved/gazelle-baby.json", "gazelle", """[{ "code": "variants", "states": ["male-calf", "female-calf"] }]""", "game:entity/animal/mammal/hooved/gazelle/thomson/thomson-baby");
-            patchEntity(api, "game:entities/animal/mammal/hare-baby.json", "hare", """[{ "code": "variants", "states": ["male-baby", "female-baby"] }]""", null);
         }
 
         public override double ExecuteOrder() => 0.15;
@@ -132,7 +117,11 @@ namespace DetailedAnimals
                 JObject jsounds = token.Value<JObject>("sounds");
                 if (jsounds != null) {
                     foreach (JProperty sound in jsounds.Properties()) {
-                        fixAssetDomain((JValue)sound.Value, domain);
+                        var soundLocation = sound.Value as JValue;
+                        if (soundLocation != null) fixAssetDomain(soundLocation, domain);
+                        var soundAttributes = sound.Value as JObject;
+                        var soundPath = soundAttributes.Value<JValue>("path");
+                        if (soundPath != null) fixAssetDomain(soundPath, domain);
                     }
                 }
                 JObject jsoundsByType = token.Value<JObject>("soundsByType");
