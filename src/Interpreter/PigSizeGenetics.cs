@@ -1,3 +1,4 @@
+using System;
 using Genelib;
 using System.Reflection;
 using Vintagestory.API.Common;
@@ -17,10 +18,10 @@ namespace DetailedAnimals {
 
             int sizeGeneCount = genome.BitwiseSum("size");
             var sizeRange = genome.Type.Bitwise.TryGetRange("size");
-            int sizeTotalAlleles = sizeRange.End.Value - sizeRange.Start.Value;
+            int sizeTotalAlleles = 2 * (sizeRange.End.Value - sizeRange.Start.Value);
             float sizeBase = (float)sizeGeneCount / sizeTotalAlleles;
             float sizeMajor = genome.HasAllele("size_major", "large") ? genome.IsHomozygous("size_major", "large") ? 1 : 0.75f : 0;
-            entity.WatchedAttributes.SetFloat("geneticSize", (0.5f + sizeBase) * (1 + 0.5f * sizeMajor));
+            entity.WatchedAttributes.SetFloat("geneticSize", (float)Math.Pow((0.5f + sizeBase) * (1 + 0.5f * sizeMajor), 0.3333f));
         }
     }
 }

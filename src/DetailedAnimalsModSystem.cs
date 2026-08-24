@@ -104,7 +104,9 @@ namespace DetailedAnimals
             if (gui.Animal.WatchedAttributes.HasAttribute("birthTotalDays")) {
                 double birthDate = gui.Animal.WatchedAttributes.GetDouble("birthTotalDays");
                 double ageDays = gui.Animal.World.Calendar.TotalDays - birthDate;
-                string ageText = Lang.Get("detailedanimals:gui-animalinfo-age", VSExtensions.TranslateTimeFromHours(gui.Animal.Api, ageDays * 24 * GenelibConfig.AnimalYearSpeed));
+                // Convert depending on whether the logic is using fixed or actual days per month
+                double multiplier = GenelibConfig.AnimalYearsScaleWithGameYears ? 1 : (gui.Animal.Api.World.Calendar.DaysPerMonth / 30.0);
+                string ageText = Lang.Get("detailedanimals:gui-animalinfo-age", VSExtensions.TranslateTimeFromHours(gui.Animal.Api, ageDays * 24 * GenelibConfig.AnimalYearSpeed * multiplier));
                 gui.SingleComposer.AddStaticText(ageText, CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, y, gui.Width, 25));
                 y += 25;
             }

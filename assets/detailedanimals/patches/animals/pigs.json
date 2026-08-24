@@ -230,7 +230,7 @@
         "op": "add",
         "path": "/client/sizeByType",
         "value": {
-            "pig-eurasian-*": 3.37,
+            "pig-eurasian-*": 2.3, // Match by width, not height, because piglet is very wide
             "pig-warthog-*": 2.21,
             "pig-redriver-*": 2.03,
         },
@@ -241,6 +241,7 @@
         "op": "replace",
         "path": "/client/sizeByType",
         "value": {
+            "pig-eurasian-elder": 0.667,
             "pig-eurasian-*": 1.03,
             "pig-warthog-*": 0.67,
             "pig-redriver-*": 0.62,
@@ -303,7 +304,8 @@
                                 "pig-warthog-*": "detailedanimals:warthog",
                         },
                         initializersByType: {
-                                "*": ["wildtype"],
+                            "pig-*-elder-*": ["huge"],
+                            "*": ["northern", "temperate", "southern"],
                         },
                 },
                 side: "server"
@@ -320,7 +322,7 @@
                                 "pig-warthog-*": "detailedanimals:warthog",
                         },
                         initializersByType: {
-                                "*": ["wildtype"],
+                            "*": ["northern", "temperate", "southern"],
                         },
                 },
                 side: "server"

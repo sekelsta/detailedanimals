@@ -111,10 +111,7 @@ namespace DetailedAnimals {
             }
 
             if (AdultEntityCode != null) {
-                float maxVisibleGrowth = 0.9f;
-                if (typeAttributes.KeyExists("maxVisibleGrowth")) {
-                    maxVisibleGrowth = typeAttributes["maxVisibleGrowth"].AsFloat();
-                }
+                float maxVisibleGrowth = typeAttributes["maxVisibleGrowth"].AsFloat(0.9f);
 
                 float initialScale = (float)Math.Pow(StartingWeight, 1/3f);
                 float finalScale = (float)Math.Pow(FinalWeight, 1/3f);
@@ -162,7 +159,7 @@ namespace DetailedAnimals {
         public override void AfterInitialized(bool onFirstSpawn) {
             if (entity.World.Side == EnumAppSide.Server) {
                 // Need to make sure AnimalHunger is initialized before this runs
-                callbackID = entity.World.RegisterCallback(CheckGrowth, entity.World.Rand.Next((int) secondsPerUpdate * 1000));
+                CheckGrowth(0);
             }
         }
 

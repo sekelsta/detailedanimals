@@ -15,10 +15,49 @@
     interpreters: [ "Polygenes", "PigSize", ],
     sexdetermination: "xy",
     initializers: {
-        wildtype: {
+        huge: {
             autosomal: {
+                size_major: { default: "large" }
+            },
+            bitwise: {
+                size: [ 0.6 ],
             },
             conditions: {
+            }
+        },
+
+        northern: {
+            autosomal: {
+                size_major: { default: "normal", large: 0.02 }
+            },
+            bitwise: {
+                size: [ 0.7 ],
+            },
+            conditions: {
+                maxTemp: -2,
+            }
+        },
+        temperate: {
+            autosomal: {
+                size_major: { default: "normal", large: 0.01 }
+            },
+            bitwise: {
+                size: [ 0.5 ],
+            },
+            conditions: {
+                minTemp: -2,
+                maxTemp: 15,
+            }
+        },
+        southern: {
+            autosomal: {
+                size_major: { default: "normal", large: 0.0 }
+            },
+            bitwise: {
+                size: [ 0.2 ],
+            },
+            conditions: {
+                minTemp: 15,
             }
         },
     }
