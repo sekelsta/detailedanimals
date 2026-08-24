@@ -22,8 +22,10 @@ namespace DetailedAnimals {
         protected float MaxGrowthScale;
         protected double maxGrowth;
 
-        public AssetLocation AdultEntityCode { get; protected set; }
+        public AssetLocation? AdultEntityCode { get; protected set; }
         public AssetLocation? TameAdultEntityCode { get; protected set; }
+        public double? GrowAtScale { get; protected set; }
+
         public double HoursToGrow { get; protected set; }
         protected double PortionsEatenForTaming = -1;
         internal double TimeSpawned {
@@ -128,13 +130,14 @@ namespace DetailedAnimals {
             updatesPerDay *= GenelibConfig.AnimalMonthsToGameDays(1) / 30;
             maxGrowth = Math.Exp(Math.Log(maxDailyGrowth) / updatesPerDay);
 
+            double startAgeDays = GenelibConfig.AnimalMonthsToGameDays(typeAttributes["startAgeMonths"].AsDouble(0));
             growTree = entity.WatchedAttributes.GetTreeAttribute("grow");
             if (growTree == null) {
                 entity.WatchedAttributes.SetAttribute("grow", growTree = new TreeAttribute());
                 double spawnAge = 0;
                 string origin = entity.Attributes.GetString("origin");
                 if (origin == "worldgen" || origin == "playerplaced") {
-                    spawnAge = entity.World.Rand.NextSingle() * HoursToGrow * (AdultEntityCode == null ? 2 : 1);
+                    spawnAge = startAgeDays * 24 + entity.World.Rand.NextSingle() * HoursToGrow * (AdultEntityCode == null ? 2 : 1);
                 }
                 TimeSpawned = entity.World.Calendar.TotalHours - spawnAge;
             }
@@ -145,7 +148,6 @@ namespace DetailedAnimals {
 
             double birthDate = entity.WatchedAttributes.GetDouble("birthTotalDays", entity.World.Calendar.TotalDays);
             double spawnDate = TimeSpawned / entity.World.Calendar.HoursPerDay;
-            double startAgeDays = GenelibConfig.AnimalMonthsToGameDays(typeAttributes["startAgeMonths"].AsDouble(0));
             if (birthDate > spawnDate - startAgeDays) {
                 entity.WatchedAttributes.SetDouble("birthTotalDays", spawnDate - startAgeDays);
             }
@@ -153,7 +155,7 @@ namespace DetailedAnimals {
             if (!entity.WatchedAttributes.HasAttribute("growthWeightFraction")) {
                 // Set to current size, without requiring extra food
                 GrowthWeightFraction = (float)ExpectedWeight((entity.World.Calendar.TotalHours - TimeSpawned) / HoursToGrow);
-                entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(GrowthWeightFraction, 1/3f)));
+                entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(GrowthWeightFraction, 1/3f)) * entity.WatchedAttributes.GetFloat("geneticSize", 1));
             }
         }
 
@@ -214,11 +216,17 @@ namespace DetailedAnimals {
                 entity.SetBodyCondition(newAnimalWeight);
                 hunger.ShiftWeight(prevAnimalWeight - newAnimalWeight);
             }
-            entity.WatchedAttributes.SetFloat("renderScale", Math.Min(MaxGrowthScale, (float)Math.Pow(expected, 1/3f)));
+            float renderScale = Math.Min(MaxGrowthScale, (float)Math.Pow(expected, 1/3f)) * entity.WatchedAttributes.GetFloat("geneticSize", 1);
+            entity.WatchedAttributes.SetFloat("renderScale", renderScale);
 
             entity.GetBehavior<EntityBehaviorHealth>()?.MarkDirty();
 
-            if (age >= HoursToGrow) {
+            if (GrowAtScale != null) {
+                if (renderScale >= GrowAtScale) {
+                    AttemptBecomingAdult();
+                }
+            }
+            else if (age >= HoursToGrow) {
                 AttemptBecomingAdult();
             }
             else {

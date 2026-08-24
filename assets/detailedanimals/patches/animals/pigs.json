@@ -1,483 +1,566 @@
 [
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "replace",
-    "path": "/server/behaviors/6/drops",
-    "value": [
-      {
-        "type": "item",
-        "code": "game:redmeat-raw",
-        "category": "meat",
-        "quantity": {
-          "avg": 14,
-          "var": 0
-        }
-      },
-      {
-        "type": "item",
-        "code": "game:hide-raw-small",
-        "category": "pelt",
-        "quantity": {
-          "avg": 2,
-          "var": 0
-        }
-      },
-      {
-        "type": "item",
-        "code": "game:fat",
-        "category": "fat",
-        "quantity": {
-          "avg": 5,
-          "var": 0
-        }
-      }
-    ],
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "replace",
-    "path": "/server/behaviors/6/drops/0/quantityByType",
-    "value": {
-      "pig-eurasian-elder-*": {
-        "avg": 40,
-        "var": 0
-      },
-      "*": {
-        "avg": 14,
-        "var": 0
-      }
-    },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "replace",
-    "path": "/server/behaviors/6/drops/1/quantityByType",
-    "value": {
-      "pig-eurasian-elder-*": {
-        "avg": 0,
-        "var": 0
-      },
-      "*": {
-        "avg": 1.2,
-        "var": 0
-      }
-    },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "replace",
-    "path": "/server/behaviors/6/drops/3/quantityByType",
-    "value": {
-      "pig-eurasian-elder-*": {
-        "avg": 11.2,
-        "var": 0
-      },
-      "*": {
-        "avg": 5.6,
-        "var": 0
-      }
-    },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "replace",
-    "path": "/server/behaviors/6/drops/2/quantityByType",
-    "value": {
-      "pig-eurasian-elder-*": {
-        "avg": 1.2,
-        "var": 0
-      },
-      "*": {
-        "avg": 0,
-        "var": 0
-      }
-    },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "replace",
-    "path": "/server/behaviors/9",
-    "value": {
-      "code": "agegradually",
-      "monthsToGrow": 9,
-      "adultEntityCodesByType": {
-        "*-male-*": [
-          "game:pig-{type}-adult-male"
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "replace",
+        "path": "/server/behaviors/6/drops",
+        "value": [
+            {
+                "type": "item",
+                "code": "game:redmeat-raw",
+                "category": "meat",
+                "quantityByType": {
+                    "pig-eurasian-*": {
+                        "avg": 14,
+                        "var": 0
+                    },
+                    "pig-redriver-*": {
+                        "avg": 6.1,
+                        "var": 0
+                    },
+                    "pig-warthog-*": {
+                        "avg": 6.9,
+                        "var": 0
+                    }
+                }
+            },
+            {
+                "type": "item",
+                "code": "game:hide-raw-small",
+                "category": "pelt",
+                "quantityByType": {
+                    "pig-eurasian-*": {
+                        "avg": 2,
+                        "var": 0
+                    },
+                    "*": {
+                        "avg": 1,
+                        "var": 0
+                    }
+                }
+            },
+            {
+                "type": "item",
+                "code": "game:fat",
+                "category": "fat",
+                "quantityByType": {
+                    "pig-eurasian-*": {
+                        "avg": 5,
+                        "var": 0
+                    },
+                    "pig-redriver-*": {
+                        "avg": 1.9,
+                        "var": 0
+                    },
+                    "pig-warthog-*": {
+                        "avg": 2.2,
+                        "var": 0
+                    }
+                }
+            }
         ],
-        "*-female-*": [
-          "game:pig-{type}-adult-female"
-        ],
-        "*": [
-          "pig-{type}-adult-{gender}"
-        ]
-      },
-      "initialWeight": 0.005,
-      "portionsEatenForTaming": 8,
-      "maxTameness": 0.9
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "add",
-    "path": "/server/behaviors/-",
-    "value": {
-      "code": "agegradually",
-      "monthsToGrow": 51,
-      "startAgeMonths": 9,
-      "initialWeight": 0.36,
-      "finalWeight": 1,
-      "portionsEatenForTaming": 12,
-      "maxTameness": 0.6
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/server/behaviors/6/drops/0/quantityByType",
+        "value": {
+            "pig-eurasian-*": {
+                "avg": 14,
+                "var": 0
+            },
+            "pig-redriver-*": {
+                "avg": 6.1,
+                "var": 0
+            },
+            "pig-warthog-*": {
+                "avg": 6.9,
+                "var": 0
+            }
+        },
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "add",
-    "path": "/client/behaviors/-",
-    "value": {
-      "code": "agegradually"
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/server/behaviors/6/drops/1/quantityByType",
+        "value": {
+            "pig-eurasian-elder-*": {
+                "avg": 0,
+                "var": 0
+            },
+            "pig-eurasian-*": {
+                "avg": 1.9,
+                "var": 0
+            },
+            "pig-redriver-*": {
+                "avg": 1.3,
+                "var": 0
+            },
+            "pig-warthog-*": {
+                "avg": 1.4,
+                "var": 0
+            }
+        },
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "add",
-    "path": "/client/behaviors/-",
-    "value": {
-      "code": "agegradually"
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/server/behaviors/6/drops/2/quantityByType",
+        "value": {
+            "pig-eurasian-elder-*": {
+                "avg": 1.3,
+                "var": 0
+            },
+            "*": {
+                "avg": 0,
+                "var": 0
+            }
+        },
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "addmerge",
-    "path": "/attributes",
-    "value": {
-      "adultWeightKg": 112,
-      "weightDimorphism": 0.12
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/server/behaviors/6/drops/3/quantityByType",
+        "value": {
+            "quantityByType": {
+                "pig-eurasian-*": {
+                    "avg": 5,
+                    "var": 0
+                },
+                "pig-redriver-*": {
+                    "avg": 1.9,
+                    "var": 0
+                },
+                "pig-warthog-*": {
+                    "avg": 2.2,
+                    "var": 0
+                }
+            }
+        },
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "addmerge",
-    "path": "/attributes/adultWeightKgByType",
-    "value": {
-      "pig-eurasian-elder-*": 336,
-      "*": 112
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "replace",
+        "path": "/server/behaviors/9",
+        "value": {
+            "code": "agegradually",
+            "monthsToGrow": 9,
+            "adultEntityCodes": [ "pig-{type}-adult-{gender}" ],
+            "initialWeight": 0.005,
+            "portionsEatenForTaming": 8,
+            "maxTameness": 0.9
+        },
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "addmerge",
-    "path": "/attributes",
-    "value": {
-      "weightDimorphism": 0.12
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "add",
+        "path": "/server/behaviors/-",
+        "value": {
+            "code": "agegradually",
+            "monthsToGrow": 51,
+            "adultEntityCodesByType": { "pig-eurasian-adult-*": [ "pig-{type}-elder-{gender}" ]},
+            "growAtScaleByType": { "pig-eurasian-adult-*": 1.1 },
+            "startAgeMonths": 9,
+            "initialWeight": 0.36,
+            "finalWeight": 1,
+            "portionsEatenForTaming": 12,
+            "maxTameness": 0.6
+        },
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "replace",
-    "path": "/client/size",
-    "value": 2.9,
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "add",
-    "path": "/client/size",
-    "value": 1.17,
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "replace",
-    "path": "/client/behaviors/4",
-    "value": {
-      "code": "genelib.multiply",
-      "enabledByType": {
-        "*-male": false
-      }
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "add",
+        "path": "/client/behaviors/-",
+        "value": {
+            "code": "agegradually"
+        },
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "replace",
-    "path": "/server/behaviors/8",
-    "value": {
-      "code": "genelib.multiply",
-      "enabledByType": {
-        "*-male": false
-      },
-      "mateTaskPriority": 1.37,
-      "sireCodes": [
-        "pig-{type}-{age}-male"
-      ],
-      "spawnEntityCodes": [
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "add",
+        "path": "/client/behaviors/-",
+        "value": {
+            "code": "agegradually"
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "addmerge",
+        "path": "/attributes",
+        "value": {
+            "adultWeightKgByType": {
+                "pig-eurasian-*": 112,
+                "pig-redriver-*": 61,
+                "pig-warthog-*": 69,
+            },
+            "weightDimorphism": 0.12
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "addmerge",
+        "path": "/attributes",
+        "value": {
+            "adultWeightKgByType": {
+                "pig-eurasian-*": 112,
+                "pig-redriver-*": 61,
+                "pig-warthog-*": 69,
+            },
+            "weightDimorphism": 0.12
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "remove",
+        "path": "/client/size",
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "add",
+        "path": "/client/sizeByType",
+        "value": {
+            "pig-eurasian-*": 3.37,
+            "pig-warthog-*": 2.21,
+            "pig-redriver-*": 2.03,
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/client/sizeByType",
+        "value": {
+            "pig-eurasian-*": 1.03,
+            "pig-warthog-*": 0.67,
+            "pig-redriver-*": 0.62,
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/client/behaviors/4",
+        "value": {
+            "code": "genelib.multiply",
+            "enabledByType": {
+                "*-male": false
+            }
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/server/behaviors/8",
+        "value": {
+            "code": "genelib.multiply",
+            "enabledByType": {
+                "*-male": false
+            },
+            "mateTaskPriority": 1.37,
+            "sireCodes": [
+                "pig-{type}-{age}-male"
+            ],
+            "spawnEntityCodes": [
+                {
+                    "code": "game:pig-{type}-baby-male"
+                },
+                {
+                    "code": "game:pig-{type}-baby-female"
+                }
+            ],
+            "litterAddChance": 0.45,
+            "spawnQuantityMax": 9,
+            "pregnancyMonths": 3.8,
+            "multiplyCooldownMonthsMin": 3.9,
+            "multiplyCooldownMonthsMax": 4.1,
+            "lactationMonths": 3.5,
+            "estrousCycleMonths": 0.65,
+            "daysInHeat": 2
+        },
+        "side": "server"
+    },
         {
-          "code": "game:pig-{type}-baby-male"
+                file: "game:entities/animal/mammal/hooved/pig-adult.json",
+                op: "add",
+                path: "/server/behaviors/-",
+                value: {
+                        code: "genelib.genetics",
+                        genomeTypeByType: {
+                                "pig-eurasian-*": "detailedanimals:pig",
+                                "pig-redriver-*": "detailedanimals:riverhog",
+                                "pig-warthog-*": "detailedanimals:warthog",
+                        },
+                        initializersByType: {
+                                "*": ["wildtype"],
+                        },
+                },
+                side: "server"
         },
         {
-          "code": "game:pig-{type}-baby-female"
-        }
-      ],
-      "litterAddChance": 0.45,
-      "spawnQuantityMax": 9,
-      "pregnancyMonths": 3.8,
-      "multiplyCooldownMonthsMin": 3.9,
-      "multiplyCooldownMonthsMax": 4.1,
-      "lactationMonths": 3.5,
-      "estrousCycleMonths": 0.65,
-      "daysInHeat": 2
+                file: "game:entities/animal/mammal/hooved/pig-baby.json",
+                op: "add",
+                path: "/server/behaviors/-",
+                value: {
+                        code: "genelib.genetics",
+                        genomeTypeByType: {
+                                "pig-eurasian-*": "detailedanimals:pig",
+                                "pig-redriver-*": "detailedanimals:riverhog",
+                                "pig-warthog-*": "detailedanimals:warthog",
+                        },
+                        initializersByType: {
+                                "*": ["wildtype"],
+                        },
+                },
+                side: "server"
+        },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "add",
+        "path": "/attributes/creatureDiet/foodCategories/-",
+        "value": "Dairy",
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "add",
-    "path": "/attributes/creatureDiet/foodCategories/-",
-    "value": "Dairy",
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "add",
-    "path": "/attributes/creatureDiet/foodCategories/-",
-    "value": "Dairy",
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "addmerge",
-    "path": "/behaviorConfigs",
-    "value": {},
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "addmerge",
-    "path": "/behaviorConfigs",
-    "value": {},
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "addmerge",
-    "path": "/behaviorConfigs/animalhunger",
-    "value": {
-      "monthsUntilWeaned": 2.5,
-      "fiber": 0.18,
-      "sugar": 0.12,
-      "sugarMax": 0.4,
-      "fat": 0.1,
-      "fatMax": 0.4,
-      "starch": 0.46,
-      "protein": 0.16,
-      "water": 1,
-      "minerals": 0.02,
-      "mineralsMax": 0.1,
-      "fiberDigestion": 0.3,
-      "grazeMethods": [
-        "root"
-      ]
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "add",
+        "path": "/attributes/creatureDiet/foodCategories/-",
+        "value": "Dairy",
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "addmerge",
-    "path": "/behaviorConfigs/animalhunger",
-    "value": {
-      "monthsUntilWeaned": 2.5,
-      "fiber": 0.18,
-      "fiberMax": 0.3,
-      "sugar": 0.12,
-      "sugarMax": 0.4,
-      "fat": 0.1,
-      "fatMax": 0.4,
-      "starch": 0.42,
-      "protein": 0.16,
-      "water": 1,
-      "minerals": 0.02,
-      "mineralsMax": 0.1,
-      "fiberDigestion": 0.3,
-      "grazeMethods": [
-        "nibblegraze"
-      ]
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "addmerge",
+        "path": "/behaviorConfigs",
+        "value": {},
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "replace",
-    "path": "/attributes/creatureDiet/skipFoodTags",
-    "value": [
-      "riceCrop",
-      "parsnipCrop",
-      "onion",
-      "cassava",
-      "rawegg"
-    ],
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "replace",
-    "path": "/attributes/creatureDiet/skipFoodTags",
-    "value": [
-      "riceCrop",
-      "parsnipCrop",
-      "onion",
-      "cassava",
-      "rawegg"
-    ],
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "addeach",
-    "path": "/attributes/creatureDiet/weightedFoodTags/-",
-    "value": [
-      {
-        "weight": 0.2,
-        "code": "foliage"
-      },
-      {
-        "weight": 0.2,
-        "code": "grass"
-      },
-      {
-        "weight": 0.8,
-        "code": "meat"
-      },
-      {
-        "weight": 0.8,
-        "code": "egg"
-      },
-      {
-        "weight": 0.2,
-        "code": "acorn"
-      },
-      {
-        "weight": 2,
-        "code": "peanut"
-      },
-      {
-        "weight": 1.5,
-        "code": "soybean"
-      },
-      {
-        "weight": 0.8,
-        "code": "tastyvegetable"
-      }
-    ],
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "addeach",
-    "path": "/attributes/creatureDiet/weightedFoodTags/-",
-    "value": [
-      {
-        "weight": 0.2,
-        "code": "foliage"
-      },
-      {
-        "weight": 0.2,
-        "code": "grass"
-      },
-      {
-        "weight": 0.8,
-        "code": "meat"
-      },
-      {
-        "weight": 0.8,
-        "code": "egg"
-      },
-      {
-        "weight": 0.2,
-        "code": "acorn"
-      },
-      {
-        "weight": 2,
-        "code": "peanut"
-      },
-      {
-        "weight": 1.5,
-        "code": "soybean"
-      },
-      {
-        "weight": 0.8,
-        "code": "tastyvegetable"
-      }
-    ],
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "replace",
-    "path": "/server/behaviors/10/aitasks/12",
-    "value": {
-      "code": "forage",
-      "movespeed": 0.004,
-      "priority": 1.38,
-      "animationSpeed": 2,
-      "animation": "Walk",
-      "eatAnimation": "Eat",
-      "eatSound": "creature/animal-eat2",
-      "digAnimation": "Eat",
-      "digAnimationSpeed": 1.5,
-      "eatTime": 2,
-      "mincooldownHours": 0.05,
-      "maxcooldownHours": 1
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "addmerge",
+        "path": "/behaviorConfigs",
+        "value": {},
+        "side": "server"
     },
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "replace",
-    "path": "/server/behaviors/10/aitasks/3/code",
-    "value": "forage",
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "add",
-    "path": "/server/behaviors/10/aitasks/3/nurseFromEntities",
-    "value": [
-      "game:pig-{type}-female"
-    ],
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "replace",
-    "path": "/server/behaviors/10/aitasks/3/mincooldownHours",
-    "value": 0.05,
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-baby.json",
-    "op": "replace",
-    "path": "/server/behaviors/10/aitasks/3/maxcooldownHours",
-    "value": 1,
-    "side": "server"
-  },
-  {
-    "file": "game:entities/animal/mammal/hooved/pig-adult.json",
-    "op": "add",
-    "path": "/server/behaviors/10/aitasks/13/enabled",
-    "value": false,
-    "side": "server"
-  }
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "addmerge",
+        "path": "/behaviorConfigs/animalhunger",
+        "value": {
+            "monthsUntilWeaned": 2.5,
+            "fiber": 0.18,
+            "sugar": 0.12,
+            "sugarMax": 0.4,
+            "fat": 0.1,
+            "fatMax": 0.4,
+            "starch": 0.46,
+            "protein": 0.16,
+            "water": 1,
+            "minerals": 0.02,
+            "mineralsMax": 0.1,
+            "fiberDigestion": 0.3,
+            "grazeMethods": [
+                "root"
+            ]
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "addmerge",
+        "path": "/behaviorConfigs/animalhunger",
+        "value": {
+            "monthsUntilWeaned": 2.5,
+            "fiber": 0.18,
+            "fiberMax": 0.3,
+            "sugar": 0.12,
+            "sugarMax": 0.4,
+            "fat": 0.1,
+            "fatMax": 0.4,
+            "starch": 0.42,
+            "protein": 0.16,
+            "water": 1,
+            "minerals": 0.02,
+            "mineralsMax": 0.1,
+            "fiberDigestion": 0.3,
+            "grazeMethods": [
+                "nibblegraze"
+            ]
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "replace",
+        "path": "/attributes/creatureDiet/skipFoodTags",
+        "value": [
+            "riceCrop",
+            "parsnipCrop",
+            "onion",
+            "cassava",
+            "rawegg"
+        ],
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/attributes/creatureDiet/skipFoodTags",
+        "value": [
+            "riceCrop",
+            "parsnipCrop",
+            "onion",
+            "cassava",
+            "rawegg"
+        ],
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "addeach",
+        "path": "/attributes/creatureDiet/weightedFoodTags/-",
+        "value": [
+            {
+                "weight": 0.2,
+                "code": "foliage"
+            },
+            {
+                "weight": 0.2,
+                "code": "grass"
+            },
+            {
+                "weight": 0.8,
+                "code": "meat"
+            },
+            {
+                "weight": 0.8,
+                "code": "egg"
+            },
+            {
+                "weight": 0.2,
+                "code": "acorn"
+            },
+            {
+                "weight": 2,
+                "code": "peanut"
+            },
+            {
+                "weight": 1.5,
+                "code": "soybean"
+            },
+            {
+                "weight": 0.8,
+                "code": "tastyvegetable"
+            }
+        ],
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "addeach",
+        "path": "/attributes/creatureDiet/weightedFoodTags/-",
+        "value": [
+            {
+                "weight": 0.2,
+                "code": "foliage"
+            },
+            {
+                "weight": 0.2,
+                "code": "grass"
+            },
+            {
+                "weight": 0.8,
+                "code": "meat"
+            },
+            {
+                "weight": 0.8,
+                "code": "egg"
+            },
+            {
+                "weight": 0.2,
+                "code": "acorn"
+            },
+            {
+                "weight": 2,
+                "code": "peanut"
+            },
+            {
+                "weight": 1.5,
+                "code": "soybean"
+            },
+            {
+                "weight": 0.8,
+                "code": "tastyvegetable"
+            }
+        ],
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "replace",
+        "path": "/server/behaviors/10/aitasks/12",
+        "value": {
+            "code": "forage",
+            "movespeed": 0.004,
+            "priority": 1.38,
+            "animationSpeed": 2,
+            "animation": "Walk",
+            "eatAnimation": "Eat",
+            "eatSound": "creature/animal-eat2",
+            "digAnimation": "Eat",
+            "digAnimationSpeed": 1.5,
+            "eatTime": 2,
+            "mincooldownHours": 0.05,
+            "maxcooldownHours": 1
+        },
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "replace",
+        "path": "/server/behaviors/10/aitasks/3/code",
+        "value": "forage",
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "add",
+        "path": "/server/behaviors/10/aitasks/3/nurseFromEntities",
+        "value": [
+            "game:pig-{type}-female"
+        ],
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "replace",
+        "path": "/server/behaviors/10/aitasks/3/mincooldownHours",
+        "value": 0.05,
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-baby.json",
+        "op": "replace",
+        "path": "/server/behaviors/10/aitasks/3/maxcooldownHours",
+        "value": 1,
+        "side": "server"
+    },
+    {
+        "file": "game:entities/animal/mammal/hooved/pig-adult.json",
+        "op": "add",
+        "path": "/server/behaviors/10/aitasks/13/enabled",
+        "value": false,
+        "side": "server"
+    }
 ]

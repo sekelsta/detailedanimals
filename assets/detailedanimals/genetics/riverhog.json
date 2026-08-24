@@ -1,0 +1,24 @@
+{
+    genes: {
+        autosomal: [
+        ],
+        xz: [
+        ],
+        "anonymous": [
+            { "deleterious": 16 },
+        ],
+        "bitwise": [
+            { "coi": 256 }
+        ],
+    },
+    interpreters: [ "Polygenes", ],
+    sexdetermination: "xy",
+    initializers: {
+        wildtype: {
+            autosomal: {
+            },
+            conditions: {
+            }
+        },
+    }
+}

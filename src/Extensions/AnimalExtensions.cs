@@ -33,10 +33,13 @@ namespace DetailedAnimals.Extensions {
             entity.WatchedAttributes.SetDouble("extraGrowth", value);
         }
 
+        // Meat drops are scaled by this
         public static float BaseWeight(this Entity entity) {
             float weight = entity.WatchedAttributes.GetFloat("growthWeightFraction", 1);
             float dimorphism = entity.Properties.Attributes?["weightDimorphism"].AsFloat(0) ?? 0;
             weight *= entity.IsMale() ? 1 + dimorphism : 1 - dimorphism;
+            float geneticSize = entity.WatchedAttributes.GetFloat("geneticSize", 1);
+            weight *= geneticSize * geneticSize * geneticSize;
             return weight;
         }
 
@@ -47,10 +50,13 @@ namespace DetailedAnimals.Extensions {
             return weight;
         }
 
+        // Food consumption is scaled by this
         public static float HealthyAdultWeightKg(this Entity entity) {
             float adultWeightKg = entity.Properties?.Attributes?["adultWeightKg"]?.AsFloat(160) ?? 160;
             float dimorphism = entity.Properties.Attributes?["weightDimorphism"].AsFloat(0) ?? 0;
             float weight = entity.IsMale() ? 1 + dimorphism : 1 - dimorphism;
+            float geneticSize = entity.WatchedAttributes.GetFloat("geneticSize", 1);
+            weight *= geneticSize * geneticSize * geneticSize;
             return weight * adultWeightKg;
         }
     }

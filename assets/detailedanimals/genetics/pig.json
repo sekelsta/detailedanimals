@@ -1,0 +1,25 @@
+{
+    genes: {
+        autosomal: [
+            { size_major: ["normal", "large"] },
+        ],
+        xz: [
+        ],
+        "anonymous": [
+            { "deleterious": 16 },
+        ],
+        "bitwise": [
+            { "coi": 256 }, { "size": 8}
+        ],
+    },
+    interpreters: [ "Polygenes", "PigSize", ],
+    sexdetermination: "xy",
+    initializers: {
+        wildtype: {
+            autosomal: {
+            },
+            conditions: {
+            }
+        },
+    }
+}

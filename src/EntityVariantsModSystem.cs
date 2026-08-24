@@ -117,6 +117,7 @@ namespace DetailedAnimals
                 JObject jsounds = token.Value<JObject>("sounds");
                 if (jsounds != null) {
                     foreach (JProperty sound in jsounds.Properties()) {
+                        api.Logger.Notification("debug " + sound.Name);
                         var soundLocation = sound.Value as JValue;
                         if (soundLocation != null) fixAssetDomain(soundLocation, domain);
                         var soundAttributes = sound.Value as JObject;

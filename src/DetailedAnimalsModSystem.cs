@@ -53,6 +53,7 @@ namespace DetailedAnimals
             GenomeType.RegisterInterpreter(new JunglefowlGenetics());
             GenomeType.RegisterInterpreter(new GoatGenetics());
             GenomeType.RegisterInterpreter(new CanineGenetics());
+            GenomeType.RegisterInterpreter(new PigSizeGenetics());
 
             GenelibSystem.AutoadjustAnimalBehaviors = true;
         }

@@ -66,12 +66,12 @@ namespace DetailedAnimals {
             if (entity.World.Side != EnumAppSide.Server) {
                 return;
             }
-            float healthyWeight = entity.BaseWeight();
+            float baseWeight = entity.BaseWeight();
             // Used by Butchering mod, also used by us now
             jsonDrops = new BlockDropItemStack[creatureDrops.Length];
             for (int i = 0; i < creatureDrops.Length; ++i) {
                 creatureDrops[i].Resolve(entity.World, "DetailedHarvestable ", entity.Code);
-                jsonDrops[i] = creatureDrops[i].WithAnimalWeight(AnimalWeight, healthyWeight);
+                jsonDrops[i] = creatureDrops[i].WithAnimalWeight(AnimalWeight, baseWeight);
                 // Required for Butchering mod compat, otherwise JsonConvert.SerializeObject() throws an exception
                 jsonDrops[i].ResolvedItemstack = null;
             }
