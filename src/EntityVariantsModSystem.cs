@@ -16,23 +16,23 @@ namespace DetailedAnimals
                 return;
             }
 
-            patchEntity(api, "game:entities/animal/bird/chicken-baby.json", "chicken", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""", null);
+            patchEntity(api, "game:entities/animal/bird/chicken-baby.json", "chicken", """[{ "code": "variants", "states": ["male-chick", "female-chick"] }]""");
         }
 
         public override double ExecuteOrder() => 0.15;
 
-        private void fixAssetDomain(JValue jvalue, string domain, string replacement = null) {
+        private void fixAssetDomain(JValue? jvalue, string domain) {
             if (jvalue == null) {
                 return;
             }
-            string loc = replacement ?? jvalue.Value<string>();
+            string? loc = jvalue.Value<string>();
             AssetLocation asset = AssetLocation.Create(loc, domain);
             jvalue.Value = asset.ToString();
         }
 
         private void fixAssetCheckTyped(JObject parent, string key, string domain) {
             fixAssetDomain(parent.Value<JValue>(key), domain);
-            JObject byType = parent.Value<JObject>(key + "ByType");
+            JObject? byType = parent.Value<JObject>(key + "ByType");
             if (byType != null) {
                 foreach (JProperty type in byType.Properties()) {
                     fixAssetDomain((JValue)type.Value, domain);
@@ -40,7 +40,7 @@ namespace DetailedAnimals
             }
         }
 
-        private void fixAssetArray(JArray jarray, string domain) {
+        private void fixAssetArray(JArray? jarray, string domain) {
             if (jarray == null) {
                 return;
             }
@@ -49,10 +49,10 @@ namespace DetailedAnimals
             }
         }
 
-        private void fixTextures(JObject jtextures, string domain) {
+        private void fixTextures(JObject? jtextures, string domain) {
             if (jtextures != null) {
                 fixAssetDomain(jtextures.Value<JValue>("base"), domain);
-                JArray alternates = jtextures.Value<JArray>("alternates");
+                JArray? alternates = jtextures.Value<JArray>("alternates");
                 if (alternates != null) {
                     foreach (JToken alternate in alternates) {
                         fixAssetDomain(alternate.Value<JValue>("base"), domain);
@@ -61,7 +61,7 @@ namespace DetailedAnimals
             }
         }
 
-        private void patchEntity(ICoreAPI api, string path, string newCode, string variants, string shape) {
+        private void patchEntity(ICoreAPI api, string path, string newCode, string variants) {
             IAsset asset = api.Assets.Get(path);
             string domain = new AssetLocation(path).Domain;
             JToken token;
@@ -78,54 +78,56 @@ namespace DetailedAnimals
                 token["code"] = newCode;
                 token["variantgroups"] = JToken.Parse(variants);
                 fixAssetDomain(token.Value<JObject>("attributes")?.Value<JValue>("killedByInfoText"), domain);
-                JObject jclient = token.Value<JObject>("client");
+                JObject? jclient = token.Value<JObject>("client");
                 if (jclient != null) {
-                    fixAssetDomain(jclient.Value<JObject>("shape")?.Value<JValue>("base"), domain, shape);
-                    JObject jtextures = jclient.Value<JObject>("texture");
+                    fixAssetDomain(jclient.Value<JObject>("shape")?.Value<JValue>("base"), domain);
+                    JObject? jtextures = jclient.Value<JObject>("texture");
                     fixTextures(jtextures, domain);
-                    JObject jtexturesByType = jclient.Value<JObject>("textureByType");
+                    JObject? jtexturesByType = jclient.Value<JObject>("textureByType");
                     if (jtexturesByType != null) {
                         foreach (JProperty textureType in jtexturesByType.Properties()) {
                             fixTextures((JObject)textureType.Value, domain);
                         }
                     }
                 }
-                JObject jserver = token.Value<JObject>("server");
+                JObject? jserver = token.Value<JObject>("server");
                 if (jserver != null) {
-                    JObject jspawns = jserver.Value<JObject>("spawnconditions");
+                    JObject? jspawns = jserver.Value<JObject>("spawnconditions");
                     if (jspawns != null) {
                         fixAssetArray(jspawns.Value<JObject>("runtime")?.Value<JArray>("insideBlockCodes"), domain);
                         fixAssetArray(jspawns.Value<JObject>("worldgen")?.Value<JArray>("insideBlockCodes"), domain);
                     }
-                    JArray jbehaviors = jserver.Value<JArray>("behaviors");
+                    JArray? jbehaviors = jserver.Value<JArray>("behaviors");
                     if (jbehaviors != null) {
                         foreach (JObject behavior in jbehaviors) {
                             fixAssetCheckTyped(behavior, "decayedBlock", domain);
 
-                            JValue jcode = behavior.Value<JValue>("code");
-                            string code = jcode.Value<string>();
+                            JValue? jcode = behavior.Value<JValue>("code");
+                            string? code = jcode?.Value<string>();
                             if (code == "taskai") {
-                                foreach (JObject task in behavior.Value<JArray>("aitasks")) {
-                                    fixAssetCheckTyped(task, "sound", domain);
-                                    fixAssetCheckTyped(task, "eatSound", domain);
-                                    // entityCode, entityCodes, and stopOnNearbyEntityCodes already default to game domain
+                                var tasks = behavior.Value<JArray>("aitasks");
+                                if (tasks != null) {
+                                    foreach (JObject task in tasks) {
+                                        fixAssetCheckTyped(task, "sound", domain);
+                                        fixAssetCheckTyped(task, "eatSound", domain);
+                                        // entityCode, entityCodes, and stopOnNearbyEntityCodes already default to game domain
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                JObject jsounds = token.Value<JObject>("sounds");
+                JObject? jsounds = token.Value<JObject>("sounds");
                 if (jsounds != null) {
                     foreach (JProperty sound in jsounds.Properties()) {
-                        api.Logger.Notification("debug " + sound.Name);
                         var soundLocation = sound.Value as JValue;
                         if (soundLocation != null) fixAssetDomain(soundLocation, domain);
                         var soundAttributes = sound.Value as JObject;
-                        var soundPath = soundAttributes.Value<JValue>("path");
+                        var soundPath = soundAttributes?.Value<JValue>("path");
                         if (soundPath != null) fixAssetDomain(soundPath, domain);
                     }
                 }
-                JObject jsoundsByType = token.Value<JObject>("soundsByType");
+                JObject? jsoundsByType = token.Value<JObject>("soundsByType");
                 if (jsoundsByType != null) {
                     foreach (JProperty type in jsoundsByType.Properties()) {
                         JObject sounds = (JObject)type.Value;
