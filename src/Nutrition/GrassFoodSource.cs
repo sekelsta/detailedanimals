@@ -43,7 +43,7 @@ namespace DetailedAnimals {
                 return grassDict[coverage] / (grassArray.Length - 1);
             }
             coverage = block.Variant["grass"];
-            if (forestDict.ContainsKey(coverage)) {
+            if (coverage != null && forestDict.ContainsKey(coverage)) {
                 return coverage == null ? 0 : forestDict[coverage] / (forestArray.Length - 1);
             }
             return 0;
