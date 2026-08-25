@@ -39,11 +39,14 @@ namespace DetailedAnimals {
 
         public static float GrassDensity(Block block) {
             string coverage = block.Variant["grasscoverage"];
-            if (coverage != null) {
+            if (coverage != null && grassDict.ContainsKey(coverage)) {
                 return grassDict[coverage] / (grassArray.Length - 1);
             }
             coverage = block.Variant["grass"];
-            return coverage == null ? 0 : forestDict[coverage] / (forestArray.Length - 1);
+            if (forestDict.ContainsKey(coverage)) {
+                return coverage == null ? 0 : forestDict[coverage] / (forestArray.Length - 1);
+            }
+            return 0;
         }
 
         public static GrassFoodSource SearchNear(Entity entity) {
