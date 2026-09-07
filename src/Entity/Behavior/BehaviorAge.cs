@@ -16,7 +16,8 @@ namespace DetailedAnimals {
         private const float secondsPerUpdate = 24;
 
         private long? callbackID;
-        private ITreeAttribute growTree;
+        // Non-null on the server, maybe null on the client
+        private ITreeAttribute? growTree;
         private double StartingWeight = 0.00001;
         protected float FinalWeight = 1;
         protected float MaxGrowthScale;
@@ -29,13 +30,13 @@ namespace DetailedAnimals {
         public double HoursToGrow { get; protected set; }
         protected double PortionsEatenForTaming = -1;
         internal double TimeSpawned {
-            get { return growTree.GetDouble("timeSpawned"); }
-            set { growTree.SetDouble("timeSpawned", value); }
+            get { return growTree?.GetDouble("timeSpawned") ?? throw new Exception("Expected non-null growTree"); }
+            set { (growTree ?? throw new Exception("Expected non-null growTree")).SetDouble("timeSpawned", value); }
         }
 
         internal double GrowthPausedSince {
-            get { return growTree.GetDouble("growthPausedSince", -1); }
-            set { growTree.SetDouble("growthPausedSince", value); }
+            get { return growTree?.GetDouble("growthPausedSince", -1) ?? throw new Exception("Expected non-null growTree"); }
+            set { (growTree ?? throw new Exception("Expected non-null growTree")).SetDouble("growthPausedSince", value); }
         }
 
         public float GrowthWeightFraction {
@@ -73,14 +74,14 @@ namespace DetailedAnimals {
             }
 
             if (typeAttributes.KeyExists("adultEntityCodes")) {
-                string[] locations = typeAttributes["adultEntityCodes"].AsArray<string>(new string[0]);
+                string?[] locations = typeAttributes["adultEntityCodes"].AsArray<string>() ?? new string[0];
                 AdultEntityCode = new AssetLocation(locations[entity.EntityId % locations.Length]);
             }
             else if (typeAttributes.KeyExists("adultEntityCode")) {
                 AdultEntityCode = new AssetLocation(typeAttributes["adultEntityCode"].AsString());
             }
             if (typeAttributes.KeyExists("tameAdultEntityCodes")) {
-                string[] locations = typeAttributes["tameAdultEntityCodes"].AsArray<string>(new string[0]);
+                string?[] locations = typeAttributes["tameAdultEntityCodes"].AsArray<string>() ?? new string[0];
                 TameAdultEntityCode = new AssetLocation(locations[entity.EntityId % locations.Length]);
             }
             else if (typeAttributes.KeyExists("tameAdultEntityCode")) {
@@ -101,7 +102,7 @@ namespace DetailedAnimals {
                 FinalWeight = typeAttributes["finalWeight"].AsFloat();
             }
             else if (AdultEntityCode != null) {
-                EntityProperties adultType = entity.World.GetEntityType(AdultEntityCode);
+                EntityProperties? adultType = entity.World.GetEntityType(AdultEntityCode);
                 if (adultType == null) {
                     entity.Api.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via agegradually behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, AdultEntityCode);
                 }
@@ -129,7 +130,7 @@ namespace DetailedAnimals {
 
             double startAgeDays = GenelibConfig.AnimalMonthsToGameDays(typeAttributes["startAgeMonths"].AsDouble(0));
             growTree = entity.WatchedAttributes.GetTreeAttribute("grow");
-            if (growTree == null) {
+            if (growTree == null && entity.Api.Side == EnumAppSide.Server) {
                 entity.WatchedAttributes.SetAttribute("grow", growTree = new TreeAttribute());
                 double spawnAge = 0;
                 string origin = entity.Attributes.GetString("origin");
@@ -164,7 +165,7 @@ namespace DetailedAnimals {
         }
 
         public void ClientUpdateScale() {
-            var baseSize = entity.World.GetEntityType(entity.Code).Client.Size;
+            var baseSize = entity.Properties.Client.Size;
             float renderScale = entity.WatchedAttributes.GetFloat("renderScale", 1);
             entity.Properties.Client.Size = baseSize * renderScale;
         }
@@ -201,7 +202,7 @@ namespace DetailedAnimals {
             expected = Math.Min(expected, maxGrowth * prevGrowth + 0.0001);
             GrowthWeightFraction = (float)expected;
 
-            AnimalHunger hunger = entity.GetBehavior<AnimalHunger>();
+            AnimalHunger? hunger = entity.GetBehavior<AnimalHunger>();
             if (hunger != null) {
                 double prevAnimalWeight = entity.BodyCondition();
                 double currentWeight = prevAnimalWeight * prevGrowth;
@@ -242,7 +243,7 @@ namespace DetailedAnimals {
         }
 
         protected virtual void AttemptBecomingAdult() {
-            AssetLocation code = AdultEntityCode;
+            AssetLocation? code = AdultEntityCode;
             if (Tamed) {
                 code = TameAdultEntityCode ?? AdultEntityCode;
             }
@@ -250,7 +251,7 @@ namespace DetailedAnimals {
                 return;
             }
 
-            EntityProperties adultType = entity.World.GetEntityType(code);
+            EntityProperties? adultType = entity.World.GetEntityType(code);
             if (adultType == null) {
                 entity.World.Logger.Error("Misconfigured entity. Entity with code '{0}' is configured (via agegradually behavior) to grow into '{1}', but no such entity type was registered.", entity.Code, code);
                 return;
