@@ -305,7 +305,7 @@
                         },
                         initializersByType: {
                             "pig-*-elder-*": ["huge"],
-                            "*": ["northern", "temperate", "southern"],
+                            "pig-eurasian-*": ["northern", "temperate", "southern"],
                         },
                 },
                 side: "server"
@@ -322,7 +322,7 @@
                                 "pig-warthog-*": "detailedanimals:warthog",
                         },
                         initializersByType: {
-                            "*": ["northern", "temperate", "southern"],
+                            "pig-eurasian-*": ["northern", "temperate", "southern"],
                         },
                 },
                 side: "server"
