@@ -165,7 +165,8 @@ namespace DetailedAnimals {
         }
 
         public void ClientUpdateScale() {
-            var baseSize = entity.Properties.Client.Size;
+            var templateProperties = entity.World.GetEntityType(entity.Code) ?? throw new Exception("Failed getting entity type for code " + entity.Code);
+            var baseSize = templateProperties.Client.Size;
             float renderScale = entity.WatchedAttributes.GetFloat("renderScale", 1);
             entity.Properties.Client.Size = baseSize * renderScale;
         }
